@@ -1,14 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-import API_KEY from '../../../config.js'
+import header from '../../../config.js'
 
 let App = () => {
-  console.log(API_KEY)
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products', {
-    headers: {
-      'authorization': API_KEY
-    }
-  }).then((data) => {
+  console.log(header)
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products', header)
+  .then((data) => {
     console.log(data)
   })
   .catch((err) => {
