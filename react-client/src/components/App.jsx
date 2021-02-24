@@ -3,9 +3,10 @@ import axios from 'axios';
 import API_KEY from '../../../config.js'
 
 let App = () => {
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hrlax42/', {
+  console.log(API_KEY)
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products', {
     headers: {
-      'Authorization': `Basic ${API_KEY}`
+      'authorization': API_KEY
     }
   }).then((data) => {
     console.log(data)
