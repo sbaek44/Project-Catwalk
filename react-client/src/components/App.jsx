@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import header from '../../../config.js';
 import RelatedItemsList from './related items/relatedItemsList.jsx';
+import Reviews from './Reviews/Reviews.jsx';
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -40,6 +42,7 @@ export default class App extends React.Component {
     return (
       <div>
         <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
+        <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
       </div>
     )
   }
