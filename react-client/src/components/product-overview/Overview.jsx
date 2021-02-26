@@ -19,34 +19,27 @@ export default function Overview(props) {
   const [selectedStyle, selectStyle] = useState(0); // By default, the style selected will be the first in the list
   const [expandedGalleryView, toggleGalleryView] = useState(false); // Conditional render image gallery component based on this prop
 
-  // bind methods to interact with styles, selectedStyle, gallery boolean
-
   const getStyles = (id) => {
-    axios.get(`/products/${id}/styles`, header)
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/styles`, header)
       .then((res) => {
-        updateStyles(res.data)
-          .then(() => {
-            console.log(styles);
-          });
+        updateStyles(res.data);
       });
   };
 
   useEffect(() => {
-    console.log('test');
     if (props.products.length) {
-      console.log('test2');
       getStyles(props.products[props.selectedItemIndex].id)
     }
-  })
+  }, [props.products])
 
 
   return (
     <div>
-      <ImageGallery />
-      <ProductInformation />
-      <StyleSelector />
-      <AddToCart />
-      <div>other product info and social media buttons</div>
+      {/* <ImageGallery /> */}
+      <ProductInformation selectedProduct={props.products[props.selectedItemIndex] || null} />
+      <StyleSelector styles={styles} selectedStyle={selectedStyle} selectStyle={selectStyle} />
+      {/* <AddToCart />
+      <div>other product info and social media buttons</div> */}
     </div>
   )
 
