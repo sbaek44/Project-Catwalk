@@ -1,20 +1,21 @@
 import React from 'react';
 import axios from 'axios';
-import header from '../../../config.js'
+import header from '../../../config.js';
+import RelatedItemsList from './related items/relatedItemsList.jsx';
 import Reviews from './Reviews/Reviews.jsx';
+
 
 export default class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       allProducts: [],
-      selectedItemIndex: 0,
-      relatedItems: []
+      selectedItemIndex: 0
     }
     this.getProducts = this.getProducts.bind(this);
     this.selectProduct = this.selectProduct.bind(this);
-    this.getRelatedItems = this.getRelatedItems.bind(this);
   }
+
   componentDidMount() {
     this.getProducts();
   }
@@ -25,17 +26,6 @@ export default class App extends React.Component {
     })
   }
 
-  getRelatedItems() {
-    let id = this.state.allProducts[this.state.selectedItemIndex].id
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/related`, header)
-      .then((data) => {
-        this.setState({
-          relatedItems: data.data
-        }, () => console.log(this.state))
-      })
-      .catch((err) => console.log(err))
-  }
-
   getProducts() {
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?count=10&page=5', header)
       .then((data) => {
@@ -43,7 +33,6 @@ export default class App extends React.Component {
           allProducts: data.data
         })
       })
-      .then(() => this.getRelatedItems())
       .catch((err) => {
         console.log(err);
       })
@@ -51,7 +40,10 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div><Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} /></div>
+      <div>
+        <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
+        <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
+      </div>
     )
   }
 }
