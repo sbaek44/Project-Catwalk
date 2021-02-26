@@ -11,8 +11,9 @@
   "author": "Sarah's Minions Project Catwalk",
   "license": "ISC",
   "devDependencies": {
-    "babel-core": "^6.23.1",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^6.3.2",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.23.0",
     "enzyme": "^3.11.0",
@@ -23,10 +24,16 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "jest": "^26.6.3",
+    "react-test-renderer": "^15.7.0",
     "webpack": "^2.2.1"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.13.5",
+    "@babel/preset-react": "^7.12.13",
     "axios": "^0.21.1",
+    "babel-jest": "^26.6.3",
     "bootstrap": "^3.3.7",
     "cors": "^2.8.5",
     "express": "^4.15.4",
