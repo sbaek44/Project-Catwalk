@@ -1,22 +1,27 @@
-import React from 'react';
-//import axios
-const ProductInformation = (props) => (
+import React, { useState, useEffect } from 'react';
+import header from '../../../../config.js';
+import axios from 'axios';
 
-  <div>
-    {/* Product Information
-    Returns all product level information for a specified product id.
-    GET /products/:product_id */}
-    {console.log('sp', props.selectedProduct) // use .id property of this object to get AlL product information }
+function ProductInformation(props) {
 
+  const { selectedProduct } = props;
 
+  // product information to be displayed: rating, name, categroy, price from STYLE not PRODUCT
 
-    <div>star rating</div>
-    <div>category</div>
-    <div>title</div>
-    <div>price</div>
-    {/* <div>free form text field, probably should be a seperate component</div>
-    <div>share on social media buttons</div> */}
-  </div >
-);
+  return (
+    <div>
+      {selectedProduct !== null ?
+        <div>
+          <div>STAR RATING and LINK TO REVIEWS HERE</div>
+          <div>Category: {selectedProduct.category}</div>
+          <h4>TITLE: {selectedProduct.name}</h4>
+          <div>PRICE: $$$$$</div>
+          {/* free form text field and social media icons */}
+        </div>
+        : null}
+    </div >
+  )
+
+};
 
 export default ProductInformation;

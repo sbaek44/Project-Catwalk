@@ -6,6 +6,8 @@ import AddToCart from './AddToCart.jsx';
 import ImageGallery from './ImageGallery.jsx';
 import StyleSelector from './StyleSelector.jsx';
 
+
+
 export default function Overview(props) {
 
   // already has products array and selected product index as props
@@ -32,12 +34,12 @@ export default function Overview(props) {
     }
   }, [props.products])
 
-
   return (
     <div>
       {/* <ImageGallery /> */}
       <ProductInformation selectedProduct={props.products[props.selectedItemIndex] || null} />
       <StyleSelector styles={styles} selectedStyle={selectedStyle} selectStyle={selectStyle} />
+      {/* styleselector can map over prop styles for options, onClick each will selectStyle with their index from that array (2nd map argument), render the checkmark and any other visuals as needed when selectedStyle matches its own index}*/}
       {/* <AddToCart />
       <div>other product info and social media buttons</div> */}
     </div>
