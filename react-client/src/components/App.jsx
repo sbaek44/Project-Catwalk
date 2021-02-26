@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import header from '../../../config.js'
+import Reviews from './Reviews/Reviews.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -50,7 +51,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div>React</div>
+      <div><Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} /></div>
     )
   }
 }
