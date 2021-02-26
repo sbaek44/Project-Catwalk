@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import header from '../../../config.js';
+import header from '../../../config.js'
+import Overview from './product-overview/Overview.jsx'
 import RelatedItemsList from './related items/relatedItemsList.jsx';
 import Reviews from './Reviews/Reviews.jsx';
 
@@ -41,6 +42,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
+        <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} />
         <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
         <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
       </div>
