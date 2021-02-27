@@ -10,9 +10,11 @@ const Reviews = (props) => {
   const [sortParameters] = useState(['relevance', 'newest', 'helpful']);
   const [selectedParameter, updateParam] = useState('relevance');
   const [isPosting, togglePosting] = useState(false);
+  const [isDisplayingMoreReviewsButton, setIsdisplayingMoreReviewsButton] = useState(false);
   useEffect(() => {
     getReviews();
-  }, [selectedParameter]);
+    updateMoreReviewsButton(reviews);
+  }, [selectedParameter, amountOfReviews, props]);
 
   const addMoreReviews = () => {
     addReviews(amountOfReviews + 2);
@@ -27,6 +29,7 @@ const Reviews = (props) => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/?product_id=${id}&count=100&sort=${selectedParameter}`, header)
       .then((data) => {
         setReviews(data.data);
+        updateMoreReviewsButton(data.data.results);
       })
       .catch((err) => console.log(err));
   };
@@ -37,6 +40,23 @@ const Reviews = (props) => {
     lengthOfReviews = reviews.results.length;
   }
 
+  let moreReviewsButton;
+  if (!isDisplayingMoreReviewsButton) {
+    moreReviewsButton = '';
+  } else {
+    moreReviewsButton = <button onClick={addMoreReviews} >MORE REVIEWS</button>;
+  }
+
+  const updateMoreReviewsButton = (arrOfReviews) => {
+    if (arrOfReviews.length > 2) {
+      setIsdisplayingMoreReviewsButton(true);
+    }
+    if (amountOfReviews > arrOfReviews.length) {
+      setIsdisplayingMoreReviewsButton(false);
+    }
+  };
+
+
   return (
     <div>
       <span>
@@ -46,7 +66,7 @@ const Reviews = (props) => {
       </span>
       <ReviewsList getReviews={getReviews} reviews={reviews.results} amountOfReviews={amountOfReviews} />
       <span>
-         <button onClick={addMoreReviews} >MORE REVIEWS</button>
+         {moreReviewsButton}
          <button>ADD A REVIEW +</button>
       </span>
     </div>
