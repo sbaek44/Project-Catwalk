@@ -7,24 +7,28 @@ import ReviewsList from './ReviewsList.jsx';
 const Reviews = (props) => {
   const [reviews, setReviews] = useState([]);
   const [amountOfReviews, addReviews] = useState(2);
-  const [sortParameters, updateSortParameterMethod] = useState(['newest', 'relevance', 'helpful']);
+  const [sortParameters] = useState(['newest', 'relevance', 'helpful']);
+  const [selectedParameter, updateParam] = useState('newest');
+  const [isPosting, togglePosting] = useState(false);
   useEffect(() => {
     getReviews();
-  }, [reviews]);
+  }, [selectedParameter]);
 
   const addMoreReviews = () => {
     addReviews(amountOfReviews + 2);
   };
 
+  const updateParamFunc = (e) => {
+    updateParam(e.target.value);
+  };
+
   let getReviews = () => {
-    let id = props.currentProduct.id || 16095;
-    if (reviews.length === 0) {
-      axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/?product_id=${id}&count=100&sort=${sortParameters[0]}`, header)
-        .then((data) => {
-          setReviews(data.data);
-        })
-        .catch((err) => console.log(err));
-    }
+    let id = props.currentProduct.id || 16092;
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/?product_id=${id}&count=100&sort=${selectedParameter}`, header)
+      .then((data) => {
+        setReviews(data.data);
+      })
+      .catch((err) => console.log(err));
   };
   let lengthOfReviews;
   if (!reviews.results) {
@@ -37,7 +41,8 @@ const Reviews = (props) => {
     <div>
       <span>
         {lengthOfReviews}
-        reviews, sorted by <SortForm sortParameters={sortParameters} />
+        reviews, sorted by
+        <SortForm updateParamFunc={updateParamFunc} sortParameters={sortParameters} />
       </span>
       <ReviewsList reviews={reviews.results} amountOfReviews={amountOfReviews} />
       <span>
