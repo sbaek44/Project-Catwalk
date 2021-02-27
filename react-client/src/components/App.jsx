@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import header from '../../../config.js'
-import Overview from './product-overview/Overview.jsx'
+import header from '../../../config.js';
+import Overview from './product-overview/Overview.jsx';
 import RelatedItemsList from './related items/RelatedItemsList.jsx';
 import Reviews from './Reviews/Reviews.jsx';
 

@@ -10,7 +10,7 @@ function StyleSelector(props) {
   const [styles, updateStyles] = useState([]);
 
   const getStyles = (id) => {
-    console.log(`getting ${id}`)
+    // console.log(`getting ${id}`)
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/styles`, header)
       .then((res) => {
         // Update options to the whole array
