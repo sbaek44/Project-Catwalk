@@ -17,29 +17,16 @@ export default function Overview(props) {
   // 3. track whether image gallery view is expanded or default in here for now
   // // may be good to make an imageGalleryContainer component instead if this gets to be too much
 
-  const [styles, updateStyles] = useState([]); // will /get styles based on the currently selected product
-  const [selectedStyle, selectStyle] = useState(0); // By default, the style selected will be the first in the list
+  const [selectedStyle, selectStyle] = useState(0);
+  const [price, updatePrice] = useState(0);
+  const [sale, updateSale] = useState(null);
   const [expandedGalleryView, toggleGalleryView] = useState(false); // Conditional render image gallery component based on this prop
-
-  const getStyles = (id) => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/styles`, header)
-      .then((res) => {
-        updateStyles(res.data);
-      });
-  };
-
-  useEffect(() => {
-    if (props.products.length) {
-      getStyles(props.products[props.selectedItemIndex].id)
-    }
-  }, [props.products])
 
   return (
     <div>
       {/* <ImageGallery /> */}
-      <ProductInformation selectedProduct={props.products[props.selectedItemIndex] || null} />
-      <StyleSelector styles={styles} selectedStyle={selectedStyle} selectStyle={selectStyle} />
-      {/* styleselector can map over prop styles for options, onClick each will selectStyle with their index from that array (2nd map argument), render the checkmark and any other visuals as needed when selectedStyle matches its own index}*/}
+      <ProductInformation selectedProduct={props.products[props.selectedItemIndex] || null} selectedStyle={selectedStyle} price={price} sale={sale} />
+      <StyleSelector selectedProduct={props.products[props.selectedItemIndex] || null} selectedStyle={selectedStyle} selectStyle={selectStyle} updatePrice={updatePrice} updateSale={updateSale}/>
       {/* <AddToCart />
       <div>other product info and social media buttons</div> */}
     </div>
