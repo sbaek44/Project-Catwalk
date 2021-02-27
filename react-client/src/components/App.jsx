@@ -53,7 +53,7 @@ export default class App extends React.Component {
         <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} />
         <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
         <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
-        <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/>
+        {/* <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/> */}
       </div>
     )
   }
