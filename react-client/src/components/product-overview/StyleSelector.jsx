@@ -83,7 +83,7 @@ function StyleSelector(props) {
               </div>
             })}
           </div>
-          <AddToCart selectedProduct={selectedProduct} selectedStyle={selectedStyle} styles={styles} />
+          <AddToCart selectedProduct={selectedProduct} selectedStyle={selectedStyle} styles={styles} getStyleName={getNameOfSelectedStyle} />
         </div>
         : null
       }
