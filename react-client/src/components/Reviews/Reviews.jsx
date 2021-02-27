@@ -6,7 +6,7 @@ import ReviewsList from './ReviewsList.jsx';
 const Reviews = (props) => {
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    console.log(reviews);
+    // console.log(reviews);
     getReviews();
   }, [reviews]);
 
