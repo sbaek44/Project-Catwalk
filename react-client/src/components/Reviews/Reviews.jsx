@@ -3,6 +3,7 @@ import axios from 'axios';
 import header from '../../../../config.js';
 import SortForm from './SortForm.jsx';
 import ReviewsList from './ReviewsList.jsx';
+import PostReviewForm from './PostReviewForm.jsx';
 
 const Reviews = (props) => {
   const [reviews, setReviews] = useState([]);
@@ -56,9 +57,20 @@ const Reviews = (props) => {
     }
   };
 
+  const togglePostForm = () => {
+    togglePosting(!isPosting);
+  };
+
+  let postForm;
+  if (!isPosting) {
+    postForm = '';
+  } else {
+    postForm = <PostReviewForm />;
+  }
 
   return (
     <div>
+      {postForm}
       <span>
         {lengthOfReviews}
         reviews, sorted by
@@ -67,7 +79,7 @@ const Reviews = (props) => {
       <ReviewsList getReviews={getReviews} reviews={reviews.results} amountOfReviews={amountOfReviews} />
       <span>
          {moreReviewsButton}
-         <button>ADD A REVIEW +</button>
+         <button onClick={togglePostForm} >ADD A REVIEW +</button>
       </span>
     </div>
   );
