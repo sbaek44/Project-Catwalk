@@ -28,6 +28,7 @@ export default class App extends React.Component {
   }
 
   getProducts() {
+    // idea - randomize the products we're getting on each page load since they're randomized/infinite anyway and im tired of seeing ELDON JACKET
     axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?count=10&page=5', header)
       .then((data) => {
         this.setState({
@@ -43,8 +44,8 @@ export default class App extends React.Component {
     return (
       <div>
         <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} />
-        <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
-        <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
+        {/* <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
+        <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} /> */}
       </div>
     )
   }
