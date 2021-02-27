@@ -19,7 +19,7 @@ export default function AddToCart(props) {
         if (Object.keys(option.skus).length) {
           if (outOfStock === true) {
             warning(false);
-            changeMessage('OUT OF STOCK');
+            changeMessage('');
           }
           for (let each in option.skus) {
             // only sizes that are currently in stock for the style selected should be listed
@@ -30,7 +30,7 @@ export default function AddToCart(props) {
         } else {
           if (outOfStock === false) {
             warning(true);
-            changeMessage('');
+            changeMessage('OUT OF STOCK');
           }
         }
       }
