@@ -8,7 +8,7 @@ const ReviewsList = (props) => {
   return (
     <div>
       { props.reviews.slice(0, props.amountOfReviews).map((review, index) => {
-        return <ReviewTile review={review} key={index} />
+        return <ReviewTile getReviews={props.getReviews} review={review} key={index} />
       }) }
     </div>
   )

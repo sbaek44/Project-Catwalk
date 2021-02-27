@@ -44,8 +44,8 @@ export default class App extends React.Component {
     return (
       <div>
         <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} />
-        {/* <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
-        <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} /> */}
+        <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
+        <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
       </div>
     )
   }

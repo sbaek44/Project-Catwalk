@@ -7,8 +7,8 @@ import ReviewsList from './ReviewsList.jsx';
 const Reviews = (props) => {
   const [reviews, setReviews] = useState([]);
   const [amountOfReviews, addReviews] = useState(2);
-  const [sortParameters] = useState(['newest', 'relevance', 'helpful']);
-  const [selectedParameter, updateParam] = useState('newest');
+  const [sortParameters] = useState(['relevance', 'newest', 'helpful']);
+  const [selectedParameter, updateParam] = useState('relevance');
   const [isPosting, togglePosting] = useState(false);
   useEffect(() => {
     getReviews();
@@ -44,7 +44,7 @@ const Reviews = (props) => {
         reviews, sorted by
         <SortForm updateParamFunc={updateParamFunc} sortParameters={sortParameters} />
       </span>
-      <ReviewsList reviews={reviews.results} amountOfReviews={amountOfReviews} />
+      <ReviewsList getReviews={getReviews} reviews={reviews.results} amountOfReviews={amountOfReviews} />
       <span>
          <button onClick={addMoreReviews} >MORE REVIEWS</button>
          <button>ADD A REVIEW +</button>
