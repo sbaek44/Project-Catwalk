@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 export default function AddToCart(props) {
 
-  const { selectedProduct, selectedStyle, styles } = props;
+  const { selectedProduct, selectedStyle, styles, getStyleName } = props;
   const [size, selectSize] = useState('Select Size');
   const [qty, selectQty] = useState(1);
   const [outOfStock, warning] = useState(false);
@@ -86,7 +86,7 @@ export default function AddToCart(props) {
     if (size === 'Select Size') {
       pleaseSelectSize();
     } else if (qty > 0) {
-      alert(`Added (${qty}) ${selectedProduct.name} in ${selectedStyle} to cart!`)
+      alert(`Added (${qty}) ${selectedProduct.name} in ${getStyleName()} to cart!`)
     }
   }
 
