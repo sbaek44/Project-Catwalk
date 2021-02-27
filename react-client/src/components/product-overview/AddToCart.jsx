@@ -3,8 +3,11 @@ import React, { useState, useEffect } from 'react';
 export default function AddToCart(props) {
 
   const { selectedProduct, selectedStyle, styles } = props;
-  const [size, selectSize] = useState('');
+  const [size, selectSize] = useState('Select Size');
   const [qty, selectQty] = useState(1);
+  const [outOfStock, warning] = useState(false);
+  const [sizeSelectorOpen, toggleSizeSelector] = useState(false);
+  const [message, changeMessage] = useState('');
 
   const renderSizeOptions = () => {
     let sizeOptions = [];
@@ -13,11 +16,26 @@ export default function AddToCart(props) {
     for (let option of styles) {
       if (option.style_id === selectedStyle) {
         // when found, use the size property of the objects in the option's skus array to populate options
-        for (let each in option.skus) {
-          sizeOptions.push(option.skus[each].size)
+        if (Object.keys(option.skus).length) {
+          if (outOfStock === true) {
+            warning(false);
+            changeMessage('OUT OF STOCK');
+          }
+          for (let each in option.skus) {
+            // only sizes that are currently in stock for the style selected should be listed
+            if (option.skus[each].quantity > 0) {
+              sizeOptions.push(option.skus[each].size);
+            }
+          }
+        } else {
+          if (outOfStock === false) {
+            warning(true);
+            changeMessage('');
+          }
         }
       }
     }
+
 
     // map over sizeOptions and return <option> tags that selectSize in state
     return sizeOptions.map((option, i) => {
@@ -50,35 +68,54 @@ export default function AddToCart(props) {
     };
 
     let options = [...Array(qtyOptions).keys()];
-    // todo: remove 0 and - from the returned options
+
     // map and return <option> tags that selectQty in state
     return options.map((option, i) => {
-      return <option key={i} value={option}>{option}</option>
+      return <option key={i} value={option + 1}>{option + 1}</option>
     })
   }
 
-  const add = () => {
-    alert('TODO')
-    // Dependent on the current selection in the size and quantity dropdowns, this button will have differing functionality.
-    // If the default ‘Select Size’ is currently selected: Clicking this button should open the size dropdown, and a message should appear above the dropdown stating “Please select size”.
-    // If there is no stock: This button should be hidden
-    // If both a valid size and valid quantity are selected: Clicking this button will add the product to the user’s cart.
+
+  const pleaseSelectSize = () => {
+    // todo: should also open the size dropdown automatically
+    changeMessage('Please select size.')
   }
 
+  const add = () => {
+    // If both a valid size and valid quantity are selected: Clicking this button will add the product to the user’s cart.
+    if (size === 'Select Size') {
+      pleaseSelectSize();
+    } else if (qty > 0) {
+      alert(`Added (${qty}) ${selectedProduct.name} in ${selectedStyle} to cart!`)
+    }
+  }
+
+  const handleSizeSelect = (choice) => {
+    selectSize(choice);
+    toggleSizeSelector(false);
+    changeMessage('');
+  }
 
   return (
     <div>
       {styles.length && selectedStyle !== 0 && selectedProduct ?
         <div>
-          <select onChange={(e) => selectSize(e.target.value)} value={size}>
-            <option>Select Size</option> {/* this becomes inactive and reads OUT OF STOCK if !stock*/}
-            {renderSizeOptions()}
-          </select>
-          <select onChange={(e) => selectQty(e.target.value)} value={qty}>
-            <option>-</option>{/*this dropdown should be actually disabled until size is selected*/}
+          {/* this dropdown should become inactive and read OUT OF STOCK when there's no stock */}
+          <span>{message}</span>
+          <div onClick={() => toggleSizeSelector(true)}>
+            <select id='size-selector' onChange={(e) => handleSizeSelect(e.target.value)} value={size} disabled={outOfStock} >
+              <option value={'Select Size'}>Select Size</option>
+              {renderSizeOptions()}
+            </select>
+          </div>
+
+          {/* qty dropdown is disabled until a size is selected*/}
+          <select onChange={(e) => selectQty(e.target.value)} value={qty} disabled={size === 'Select Size' ? true : false}>
             {renderQtyOptions()}
           </select>
-          <button onClick={() => add()}>add to cart</button>
+
+          {/* add to cart button is hidden when there's no stock */}
+          {outOfStock ? null : <button onClick={() => add()}>add to cart</button>}
         </div>
         : null}
     </div>
