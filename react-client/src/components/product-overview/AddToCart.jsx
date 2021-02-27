@@ -99,7 +99,7 @@ export default function AddToCart(props) {
   return (
     <div>
       {styles.length && selectedStyle !== 0 && selectedProduct ?
-        <div>
+        <div style={{marginTop: 50}}>
           {/* this dropdown should become inactive and read OUT OF STOCK when there's no stock */}
           <span>{message}</span>
           <div onClick={() => toggleSizeSelector(true)}>
