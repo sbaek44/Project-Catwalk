@@ -4,7 +4,8 @@ import header from '../../../config.js'
 import Overview from './product-overview/Overview.jsx'
 import RelatedItemsList from './related items/relatedItemsList.jsx';
 import Reviews from './Reviews/Reviews.jsx';
-
+import Questions from './Questions-Answers/Questions.jsx';
+import QA from './Questions-Answers/QA.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -45,6 +46,7 @@ export default class App extends React.Component {
         <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} />
         <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
         <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
+        <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/>
       </div>
     )
   }
