@@ -21,7 +21,6 @@ function RelatedItemsList(props) {
 
   return (
     <div>
-      {/* {console.log(relatedItemsIds)} */}
       <RelatedItemsElements relatedItemsIds={relatedItemsIds} />
     </div>
   )
