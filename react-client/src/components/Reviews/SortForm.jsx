@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SortForm = (props) => (
-    <select>
+    <select onChange={props.updateParamFunc}>
       {props.sortParameters.map((param, i) => (
         <option value={param} key={i}>
           {param}
