@@ -27,8 +27,7 @@ export default function Overview(props) {
       {/* <ImageGallery /> */}
       <ProductInformation selectedProduct={props.products[props.selectedItemIndex] || null} selectedStyle={selectedStyle} price={price} sale={sale} />
       <StyleSelector selectedProduct={props.products[props.selectedItemIndex] || null} selectedStyle={selectedStyle} selectStyle={selectStyle} updatePrice={updatePrice} updateSale={updateSale}/>
-      {/* <AddToCart />
-      <div>other product info and social media buttons</div> */}
+      {/* <div>other product info and social media buttons</div> */}
     </div>
   )
 
