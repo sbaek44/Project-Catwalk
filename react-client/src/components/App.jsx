@@ -27,9 +27,15 @@ export default class App extends React.Component {
     })
   }
 
+  randomNumber(max) {
+    return Math.floor(Math.random() * max)
+  }
+
   getProducts() {
-    // idea - randomize the products we're getting on each page load since they're randomized/infinite anyway and im tired of seeing ELDON JACKET
-    axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?count=10&page=5', header)
+
+    let page = this.randomNumber(20);
+
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?count=10&page=${page}`, header)
       .then((data) => {
         this.setState({
           allProducts: data.data
