@@ -4,6 +4,7 @@ import header from '../../../../config.js';
 import AddToCart from './AddToCart.jsx';
 
 
+// this component functions as described in the business doc but the visuals absolutely suck for now
 
 function StyleSelector(props) {
 
@@ -37,15 +38,25 @@ function StyleSelector(props) {
     }
   }, [selectedProduct])
 
-  // color is temporary, eventually these will have thumbnail imgs derived from styles[selectedStyle].photos.thumbnail_url
-  const makeButtonCSS = (color) => {
+  // buttons do render from their thumbnail_image props but css still needs a lot of work
+  const makeButtonCSS = (thumbnail) => {
     return {
       border: '1px solid black',
       width: 50,
       height: 50,
-      margin: 2,
+      margin: 1,
       borderRadius: '50%',
-      backgroundColor: color
+      backgroundImage: `url(${thumbnail})`,
+      backgroundSize: 'contain',
+    }
+  }
+
+
+  const getNameOfSelectedStyle = () => {
+    for (let option of styles) {
+      if (option.style_id === selectedStyle) {
+        return option.name
+      }
     }
   }
 
@@ -53,19 +64,29 @@ function StyleSelector(props) {
     <div>
       {styles.length ?
         <div>
-          <div>SELECTED STYLE: {selectedStyle}</div>
-          <div className='style-options-container' style={{ display: 'flex', flexDirection: 'row' }}>
+          <span>{getNameOfSelectedStyle()}</span>
+          <div className='style-options-container'
+          // first time using 'grid', 'template columns' and 'auto rows' - will come back to this
+          style={{ width: 200, display: 'grid',  gridTemplateColumns: '1fr 1fr 1fr 1fr', gridAutoRows: 75 }}>
             {styles.map((option, index) => {
-              return <button key={index}
-              className='style-option-button'
-              style={makeButtonCSS(option.name)}
-              onClick={() => handleSelect(option.style_id, option.original_price, option.sale_price)} />
+              return <div key={index}>
+                <div style={{height: 20, width: 50}}>
+                  {selectedStyle === option.style_id ?
+                    <span>✔</span>
+                    : null}
+                </div>
+                <button key={index}
+                  className='style-option-button'
+                  style={makeButtonCSS(option.photos[0].thumbnail_url)}
+                  onClick={() => handleSelect(option.style_id, option.original_price, option.sale_price)}>
+                </button>
+              </div>
             })}
           </div>
           <AddToCart selectedProduct={selectedProduct} selectedStyle={selectedStyle} styles={styles} />
         </div>
         : null
-}
+      }
     </div >
   )
 }
