@@ -10,7 +10,6 @@ function ProductDescription(props) {
       {selectedProduct !== null ?
         <div style={{marginBottom: 10}}>
           <h4>{selectedProduct.slogan}</h4>
-          {console.log(selectedProduct)}
           <p>{selectedProduct.description}</p>
           <ul>
             <li>twitter</li>

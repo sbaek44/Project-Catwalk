@@ -17,7 +17,7 @@ const Questions = (props) => {
       .then((question) => {
         setQuestions(question.data.results);
       })
-      .then( ()=> {console.log(questions)})
+      // .then( ()=> {console.log(questions)})
     }
   };
 
@@ -36,7 +36,7 @@ const Questions = (props) => {
     <div>
       {questions.length> 0 ?
       <div>
-        {console.log(questions)}
+        {/* console.log(questions) */}
       {questions.slice(0,4).map( (question, index) => {
         let date = new Date(question.question_date)
         return (
