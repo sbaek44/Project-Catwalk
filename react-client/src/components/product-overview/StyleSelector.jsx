@@ -8,7 +8,7 @@ import AddToCart from './AddToCart.jsx';
 
 function StyleSelector(props) {
 
-  const { selectedProduct, selectedStyle, selectStyle, updatePrice, updateSale } = props;
+  const { selectedProduct, selectedStyle, selectStyle, updatePrice, updateSale, updatePhotos, selectPhoto } = props;
 
   const [styles, updateStyles] = useState([]);
 
@@ -16,20 +16,27 @@ function StyleSelector(props) {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/styles`, header)
       .then((res) => {
         updateStyles(res.data.results);
+        let photos = [];
+        for (let item of res.data.results) {
+          let urls = [item.photos[0].thumbnail_url, item.photos[0].url];
+          photos.push(urls);
+        }
+        updatePhotos(photos);
 
         // By default, the style selected will be the first in the list
         let def = res.data.results[0];
-        handleSelect(def.style_id, def.original_price, def.sale_price);
+        handleSelect(def.style_id, def.original_price, def.sale_price, def.photos[0].url);
       })
       .catch((err) => {
         console.error(err)
       })
   };
 
-  const handleSelect = (styleID, price, sale) => {
+  const handleSelect = (styleID, price, sale, photo) => {
     selectStyle(styleID);
     updatePrice(price);
     updateSale(sale);
+    selectPhoto(photo)
   }
 
   useEffect(() => {
@@ -78,7 +85,7 @@ function StyleSelector(props) {
                 <button key={index}
                   className='style-option-button'
                   style={makeButtonCSS(option.photos[0].thumbnail_url)}
-                  onClick={() => handleSelect(option.style_id, option.original_price, option.sale_price)}>
+                  onClick={() => handleSelect(option.style_id, option.original_price, option.sale_price, option.photos[0].url)}>
                 </button>
               </div>
             })}
