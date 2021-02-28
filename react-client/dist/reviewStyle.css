@@ -1,0 +1,12 @@
+.reviewThumb {
+  display: inline-block;
+  height: 100px;
+  width: 150px;
+}
+
+.reviewSummary {
+  font-weight: bold;
+}
+.addReviewForm {
+  display: inline-block;
+}

@@ -1,9 +1,9 @@
 import React from 'react';
 import header from '../../../../config.js';
-import axios from 'axios'
+import ReviewPhotos from './ReviewPhotos.jsx';
+import axios from 'axios';
 
 const ReviewTile = (props) => {
-  // console.log(props)
   const date = new Date(props.review.date).toUTCString().slice(4, -12);
   let day = date.slice(0,3);
   let month = date.slice(-9, -6);
@@ -45,13 +45,14 @@ const ReviewTile = (props) => {
   };
 
   return (
-    <div>
+    <div className="reviewTile">
       *****
       <div>
         {dateAndUser}
       </div>
-      <div> {props.review.summary} </div>
+      <div className="reviewSummary"> {props.review.summary} </div>
       <div> {props.review.body} </div>
+      <ReviewPhotos photos={props.review.photos} />
       {form}
       <div>
         <span>
