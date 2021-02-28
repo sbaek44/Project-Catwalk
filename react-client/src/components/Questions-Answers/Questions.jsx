@@ -9,6 +9,8 @@ const Questions = (props) => {
   const [questions, setQuestions] = useState([]);
   const [moreQuestions, hasClicked] = useState(false)
   const [helpfulClicked, setHelpfulClicked] = useState([])
+  const [searchValue, setSearchValue] = useState([])
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
     getQuestions();
@@ -59,14 +61,41 @@ const Questions = (props) => {
     )
   }
 
-
-  return ( 
-    //If More Answered Questions is false, it will only show up to 4 questions.
-    <div>
-      {questions.length > 0 ?
-      <div>
-        <SearchBar questions = {questions}/>
-        {!moreQuestions ?
+  let insertAllQuestion = () => {
+    if(search.length >= 3) {
+      return (
+        <div>
+      {!moreQuestions ?
+        <div>
+        {searchValue.slice(0,4).map( (question, index) => {
+          return (
+            <div key = {index}>
+              {insertQuestion(question, index)}
+            </div>
+          )
+        })}
+        <button onClick= {()=> {hasClicked(!moreQuestions)}}>MORE ANSWERED QUESTIONS</button>
+        <button>ADD A QUESTION +</button>
+        </div>
+       : //If More Answered Questions is true, it will display all the question for the product.
+       <div>
+       {searchValue.map( (question, index) => {
+         return (
+           <div key = {index}>
+             {insertQuestion(question, index)}
+           </div>
+         )
+       })}
+       <button onClick= {()=> {hasClicked(!moreQuestions)}}>LESS ANSWERED QUESTIONS</button>
+       <button>ADD A QUESTION +</button>
+       </div>
+       }
+       </div>
+      )
+    } else if (search.length <= 2) {
+      return (
+        <div>
+          {!moreQuestions ?
         <div>
         {questions.slice(0,4).map( (question, index) => {
           return (
@@ -91,14 +120,24 @@ const Questions = (props) => {
        <button>ADD A QUESTION +</button>
        </div>
        }
-       </div>
-      :<button>ADD A QUESTION +</button>
-
-
+        </div>
+      )
+    } else {
+      return (<button>ADD A QUESTION +</button>)
     }
+  }
 
 
-
+  return ( 
+    //If More Answered Questions is false, it will only show up to 4 questions.
+    <div>
+      {questions.length > 0 ?
+      <div>
+        <SearchBar questions = {questions} setSearchValue= {setSearchValue} searchValue= {searchValue} setSearch={setSearch} search= {search} insertAllQuestion={insertAllQuestion}/>
+        {insertAllQuestion()}
+        </div>
+      :<button>ADD A QUESTION +</button>
+      }
     </div>
   )
 }
