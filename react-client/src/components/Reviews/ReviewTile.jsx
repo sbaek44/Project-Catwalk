@@ -1,9 +1,14 @@
 import React from 'react';
 import header from '../../../../config.js';
-import axios from 'axios'
+import ReviewPhotos from './ReviewPhotos.jsx';
+import axios from 'axios';
 
 const ReviewTile = (props) => {
-  const date = new Date(props.review.date).toUTCString().slice(0, -12);
+  const date = new Date(props.review.date).toUTCString().slice(4, -12);
+  let day = date.slice(0,3);
+  let month = date.slice(-9, -6);
+  let year = date.slice(-5);
+  let dateAndUser = `${props.review.reviewer_name}, ${month} ${day}, ${year}`;
   let form;
   if (!props.review.recommend) {
     form = '';
@@ -40,15 +45,14 @@ const ReviewTile = (props) => {
   };
 
   return (
-    <div>
+    <div className="reviewTile">
       *****
       <div>
-        {props.review.reviewer_name}
-        ,
-        {date}
+        {dateAndUser}
       </div>
-      <div> {props.review.summary} </div>
+      <div className="reviewSummary"> {props.review.summary} </div>
       <div> {props.review.body} </div>
+      <ReviewPhotos photos={props.review.photos} />
       {form}
       <div>
         <span>

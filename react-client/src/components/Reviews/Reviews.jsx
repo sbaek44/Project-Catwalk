@@ -3,9 +3,12 @@ import axios from 'axios';
 import header from '../../../../config.js';
 import SortForm from './SortForm.jsx';
 import ReviewsList from './ReviewsList.jsx';
+import PostReviewForm from './PostReviewForm.jsx';
+import Ratings from './Ratings.jsx';
 
 const Reviews = (props) => {
   const [reviews, setReviews] = useState([]);
+  const [metadata, setMetadata] = useState({});
   const [amountOfReviews, addReviews] = useState(2);
   const [sortParameters] = useState(['relevance', 'newest', 'helpful']);
   const [selectedParameter, updateParam] = useState('relevance');
@@ -13,6 +16,7 @@ const Reviews = (props) => {
   const [isDisplayingMoreReviewsButton, setIsdisplayingMoreReviewsButton] = useState(false);
   useEffect(() => {
     getReviews();
+    getRatings()
     updateMoreReviewsButton(reviews);
   }, [selectedParameter, amountOfReviews, props]);
 
@@ -33,6 +37,17 @@ const Reviews = (props) => {
       })
       .catch((err) => console.log(err));
   };
+  const getRatings = () => {
+    let id = props.currentProduct.id || 16092;
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/meta?product_id=${id}`, header)
+      .then((result) => {
+      setMetadata(result.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   let lengthOfReviews;
   if (!reviews.results) {
     lengthOfReviews = 0;
@@ -56,9 +71,23 @@ const Reviews = (props) => {
     }
   };
 
+  const togglePostForm = () => {
+    togglePosting(!isPosting);
+  };
+
+  let postForm;
+  if (!isPosting) {
+    postForm = '';
+  } else {
+    postForm = <PostReviewForm review_id={props.currentProduct.id} />;
+  }
 
   return (
     <div>
+      {postForm}
+      <div className="ratings">
+        <Ratings metadata={metadata} />
+      </div>
       <span>
         {lengthOfReviews}
         reviews, sorted by
@@ -67,7 +96,7 @@ const Reviews = (props) => {
       <ReviewsList getReviews={getReviews} reviews={reviews.results} amountOfReviews={amountOfReviews} />
       <span>
          {moreReviewsButton}
-         <button>ADD A REVIEW +</button>
+         <button onClick={togglePostForm} >ADD A REVIEW +</button>
       </span>
     </div>
   );
