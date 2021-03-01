@@ -13,12 +13,7 @@ function StyleSelector(props) {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/styles`, header)
       .then((res) => {
         updateStyles(res.data.results);
-        let photos = [];
-        for (let item of res.data.results) {
-          let urls = [item.photos[0].thumbnail_url, item.photos[0].url];
-          photos.push(urls);
-        }
-        updatePhotos(photos);
+        updatePhotos(res.data.results[0].photos);
 
         // By default, the style selected will be the first in the list
         let def = res.data.results[0];
@@ -33,7 +28,18 @@ function StyleSelector(props) {
     selectStyle(styleID);
     updatePrice(price);
     updateSale(sale);
-    selectPhoto(photo)
+    selectPhoto(photo);
+    let photos = [];
+    if (styles.length) {
+      for (let style of styles) {
+        if (style.style_id === styleID) {
+          for (let photo of style.photos) {
+            photos.push(photo)
+          }
+        }
+      }
+    }
+    updatePhotos(photos);
   }
 
   useEffect(() => {
@@ -68,16 +74,16 @@ function StyleSelector(props) {
     <div className='style-selector'>
       {styles.length ?
         <div>
-          <div style={{display: 'flex', flexDirection: 'row', fontSize: 16}}>
-          <span style={{fontWeight: 'bold'}}>STYLE >  </span><span>{getNameOfSelectedStyle('uppercase')}</span>
+          <div style={{ display: 'flex', flexDirection: 'row', fontSize: 16 }}>
+            <span style={{ fontWeight: 'bold' }}>STYLE >  </span><span>{getNameOfSelectedStyle('uppercase')}</span>
           </div>
 
           <div className='style-options-container'
-          // first time using 'grid', 'template columns' and 'auto rows' - will come back to this
-          style={{ width: 200, display: 'grid',  gridTemplateColumns: '1fr 1fr 1fr 1fr', gridAutoRows: 75 }}>
+            // first time using 'grid', 'template columns' and 'auto rows' - will come back to this
+            style={{ width: 200, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gridAutoRows: 75 }}>
             {styles.map((option, index) => {
               return <div key={index}>
-                <div style={{height: 20, width: 50}}>
+                <div style={{ height: 20, width: 50 }}>
                   {selectedStyle === option.style_id ?
                     <span>✔</span>
                     : null}

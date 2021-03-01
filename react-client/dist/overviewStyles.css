@@ -16,25 +16,35 @@ body {
 
 .image-gallery {
   display: flex;
-  flex-direction: row;
-  width: 50%;
-  justify-content: flex-start;
-  margin-bottom: 10px;
+  width: 70%;
 }
 
-.main-image {
-  max-width: 400px;
-  max-height: 400px;
+img.main-img {
+  max-width: 512px;
+  max-height: 512px;
 }
+
+.image-thumbnail {
+  height: 50px;
+  width: 50px;
+  margin: 3px;
+  border: 2px solid black;
+}
+
+.image-thumbnail#selected {
+  border: 2px solid rgb(255, 0, 140);
+}
+
 
 .gallery-thumbnails {
   display: flex;
-  flex-direction: column;
+  flex-flow: column nowrap;
+  z-index: 10;
 }
 
 .right-side {
   display: flex;
-  width: 50%;
+  width: 30%;
   flex-direction: column;
 }
 

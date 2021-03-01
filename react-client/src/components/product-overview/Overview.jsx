@@ -19,7 +19,7 @@ export default function Overview(props) {
 
   return (
     <div className='overview'>
-      <ImageGallery selectedProduct={props.products[props.selectedItemIndex] || null} selectedStyle={selectedStyle} selectedPhoto={selectedPhoto} photos={photos} />
+      <ImageGallery selectedPhoto={selectedPhoto} selectPhoto={selectPhoto} photos={photos} />
       <div className='right-side'>
         <ProductInformation selectedProduct={props.products[props.selectedItemIndex] || null} selectedStyle={selectedStyle} price={price} sale={sale} />
         <StyleSelector selectedProduct={props.products[props.selectedItemIndex] || null} selectedStyle={selectedStyle} selectStyle={selectStyle} updatePrice={updatePrice} updateSale={updateSale} selectPhoto={selectPhoto} updatePhotos={updatePhotos} />
