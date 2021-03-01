@@ -8,14 +8,9 @@ function ProductDescription(props) {
   return (
     <div>
       {selectedProduct !== null ?
-        <div style={{marginBottom: 10}}>
-          <h4>{selectedProduct.slogan}</h4>
-          <p>{selectedProduct.description}</p>
-          <ul>
-            <li>twitter</li>
-            <li>facebook</li>
-            <li>pinterest</li>
-          </ul>
+        <div className='product-info-bottom'>
+          <div className='product-slogan'>{selectedProduct.slogan}</div>
+          <div className='product-description'>{selectedProduct.description}</div>
         </div>
         : null}
     </div >

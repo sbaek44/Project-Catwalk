@@ -4,9 +4,11 @@ import header from '../../../../config.js';
 import SortForm from './SortForm.jsx';
 import ReviewsList from './ReviewsList.jsx';
 import PostReviewForm from './PostReviewForm.jsx';
+import Ratings from './Ratings.jsx';
 
 const Reviews = (props) => {
   const [reviews, setReviews] = useState([]);
+  const [metadata, setMetadata] = useState({});
   const [amountOfReviews, addReviews] = useState(2);
   const [sortParameters] = useState(['relevance', 'newest', 'helpful']);
   const [selectedParameter, updateParam] = useState('relevance');
@@ -14,6 +16,7 @@ const Reviews = (props) => {
   const [isDisplayingMoreReviewsButton, setIsdisplayingMoreReviewsButton] = useState(false);
   useEffect(() => {
     getReviews();
+    getRatings()
     updateMoreReviewsButton(reviews);
   }, [selectedParameter, amountOfReviews, props]);
 
@@ -26,7 +29,7 @@ const Reviews = (props) => {
   };
 
   let getReviews = () => {
-    let id = props.currentProduct.id || 16092;
+    let id = props.currentProduct.id || 16122;
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/?product_id=${id}&count=100&sort=${selectedParameter}`, header)
       .then((data) => {
         setReviews(data.data);
@@ -34,6 +37,17 @@ const Reviews = (props) => {
       })
       .catch((err) => console.log(err));
   };
+  const getRatings = () => {
+    let id = props.currentProduct.id || 16092;
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/meta?product_id=${id}`, header)
+      .then((result) => {
+      setMetadata(result.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   let lengthOfReviews;
   if (!reviews.results) {
     lengthOfReviews = 0;
@@ -65,12 +79,15 @@ const Reviews = (props) => {
   if (!isPosting) {
     postForm = '';
   } else {
-    postForm = <PostReviewForm />;
+    postForm = <PostReviewForm review_id={props.currentProduct.id} />;
   }
 
   return (
     <div>
       {postForm}
+      <div className="ratings">
+        <Ratings metadata={metadata} />
+      </div>
       <span>
         {lengthOfReviews}
         reviews, sorted by

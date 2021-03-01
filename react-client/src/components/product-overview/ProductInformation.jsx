@@ -12,10 +12,10 @@ function ProductInformation(props) {
 
   const renderPrice = () => {
     if (sale) {
-      return <div>
-        <span style={{color: 'red'}}>${sale} </span>
-        <span style={{textDecoration: 'line-through'}}> {price}</span>
-      </div>
+      return <span>
+        <span style={{ color: 'red' }}>${sale} </span>
+        <span style={{ textDecoration: 'line-through' }}> {price}</span>
+      </span>
     } else {
       return <span>${price}</span>
     }
@@ -23,13 +23,21 @@ function ProductInformation(props) {
 
 
   return (
-    <div>
+    <div className='product-info-side'>
       {selectedProduct !== null ?
         <div>
-          <h4>Product Name: {selectedProduct.name}</h4>
-          <div>Category: {selectedProduct.category}</div>
-          <div>*****</div>
-          {renderPrice()}
+          <div className='product-rating'>
+            <span>*****</span>
+            <span>read all reviews</span>
+          </div>
+          <div className='product-category'>
+            <p>{selectedProduct.category}</p>
+          </div>
+          <div className='product-name'>
+            <p style={{fontSize: 20, fontWeight: 'bold'}}>    {selectedProduct.name}
+            </p>
+          </div>
+          <div className='product-price'>{renderPrice()}</div>
         </div>
         : null}
     </div >

@@ -97,25 +97,31 @@ export default function AddToCart(props) {
   }
 
   return (
-    <div>
+    <div className='add-to-cart'>
       {styles.length && selectedStyle !== 0 && selectedProduct ?
-        <div style={{marginTop: 50}}>
-          {/* this dropdown should become inactive and read OUT OF STOCK when there's no stock */}
-          <span>{message}</span>
-          <div onClick={() => toggleSizeSelector(true)}>
-            <select id='size-selector' onChange={(e) => handleSizeSelect(e.target.value)} value={size} disabled={outOfStock} >
-              <option value={'Select Size'}>Select Size</option>
-              {renderSizeOptions()}
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+          <div style={{display: 'flex', flexFlow: 'row-nowrap',}}>
+            <span className='add-to-cart-message'>{message}</span>
+
+            {/* size dropdown should become inactive and read OUT OF STOCK when there's no stock */}
+            <div onClick={() => toggleSizeSelector(true)}>
+              <select id='size-selector' onChange={(e) => handleSizeSelect(e.target.value)} value={size} disabled={outOfStock} >
+                <option value={'Select Size'}>Select Size</option>
+                {renderSizeOptions()}
+              </select>
+            </div>
+
+            {/* qty dropdown is disabled until a size is selected*/}
+            <select id='qty-selector' onChange={(e) => selectQty(e.target.value)} value={qty} disabled={size === 'Select Size' ? true : false}>
+              {renderQtyOptions()}
             </select>
           </div>
-
-          {/* qty dropdown is disabled until a size is selected*/}
-          <select onChange={(e) => selectQty(e.target.value)} value={qty} disabled={size === 'Select Size' ? true : false}>
-            {renderQtyOptions()}
-          </select>
-
-          {/* add to cart button is hidden when there's no stock */}
-          {outOfStock ? null : <button onClick={() => add()}>add to cart</button>}
+          <div style={{display: 'flex', flexDirection: 'row'}}>
+            {/* add to cart button is hidden when there's no stock */
+            }
+            {outOfStock ? null : <button className='add-to-cart-button' onClick={() => add()}>ADD TO BAG +</button>}
+            <button>*</button>
+          </div>
         </div>
         : null}
     </div>

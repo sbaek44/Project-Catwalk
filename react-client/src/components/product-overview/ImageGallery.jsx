@@ -1,18 +1,41 @@
 import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import header from '../../../../config.js';
 
 export default function ImageGallery(props) {
 
-  const {selectedStyle, selectProduct} = props;
+  const { selectedStyle, selectedProduct, selectedPhoto, photos } = props;
+
   const [expandedGalleryView, toggleGalleryView] = useState(false); // Conditional render image gallery based on this
 
   // The largest piece of the Overview module will be a photo gallery showing images of the product.  The photos presented in this gallery will be specific to the currently selected product style.  Each time a new style is chosen, the gallery will update to show photos corresponding to the new style.   Each style will have a set of images associated with it.  The gallery will allow customers to browse between and zoom in on these photos.
   // The gallery will be viewable in two states.  A default collapsed view, and an expanded view.
 
-  // console.log(props);
+  const renderThumbnails = () => {
+    // in array of photo urls, thumbnail is always at index 0, full img at index 1
+    // these dont do anything yet when clicked
+    return photos.map((photo, i) => {
+      return <img key={i} style={{ width: 50, height: 50 }} src={photo[0]} />
+    })
+  }
+
+  // useEffect(() => {
+  //   if (photos) {
+  //     // selectedPhoto coresponds to full img for selected style already
+  //     console.log('photo urls', photos);
+  //   }
+  // }, [photos])
 
   return (
-    <div>
-      <h4>IMAGE GALLERY HERE</h4>
+    <div className='image-gallery'>
+      {photos.length ?
+        <div className='gallery-thumbnails'>
+          {renderThumbnails()}
+        </div>
+        : null}
+      {selectedPhoto !== '' ?
+        <img className='main-image' src={selectedPhoto} />
+        : null}
     </div>
   )
 };
