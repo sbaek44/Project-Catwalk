@@ -3,6 +3,7 @@ import axios from 'axios';
 import header from '../../../config.js'
 import Overview from './product-overview/Overview.jsx'
 import RelatedItemsList from './related items/RelatedItemsList.jsx';
+import YourOutfitList from './related items/YourOutfitList.jsx'
 import Reviews from './Reviews/Reviews.jsx';
 
 
@@ -60,9 +61,7 @@ export default class App extends React.Component {
   }
 
   getProducts() {
-
     let page = this.randomNumber(50);
-
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?count=10&page=${page}`, header)
       .then((data) => {
         this.setState({
@@ -92,6 +91,10 @@ export default class App extends React.Component {
       <div>
         <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} />
         <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
+
+        <YourOutfitList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
+        <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
+        {/* <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/> */}
         {/* <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} /> */}
       </div>
     )
