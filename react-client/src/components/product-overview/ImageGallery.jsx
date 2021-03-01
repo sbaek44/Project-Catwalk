@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 export default function ImageGallery(props) {
 
-  const {selectedStyle, selectedProduct, selectedPhoto, photos} = props;
+  const { selectedStyle, selectedProduct, selectedPhoto, photos } = props;
 
   const [expandedGalleryView, toggleGalleryView] = useState(false); // Conditional render image gallery based on this
 
@@ -15,7 +15,7 @@ export default function ImageGallery(props) {
     // in array of photo urls, thumbnail is always at index 0, full img at index 1
     // these dont do anything yet when clicked
     return photos.map((photo, i) => {
-      return <img key={i} style={{width: 50, height: 50}} src={photo[0]}/>
+      return <img key={i} style={{ width: 50, height: 50 }} src={photo[0]} />
     })
   }
 
@@ -27,20 +27,15 @@ export default function ImageGallery(props) {
   // }, [photos])
 
   return (
-    <div>
-      <h4>IMAGE GALLERY</h4>
-      {selectedPhoto !== '' ?
-        <div>
-          {photos.length ?
-            <div style={{display: 'flex', flexDirection: 'row'}}>
-              <div>THUMBNAILS</div>
-              {renderThumbnails()}
-            </div>
-          : null }
-          <div>MAIN IMG</div>
-          <img style={{width: 300, height: 200}} src={selectedPhoto} />
+    <div className='image-gallery'>
+      {photos.length ?
+        <div className='gallery-thumbnails'>
+          {renderThumbnails()}
         </div>
-      : null}
+        : null}
+      {selectedPhoto !== '' ?
+        <img className='main-image' src={selectedPhoto} />
+        : null}
     </div>
   )
 };
