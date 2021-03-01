@@ -5,6 +5,7 @@ import Overview from './product-overview/Overview.jsx'
 import RelatedItemsList from './related items/RelatedItemsList.jsx';
 import YourOutfitList from './related items/YourOutfitList.jsx'
 import Reviews from './Reviews/Reviews.jsx';
+import QA from './Questions-Answers/QA.jsx'
 
 
 export default class App extends React.Component {
@@ -93,8 +94,8 @@ export default class App extends React.Component {
         <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
 
         <YourOutfitList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
-        <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
-        {/* <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/> */}
+
+        <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/>
         {/* <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} /> */}
       </div>
     )
