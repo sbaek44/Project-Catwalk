@@ -4,7 +4,7 @@ import axios from 'axios';
 
 function ProductInformation(props) {
 
-  const { selectedProduct, selectedStyle, price, sale } = props;
+  const { selectedProduct, selectedStyle, price, sale, avgRating } = props;
 
   // todo: star rating
 
@@ -27,8 +27,8 @@ function ProductInformation(props) {
       {selectedProduct !== null ?
         <div>
           <div className='product-rating'>
-            <span>*****</span>
-            <span>read all reviews</span>
+            <span style={{marginRight: 5}}>average rating: {avgRating}</span>
+            <span style={{textDecoration: 'underline'}}>read all reviews</span>
           </div>
           <div className='product-category'>
             <p>{selectedProduct.category}</p>

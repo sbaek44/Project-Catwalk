@@ -100,8 +100,8 @@ export default function AddToCart(props) {
     <div className='add-to-cart'>
       {styles.length && selectedStyle !== 0 && selectedProduct ?
         <div style={{display: 'flex', flexDirection: 'column'}}>
+          <span className='add-to-cart-message'>{message}</span>
           <div style={{display: 'flex', flexFlow: 'row-nowrap',}}>
-            <span className='add-to-cart-message'>{message}</span>
 
             {/* size dropdown should become inactive and read OUT OF STOCK when there's no stock */}
             <div onClick={() => toggleSizeSelector(true)}>

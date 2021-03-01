@@ -7,7 +7,6 @@ import YourOutfitList from './related items/YourOutfitList.jsx'
 import Reviews from './Reviews/Reviews.jsx';
 import QA from './Questions-Answers/QA.jsx'
 
-
 export default class App extends React.Component {
   constructor(props) {
     super(props)
@@ -90,11 +89,9 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} />
+        <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} avgRating={this.state.avgRating} />
         <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
-
         <YourOutfitList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
-
         {/* <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/> */}
         <Reviews avgRating={this.state.avgRating} metadata={this.state.metadata} currentProduct={this.state.allProducts[this.state.selectedItemIndex]} />
       </div>
