@@ -3,9 +3,6 @@ import axios from 'axios';
 import header from '../../../../config.js';
 import AddToCart from './AddToCart.jsx';
 
-
-// this component functions as described in the business doc but the visuals absolutely suck for now
-
 function StyleSelector(props) {
 
   const { selectedProduct, selectedStyle, selectStyle, updatePrice, updateSale, updatePhotos, selectPhoto } = props;
@@ -45,7 +42,7 @@ function StyleSelector(props) {
     }
   }, [selectedProduct])
 
-  // buttons do render from their thumbnail_image props but css still needs a lot of work
+  // buttons do render from their thumbnail_image props but this css still needs a lot of work
   const makeButtonCSS = (thumbnail) => {
     return {
       border: '1px solid black',
@@ -59,19 +56,22 @@ function StyleSelector(props) {
   }
 
 
-  const getNameOfSelectedStyle = () => {
+  const getNameOfSelectedStyle = (uppercase = null) => {
     for (let option of styles) {
       if (option.style_id === selectedStyle) {
-        return option.name
+        return uppercase ? option.name.toUpperCase() : option.name
       }
     }
   }
 
   return (
-    <div>
+    <div className='style-selector'>
       {styles.length ?
         <div>
-          <span>{getNameOfSelectedStyle()}</span>
+          <div style={{display: 'flex', flexDirection: 'row', fontSize: 16}}>
+          <span style={{fontWeight: 'bold'}}>STYLE >  </span><span>{getNameOfSelectedStyle('uppercase')}</span>
+          </div>
+
           <div className='style-options-container'
           // first time using 'grid', 'template columns' and 'auto rows' - will come back to this
           style={{ width: 200, display: 'grid',  gridTemplateColumns: '1fr 1fr 1fr 1fr', gridAutoRows: 75 }}>

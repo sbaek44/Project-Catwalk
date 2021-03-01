@@ -18,10 +18,13 @@ export default function Overview(props) {
   const [selectedPhoto, selectPhoto] = useState('');
 
   return (
-    <div>
+    <div className='overview'>
       <ImageGallery selectedProduct={props.products[props.selectedItemIndex] || null} selectedStyle={selectedStyle} selectedPhoto={selectedPhoto} photos={photos} />
-      <ProductInformation selectedProduct={props.products[props.selectedItemIndex] || null} selectedStyle={selectedStyle} price={price} sale={sale} />
-      <StyleSelector selectedProduct={props.products[props.selectedItemIndex] || null} selectedStyle={selectedStyle} selectStyle={selectStyle} updatePrice={updatePrice} updateSale={updateSale} selectPhoto={selectPhoto} updatePhotos={updatePhotos} />
+      <div className='right-side'>
+        <ProductInformation selectedProduct={props.products[props.selectedItemIndex] || null} selectedStyle={selectedStyle} price={price} sale={sale} />
+        <StyleSelector selectedProduct={props.products[props.selectedItemIndex] || null} selectedStyle={selectedStyle} selectStyle={selectStyle} updatePrice={updatePrice} updateSale={updateSale} selectPhoto={selectPhoto} updatePhotos={updatePhotos} />
+      </div>
+
       <ProductDescription selectedProduct={props.products[props.selectedItemIndex] || null} />
     </div>
   )
