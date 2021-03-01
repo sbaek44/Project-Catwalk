@@ -13,7 +13,7 @@ export default class App extends React.Component {
     this.state = {
       allProducts: [],
       selectedItemIndex: 0,
-      ratings: '',
+      metadata: '',
       avgRating: 0
     }
     this.getProducts = this.getProducts.bind(this);
@@ -28,7 +28,7 @@ export default class App extends React.Component {
 
   findAvgRating() {
 
-    const ratingsData = this.state.ratings
+    const ratingsData = this.state.metadata.ratings
     if (Object.keys(ratingsData).length === 0) {
       console.log(this.state.avgRating)
       return '';
@@ -78,7 +78,7 @@ export default class App extends React.Component {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/meta?product_id=${id}`, header)
       .then((result) => {
         this.setState({
-          ratings: result.data.ratings
+          metadata: result.data
         }, () => this.findAvgRating());
       })
       .catch((err) => {
@@ -91,11 +91,9 @@ export default class App extends React.Component {
       <div>
         <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} avgRating={this.state.avgRating} />
         <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
-
         <YourOutfitList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
-
-        <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/>
-        <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
+        {/* <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/> */}
+        <Reviews avgRating={this.state.avgRating} metadata={this.state.metadata} currentProduct={this.state.allProducts[this.state.selectedItemIndex]} />
       </div>
     )
   }
