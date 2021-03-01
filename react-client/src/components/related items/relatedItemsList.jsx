@@ -21,7 +21,8 @@ function RelatedItemsList(props) {
 
   return (
     <div>
-      <RelatedItemsElements relatedItemsIds={relatedItemsIds} />
+      <h3>RELATED PRODUCTS</h3>
+      <RelatedItemsElements  relatedItemsIds={relatedItemsIds} />
     </div>
   )
 }

@@ -24,7 +24,7 @@ function RelatedItemCard(props) {
     return null
   } else {
     return (
-      <div>
+      <div  style={{display: 'flex', flexDirection: 'row'}}>
       {props.dataArr.map((item, i) => (
         <div id="relatedItemCard" key={i}>
           <img src={getThumbnail(item.id)} />
