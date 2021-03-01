@@ -1,20 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import header from '../../../../config.js';
+import RatingsBreakdownList from './RatingsBreakdownList.jsx';
 
 const Ratings = (props) => {
   const [recommendedPercent, setRecommendedPercent] = useState(0);
+  const [percentagePerRating, setPercentagePerRating] = useState(false);
   useEffect(() => {
-    findRecommendedPercent()
+    if (props.metadata) {
+      findRecommendedPercent();
+      findPercentagePerRating();
+    }
   }, [props.metadata]);
-  // if no ratings are given and no recommended are given. it will default to empty obj
-  const findPercentageOfEachRating = () => {
-    // takes the ratings key and gives the
-    let one;
-    let two;
-    let three;
-    let four;
-    let five;
+
+
+  const findPercentagePerRating = () => {
+    let percentages = {};
+    let ratings = props.metadata.ratings;
+       let totalVotes = 0;
+    for (let scoreKey in ratings) {
+      totalVotes += Number(ratings[scoreKey]);
+    }
+
+    for (let key in ratings) {
+      let percentage = Math.round((Number(ratings[key]) / totalVotes) * 100);
+      percentages[key] = percentage;
+    }
+    setPercentagePerRating(percentages);
   };
 
   const findRecommendedPercent = () => {
@@ -44,6 +56,7 @@ const Ratings = (props) => {
         RATINGS
         & REVIEWS
       </span>
+      <RatingsBreakdownList percentagePerRating={percentagePerRating} />
       <div>
         {props.avgRating}
       </div>
@@ -52,7 +65,7 @@ const Ratings = (props) => {
         % of reviewers recommend this product
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Ratings;
