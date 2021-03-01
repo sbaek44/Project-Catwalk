@@ -8,17 +8,17 @@ import Ratings from './Ratings.jsx';
 
 const Reviews = (props) => {
   const [reviews, setReviews] = useState([]);
-  const [metadata, setMetadata] = useState({});
   const [amountOfReviews, addReviews] = useState(2);
   const [sortParameters] = useState(['relevance', 'newest', 'helpful']);
   const [selectedParameter, updateParam] = useState('relevance');
   const [isPosting, togglePosting] = useState(false);
   const [isDisplayingMoreReviewsButton, setIsdisplayingMoreReviewsButton] = useState(false);
   useEffect(() => {
-    getReviews();
-    getRatings()
+    if (props.currentProduct) {
+      getReviews();
+    }
     updateMoreReviewsButton(reviews);
-  }, [selectedParameter, amountOfReviews, props]);
+  }, [selectedParameter, amountOfReviews, props.metadata]);
 
   const addMoreReviews = () => {
     addReviews(amountOfReviews + 2);
@@ -29,7 +29,7 @@ const Reviews = (props) => {
   };
 
   let getReviews = () => {
-    let id = props.currentProduct.id || 16122;
+    let id = props.currentProduct.id;
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/?product_id=${id}&count=100&sort=${selectedParameter}`, header)
       .then((data) => {
         setReviews(data.data);
@@ -37,16 +37,7 @@ const Reviews = (props) => {
       })
       .catch((err) => console.log(err));
   };
-  const getRatings = () => {
-    let id = props.currentProduct.id || 16092;
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/meta?product_id=${id}`, header)
-      .then((result) => {
-      setMetadata(result.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+
 
   let lengthOfReviews;
   if (!reviews.results) {
@@ -86,7 +77,7 @@ const Reviews = (props) => {
     <div>
       {postForm}
       <div className="ratings">
-        <Ratings metadata={metadata} />
+        <Ratings avgRating={props.avgRating} metadata={props.metadata} />
       </div>
       <span>
         {lengthOfReviews}
