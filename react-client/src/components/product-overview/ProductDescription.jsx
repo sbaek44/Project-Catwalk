@@ -5,6 +5,8 @@ function ProductDescription(props) {
 
   const { selectedProduct } = props;
 
+  // think i saw that some products have a 'features' property, those should go on here where the checkmarks are in mock (bottom-right)
+
   return (
     <div>
       {selectedProduct !== null ?

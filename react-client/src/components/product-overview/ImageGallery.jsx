@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 export default function ImageGallery(props) {
 
-  const { selectedPhoto, selectPhoto, photos } = props;
+  const { selectPhoto, photos } = props;
 
   // By default, the first image in the set will be displayed as the main image
   // When switching between styles, the index of the image currently selected should be maintained when the gallery updates for the new style
@@ -40,25 +40,29 @@ export default function ImageGallery(props) {
   }
 
   return (
-    <div className='image-gallery'>
-      <div className='gallery-thumbnails-container'>
-        <button onClick={() => scrollBack()}>↑</button>
-        <div className='gallery-thumbnails'>
-          {photos.map((photo, i) => {
-            return <img
-            className='image-thumbnail'
-            key={i}
-            src={photo.thumbnail_url}
-            // Clicking on any thumbnail should update the main image to match that shown in the thumbnail clicked
-            onClick={() => handleSelect(photo.url, i)}
-            // The thumbnail corresponding to the image currently selected as the main image should be highlighted to indicate the current selection.
-            id={i === selectedPhotoIndex ? 'selected' : null}
-             />
-          })}
+    <div className='image-gallery-outer'>
+      {photos.length ?
+        <div className='image-gallery'>
+          <div className='gallery-thumbnails-container'>
+            <button onClick={() => scrollBack()}>↑</button>
+            <div className='gallery-thumbnails'>
+              {photos.map((photo, i) => {
+                return <img
+                  className='image-thumbnail'
+                  key={i}
+                  src={photo.thumbnail_url}
+                  // Clicking on any thumbnail should update the main image to match that shown in the thumbnail clicked
+                  onClick={() => handleSelect(photo.url, i)}
+                  // The thumbnail corresponding to the image currently selected as the main image should be highlighted to indicate the current selection.
+                  id={i === selectedPhotoIndex ? 'selected' : null}
+                />
+              })}
+            </div>
+            <button onClick={() => scrollForward()}>↓</button>
+          </div>
+          <img className='main-img' src={photos[selectedPhotoIndex].url}></img>
         </div>
-        <button onClick={() => scrollForward()}>↓</button>
-      </div>
-      {photos.length ?  <img className='main-img' src={photos[selectedPhotoIndex].url}></img> : null}
+        : null}
     </div>
   )
 };

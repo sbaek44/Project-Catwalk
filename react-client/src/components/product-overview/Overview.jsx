@@ -11,6 +11,9 @@ import StyleSelector from './StyleSelector.jsx';
 
 export default function Overview(props) {
 
+  // in App, use product page 1 and selectedItemIndex 2 to demo Overview component where there are actually many styles/images; a lot of them only have one image per style
+  const {products, selectedItemIndex, avgRating} = props;
+
   const [selectedStyle, selectStyle] = useState(0);
   const [price, updatePrice] = useState(0);
   const [sale, updateSale] = useState(null);
@@ -21,11 +24,11 @@ export default function Overview(props) {
     <div className='overview'>
       <ImageGallery selectedPhoto={selectedPhoto} selectPhoto={selectPhoto} photos={photos} />
       <div className='right-side'>
-        <ProductInformation selectedProduct={props.products[props.selectedItemIndex] || null} selectedStyle={selectedStyle} price={price} sale={sale} />
-        <StyleSelector selectedProduct={props.products[props.selectedItemIndex] || null} selectedStyle={selectedStyle} selectStyle={selectStyle} updatePrice={updatePrice} updateSale={updateSale} selectPhoto={selectPhoto} updatePhotos={updatePhotos} />
+        <ProductInformation selectedProduct={products[selectedItemIndex] || null} selectedStyle={selectedStyle} price={price} sale={sale} avgRating={avgRating} />
+        <StyleSelector selectedProduct={products[selectedItemIndex] || null} selectedStyle={selectedStyle} selectStyle={selectStyle} updatePrice={updatePrice} updateSale={updateSale} selectPhoto={selectPhoto} updatePhotos={updatePhotos} />
       </div>
 
-      <ProductDescription selectedProduct={props.products[props.selectedItemIndex] || null} />
+      <ProductDescription selectedProduct={products[selectedItemIndex] || null} />
     </div>
   )
 

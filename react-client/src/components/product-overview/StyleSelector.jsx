@@ -24,22 +24,25 @@ function StyleSelector(props) {
       })
   };
 
-  const handleSelect = (styleID, price, sale, photo) => {
+  const handleSelect = (styleID, price, sale, photo, shouldGetPhotos = false) => {
     selectStyle(styleID);
     updatePrice(price);
     updateSale(sale);
     selectPhoto(photo);
-    let photos = [];
-    if (styles.length) {
-      for (let style of styles) {
-        if (style.style_id === styleID) {
-          for (let photo of style.photos) {
-            photos.push(photo)
+    if (shouldGetPhotos) {
+      let photos = [];
+      if (styles.length) {
+        for (let style of styles) {
+          if (style.style_id === styleID) {
+            for (let photo of style.photos) {
+              photos.push(photo)
+            }
           }
         }
       }
+      updatePhotos(photos);
     }
-    updatePhotos(photos);
+
   }
 
   useEffect(() => {
@@ -51,10 +54,10 @@ function StyleSelector(props) {
   // buttons do render from their thumbnail_image props but this css still needs a lot of work
   const makeButtonCSS = (thumbnail) => {
     return {
-      border: '1px solid black',
+      border: '2px solid black',
       width: 50,
       height: 50,
-      margin: 1,
+      marginRight: 5,
       borderRadius: '50%',
       backgroundImage: `url(${thumbnail})`,
       backgroundSize: 'contain',
@@ -75,23 +78,23 @@ function StyleSelector(props) {
       {styles.length ?
         <div>
           <div style={{ display: 'flex', flexDirection: 'row', fontSize: 16 }}>
-            <span style={{ fontWeight: 'bold' }}>STYLE >  </span><span>{getNameOfSelectedStyle('uppercase')}</span>
+            <span style={{ fontWeight: 'bold', marginRight: 5 }}>STYLE ></span>
+            <span>{getNameOfSelectedStyle('uppercase')}</span>
           </div>
 
           <div className='style-options-container'
             // first time using 'grid', 'template columns' and 'auto rows' - will come back to this
-            style={{ width: 200, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gridAutoRows: 75 }}>
+            // for some reason this grid css only works inline, not when i move it to css file??
+            style={{ width: 200, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gridAutoRows: 60 }}>
             {styles.map((option, index) => {
               return <div key={index}>
-                <div style={{ height: 20, width: 50 }}>
-                  {selectedStyle === option.style_id ?
-                    <span>✔</span>
-                    : null}
-                </div>
+
+                <div className='checkmark' id={selectedStyle === option.style_id ? 'on' : 'off'}>✔</div>
+
                 <button key={index}
                   className='style-option-button'
                   style={makeButtonCSS(option.photos[0].thumbnail_url)}
-                  onClick={() => handleSelect(option.style_id, option.original_price, option.sale_price, option.photos[0].url)}>
+                  onClick={() => handleSelect(option.style_id, option.original_price, option.sale_price, option.photos[0].url, true)}>
                 </button>
               </div>
             })}

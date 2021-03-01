@@ -7,14 +7,12 @@ import YourOutfitList from './related items/YourOutfitList.jsx'
 import Reviews from './Reviews/Reviews.jsx';
 import QA from './Questions-Answers/QA.jsx'
 
-// hardcoded page 1 and idx 2 to test images, remember to revert *
-
 export default class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       allProducts: [],
-      selectedItemIndex: 2,
+      selectedItemIndex: 0,
       ratings: '',
       avgRating: 0
     }
@@ -64,7 +62,7 @@ export default class App extends React.Component {
 
   getProducts() {
     let page = this.randomNumber(50);
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?count=10&page=1`, header)
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?count=10&page=${page}`, header)
       .then((data) => {
         this.setState({
           allProducts: data.data
@@ -91,13 +89,13 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} />
-        {/* <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
+        <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} avgRating={this.state.avgRating} />
+        <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
 
         <YourOutfitList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
 
-        <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/> */}
-        {/* <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} /> */}
+        <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/>
+        <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
       </div>
     )
   }
