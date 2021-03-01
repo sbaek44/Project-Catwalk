@@ -29,7 +29,7 @@ const Reviews = (props) => {
   };
 
   let getReviews = () => {
-    let id = props.currentProduct.id || 16092;
+    let id = props.currentProduct.id || 16122;
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/?product_id=${id}&count=100&sort=${selectedParameter}`, header)
       .then((data) => {
         setReviews(data.data);
