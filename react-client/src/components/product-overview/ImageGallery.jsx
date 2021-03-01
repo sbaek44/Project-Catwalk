@@ -6,6 +6,9 @@ export default function ImageGallery(props) {
 
   const { selectedPhoto, selectPhoto, photos } = props;
 
+  // By default, the first image in the set will be displayed as the main image
+  // When switching between styles, the index of the image currently selected should be maintained when the gallery updates for the new style
+
   const [selectedPhotoIndex, changePhotoIndex] = useState(0);
   const [expandedGalleryView, toggleGalleryView] = useState(false); // Conditional render image gallery based on this
 
@@ -13,72 +16,58 @@ export default function ImageGallery(props) {
   // The gallery will be viewable in two states.  A default collapsed view, and an expanded view.
 
 
-  useEffect(() => {
-    if (photos.length) {
-      // selectedPhoto coresponds to full img for selected style already
-      console.log('photo props', photos);
-    }
-  }, [photos])
-
-  const thumbnailCSS = (thumbnail_url) => {
-    return {
-      width: 50,
-      height: 50,
-      margin: 1,
-      backgroundImage: `url(${thumbnail_url})`,
-      backgroundSize: 'contain',
-    }
-  }
-
-  const mainCSS = (main_img_url) => {
-    return {
-      maxWidth: 512,
-      maxHeight: 512,
-      backgroundImage: `url(${main_img_url})`,
-      backgroundSize: 'contain',
-    }
-  }
-
   const handleSelect = (url, idx) => {
     selectPhoto(url);
     changePhotoIndex(idx);
   }
 
+  const scrollForward = () => {
+    if (selectedPhotoIndex === photos.length - 1) {
+      changePhotoIndex(0)
+    } else {
+      let nextIndex = selectedPhotoIndex + 1;
+      changePhotoIndex(nextIndex)
+    }
+  }
+
+  const scrollBack = () => {
+    if (selectedPhotoIndex === 0) {
+      changePhotoIndex(photos.length - 1)
+    } else {
+      let nextIndex = selectedPhotoIndex - 1;
+      changePhotoIndex(nextIndex)
+    }
+  }
+
   return (
     <div className='image-gallery'>
       <div className='gallery-thumbnails-container'>
-        <button>up</button>
+        <button onClick={() => scrollBack()}>↑</button>
         <div className='gallery-thumbnails'>
           {photos.map((photo, i) => {
             return <img
             className='image-thumbnail'
             key={i}
             src={photo.thumbnail_url}
+            // Clicking on any thumbnail should update the main image to match that shown in the thumbnail clicked
             onClick={() => handleSelect(photo.url, i)}
+            // The thumbnail corresponding to the image currently selected as the main image should be highlighted to indicate the current selection.
             id={i === selectedPhotoIndex ? 'selected' : null}
              />
           })}
         </div>
-        <button>down</button>
+        <button onClick={() => scrollForward()}>↓</button>
       </div>
       {photos.length ?  <img className='main-img' src={photos[selectedPhotoIndex].url}></img> : null}
     </div>
   )
 };
 
-// By default, the first image in the set will be displayed as the main image.  This image will match the smaller thumbnail image shown first. done
+// If more than 7 images are in the set for the style selected, the user should be able to scroll forward and backwards through the thumbnails.  An arrow button pointing either direction should allow the customer to scroll through the remaining thumbnails in either direction. done but they should conditional render only when there's more than 7 thumbnails
 
-// When switching between styles, the index of the image currently selected should be maintained when the gallery updates for the new style. done
-
-// Clicking on any thumbnail should update the main image to match that shown in the thumbnail clicked. done
-
-// The thumbnail corresponding to the image currently selected as the main image should be highlighted to indicate the current selection. done
-
-// Clicking on the currently selected thumbnail will have no further effect. done
+// todo
 
 // Up to 7  thumbnail images will be displayed at a given time in the list.
-
-// If more than 7 images are in the set for the style selected, the user should be able to scroll forward and backwards through the thumbnails.   An arrow button pointing either direction should allow the customer to scroll through the remaining thumbnails in either direction.
 
 // Customers should also be able to change to the next or previous image in the set using forward and backwards arrow buttons appearing near the right and left edges of the image, respectively.  Upon clicking the right or left arrow, the main image and the thumbnail highlighted should update.
 
