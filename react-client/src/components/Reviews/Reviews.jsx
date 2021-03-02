@@ -5,8 +5,10 @@ import SortForm from './SortForm.jsx';
 import ReviewsList from './ReviewsList.jsx';
 import PostReviewForm from './PostReviewForm.jsx';
 import Ratings from './Ratings/Ratings.jsx';
+import Search from './Search.jsx';
 
 const Reviews = (props) => {
+  const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [amountOfReviews, addReviews] = useState(2);
@@ -20,6 +22,12 @@ const Reviews = (props) => {
     }
     updateMoreReviewsButton(reviews);
   }, [selectedParameter, amountOfReviews, props.metadata, filters]);
+
+  useEffect(() => {
+    if (searchQuery.length > 2) {
+      searchReviews(searchQuery);
+    }
+  }, [searchQuery]);
 
   const addFilters = (filterToAdd) => {
     let updatedFilters = filters.map((element) => element);
@@ -65,7 +73,7 @@ const Reviews = (props) => {
     updateParam(e.target.value);
   };
 
-  let getReviews = () => {
+  const getReviews = () => {
     let id = props.currentProduct.id;
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/?product_id=${id}&count=100&sort=${selectedParameter}`, header)
       .then((data) => {
@@ -76,6 +84,17 @@ const Reviews = (props) => {
       .catch((err) => console.log(err));
   };
 
+  const searchReviews = (input) => {
+    let searchReviews = [];
+    reviews.filter((review) => {
+      if (review.body.includes(input) || review.summary.includes(input)) {
+        console.log(review.body, input);
+        searchReviews.push(review);
+      }
+    });
+    //setReviews(searchReviews);
+    console.log(searchReviews);
+  };
 
   let lengthOfReviews;
   if (!reviews) {
@@ -95,7 +114,7 @@ const Reviews = (props) => {
     if (arrOfReviews.length > 2) {
       setIsdisplayingMoreReviewsButton(true);
     }
-    if (amountOfReviews > arrOfReviews.length) {
+    if (amountOfReviews >= arrOfReviews.length) {
       setIsdisplayingMoreReviewsButton(false);
     }
   };
@@ -117,7 +136,11 @@ const Reviews = (props) => {
     filters.forEach((e => filterString += ` ${e} star,`));
     filterString = filterString.slice(0, -1);
     filterString += ' ratings.';
-    filterDisplay = <div>{filterString} <button onClick={() => { setFilters([]) }} >REMOVE ALL FILTERS</button> </div>
+    filterDisplay = (
+      <div>{filterString}
+        <button onClick={() => { setFilters([]) }} >REMOVE ALL FILTERS</button>
+      </div>
+    );
   } else {
     filterDisplay = '';
   }
@@ -136,6 +159,11 @@ const Reviews = (props) => {
         reviews, sorted by
         <SortForm updateParamFunc={updateParamFunc} sortParameters={sortParameters} />
         {filterDisplay}
+        <Search
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          searchReviews={searchReviews}
+        />
       </span>
       <ReviewsList avgRating={props.avgRating}
         getReviews={getReviews}
