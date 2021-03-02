@@ -6,7 +6,7 @@ const ReviewsList = (props) => {
     return <div></div>
   }
   return (
-    <div>
+    <div className="reviews-list">
       { props.reviews.slice(0, props.amountOfReviews).map((review, index) => {
         return <ReviewTile avgRating={props.avgRating} getReviews={props.getReviews} review={review} key={index} />
       }) }
