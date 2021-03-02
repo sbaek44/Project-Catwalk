@@ -10,3 +10,23 @@
 .addReviewForm {
   display: inline-block;
 }
+.progress {
+	background-color: #d8d8d8;
+	position: relative;
+	margin: 15px 0;
+	height: 7px;
+	width: 200px;
+}
+
+.progress-done {
+	background: linear-gradient(to left, #000000, #000000);
+	box-shadow: 0 3px 3px -5px #000000, 0 2px 5px #000000;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 0;
+	opacity: 0;
+	transition: 1s ease 0.3s;
+}
