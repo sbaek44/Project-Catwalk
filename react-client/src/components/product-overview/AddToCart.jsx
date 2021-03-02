@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 export default function AddToCart(props) {
 
   const { selectedProduct, selectedStyle, styles, getStyleName } = props;
-  const [size, selectSize] = useState('Select Size');
+  const [size, selectSize] = useState('SELECT SIZE');
   const [qty, selectQty] = useState(1);
   const [outOfStock, warning] = useState(false);
   const [sizeSelectorOpen, toggleSizeSelector] = useState(false);
@@ -83,10 +83,10 @@ export default function AddToCart(props) {
 
   const add = () => {
     // If both a valid size and valid quantity are selected: Clicking this button will add the product to the user’s cart.
-    if (size === 'Select Size') {
+    if (size === 'SELECT SIZE') {
       pleaseSelectSize();
     } else if (qty > 0) {
-      alert(`Added (${qty}) ${selectedProduct.name} in ${getStyleName()} to cart!`)
+      alert(`Added ${qty} ${size} ${selectedProduct.name} in ${getStyleName()} to cart!`)
     }
   }
 
@@ -106,21 +106,22 @@ export default function AddToCart(props) {
             {/* size dropdown should become inactive and read OUT OF STOCK when there's no stock */}
             <div onClick={() => toggleSizeSelector(true)}>
               <select id='size-selector' onChange={(e) => handleSizeSelect(e.target.value)} value={size} disabled={outOfStock} >
-                <option value={'Select Size'}>Select Size</option>
+                <option value={'SELECT SIZE'}>SELECT SIZE</option>
                 {renderSizeOptions()}
               </select>
             </div>
 
             {/* qty dropdown is disabled until a size is selected*/}
-            <select id='qty-selector' onChange={(e) => selectQty(e.target.value)} value={qty} disabled={size === 'Select Size' ? true : false}>
+            <select id='qty-selector' onChange={(e) => selectQty(e.target.value)} value={qty} disabled={size === 'SELECT SIZE' ? true : false}>
               {renderQtyOptions()}
             </select>
           </div>
           <div style={{display: 'flex', flexDirection: 'row'}}>
             {/* add to cart button is hidden when there's no stock */
             }
-            {outOfStock ? null : <button className='add-to-cart-button' onClick={() => add()}>ADD TO BAG +</button>}
-            <button>*</button>
+            {outOfStock ? null : <button className='add-to-cart-button' onClick={() => add()}><span>ADD TO BAG</span><span>+</span></button>}
+            {/* no idea what this button is but its on the mock */}
+            <button className='favorite-button'>☆</button>
           </div>
         </div>
         : null}
@@ -135,7 +136,7 @@ export default function AddToCart(props) {
 // The first dropdown will list all of the available sizes for the currently selected style.
 // Only sizes that are currently in stock for the style selected should be listed.  Sizes not available should not appear within the list.  If there is no remaining stock for the current style, the dropdown should become inactive and read “OUT OF STOCK”.
 // When collapsed, the dropdown should show the currently selected size.
-// By default, the dropdown should show “Select Size”.
+// By default, the dropdown should show “SELECT SIZE”.
 // 1.1.3.2.   Quantity Selector
 // The second dropdown will allow the user to select a quantity of the current style and size to add to their cart.
 // The options in this dropdown will be a sequence of integers ranging from 1 to the maximum.  The maximum selection will be capped by either the quantity of this style and size in stock, or a hard limit of 15.   For example, if the SKU for the selected product style and size has 4 units left in stock, the dropdown will allow choice of 1, 2, 3 or 4.  However if there are 30 units in stock, the dropdown will only present from 1 to 15.

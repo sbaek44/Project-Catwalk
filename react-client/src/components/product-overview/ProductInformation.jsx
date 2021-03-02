@@ -23,19 +23,18 @@ function ProductInformation(props) {
 
 
   return (
-    <div className='product-info-side'>
+    <div>
       {selectedProduct !== null ?
-        <div>
+        <div className='product-info-side'>
           <div className='product-rating'>
             <span style={{marginRight: 5}}>average rating: {avgRating}</span>
             <span style={{textDecoration: 'underline'}}>read all reviews</span>
           </div>
           <div className='product-category'>
-            <p>{selectedProduct.category}</p>
+            {selectedProduct.category}
           </div>
-          <div className='product-name'>
-            <p style={{fontSize: 20, fontWeight: 'bold'}}>    {selectedProduct.name}
-            </p>
+          <div className='product-name' style={{fontSize: 24, fontWeight: 'bold'}}>
+           {selectedProduct.name}
           </div>
           <div className='product-price'>{renderPrice()}</div>
         </div>

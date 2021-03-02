@@ -15,6 +15,50 @@ export default function ImageGallery(props) {
   // The largest piece of the Overview module will be a photo gallery showing images of the product.  The photos presented in this gallery will be specific to the currently selected product style.  Each time a new style is chosen, the gallery will update to show photos corresponding to the new style.   Each style will have a set of images associated with it.  The gallery will allow customers to browse between and zoom in on these photos.
   // The gallery will be viewable in two states.  A default collapsed view, and an expanded view.
 
+  // const between = (target, min, max) => {
+  //   return target >= min && target <= max;
+  // }
+
+  const renderThumbnails = () => {
+    if (photos.length < 7) {
+      return <div className='gallery-thumbnails-container'>
+        <div className='gallery-thumbnails'>
+          {photos.map((photo, i) => {
+            return <img
+              className='image-thumbnail'
+              key={i}
+              src={photo.thumbnail_url}
+              // Clicking on any thumbnail should update the main image to match that shown in the thumbnail clicked
+              onClick={() => handleSelect(photo.url, i)}
+              // The thumbnail corresponding to the image currently selected as the main image should be highlighted to indicate the current selection.
+              id={i === selectedPhotoIndex ? 'selected' : null}
+            />
+          })}
+        </div>
+      </div>
+    } else {
+      return <div className='gallery-thumbnails-container'>
+        <button className='arrow-button' onClick={() => scrollBack()}>↑</button>
+
+        {/* Up to 7  thumbnail images will be displayed at a given time in the list. this isnt implemented  yet*/}
+        <div className='gallery-thumbnails'>
+          {photos.map((photo, i) => {
+            return <img
+              className='image-thumbnail'
+              key={i}
+              src={photo.thumbnail_url}
+              // Clicking on any thumbnail should update the main image to match that shown in the thumbnail clicked
+              onClick={() => handleSelect(photo.url, i)}
+              // The thumbnail corresponding to the image currently selected as the main image should be highlighted to indicate the current selection.
+              id={i === selectedPhotoIndex ? 'selected' : null}
+            />
+          })}
+        </div>
+
+        <button className='arrow-button' onClick={() => scrollForward()}>↓</button>
+      </div>
+    }
+  }
 
   const handleSelect = (url, idx) => {
     selectPhoto(url);
@@ -23,10 +67,10 @@ export default function ImageGallery(props) {
 
   const scrollForward = () => {
     if (selectedPhotoIndex === photos.length - 1) {
-      changePhotoIndex(0)
+      changePhotoIndex(0);
     } else {
       let nextIndex = selectedPhotoIndex + 1;
-      changePhotoIndex(nextIndex)
+      changePhotoIndex(nextIndex);
     }
   }
 
@@ -43,35 +87,19 @@ export default function ImageGallery(props) {
     <div className='image-gallery-outer'>
       {photos.length ?
         <div className='image-gallery'>
-          <div className='gallery-thumbnails-container'>
-            <button onClick={() => scrollBack()}>↑</button>
-            <div className='gallery-thumbnails'>
-              {photos.map((photo, i) => {
-                return <img
-                  className='image-thumbnail'
-                  key={i}
-                  src={photo.thumbnail_url}
-                  // Clicking on any thumbnail should update the main image to match that shown in the thumbnail clicked
-                  onClick={() => handleSelect(photo.url, i)}
-                  // The thumbnail corresponding to the image currently selected as the main image should be highlighted to indicate the current selection.
-                  id={i === selectedPhotoIndex ? 'selected' : null}
-                />
-              })}
-            </div>
-            <button onClick={() => scrollForward()}>↓</button>
-          </div>
+          {renderThumbnails()}
           <img className='main-img' src={photos[selectedPhotoIndex].url}></img>
         </div>
         : null}
+      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+        {selectedPhotoIndex > 0 ? <button className='arrow-button' onClick={() => scrollBack()}>←</button> : null}
+        {selectedPhotoIndex < photos.length - 1 ? <button className='arrow-button' onClick={() => scrollForward()}>→</button> : null}
+      </div>
     </div>
   )
 };
 
-// If more than 7 images are in the set for the style selected, the user should be able to scroll forward and backwards through the thumbnails.  An arrow button pointing either direction should allow the customer to scroll through the remaining thumbnails in either direction. done but they should conditional render only when there's more than 7 thumbnails
 
-// todo
-
-// Up to 7  thumbnail images will be displayed at a given time in the list.
 
 // Customers should also be able to change to the next or previous image in the set using forward and backwards arrow buttons appearing near the right and left edges of the image, respectively.  Upon clicking the right or left arrow, the main image and the thumbnail highlighted should update.
 
