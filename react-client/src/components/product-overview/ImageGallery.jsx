@@ -1,23 +1,39 @@
 import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-// import header from '../../../../config.js';
 
-export default function ImageGallery(props) {
-
-  const { selectPhoto, photos } = props;
+export default function ImageGallery({ selectPhoto, photos }) {
 
   // By default, the first image in the set will be displayed as the main image
   // When switching between styles, the index of the image currently selected should be maintained when the gallery updates for the new style
 
   const [selectedPhotoIndex, changePhotoIndex] = useState(0);
-  const [expandedGalleryView, toggleGalleryView] = useState(false); // Conditional render image gallery based on this
+  // note - some larger imgs currently bleed out of overview component, need to somehow standardize the image sizes and/or the size of the gallery component itself
 
-  // The largest piece of the Overview module will be a photo gallery showing images of the product.  The photos presented in this gallery will be specific to the currently selected product style.  Each time a new style is chosen, the gallery will update to show photos corresponding to the new style.   Each style will have a set of images associated with it.  The gallery will allow customers to browse between and zoom in on these photos.
   // The gallery will be viewable in two states.  A default collapsed view, and an expanded view.
+  const [expandedGalleryView, toggleGalleryView] = useState(false);
 
-  // const between = (target, min, max) => {
-  //   return target >= min && target <= max;
-  // }
+  // useEffect(() => {
+  //   console.log(selectedPhotoIndex)
+  // }, [selectedPhotoIndex])
+
+
+  const between = (target, min, max) => {
+    return target >= min && target <= max;
+  }
+
+  // this shows the correct number of thumbnails but is still a bit buggy with what thumbnails display, even though you can scroll through them fine with the arrows. i think the logic in the else block is off
+  const shouldShowThumbnail = (idx) => {
+    if (selectedPhotoIndex + 6 < photos.length) {
+      return between(idx, selectedPhotoIndex, selectedPhotoIndex + 6)
+    } else {
+      let diff = Math.abs((selectedPhotoIndex + 6) - photos.length)
+      if (between(idx, 0, diff)) {
+        return true;
+      } else {
+        return between(idx, selectedPhotoIndex, photos.length)
+      }
+    }
+  }
+
 
   const renderThumbnails = () => {
     if (photos.length < 7) {
@@ -38,24 +54,25 @@ export default function ImageGallery(props) {
       </div>
     } else {
       return <div className='gallery-thumbnails-container'>
-        <button className='arrow-button' onClick={() => scrollBack()}>↑</button>
-
-        {/* Up to 7  thumbnail images will be displayed at a given time in the list. this isnt implemented  yet*/}
+        {/* Up to 7  thumbnail images will be displayed at a given time in the list. this is implemented, but some thumbnails have the wrong image even though scrolling through them works properly. todo */}
         <div className='gallery-thumbnails'>
+          <div className='arrow-container'>
+            {selectedPhotoIndex > 0 ? <button className='arrow-button' onClick={() => scrollBack()}>&#8963;</button> : null}
+          </div>
           {photos.map((photo, i) => {
             return <img
-              className='image-thumbnail'
+              className={shouldShowThumbnail(i) ? 'image-thumbnail' : 'image-thumbnail-hidden'}
               key={i}
               src={photo.thumbnail_url}
-              // Clicking on any thumbnail should update the main image to match that shown in the thumbnail clicked
               onClick={() => handleSelect(photo.url, i)}
-              // The thumbnail corresponding to the image currently selected as the main image should be highlighted to indicate the current selection.
               id={i === selectedPhotoIndex ? 'selected' : null}
             />
           })}
+          <div className='arrow-container'>
+            {selectedPhotoIndex < photos.length - 1 ? <button className='arrow-button' onClick={() => scrollForward()}>&#8964;</button> : null}
+          </div>
         </div>
 
-        <button className='arrow-button' onClick={() => scrollForward()}>↓</button>
       </div>
     }
   }
@@ -89,12 +106,16 @@ export default function ImageGallery(props) {
         <div className='image-gallery'>
           {renderThumbnails()}
           <img className='main-img' src={photos[selectedPhotoIndex].url}></img>
+          <div>
+          {selectedPhotoIndex > 0 ?
+            <button id='left' className='arrow-button' onClick={() => scrollBack()}>&#x2190;</button>
+            : null}
+          {selectedPhotoIndex < photos.length - 1 ?
+            <button id='right' className='arrow-button' onClick={() => scrollForward()}>&#x2192;</button>
+            : null}
+          </div>
         </div>
         : null}
-      <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-        {selectedPhotoIndex > 0 ? <button className='arrow-button' onClick={() => scrollBack()}>←</button> : null}
-        {selectedPhotoIndex < photos.length - 1 ? <button className='arrow-button' onClick={() => scrollForward()}>→</button> : null}
-      </div>
     </div>
   )
 };

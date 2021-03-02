@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 
-function ProductDescription(props) {
-
-  const { selectedProduct } = props;
+function ProductDescription({selectedProduct}) {
 
   // think i saw that some products have a 'features' property, those should go on here where the checkmarks are in mock (bottom-right)
 

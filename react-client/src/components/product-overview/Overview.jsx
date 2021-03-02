@@ -11,7 +11,8 @@ import StyleSelector from './StyleSelector.jsx';
 
 export default function Overview(props) {
 
-  // in App, use product page 1 and selectedItemIndex 2 to demo Overview component where there are actually many styles/images; a lot of them only have one image per style
+  // use product page 1 selectedItemIndex 9 (shoes) to demo image gallery arrows (which only appear when there's more than 7 thumbnails)
+
   const {products, selectedItemIndex, avgRating} = props;
 
   const [selectedStyle, selectStyle] = useState(0);
@@ -22,7 +23,7 @@ export default function Overview(props) {
 
   return (
     <div className='overview'>
-      <ImageGallery selectedPhoto={selectedPhoto} selectPhoto={selectPhoto} photos={photos} />
+      <ImageGallery selectedPhoto={selectedPhoto} selectPhoto={selectPhoto} photos={photos} selectedProduct={products[selectedItemIndex] || null} />
       <div className='right-side'>
         <ProductInformation selectedProduct={products[selectedItemIndex] || null} selectedStyle={selectedStyle} price={price} sale={sale} avgRating={avgRating} />
         <StyleSelector selectedProduct={products[selectedItemIndex] || null} selectedStyle={selectedStyle} selectStyle={selectStyle} updatePrice={updatePrice} updateSale={updateSale} selectPhoto={selectPhoto} updatePhotos={updatePhotos} />
