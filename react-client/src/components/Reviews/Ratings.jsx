@@ -5,7 +5,7 @@ import RatingsBreakdownList from './RatingsBreakdownList.jsx';
 
 const Ratings = (props) => {
   const [recommendedPercent, setRecommendedPercent] = useState(0);
-  const [percentagePerRating, setPercentagePerRating] = useState(false);
+  const [percentagePerRating, setPercentagePerRating] = useState([]);
   useEffect(() => {
     if (props.metadata) {
       findRecommendedPercent();
@@ -15,7 +15,10 @@ const Ratings = (props) => {
 
 
   const findPercentagePerRating = () => {
-    let percentages = {};
+    let percentages = [0, 0, 0, 0, 0];
+    if (props.avgRating === 0) {
+      percentages.push(0)
+    }
     let ratings = props.metadata.ratings;
        let totalVotes = 0;
     for (let scoreKey in ratings) {
@@ -24,7 +27,7 @@ const Ratings = (props) => {
 
     for (let key in ratings) {
       let percentage = Math.round((Number(ratings[key]) / totalVotes) * 100);
-      percentages[key] = percentage;
+      percentages[key] = percentage
     }
     setPercentagePerRating(percentages);
   };
