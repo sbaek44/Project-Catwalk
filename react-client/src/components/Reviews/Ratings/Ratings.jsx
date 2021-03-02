@@ -68,9 +68,7 @@ const Ratings = (props) => {
         % of reviewers recommend this product
       </div>
       <RatingsBreakdownList
-        addFilters={props.addFilters}
-        removeFilters={props.removeFilters}
-        filterReviews={props.filterReviews}
+        manipulateFilters={props.manipulateFilters}
         percentagePerRating={percentagePerRating} />
       <CharacteristicsList
         characteristics={props.metadata.characteristics} />

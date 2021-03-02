@@ -1,15 +1,13 @@
 import React from 'react';
 import RatingsBreakdownElement from './RatingsBreakdownElement.jsx';
 
-const RatingsBreakdownList = ({ percentagePerRating, addFilters, removeFilters, filterReviews }) => (
+const RatingsBreakdownList = ({ percentagePerRating, manipulateFilters }) => (
     <div>
       { percentagePerRating.map((percentage, i) => {
         if (i > 0) {
           return (
             <RatingsBreakdownElement
-              addFilters={addFilters}
-              removeFilters={removeFilters}
-              filterReviews={filterReviews}
+            manipulateFilters={manipulateFilters}
               key={i} score={i} percentage={percentage} />
           )
         }
