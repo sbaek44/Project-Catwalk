@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import header from '../../../../config.js';
+import axios from 'axios';
 
 export default function AddToCart(props) {
 
@@ -43,24 +45,23 @@ export default function AddToCart(props) {
     })
   }
 
-  const renderQtyOptions = () => {
-
-    function getQty() {
-      // find selected style id in the styles-options array
-      for (let option of styles) {
-        if (option.style_id === selectedStyle) {
-          for (let each in option.skus) {
-            // find currently selected size of the style
-            if (option.skus[each].size === size) {
-              // use that quantity
-              return option.skus[each].quantity;
-            }
+  function getQtyOrEntireSKU(sku = null) {
+    // find selected style id in the styles-options array
+    for (let option of styles) {
+      if (option.style_id === selectedStyle) {
+        for (let each in option.skus) {
+          // find currently selected size of the style
+          if (option.skus[each].size === size) {
+            // use that quantity
+            return sku ? each : option.skus[each].quantity;
           }
         }
       }
     }
+  }
 
-    let qtyOptions = getQty()
+  const renderQtyOptions = () => {
+    let qtyOptions = getQtyOrEntireSKU()
 
     // hard limit 15
     if (qtyOptions > 15) {
@@ -86,7 +87,20 @@ export default function AddToCart(props) {
     if (size === 'SELECT SIZE') {
       pleaseSelectSize();
     } else if (qty > 0) {
-      alert(`Added ${qty} ${size} ${selectedProduct.name} in ${getStyleName()} to cart!`)
+      let cart = {
+        sku_id: Number(getQtyOrEntireSKU('sku')),
+      };
+      axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/cart', cart, header)
+        .then(() => {
+          axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/cart', header)
+            .then((result) => {
+              console.log('cart:', result.data);
+            })
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+      alert(`Added (${qty}) size ${size} ${selectedProduct.name} in ${getStyleName()} to cart!`)
     }
   }
 
@@ -100,24 +114,24 @@ export default function AddToCart(props) {
   return (
     <div className='add-to-cart'>
       {styles.length && selectedStyle !== 0 && selectedProduct ?
-        <div style={{display: 'flex', flexDirection: 'column'}}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           <span className='add-to-cart-message'>{message}</span>
-          <div style={{display: 'flex', flexFlow: 'row-nowrap',}}>
+          <div style={{ display: 'flex', flexFlow: 'row-nowrap', }}>
 
             {/* size dropdown should become inactive and read OUT OF STOCK when there's no stock */}
             <div onClick={() => toggleSizeSelector(true)}>
               <select id='size-selector' onChange={(e) => handleSizeSelect(e.target.value)} value={size} disabled={outOfStock} >
-                <option value={'SELECT SIZE'}>SELECT SIZE</option>
-                {renderSizeOptions()}
+                {outOfStock ? <option>OUT OF STOCK</option> : <option value={'SELECT SIZE'}>SELECT SIZE</option>}
+                {outOfStock ? null : renderSizeOptions()}
               </select>
             </div>
 
             {/* qty dropdown is disabled until a size is selected*/}
             <select id='qty-selector' onChange={(e) => selectQty(e.target.value)} value={qty} disabled={size === 'SELECT SIZE' ? true : false}>
-              {size === 'SELECT SIZE' ? <option>-</option> : renderQtyOptions() }
+              {size === 'SELECT SIZE' ? <option>-</option> : renderQtyOptions()}
             </select>
           </div>
-          <div style={{display: 'flex', flexDirection: 'row'}}>
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
             {/* add to cart button is hidden when there's no stock */
             }
             {outOfStock ? null : <button className='add-to-cart-button' onClick={() => add()}><span>ADD TO BAG</span><span>+</span></button>}
