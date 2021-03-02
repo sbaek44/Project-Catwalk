@@ -111,6 +111,17 @@ const Reviews = (props) => {
     postForm = <PostReviewForm review_id={props.currentProduct.id} />;
   }
 
+  let filterDisplay;
+  if (filters.length > 1) {
+    let filterString = 'Now displaying items with ';
+    filters.forEach((e => filterString += ` ${e} star,`));
+    filterString = filterString.slice(0, -1);
+    filterString += ' ratings.';
+    filterDisplay = <div>{filterString} <button onClick={() => { setFilters([]) }} >REMOVE ALL FILTERS</button> </div>
+  } else {
+    filterDisplay = '';
+  }
+
   return (
     <div>
       {postForm}
@@ -124,6 +135,7 @@ const Reviews = (props) => {
         {lengthOfReviews}
         reviews, sorted by
         <SortForm updateParamFunc={updateParamFunc} sortParameters={sortParameters} />
+        {filterDisplay}
       </span>
       <ReviewsList avgRating={props.avgRating}
         getReviews={getReviews}
