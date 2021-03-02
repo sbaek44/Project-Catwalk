@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import header from '../../../../config.js';
 import axios from 'axios';
 
@@ -21,14 +21,20 @@ function ProductInformation(props) {
     }
   }
 
+  const scrollToReviews = () => {
+    document.querySelector('.reviews-list').scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+
 
   return (
     <div>
       {selectedProduct !== null ?
         <div className='product-info-side'>
           <div className='product-rating'>
-            <span style={{marginRight: 5}}>average rating: {avgRating}</span>
-            <span style={{textDecoration: 'underline'}}>read all reviews</span>
+            <span style={{marginRight: 5}}>Rating: {avgRating}</span>
+            <span id="reviews-link" style={{textDecoration: 'underline'}} onClick={() => scrollToReviews()}>Read all reviews</span>
           </div>
           <div className='product-category'>
             {selectedProduct.category}
