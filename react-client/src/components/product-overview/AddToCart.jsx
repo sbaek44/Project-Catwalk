@@ -92,6 +92,7 @@ export default function AddToCart(props) {
 
   const handleSizeSelect = (choice) => {
     selectSize(choice);
+    selectQty(1);
     toggleSizeSelector(false);
     changeMessage('');
   }
@@ -113,7 +114,7 @@ export default function AddToCart(props) {
 
             {/* qty dropdown is disabled until a size is selected*/}
             <select id='qty-selector' onChange={(e) => selectQty(e.target.value)} value={qty} disabled={size === 'SELECT SIZE' ? true : false}>
-              {renderQtyOptions()}
+              {size === 'SELECT SIZE' ? <option>-</option> : renderQtyOptions() }
             </select>
           </div>
           <div style={{display: 'flex', flexDirection: 'row'}}>
