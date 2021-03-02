@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import header from '../../../../config.js';
+import header from '../../../../../config.js';
 import RatingsBreakdownList from './RatingsBreakdownList.jsx';
+import CharacteristicsList from './Characteristics/CharacteristicsList.jsx';
 
 const Ratings = (props) => {
   const [recommendedPercent, setRecommendedPercent] = useState(0);
@@ -59,7 +60,6 @@ const Ratings = (props) => {
         RATINGS
         & REVIEWS
       </span>
-      <RatingsBreakdownList percentagePerRating={percentagePerRating} />
       <div>
         {props.avgRating}
       </div>
@@ -67,6 +67,8 @@ const Ratings = (props) => {
         {recommendedPercent}
         % of reviewers recommend this product
       </div>
+      <RatingsBreakdownList percentagePerRating={percentagePerRating} />
+      <CharacteristicsList characteristics={props.metadata.characteristics} />
     </div>
   );
 };

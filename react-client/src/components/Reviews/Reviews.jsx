@@ -4,7 +4,7 @@ import header from '../../../../config.js';
 import SortForm from './SortForm.jsx';
 import ReviewsList from './ReviewsList.jsx';
 import PostReviewForm from './PostReviewForm.jsx';
-import Ratings from './Ratings.jsx';
+import Ratings from './Ratings/Ratings.jsx';
 
 const Reviews = (props) => {
   const [reviews, setReviews] = useState([]);
@@ -84,7 +84,7 @@ const Reviews = (props) => {
         reviews, sorted by
         <SortForm updateParamFunc={updateParamFunc} sortParameters={sortParameters} />
       </span>
-      <ReviewsList getReviews={getReviews} reviews={reviews.results} amountOfReviews={amountOfReviews} />
+      <ReviewsList avgRating={props.avgRating} getReviews={getReviews} reviews={reviews.results} amountOfReviews={amountOfReviews} />
       <span>
          {moreReviewsButton}
          <button onClick={togglePostForm} >ADD A REVIEW +</button>

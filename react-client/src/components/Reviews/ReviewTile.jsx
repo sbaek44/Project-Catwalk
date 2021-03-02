@@ -46,7 +46,7 @@ const ReviewTile = (props) => {
 
   return (
     <div className="reviewTile">
-      *****
+      {props.avgRating} stars
       <div>
         {dateAndUser}
       </div>
