@@ -7,7 +7,7 @@ import PostReviewForm from './PostReviewForm.jsx';
 import Ratings from './Ratings/Ratings.jsx';
 
 const Reviews = (props) => {
-  const [filters, setFilters] = useState(0);
+  const [filters, setFilters] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [amountOfReviews, addReviews] = useState(2);
   const [sortParameters] = useState(['relevance', 'newest', 'helpful']);
@@ -19,13 +19,16 @@ const Reviews = (props) => {
       getReviews();
     }
     updateMoreReviewsButton(reviews);
-  }, [selectedParameter, amountOfReviews, props.metadata, filters]);
+  }, [selectedParameter, amountOfReviews, props.metadata]);
+
+  useEffect(() => {
+    filterReviews()
+  }, [filters]);
 
   const addFilters = (filterToAdd) => {
-    console.log('hello from reviews.jsx!')
-    // let updatedFilters = filters.map((element) => element);
-    // updatedFilters.push(filterToAdd);
-    // setFilters(updatedFilters);
+    let updatedFilters = filters.map((element) => element);
+    updatedFilters.push(filterToAdd);
+    setFilters(updatedFilters);
   };
   const removeFilters = (filterToRemove) => {
     console.log('hello from reviews.jsx!')
@@ -37,12 +40,16 @@ const Reviews = (props) => {
     // setFilters(updatedFilters);
   };
   const filterReviews = () => {
-    let filteredReviews = reviews.results.filter((review) => {
+    console.log(filters);
+    let filteredReviews = [];
+    reviews.filter((review) => {
       if (filters.includes(review.rating)) {
-        return review;
+        console.log(review);
+        // filteredReviews.push(review);
       }
     });
-
+    setReviews(filteredReviews);
+    console.log(reviews)
   };
 
   const addMoreReviews = () => {

@@ -15,7 +15,6 @@ const RatingsBreakdownList = ({ percentagePerRating, addFilters, removeFilters, 
         }
       }) }
     </div>
-)
-
+);
 
 export default RatingsBreakdownList;
