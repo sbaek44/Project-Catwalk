@@ -67,8 +67,13 @@ const Ratings = (props) => {
         {recommendedPercent}
         % of reviewers recommend this product
       </div>
-      <RatingsBreakdownList percentagePerRating={percentagePerRating} />
-      <CharacteristicsList characteristics={props.metadata.characteristics} />
+      <RatingsBreakdownList
+        addFilters={props.addFilters}
+        removeFilters={props.removeFilters}
+        filterReviews={props.filterReviews}
+        percentagePerRating={percentagePerRating} />
+      <CharacteristicsList
+        characteristics={props.metadata.characteristics} />
     </div>
   );
 };
