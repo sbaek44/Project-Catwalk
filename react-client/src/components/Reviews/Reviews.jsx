@@ -19,11 +19,7 @@ const Reviews = (props) => {
       getReviews();
     }
     updateMoreReviewsButton(reviews);
-  }, [selectedParameter, amountOfReviews, props.metadata]);
-
-  useEffect(() => {
-    filterReviews()
-  }, [filters]);
+  }, [selectedParameter, amountOfReviews, props.metadata, filters]);
 
   const addFilters = (filterToAdd) => {
     let updatedFilters = filters.map((element) => element);
@@ -31,25 +27,34 @@ const Reviews = (props) => {
     setFilters(updatedFilters);
   };
   const removeFilters = (filterToRemove) => {
-    console.log('hello from reviews.jsx!')
-    // let updatedFilters = filters.map((element) => {
-    //   if (element !== filterToRemove) {
-    //     return element;
-    //   }
-    // });
-    // setFilters(updatedFilters);
-  };
-  const filterReviews = () => {
-    console.log(filters);
-    let filteredReviews = [];
-    reviews.filter((review) => {
-      if (filters.includes(review.rating)) {
-        console.log(review);
-        // filteredReviews.push(review);
+    let updatedFilters = [];
+    filters.map((element) => {
+      if (element !== filterToRemove) {
+        updatedFilters.push(element);
       }
     });
+    setFilters(updatedFilters);
+  };
+
+  const manipulateFilters = (filter) => {
+    if (filters.includes(filter)) {
+      removeFilters(filter);
+    } else {
+      addFilters(filter);
+    }
+  };
+
+  const filterReviews = (untouchedReviews) => {
+    let filteredReviews = [];
+    untouchedReviews.filter((review) => {
+      if (filters.includes(review.rating)) {
+        filteredReviews.push(review);
+      }
+    });
+    if (filteredReviews.length === 0) {
+      return;
+    }
     setReviews(filteredReviews);
-    console.log(reviews)
   };
 
   const addMoreReviews = () => {
@@ -66,6 +71,7 @@ const Reviews = (props) => {
       .then((data) => {
         setReviews(data.data.results);
         updateMoreReviewsButton(data.data.results);
+        filterReviews(data.data.results);
       })
       .catch((err) => console.log(err));
   };
@@ -110,9 +116,7 @@ const Reviews = (props) => {
       {postForm}
       <div className="ratings">
         <Ratings
-          addFilters={addFilters}
-          removeFilters={removeFilters}
-          filterReviews={filterReviews}
+          manipulateFilters={manipulateFilters}
           avgRating={props.avgRating}
           metadata={props.metadata}/>
       </div>
