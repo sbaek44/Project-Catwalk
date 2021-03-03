@@ -3,6 +3,7 @@ import axios from 'axios';
 import header from '../../../../../config.js';
 import RatingsBreakdownList from './RatingsBreakdownList.jsx';
 import CharacteristicsList from './Characteristics/CharacteristicsList.jsx';
+import Stars from './Stars.jsx';
 
 const Ratings = (props) => {
   const [recommendedPercent, setRecommendedPercent] = useState(0);
@@ -60,8 +61,8 @@ const Ratings = (props) => {
         RATINGS
         & REVIEWS
       </span>
-      <div>
-        {props.avgRating}
+      <div style={{display: 'flex', flexDirection: 'rows'}} >
+       <div id="average-rating-in-ratings" > {props.avgRating} </div>  <Stars avgRating={props.avgRating} />
       </div>
       <div>
         {recommendedPercent}
