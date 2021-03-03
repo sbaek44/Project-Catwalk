@@ -11,22 +11,16 @@ export default function ImageGallery({ selectPhoto, photos }) {
   // The gallery will be viewable in two states.  A default collapsed view, and an expanded view.
   const [expandedGalleryView, toggleGalleryView] = useState(false);
 
-  // useEffect(() => {
-  //   console.log(selectedPhotoIndex)
-  // }, [selectedPhotoIndex])
-
-
   const between = (target, min, max) => {
     return target >= min && target <= max;
   }
 
-  // this shows the correct number of thumbnails but is still a bit buggy with what thumbnails display, even though you can scroll through them fine with the arrows. i think the logic in the else block is off
   const shouldShowThumbnail = (idx) => {
     if (selectedPhotoIndex + 6 < photos.length) {
       return between(idx, selectedPhotoIndex, selectedPhotoIndex + 6)
     } else {
-      let diff = Math.abs((selectedPhotoIndex + 6) - photos.length)
-      if (between(idx, 0, diff)) {
+      let diff = Math.abs((selectedPhotoIndex + 7) - photos.length)
+      if (between(idx, selectedPhotoIndex - diff, photos.length)) {
         return true;
       } else {
         return between(idx, selectedPhotoIndex, photos.length)
