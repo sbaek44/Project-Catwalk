@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import header from '../../../../config.js';
 import ReviewPhotos from './ReviewPhotos.jsx';
 import axios from 'axios';
 
 const ReviewTile = (props) => {
   const date = new Date(props.review.date).toUTCString().slice(4, -12);
+  const [hasMarked, setHasMarked] = useState(false);
   let day = date.slice(0,3);
   let month = date.slice(-9, -6);
   let year = date.slice(-5);
@@ -29,13 +30,29 @@ const ReviewTile = (props) => {
   };
 
   const markAsHelpful = () => {
-    reviewBody.helpfulness += 1
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${props.review.review_id}/helpful`, reviewBody, header)
-      .then(() => {
-        props.getReviews();
-      })
-      .catch((err) => console.log(err));
+    if (!hasMarked) {
+      reviewBody.helpfulness += 1;
+      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${props.review.review_id}/helpful`, reviewBody, header)
+        .then(() => {
+          props.getReviews();
+        })
+        .catch((err) => console.log(err));
+      setHasMarked(true);
+    }
   };
+
+  const markAsUnHelpful = () => {
+    if (!hasMarked) {
+      reviewBody.helpfulness -= 1;
+      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${props.review.review_id}/helpful`, reviewBody, header)
+        .then(() => {
+          props.getReviews();
+        })
+        .catch((err) => console.log(err));
+      setHasMarked(true);
+    }
+  };
+
   const reportReview = () => {
     axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${props.review.review_id}/report`, reviewBody, header)
       .then(() => {
@@ -46,23 +63,22 @@ const ReviewTile = (props) => {
 
   return (
     <div className="reviewTile">
-      *****
-      <div>
+      <div className="stars"> {props.avgRating} stars</div>
+      <div id="userName">
         {dateAndUser}
       </div>
       <div className="reviewSummary"> {props.review.summary} </div>
       <div> {props.review.body} </div>
       <ReviewPhotos photos={props.review.photos} />
       {form}
-      <div>
-        <span>
-          Helpful?
-          <div onClick={markAsHelpful}>Yes</div>
-        </span>
-        (
-          {props.review.helpfulness}
-        )
-        |
+        <div style={{display: 'flex', flexDirection: 'row'}}>
+            Helpful?
+            <div onClick={markAsHelpful}>Yes</div>
+            <div onClick={markAsUnHelpful} >No</div>
+          (
+            {props.review.helpfulness}
+          )
+          |
         <div onClick={reportReview}>report</div>
       </div>
     </div>

@@ -7,14 +7,13 @@ import YourOutfitList from './related items/YourOutfitList.jsx'
 import Reviews from './Reviews/Reviews.jsx';
 import QA from './Questions-Answers/QA.jsx'
 
-
 export default class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       allProducts: [],
       selectedItemIndex: 0,
-      ratings: '',
+      metadata: '',
       avgRating: 0
     }
     this.getProducts = this.getProducts.bind(this);
@@ -29,7 +28,7 @@ export default class App extends React.Component {
 
   findAvgRating() {
 
-    const ratingsData = this.state.ratings
+    const ratingsData = this.state.metadata.ratings
     if (Object.keys(ratingsData).length === 0) {
       return '';
     }
@@ -78,7 +77,7 @@ export default class App extends React.Component {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/meta?product_id=${id}`, header)
       .then((result) => {
         this.setState({
-          ratings: result.data.ratings
+          metadata: result.data
         }, () => this.findAvgRating());
       })
       .catch((err) => {
@@ -89,12 +88,11 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} />
+        <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} avgRating={this.state.avgRating} />
         <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
-
         <YourOutfitList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
         <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/>
-        {/* <Reviews currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} /> */}
+        <Reviews avgRating={this.state.avgRating} metadata={this.state.metadata} currentProduct={this.state.allProducts[this.state.selectedItemIndex]} />
       </div>
     )
   }

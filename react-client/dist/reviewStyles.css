@@ -10,3 +10,43 @@
 .addReviewForm {
   display: inline-block;
 }
+.progress {
+	background-color: #d8d8d8;
+	position: relative;
+	margin: 15px 0;
+	height: 7px;
+	width: 200px;
+}
+
+.progress-done {
+	background: linear-gradient(to left, lightgreen, lightgreen);
+	box-shadow: 0 3px 3px -5px #000000, 0 2px 5px #000000;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 0;
+	opacity: 0;
+}
+.characteristicsTriple {
+	background-color: #d8d8d8;
+	position: relative;
+	margin: 2px;
+	height: 7px;
+	width: 79px;
+}
+
+.ratings-reviews {
+	display: flex;
+	flex-direction: row;
+}
+.reviewTile {
+	border-bottom: 1px solid black;
+	padding: 3%;
+
+}
+.reviewSummary {
+	font-weight: bold;
+	font-size: larger;
+}

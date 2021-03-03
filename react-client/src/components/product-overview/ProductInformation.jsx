@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import header from '../../../../config.js';
 import axios from 'axios';
 
 function ProductInformation(props) {
 
-  const { selectedProduct, selectedStyle, price, sale } = props;
+  const { selectedProduct, selectedStyle, price, sale, avgRating } = props;
 
   // todo: star rating
 
@@ -21,21 +21,26 @@ function ProductInformation(props) {
     }
   }
 
+  const scrollToReviews = () => {
+    document.querySelector('.reviews-list').scrollIntoView({
+      behavior: 'smooth'
+    });
+  }
+
 
   return (
-    <div className='product-info-side'>
+    <div>
       {selectedProduct !== null ?
-        <div>
+        <div className='product-info-side'>
           <div className='product-rating'>
-            <span>*****</span>
-            <span>read all reviews</span>
+            <span style={{marginRight: 5}}>Rating: {avgRating}</span>
+            <span id="reviews-link" style={{textDecoration: 'underline'}} onClick={() => scrollToReviews()}>Read all reviews</span>
           </div>
           <div className='product-category'>
-            <p>{selectedProduct.category}</p>
+            {selectedProduct.category}
           </div>
-          <div className='product-name'>
-            <p style={{fontSize: 20, fontWeight: 'bold'}}>    {selectedProduct.name}
-            </p>
+          <div className='product-name' style={{fontSize: 24, fontWeight: 'bold'}}>
+           {selectedProduct.name}
           </div>
           <div className='product-price'>{renderPrice()}</div>
         </div>

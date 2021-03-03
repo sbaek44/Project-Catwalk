@@ -23,7 +23,11 @@ function RelatedItemsElements(props) {
 
   return (
     <div>
-      <RelatedItemCard stylesData={stylesData} dataArr={dataArr} relatedItemsIds={props.relatedItemsIds} />
+      <RelatedItemCard
+        stylesData={stylesData}
+        dataArr={dataArr}
+        currentProduct={props.currentProduct}
+        relatedItemsIds={props.relatedItemsIds} />
     </div>
   )
 }

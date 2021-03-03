@@ -22,7 +22,9 @@ function RelatedItemsList(props) {
   return (
     <div>
       <h3>RELATED PRODUCTS</h3>
-      <RelatedItemsElements  relatedItemsIds={relatedItemsIds} />
+      <RelatedItemsElements
+        relatedItemsIds={relatedItemsIds}
+        currentProduct={props.currentProduct} />
     </div>
   )
 }
