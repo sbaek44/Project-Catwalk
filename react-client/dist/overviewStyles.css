@@ -3,6 +3,7 @@
   height: 400px;
   display: flex;
   flex-flow: row wrap;
+  margin-bottom: 15%; /* getting attacked by sarah's carousel without this huge margin...what */
 }
 
 /* ImageGallery.jsx */
@@ -150,6 +151,7 @@
 .product-info-side {
   display: flex;
   flex-direction: column;
+  padding-top: 10px;
 }
 
 .price {
@@ -182,11 +184,12 @@
 #reviews-link {
   text-decoration: underline;
   margin-left: 10px;
+  transition-duration: 0.25s;
 }
 
 #reviews-link:hover {
   cursor: pointer;
-  font-weight: bold;
+  color: lightgreen;
 }
 
 /* StyleSelector.jsx */
@@ -235,6 +238,10 @@
   background-color: white;
   border: 1px solid black;
   transition-duration: 0.25s;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
 
 .checkmark#on {
@@ -268,7 +275,7 @@
   background-color: white;
   width: 220px;
   height: 40px;
-  font-size: 18px;
+  font-size: 1.5rem;
   padding: 2%;
   margin-right: 10px;
   transition-duration: 0.25s;
@@ -322,9 +329,30 @@
 .product-info-bottom {
   width: 100%;
   display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 0.1%;
+  border-bottom: 1px solid gray;
+}
+
+.slogan-description-container {
+  display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  padding-left: 0.1%;
+  width: 75%;
+  padding: 0.1%;
+  margin-right: 1%;
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  padding: 0.1%;
+  font-size: 18px;
+}
+
+.feature-list li {
+  list-style-type: none;
 }
 
 .product-slogan {
@@ -336,5 +364,4 @@
 .product-description {
   font-size: 24px;
   margin-bottom: 10px;
-  border-bottom: 1px solid gray;
 }

@@ -6,14 +6,19 @@ export default function ImageGallery({ selectPhoto, photos }) {
   // When switching between styles, the index of the image currently selected should be maintained when the gallery updates for the new style
 
   const [selectedPhotoIndex, changePhotoIndex] = useState(0);
-  // note - some larger imgs currently bleed out of overview component, need to somehow standardize the image sizes and/or the size of the gallery component itself
 
   // The gallery will be viewable in two states.  A default collapsed view, and an expanded view.
   const [expandedGalleryView, toggleGalleryView] = useState(false);
 
+  // useEffect(() => {
+  //   console.log(expandedGalleryView);
+  // }, [expandedGalleryView])
+
   const between = (target, min, max) => {
     return target >= min && target <= max;
   }
+
+  // If more than 7 images are in the set for the style selected, the user should be able to scroll forward and backwards through the thumbnails. An arrow button pointing either direction should allow the customer to scroll through the remaining thumbnails in either direction.
 
   const shouldShowThumbnail = (idx) => {
     if (selectedPhotoIndex + 6 < photos.length) {
@@ -78,7 +83,7 @@ export default function ImageGallery({ selectPhoto, photos }) {
   const scrollForward = () => {
     if (selectedPhotoIndex === photos.length - 1) {
       return
-      // changePhotoIndex(0);
+      // changePhotoIndex(0) for infinite scroll
     } else {
       let nextIndex = selectedPhotoIndex + 1;
       changePhotoIndex(nextIndex);
@@ -88,13 +93,14 @@ export default function ImageGallery({ selectPhoto, photos }) {
   const scrollBack = () => {
     if (selectedPhotoIndex === 0) {
       return
-      // changePhotoIndex(photos.length - 1)
+      // changePhotoIndex(photos.length - 1) for infinite scroll
     } else {
       let nextIndex = selectedPhotoIndex - 1;
       changePhotoIndex(nextIndex)
     }
   }
 
+  // still needs work but ok for testing
   const mainImageCSS = (photoURL) => {
     return {
       width: 'auto',
@@ -109,13 +115,16 @@ export default function ImageGallery({ selectPhoto, photos }) {
   return (
     <div className='image-gallery-outer'>
       {photos.length ?
-        <div className='image-gallery' style={mainImageCSS(photos[selectedPhotoIndex].url)}>
+        <div
+        className='image-gallery'
+        style={mainImageCSS(photos[selectedPhotoIndex].url)}
+        onClick={() => toggleGalleryView(!expandedGalleryView)
+        }>
           {renderThumbnails()}
 
+          {/* L/R arrow positions are currently hardcoded, should change them to work more consistently across monitors/zoom %s */}
           <button className='horizontal-arrow' id={selectedPhotoIndex > 0 ? 'left-arrow' : 'left-hidden'} onClick={() => scrollBack()}>&#x2190;</button>
-
           <button className='horizontal-arrow' id={selectedPhotoIndex < photos.length - 1? 'right-arrow' : 'right-hidden'} onClick={() => scrollForward()}>&#x2192;</button>
-
         </div>
         : null}
     </div>
