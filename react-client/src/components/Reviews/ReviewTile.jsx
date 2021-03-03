@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import header from '../../../../config.js';
 import ReviewPhotos from './ReviewPhotos.jsx';
+import Stars from './Ratings/Stars.jsx';
 import axios from 'axios';
 
 const ReviewTile = (props) => {
@@ -63,7 +64,7 @@ const ReviewTile = (props) => {
 
   return (
     <div className="reviewTile">
-      <div className="stars"> {props.avgRating} stars</div>
+      <div className="stars"> <Stars avgRating={props.avgRating} /></div>
       <div id="userName">
         {dateAndUser}
       </div>
