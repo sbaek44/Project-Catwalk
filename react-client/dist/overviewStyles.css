@@ -187,24 +187,24 @@ img.main-img {
   background-color: lightgreen;
 }
 
+select {
+  padding: 1%;
+  height: 40px;
+  font-size: 18px;
+}
+
 select:hover {
   cursor: pointer;
 }
 
-select#size-selector {
-  font-size: 18px;
+#size-selector {
   width: 180px;
-  height: 40px;
-  padding: 1%;
   margin-right: 10px;
   margin-bottom: 10px
 }
 
-select#qty-selector {
-  font-size: 18px;
+#qty-selector {
   width: 80px;
-  height: 40px;
-  padding: 1%;
 }
 
 .product-info-bottom {
