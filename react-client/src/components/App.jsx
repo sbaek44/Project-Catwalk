@@ -12,7 +12,7 @@ export default class App extends React.Component {
     super(props)
     this.state = {
       allProducts: [],
-      selectedItemIndex: 0,
+      selectedItemIndex: 2,
       metadata: '',
       avgRating: 0
     }
@@ -61,7 +61,7 @@ export default class App extends React.Component {
 
   getProducts() {
     let page = this.randomNumber(50);
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?count=10&page=${page}`, header)
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?count=10&page=1`, header)
       .then((data) => {
         this.setState({
           allProducts: data.data
@@ -89,10 +89,10 @@ export default class App extends React.Component {
     return (
       <div>
         <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} avgRating={this.state.avgRating} />
-        <RelatedItemsList avgRating={this.state.avgRating} currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
+        {/* <RelatedItemsList avgRating={this.state.avgRating} currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
         <YourOutfitList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
         <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/>
-        <Reviews avgRating={this.state.avgRating} metadata={this.state.metadata} currentProduct={this.state.allProducts[this.state.selectedItemIndex]} />
+        <Reviews avgRating={this.state.avgRating} metadata={this.state.metadata} currentProduct={this.state.allProducts[this.state.selectedItemIndex]} /> */}
       </div>
     )
   }

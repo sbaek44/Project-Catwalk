@@ -22,6 +22,9 @@ function ProductInformation({ selectedProduct, selectedStyle, price, sale, avgRa
     });
   }
 
+  useEffect(() => {
+    console.log(selectedProduct)
+  }, [selectedProduct])
 
   return (
     <div>
