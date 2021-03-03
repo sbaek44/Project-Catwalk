@@ -5,13 +5,9 @@ import Select from 'react-select';
 
 export default function AddToCart({ selectedProduct, selectedStyle, styles, getStyleName }) {
 
-  // last todos on this component i think: test out of stock conditional renders with the following product, and make react-select tags look less weird with css
-  // https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/16392/styles
-  // style_id: 85741
-  // sku_id: 496214
-
   const [size, selectSize] = useState('');
   const [qty, selectQty] = useState(1);
+  const [qtyOptions, setQtyOptions] = useState([]);
   const [sizeMenuOpen, toggleSizeMenu] = useState(false);
   const [qtyMenuOpen, toggleQtyMenu] = useState(false);
   const [outOfStock, warning] = useState(false);
@@ -75,10 +71,8 @@ export default function AddToCart({ selectedProduct, selectedStyle, styles, getS
       options.push({ value: Number(i), label: String(i) })
     }
 
-    return options
-
+    setQtyOptions(options);
   }
-
 
   const pleaseSelectSize = () => {
     toggleSizeMenu(true);
@@ -109,18 +103,30 @@ export default function AddToCart({ selectedProduct, selectedStyle, styles, getS
 
   const handleSizeSelect = (sizeOption) => {
     selectSize(sizeOption.value);
-    selectQty(1);
     toggleSizeMenu(false);
     changeMessage('');
   }
+
+  useEffect(() => {
+    getQtyOptions();
+  }, [size])
 
   const handleQtySelect = (qtyOption) => {
     selectQty(qtyOption.value);
     toggleQtyMenu(false);
   }
 
+  const closeMenus = () => {
+    if (sizeMenuOpen) {
+      toggleSizeMenu(false)
+    }
+    if (qtyMenuOpen) {
+      toggleQtyMenu(false)
+    }
+  }
+
   return (
-    <div className='add-to-cart'>
+    <div className='add-to-cart' onBlur={() => closeMenus()}>
       {styles.length && selectedStyle !== 0 && selectedProduct ?
         <div style={{ display: 'flex', flexDirection: 'column' }}>
 
@@ -133,7 +139,7 @@ export default function AddToCart({ selectedProduct, selectedStyle, styles, getS
               blurInputOnSelect={true}
               onChange={handleQtySelect}
               disabled={size === '' ? true : false}
-              options={getQtyOptions()}
+              options={qtyOptions}
               placeholder={size === '' ? '-' : 1}
             >
             </Select>
