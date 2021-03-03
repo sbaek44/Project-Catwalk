@@ -89,7 +89,7 @@ export default class App extends React.Component {
     return (
       <div>
         <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} avgRating={this.state.avgRating} />
-        <RelatedItemsList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
+        <RelatedItemsList avgRating={this.state.avgRating} currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
         <YourOutfitList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
         <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/>
         <Reviews avgRating={this.state.avgRating} metadata={this.state.metadata} currentProduct={this.state.allProducts[this.state.selectedItemIndex]} />
