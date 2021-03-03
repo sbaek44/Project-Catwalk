@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import header from '../../../../config.js';
 import axios from 'axios';
+import Stars from '../Reviews/Ratings/Stars.jsx'
 
-function ProductInformation({selectedProduct, selectedStyle, price, sale, avgRating}) {
-
-  // todo: star rating
+function ProductInformation({ selectedProduct, selectedStyle, price, sale, avgRating }) {
 
   const renderPrice = () => {
     if (sale) {
@@ -29,14 +28,14 @@ function ProductInformation({selectedProduct, selectedStyle, price, sale, avgRat
       {selectedProduct !== null ?
         <div className='product-info-side'>
           <div className='product-rating'>
-            <span>Rating: {avgRating} </span>
-            <span id="reviews-link" style={{textDecoration: 'underline'}} onClick={() => scrollToReviews()}>Read all reviews</span>
+            <span id="reviews-link" onClick={() => scrollToReviews()}>Read all reviews</span>
+            <Stars avgRating={avgRating} />
           </div>
           <div className='product-category'>
-            CATEGORY > {selectedProduct.category.toUpperCase()}
+            {selectedProduct.category.toUpperCase()}
           </div>
           <div className='product-name'>
-           {selectedProduct.name}
+            {selectedProduct.name}
           </div>
           <div className='product-price'>{renderPrice()}</div>
         </div>
