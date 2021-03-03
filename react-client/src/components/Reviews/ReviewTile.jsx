@@ -63,24 +63,22 @@ const ReviewTile = (props) => {
 
   return (
     <div className="reviewTile">
-      {props.avgRating} stars
-      <div>
+      <div className="stars"> {props.avgRating} stars</div>
+      <div id="userName">
         {dateAndUser}
       </div>
       <div className="reviewSummary"> {props.review.summary} </div>
       <div> {props.review.body} </div>
       <ReviewPhotos photos={props.review.photos} />
       {form}
-      <div>
-        <span>
-          Helpful?
-          <div onClick={markAsHelpful}>Yes</div>
-          <div onClick={markAsUnHelpful} >No</div>
-        </span>
-        (
-          {props.review.helpfulness}
-        )
-        |
+        <div style={{display: 'flex', flexDirection: 'row'}}>
+            Helpful?
+            <div onClick={markAsHelpful}>Yes</div>
+            <div onClick={markAsUnHelpful} >No</div>
+          (
+            {props.review.helpfulness}
+          )
+          |
         <div onClick={reportReview}>report</div>
       </div>
     </div>

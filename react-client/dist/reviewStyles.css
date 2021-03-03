@@ -36,7 +36,17 @@
 	height: 7px;
 	width: 79px;
 }
-.ratingsAndReviews {
+
+.ratings-reviews {
 	display: flex;
-	flex-direction: rows;
+	flex-direction: row;
+}
+.reviewTile {
+	border-bottom: 1px solid black;
+	padding: 3%;
+
+}
+.reviewSummary {
+	font-weight: bold;
+	font-size: larger;
 }
