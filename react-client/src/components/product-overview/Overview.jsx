@@ -9,11 +9,9 @@ import StyleSelector from './StyleSelector.jsx';
 
 
 
-export default function Overview(props) {
+export default function Overview({products, selectedItemIndex, avgRating}) {
 
   // use product page 1 selectedItemIndex 9 (shoes) to demo image gallery arrows (which only appear when there's more than 7 thumbnails)
-
-  const {products, selectedItemIndex, avgRating} = props;
 
   const [selectedStyle, selectStyle] = useState(0);
   const [price, updatePrice] = useState(0);

@@ -2,22 +2,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import header from '../../../../config.js';
 import axios from 'axios';
 
-function ProductInformation(props) {
-
-  const { selectedProduct, selectedStyle, price, sale, avgRating } = props;
+function ProductInformation({selectedProduct, selectedStyle, price, sale, avgRating}) {
 
   // todo: star rating
-
-  // The price may be on sale.  If the SKU is currently discounted, then the sale price should appear in red, followed by the original price which is struckthrough.
 
   const renderPrice = () => {
     if (sale) {
       return <span>
-        <span style={{ color: 'red' }}>${sale} </span>
-        <span style={{ textDecoration: 'line-through' }}> {price}</span>
+        <span className='price' style={{ color: 'red' }}>${sale} </span>
+        <span className='price' style={{ textDecoration: 'line-through' }}> {price}</span>
       </span>
     } else {
-      return <span>${price}</span>
+      return <span className='price'>${price}</span>
     }
   }
 
@@ -33,13 +29,13 @@ function ProductInformation(props) {
       {selectedProduct !== null ?
         <div className='product-info-side'>
           <div className='product-rating'>
-            <span style={{marginRight: 5}}>Rating: {avgRating}</span>
+            <span>Rating: {avgRating} </span>
             <span id="reviews-link" style={{textDecoration: 'underline'}} onClick={() => scrollToReviews()}>Read all reviews</span>
           </div>
           <div className='product-category'>
-            {selectedProduct.category}
+            CATEGORY > {selectedProduct.category.toUpperCase()}
           </div>
-          <div className='product-name' style={{fontSize: 24, fontWeight: 'bold'}}>
+          <div className='product-name'>
            {selectedProduct.name}
           </div>
           <div className='product-price'>{renderPrice()}</div>
