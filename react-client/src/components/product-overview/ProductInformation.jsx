@@ -16,12 +16,13 @@ function ProductInformation({ selectedProduct, selectedStyle, price, sale, avgRa
     }
   }
 
+  // social media buttons wil go on either this component, style selector, or product description - not sure yet
+
   const scrollToReviews = () => {
     document.querySelector('.reviews-list').scrollIntoView({
       behavior: 'smooth'
     });
   }
-
 
   return (
     <div>

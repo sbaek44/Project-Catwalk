@@ -21,7 +21,7 @@ export default function Overview({products, selectedItemIndex, avgRating}) {
 
   return (
     <div className='overview'>
-      <ImageGallery selectedPhoto={selectedPhoto} selectPhoto={selectPhoto} photos={photos} selectedProduct={products[selectedItemIndex] || null} />
+      <ImageGallery selectedPhoto={selectedPhoto} selectPhoto={selectPhoto} photos={photos}/>
       <div className='right-side'>
         <ProductInformation selectedProduct={products[selectedItemIndex] || null} selectedStyle={selectedStyle} price={price} sale={sale} avgRating={avgRating} />
         <StyleSelector selectedProduct={products[selectedItemIndex] || null} selectedStyle={selectedStyle} selectStyle={selectStyle} updatePrice={updatePrice} updateSale={updateSale} selectPhoto={selectPhoto} updatePhotos={updatePhotos} />
