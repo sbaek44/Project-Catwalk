@@ -26,8 +26,9 @@ function RelatedItemsElements(props) {
       <RelatedItemCard
         stylesData={stylesData}
         dataArr={dataArr}
-        currentProduct={props.currentProduct}
-        relatedItemsIds={props.relatedItemsIds} />
+        currentProductFeatures={props.currentProductFeatures}
+        relatedItemsIds={props.relatedItemsIds}
+        avgRating={props.avgRating} />
     </div>
   )
 }
