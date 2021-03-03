@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import header from '../../../../config.js';
 import AnswerList from './AnswerList.jsx';
-import Modals from './Modals.jsx'
+import AnswerModals from './AnswerModals.jsx'
+import AnswerPicture from './AnswerPicture.jsx'
 
 const Answers = (props) => {
   const [answers, setAnswers] = useState([]);
@@ -10,6 +11,7 @@ const Answers = (props) => {
   const [reportClicked, setReportClicked] =useState([])
   const [moreAnswers, setMoreAnswers] = useState(false)
   const [addAnswer, setAnswer] =useState(false)
+  const [picmodal, setPicModal] = useState(false)
 
   useEffect(() => {
     getAnswers();
@@ -42,6 +44,9 @@ const Answers = (props) => {
 
   }
 
+
+
+
   let insertAnswers = (answer, index)=> {
     let date = new Date(answer.date)
         return (
@@ -49,6 +54,16 @@ const Answers = (props) => {
             <span className = 'answer_body'>
             A: {answer.body}
             </span>
+            <div>
+              {answer.photos !== undefined ? <div className="answerImages">
+                {answer.photos.map( (image,index)=> {
+                  return !picmodal? <img onClick={()=>{setPicModal(!picmodal)}} className='img' src={image.url} alt="" key={index}/>
+                  : <img onClick={()=>{setPicModal(!picmodal)}} src={image.url} alt="" key={index}/>
+                })}
+              </div>
+              :null}
+              {/* <AnswerPicture answer ={answer} key = {index}/> */}
+            </div>
             {answer.answerer_name === "Seller" ? <div style = {{fontWeight: 'bold'}} >by {answer.answerer_name} </div>:  <div > by {answer.answerer_name},</div>}
 
             {date.toDateString().substring(4)}  |
@@ -71,7 +86,7 @@ const Answers = (props) => {
     <div>
       {!moreAnswers ?
       <div>
-        {!addAnswer? <p onClick={()=>{modalShower()}}>Add Answer</p>: <Modals />}
+        {!addAnswer? <p onClick={()=>{modalShower()}}>Add Answer</p>: <AnswerModals question = {props.questionInfo} product={props.product}/>}
       {answers.slice(0, 2).map( (answer, index) => {
         return (
           <div key = {index}>{insertAnswers(answer, index)}</div>

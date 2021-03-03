@@ -30,7 +30,6 @@ export default class App extends React.Component {
 
     const ratingsData = this.state.metadata.ratings
     if (Object.keys(ratingsData).length === 0) {
-      console.log(this.state.avgRating)
       return '';
     }
     let totalScore = 0;
