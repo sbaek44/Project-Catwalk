@@ -6,11 +6,13 @@ const Search = ({ searchReviews, searchQuery, setSearchQuery }) => {
   };
 
   return (
-    <form>
-      <span>
-        <input onChange={updateSearchQuery} type="text" name="inputText" placeholder="search.." />
-      </span>
-    </form>
+    <div className="search-reviews" >
+      <form>
+        <span>
+          <input onChange={updateSearchQuery} type="text" name="inputText" placeholder="search.." />
+        </span>
+      </form>
+    </div>
   );
 };
 

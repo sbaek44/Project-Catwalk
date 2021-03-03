@@ -15,7 +15,7 @@
 	position: relative;
 	margin: 15px 0;
 	height: 7px;
-	width: 200px;
+	width: 275px;
 }
 
 .progress-done {
@@ -79,4 +79,61 @@
 #average-rating-in-ratings {
 	font-size: 45px;
 	font-weight: bold;
+}
+.ratings {
+	padding-left: 20%;
+}
+.reviews {
+	padding-right: 20%;
+	margin-left: 10%;
+}
+.ratings-breakdown {
+	margin-bottom: 5%;
+}
+#recommended {
+	white-space: nowrap;
+  overflow: hidden;
+}
+#score {
+	white-space: nowrap;
+	overflow: hidden;
+	padding-right: 10px;
+}
+.text:hover {
+	text-decoration: underline;
+}
+.sort-bar {
+	display: flex;
+	flex-direction: row;
+	padding-left: 20px;
+	font-weight: bold;
+}
+.search-reviews {
+	padding-left: 10px;
+}
+.more-reviews-bar {
+	padding-top: 20px;
+}
+.helpful-bar {
+}
+#yes {
+	padding-left: 4px;
+}
+.userName {
+	float:right;
+}
+#response-container {
+	background-color: rgb(187, 187, 187);
+}
+#response-text {
+	white-space: nowrap;
+	overflow: hidden;
+	padding-left: 20px;
+	padding-bottom: 10px;
+	padding-top: 10px
+}
+#response {
+	padding-left: 20px;
+	font-weight: bold;
+	padding-top: 10px;
 }

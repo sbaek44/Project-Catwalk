@@ -4,8 +4,10 @@ const RatingsBreakdownElement = ({ score, percentage, manipulateFilters }) => {
   return (
       <div style={{display: 'flex', flexDirection: 'row'}} >
       <div onClick={() => manipulateFilters(score)} >
-        {score}
-        stars
+       <div id="score" className="text" >
+       {`${score}
+        stars`}
+       </div>
       </div>
       <div className="progress">
         <div className="progress-done"

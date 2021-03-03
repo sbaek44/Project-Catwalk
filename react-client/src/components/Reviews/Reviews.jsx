@@ -155,27 +155,29 @@ const Reviews = (props) => {
             metadata={props.metadata}/>
         </div>
       <div>
-        <div>
-          {lengthOfReviews}
-          reviews, sorted by
-          <SortForm updateParamFunc={updateParamFunc} sortParameters={sortParameters} />
-          {filterDisplay}
-          <Search
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            searchReviews={searchReviews}
+
+        <div className="reviews" >
+          <div className="sort-bar">
+            {`${lengthOfReviews} reviews, sorted by`}
+            <SortForm updateParamFunc={updateParamFunc} sortParameters={sortParameters} />
+            {filterDisplay}
+            <Search
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              searchReviews={searchReviews}
+            />
+          </div>
+          <ReviewsList avgRating={props.avgRating}
+            getReviews={getReviews}
+            reviews={reviews}
+            amountOfReviews={amountOfReviews}
           />
+          <div className="more-reviews-bar">
+            {moreReviewsButton}
+            <button onClick={togglePostForm} >ADD A REVIEW +</button>
+          </div>
         </div>
-      <ReviewsList avgRating={props.avgRating}
-          getReviews={getReviews}
-          reviews={reviews}
-          amountOfReviews={amountOfReviews}
-      />
       </div>
-      <span>
-         {moreReviewsButton}
-         <button onClick={togglePostForm} >ADD A REVIEW +</button>
-      </span>
     </div>
   );
 };
