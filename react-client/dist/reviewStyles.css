@@ -15,7 +15,7 @@
 	position: relative;
 	margin: 15px 0;
 	height: 7px;
-	width: 275px;
+	width: 225px;
 }
 
 .progress-done {
@@ -31,7 +31,6 @@
 }
 .characteristicsTriple {
 	background-color: #d8d8d8;
-	position: relative;
 	margin: 2px;
 	height: 7px;
 	width: 79px;
@@ -114,16 +113,18 @@
 .more-reviews-bar {
 	padding-top: 20px;
 }
-.helpful-bar {
-}
+
 #yes {
 	padding-left: 4px;
 }
 .userName {
 	float:right;
+	font-size: 15px;
 }
 #response-container {
 	background-color: rgb(187, 187, 187);
+	margin-bottom: 10px;
+	margin-top: 10px
 }
 #response-text {
 	white-space: nowrap;
@@ -136,4 +137,31 @@
 	padding-left: 20px;
 	font-weight: bold;
 	padding-top: 10px;
+}
+.sort {
+	background-color: #fefefe;
+	Border: none;
+	text-decoration: underline;
+	font-weight: bold;
+}
+.reviewSummary {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.selector {
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+	border-top: 6px solid black;
+	position: absolute;
+}
+.container {
+	display: flex;
+	position: relative;
+}
+.triple-text {
+	font-size: 13px;
+	padding-bottom: 10px;
 }
