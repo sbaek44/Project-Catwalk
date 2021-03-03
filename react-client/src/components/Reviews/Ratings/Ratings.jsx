@@ -57,14 +57,14 @@ const Ratings = (props) => {
 
   return (
     <div>
-      <span>
+      <div className="ratings-breakdown">
         RATINGS
         & REVIEWS
-      </span>
-      <div style={{display: 'flex', flexDirection: 'rows'}} >
+      </div>
+      <div className="ratings-breakdown" style={{display: 'flex', flexDirection: 'rows'}} >
        <div id="average-rating-in-ratings" > {props.avgRating} </div>  <Stars avgRating={props.avgRating} />
       </div>
-      <div>
+      <div id="recommended" className="ratings-breakdown">
         {recommendedPercent}
         % of reviewers recommend this product
       </div>
