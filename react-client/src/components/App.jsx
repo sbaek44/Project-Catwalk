@@ -47,17 +47,13 @@ export default class App extends React.Component {
 }
 
   selectProduct(id) {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/styles`, header)
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}`, header)
     .then((results) => {
       this.setState({
         selectedProduct: results.data
       })
     })
     .catch(err => (console.log(err)))
-  }
-
-  randomNumber(max) {
-    return (Math.floor(Math.random() * max)) + 1 // errors if we try to load page 0
   }
 
   getProducts() {
@@ -86,47 +82,17 @@ export default class App extends React.Component {
       });
   }
 
-  findAvgRating() {
-    const ratingsData = this.state.metadata.ratings;
-    if (Object.keys(ratingsData).length === 0) {
-      return '';
-    }
-    let totalScore = 0;
-    let amountOfRatings = 0;
-    for (let key in ratingsData) {
-      let value = Number(ratingsData[key])
-      let actualValue = key * value;
-      totalScore += actualValue;
-      amountOfRatings += value;
-    };
-    let averageScore = totalScore / amountOfRatings;
-    let rounded = Math.round(averageScore * 4) / 4;
-    this.setState({
-      avgRating: rounded,
-  });
-}
-
-  selectProduct(index) {
-    this.setState({
-      selectedItemIndex: index,
-    });
-  }
-
-  randomNumber(max) {
-    return (Math.floor(Math.random() * max)) + 1 // errors if we try to load page 0
-  }
-
   render() {
     return (
       <div>
-        {/* <Overview
+        <Overview
           product={this.state.selectedProduct}
           avgRating={this.state.avgRating} />
-        <RelatedItemsList
+        {/* <RelatedItemsList
           selectProduct={this.selectProduct}
           avgRating={this.state.avgRating}
-          currentProduct={this.state.selectedProduct} />
-        <YourOutfitList
+          currentProduct={this.state.selectedProduct} /> */}
+        {/* <YourOutfitList
           avgRating={this.state.avgRating}
           currentProduct={this.state.selectedProduct} /> */}
         {/* <QA
