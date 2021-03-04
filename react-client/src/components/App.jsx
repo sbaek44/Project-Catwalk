@@ -12,7 +12,7 @@ export default class App extends React.Component {
     super(props)
     this.state = {
       allProducts: [],
-      selectedItemIndex: 0,
+      selectedItemIndex: 9,
       metadata: '',
       avgRating: 0
     }

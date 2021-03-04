@@ -154,17 +154,16 @@ export default function ImageGallery({ selectPhoto, photos }) {
           className='image-gallery'
           style={mainImageCSS(photos[selectedPhotoIndex].url)}
           >
-
           {/* EXPANDED VIEW */}
           <Modal id='expanded-gallery-view' isOpen={expandedGalleryView} style={modalStyle} ariaHideApp={false} >
             <ExpandedView
-              toggleGalleryView={() => toggleGalleryView(false)}
+              close={() => toggleGalleryView(false)}
+              photos={photos}
               url={photos[selectedPhotoIndex].url}
+              selectedPhotoIndex={selectedPhotoIndex}
+              handleIconClick={handleIconClick}
               back={() => scrollBack}
               forward={() => scrollForward}
-              photos={photos}
-              handleIconClick={handleIconClick}
-              selectedPhotoIndex={selectedPhotoIndex}
             >
             </ExpandedView>
           </Modal>

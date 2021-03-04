@@ -75,7 +75,6 @@ function RelatedItemCard(props) {
               <tbody>
                 <tr>
                   <td></td>
-                  {/* <Checkmark size='small' color='#223344'/> */}
                   <td></td>
                   <td></td>
                 </tr>
