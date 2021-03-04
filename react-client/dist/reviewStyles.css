@@ -20,7 +20,6 @@
 
 .progress-done {
 	background: linear-gradient(to left, lightgreen, lightgreen);
-	box-shadow: 0 3px 3px -5px #000000, 0 2px 5px #000000;
 	color: #fff;
 	display: flex;
 	align-items: center;
@@ -164,4 +163,11 @@
 .triple-text {
 	font-size: 13px;
 	padding-bottom: 10px;
+}
+.review-buttons {
+	background-color: #fefefe;
+}
+.reviews-list {
+	height: 600px;
+  overflow-y:auto;
 }
