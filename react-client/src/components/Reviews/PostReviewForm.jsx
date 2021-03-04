@@ -9,11 +9,11 @@ const PostReviewForm = (props) => {
   const [rating, setRating] = useState(0);
   const [summary, setSummary] = useState('');
   const [body, setBody] = useState('');
-  const [recommend, setRecommend] = useState('false');
+  const [recommend, setRecommend] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [photos, setPhotos] = useState([]);
-  const [summaryLengthIsLessThan60, setSummaryLengthIsLessThan60] = useState(true);
+  const [summaryLengthisValid, setSummaryLengthIsValid] = useState(false);
   const [bodyIsValidLength, setBodyIsValidLength] = useState(false);
   const [reviewIsValid, setReviewIsValid] = useState(false);
 
@@ -64,11 +64,11 @@ const PostReviewForm = (props) => {
   };
 
   const checkSummaryLength = () => {
-    if (summary.length > 60) {
-      setSummaryLengthIsLessThan60(false);
-      return false;
+    if (summary.length > 1 && summary.length < 61) {
+      setSummaryLengthIsValid(true);
+      return true;
     }
-    return true;
+    return false;
   };
   const CheckBodyLength = () => {
     if (body.length > 50 && body.length < 1000) {
@@ -91,21 +91,25 @@ const PostReviewForm = (props) => {
   }
 
   const submitReview = (e) => {
+    console.log(typeof reviewPost.recommend)
     let content = "Content-Type"
     header.headers[content] = 'application/json';
     e.preventDefault();
-    reviewPost = JSON.stringify(reviewPost);
     if (reviewPost.rating < 1) {
       alert(`You must enter the following: Rating`);
     } else if (!checkSummaryLength()) {
       alert(`You must enter the following: Summary`);
+    } else if (typeof reviewPost.recommend !== 'boolean') {
+      alert(`You must enter the following: recommend`);
     } else if (!CheckBodyLength()) {
       alert(`You must enter the following: Body`);
     } else if (reviewPost.name === '') {
+      console.log('name')
       alert(`You must enter the following: Name`);
-    } else if (reviewPost.email === '') {
+    } else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(reviewPost.email)) {
       alert(`You must enter the following: Email`);
     } else {
+      reviewPost = JSON.stringify(reviewPost);
       setPostModalIsOpen(!postModalIsOpen)
       axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/`, reviewPost, header)
         .then((data) => {
@@ -118,7 +122,7 @@ const PostReviewForm = (props) => {
     }
   };
 
-  const options = ["1 star - “Poor”", "2 stars - “Fair”", "3 stars - “Average”", "4 stars - “Good”", "5 stars - “Great”"];
+  const options = ['Select Rating', "1 star - “Poor”", "2 stars - “Fair”", "3 stars - “Average”", "4 stars - “Good”", "5 stars - “Great”"];
   const size = ["Size", "1 - A size too small", "2 - ½ a size too small", "3 - Perfect", "4 - ½ a size too big", "5 - A size too wide"];
   const width = ['Width', '1 - Too narrow', '2 - Slightly narrow', '3 - Perfect', '4 - Slightly wide', '5 - Too wide'];
   const comfort = ['Comfort', '1 - Uncomfortable', '2 - Slightly uncomfortable', '3 - Ok', '4 - Comfortable', '5 - Perfect'];
@@ -129,26 +133,36 @@ const PostReviewForm = (props) => {
   return (
     <Modal isOpen={postModalIsOpen} >
       <Modal isOpen={imageModalIsOpen}>
-      <label>
-        Image 1:
-        <input onChange={setImages} name="0" type="text" />
-      </label>
-      <label>
-        Image 2:
-        <input onChange={setImages} name="1" type="text" />
-      </label>
-      <label>
-        Image 3:
-        <input onChange={setImages} name="2" type="text" />
-      </label>
-      <label>
-        Image 4:
-        <input onChange={setImages} name="3" type="text" />
-      </label>
-      <label>
-        Image 5:
-        <input onChange={setImages} name="4" type="text" />
-      </label>
+        <div className="review-form-component" >
+          <label>
+            Image 1:
+            <input style={{margin: '1%'}} onChange={setImages} name="0" type="text" />
+          </label>
+        </div>
+        <div className="review-form-component">
+          <label>
+            Image 2:
+            <input style={{margin: '1%'}} onChange={setImages} name="1" type="text" />
+          </label>
+        </div>
+        <div className="review-form-component">
+            <label>
+              Image 3:
+              <input style={{margin: '1%'}} onChange={setImages} name="2" type="text" />
+          </label>
+        </div>
+        <div className="review-form-component">
+          <label>
+            Image 4:
+            <input style={{margin: '1%'}} onChange={setImages} name="3" type="text" />
+          </label>
+        </div>
+        <div className="review-form-component">
+          <label>
+            Image 5:
+            <input style={{margin: '1%'}} onChange={setImages} name="4" type="text" />
+        </label>
+        </div>
       <button onClick={updateImages} >Submit</button>
       <button onClick={toggleModal} >Cancel</button>
     </Modal>
@@ -159,7 +173,7 @@ const PostReviewForm = (props) => {
               Overall rating
               <select style={{margin: '1%'}} onChange={(e) => setRating(Number(e.target.value))}>
                 {options.map((option, i) => (
-                  <option value={i + 1} key={i}>{option}</option>
+                  <option value={i} key={i}>{option}</option>
                 ))}
               </select>
             </label>

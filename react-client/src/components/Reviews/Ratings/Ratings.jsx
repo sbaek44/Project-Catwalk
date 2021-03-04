@@ -17,12 +17,9 @@ const Ratings = (props) => {
 
 
   const findPercentagePerRating = () => {
-    let percentages = [0, 0, 0, 0, 0];
-    if (props.avgRating === 0) {
-      percentages.push(0)
-    }
+    let percentages = [0, 0, 0, 0, 0, 0];
     let ratings = props.metadata.ratings;
-       let totalVotes = 0;
+    let totalVotes = 0;
     for (let scoreKey in ratings) {
       totalVotes += Number(ratings[scoreKey]);
     }
