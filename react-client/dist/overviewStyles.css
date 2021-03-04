@@ -215,6 +215,12 @@
   margin-bottom: 10px;
 }
 
+.social-media-links {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-bottom: 10px;
+}
+
 #reviews-link {
   text-decoration: underline;
   margin-left: 10px;
@@ -251,8 +257,8 @@
 }
 
 .style-options-grid {
-  /* todo- should fill from right instead of left */
   display: grid;
+  direction: rtl; /* fills in from right instead of left */
   grid-template-columns: repeat(4, 1fr);
   width: 220px;
   grid-auto-rows: 55px; /* buttons are width 50 margin 5 */
