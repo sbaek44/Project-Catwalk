@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from'react-modal';
+import { Checkmark } from 'react-checkmark'
 import axios from 'axios';
 import header from '../../../../config.js';
 
@@ -16,16 +17,26 @@ const customStyles = {
 };
 
 function RelatedItemCard(props) {
-  const [thumbnails, setThumbnails] = useState([])
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [thumbnails, updateThumbnails] = useState([]);;
+  const [modalIsOpen, updateModalIsOpen] = useState(false);
+  const [allFeatures, updateAllFeatures] = useState([]);
+  const [compareName, updateCompareName] = useState('');
 
-  let thumbnailsArr = [];
   useEffect(() => {
+    let thumbnailsArr = [];
     for (let i = 0; i < props.stylesData.length; i++) {
       thumbnailsArr.push([Number(props.stylesData[i].product_id), props.stylesData[i].results[0].photos[0].thumbnail_url])
     }
-    setThumbnails(thumbnailsArr)
-  }, [props.stylesData, props.currentProductFeatures])
+    updateThumbnails(thumbnailsArr)
+  }, [props.stylesData])
+
+  useEffect(() => {
+    // let relatedFeaturesArr = props.dataArr.map(({name, id, features}) => ({name, id, features}))
+    let relatedFeaturesArr = props.dataArr.map(({features}) => ({features}))
+    updateAllFeatures(relatedFeaturesArr, props.currentProductFeatures.features
+      // {name: props.currentProductFeatures.name, id: props.currentProductFeatures.id, features: props.currentProductFeatures.features}
+      )
+  }, [props.dataArr, props.currentProductFeatures])
 
   let getThumbnail = (id) => {
     for (let i = 0; i < thumbnails.length; i++) {
@@ -35,6 +46,10 @@ function RelatedItemCard(props) {
     }
   }
 
+  let modalState = (e) => {
+    updateModalIsOpen(true)
+    updateCompareName(e.target.name)
+  }
   // props.currentProductFeatures = current product
   // props.dataArr = related products info/features
   // props.stylesData = related products photos
@@ -44,38 +59,44 @@ function RelatedItemCard(props) {
   } else if (modalIsOpen === true) {
       return (
         <div>
+          {console.log(compareName)}
           <Modal
             ariaHideApp={false}
             isOpen={modalIsOpen}
             style={customStyles}
-            onRequestClose={() => setModalIsOpen(false)}>
-            <h3 style={{textAlign: 'center'}}>Comparing</h3>
+            onRequestClose={() => updateModalIsOpen(false)}>
+            <h3>Comparing</h3>
             <table className="table">
               <thead>
                 <tr>
-                  <th>Current Product</th>
-                  <th>Characteristics</th>
-                  <th>Compare Product</th>
+                  <th>{props.currentProductFeatures.name}</th>
+                  <th></th>
+                  <th>{compareName}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>{props.currentProductFeatures.name}</td>
                   <td></td>
-                  <td>Compare product name</td>
+                  {/* <Checkmark size='small' color='#223344'/> */}
+                  <td></td>
+                  <td></td>
                 </tr>
                 <tr>
+                  <td></td>
                   <td>
-                  {props.currentProductFeatures.features.map((feature, i) => (
-
-                    <div key={i}>{feature.feature}: {feature.value}</div>
-                    ))
-                  }
+                  {allFeatures.map((feature) => (
+                      feature.features.map((feat, i) => (
+                        <div key={i}>
+                          <div>{feat.value ? (feat.feature, feat.value) : null}</div>
+                        </div>
+                      ))
+                    ))}
                   </td>
+                  <td></td>
                 </tr>
               </tbody>
             </table>
-            <button style={{textAlign: 'center'}} onClick={() => setModalIsOpen(false)}>Close</button>
+            <button style={{textAlign: 'center'}} onClick={() => updateModalIsOpen(false)}>Close</button>
           </Modal>
         </div>
       )
@@ -85,7 +106,8 @@ function RelatedItemCard(props) {
       {props.dataArr.map((item, i) => (
         <div id="relatedItemCard" key={i}>
           <img src={getThumbnail(item.id)} />
-          <button onClick={() => setModalIsOpen(true)}>Compare</button>
+          {/* <i className="far fa-star"></i> */}
+          <button name={item.name} onClick={modalState}>Compare</button>
           <div id="cardCategory">{item.category}</div>
           <div id="cardName">{item.name}</div>
           <div id="cardPrice">{item.default_price}</div>
