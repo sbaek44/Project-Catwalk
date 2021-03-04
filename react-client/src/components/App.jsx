@@ -119,9 +119,9 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        {/* <Overview
-          product={this.state.selectedProduct}
-          avgRating={this.state.avgRating} /> */}
+        <Overview
+          product={this.state.selectedProduct || null}
+          avgRating={this.state.avgRating} />
         <RelatedItemsList
           selectProduct={this.selectProduct}
           avgRating={this.state.avgRating}

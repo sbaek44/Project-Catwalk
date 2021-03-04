@@ -21,10 +21,10 @@ export default function Overview({product, selectedItemIndex, avgRating}) {
     <div className='overview'>
       <ImageGallery selectedPhoto={selectedPhoto} selectPhoto={selectPhoto} photos={photos}/>
       <div className='right-side'>
-        <ProductInformation selectedProduct={product || null} selectedStyle={selectedStyle} price={price} sale={sale} avgRating={avgRating} />
-        <StyleSelector selectedProduct={product || null} selectedStyle={selectedStyle} selectStyle={selectStyle} updatePrice={updatePrice} updateSale={updateSale} selectPhoto={selectPhoto} updatePhotos={updatePhotos} />
+        <ProductInformation selectedProduct={product} selectedStyle={selectedStyle} price={price} sale={sale} avgRating={avgRating} />
+        <StyleSelector selectedProduct={product} selectedStyle={selectedStyle} selectStyle={selectStyle} updatePrice={updatePrice} updateSale={updateSale} selectPhoto={selectPhoto} updatePhotos={updatePhotos} />
       </div>
-      <ProductDescription selectedProduct={product || null} />
+      <ProductDescription selectedProduct={product} />
     </div>
   )
 

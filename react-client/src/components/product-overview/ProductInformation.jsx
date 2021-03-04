@@ -40,7 +40,7 @@ function ProductInformation({ selectedProduct, selectedStyle, price, sale, avgRa
             <Stars avgRating={avgRating} />
           </div>
           <div className='product-category'>
-            {selectedProduct.category.toUpperCase()}
+            {selectedProduct.category}
           </div>
           <div className='product-name'>
             {selectedProduct.name}
