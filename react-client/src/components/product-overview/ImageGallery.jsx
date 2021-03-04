@@ -143,7 +143,7 @@ export default function ImageGallery({ selectPhoto, photos }) {
   }
 
   useEffect(() => {
-    console.log(expandedGalleryView)
+    // console.log(expandedGalleryView)
   }, [expandedGalleryView])
 
 
