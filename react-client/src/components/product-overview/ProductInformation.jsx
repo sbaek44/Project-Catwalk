@@ -33,14 +33,14 @@ function ProductInformation({ selectedProduct, selectedStyle, price, sale, avgRa
 
   return (
     <div>
-      {selectedProduct !== null ?
+      {selectedProduct.hasOwnProperty('id') ?
         <div className='product-info-side'>
           <div className='product-rating'>
             <span id="reviews-link" onClick={() => scrollToReviews()}>Read all reviews</span>
             <Stars avgRating={avgRating} />
           </div>
           <div className='product-category'>
-            {selectedProduct.category.toUpperCase()}
+            {selectedProduct.category}
           </div>
           <div className='product-name'>
             {selectedProduct.name}

@@ -8,7 +8,6 @@ function StyleSelector({ selectedProduct, selectedStyle, selectStyle, updatePric
   const [styles, updateStyles] = useState([]);
 
   const getStyles = (id) => {
-
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/styles`, header)
       .then((res) => {
         updateStyles(res.data.results);
@@ -45,7 +44,7 @@ function StyleSelector({ selectedProduct, selectedStyle, selectStyle, updatePric
   }
 
   useEffect(() => {
-    if (selectedProduct !== null) {
+    if (selectedProduct.hasOwnProperty('id')) {
       getStyles(selectedProduct.id)
     }
   }, [selectedProduct])

@@ -127,9 +127,8 @@ export default function AddToCart({ selectedProduct, selectedStyle, styles, getS
 
   return (
     <div className='add-to-cart' onBlur={() => closeMenus()}>
-      {styles.length && selectedStyle !== 0 && selectedProduct ?
+      {styles.length && selectedStyle !== 0 && selectedProduct.hasOwnProperty('id') ?
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-
           <span className='add-to-cart-message'>{message}</span>
           <div className='selector-container'>
           <Select
