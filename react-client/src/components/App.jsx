@@ -17,7 +17,7 @@ export default class App extends React.Component {
       avgRating: 0
     }
     this.getProducts = this.getProducts.bind(this);
-    // this.selectProduct = this.selectProduct.bind(this);
+    this.selectProduct = this.selectProduct.bind(this);
     this.findAvgRating = this.findAvgRating.bind(this);
     this.getRatings = this.getRatings.bind(this);
   }
@@ -40,16 +40,16 @@ export default class App extends React.Component {
   }
 
   getRatings() {
-      let id = this.state.allProducts[this.state.selectedItemIndex].id;
-      axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/meta?product_id=${id}`, header)
-        .then((result) => {
-          this.setState({
-            metadata: result.data
-          }, () => this.findAvgRating());
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    let id = this.state.allProducts[this.state.selectedItemIndex].id;
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/meta?product_id=${id}`, header)
+      .then((result) => {
+        this.setState({
+          metadata: result.data
+        }, () => this.findAvgRating());
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   findAvgRating() {
@@ -85,10 +85,10 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} avgRating={this.state.avgRating} />
+        {/* <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} avgRating={this.state.avgRating} />
         <RelatedItemsList avgRating={this.state.avgRating} currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
         <YourOutfitList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
-        <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/>
+        <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/> */}
         <Reviews getRatings={this.getRatings} avgRating={this.state.avgRating} metadata={this.state.metadata} currentProduct={this.state.allProducts[this.state.selectedItemIndex]} />
       </div>
     )

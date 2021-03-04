@@ -24,7 +24,7 @@ const CharacteristicsElement = ({ characteristic }) => {
         <div className="characteristicsTriple"></div>
         <div style={{left: `${percent}%`}} className="selector"></div>
       </div>
-      <div style={{display: 'flex', flexDirection: 'row'}}>
+      <div className="container" style={{display: 'flex', flexDirection: 'row'}}>
         <div className="triple-text">{first}</div>
         <div className="triple-text">{second}</div>
         <div className="triple-text">{third}</div>
