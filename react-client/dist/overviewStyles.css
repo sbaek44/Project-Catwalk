@@ -52,6 +52,10 @@
   transition-duration: 0.25s;
 }
 
+.expanded-view-icon:hover {
+  cursor: pointer;
+}
+
 .expanded-view-icon#selected {
   background: rgb(255, 0, 140);
 }
