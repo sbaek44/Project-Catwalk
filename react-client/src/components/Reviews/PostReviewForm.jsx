@@ -109,6 +109,7 @@ const PostReviewForm = (props) => {
     } else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(reviewPost.email)) {
       alert(`You must enter the following: Email`);
     } else {
+      console.log(reviewPost)
       reviewPost = JSON.stringify(reviewPost);
       setPostModalIsOpen(!postModalIsOpen)
       axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/`, reviewPost, header)
