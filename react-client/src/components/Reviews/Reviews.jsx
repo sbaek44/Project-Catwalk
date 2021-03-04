@@ -6,8 +6,10 @@ import ReviewsList from './ReviewsList.jsx';
 import PostReviewForm from './PostReviewForm.jsx';
 import Ratings from './Ratings/Ratings.jsx';
 import Search from './Search.jsx';
+import Modal from 'react-modal';
 
 const Reviews = (props) => {
+  const [postModalIsOpen, setPostModalIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -28,6 +30,10 @@ const Reviews = (props) => {
       searchReviews(searchQuery);
     }
   }, [searchQuery]);
+
+  const togglePostModalIsOpen = () => {
+    setPostModalIsOpen(!postModalIsOpen);
+  };
 
   const addFilters = (filterToAdd) => {
     let updatedFilters = filters.map((element) => element);
@@ -147,6 +153,9 @@ const Reviews = (props) => {
 
   return (
     <div className="ratings-reviews">
+      <Modal isOpen={postModalIsOpen}>
+        PIZZA!
+      </Modal>
       {postForm}
         <div className="ratings">
           <Ratings

@@ -36,15 +36,24 @@ const PostReviewForm = (props) => {
     //   });
   };
 
+  let options = ["1 star - “Poor”", "2 stars - “Fair”", "3 stars - “Average”", "4 stars - “Good”", "5 stars - “Great”"];
+
   return (
     <form  className="addReviewForm" onSubmit={submitReview}>
       <label>
         Overall rating
-        <input onChange={(e) => setRating(e.target.value)} type="text" name="" />
+        <select onChange={(e) => setRating(e.target.value)}>
+          {options.map((option, i) => (
+            <option value={i + 1} key={i}>{option}</option>
+          ))}
+        </select>
       </label>
       <label>
         Do you recommend this product?
-        <input onChange={(e) => setRecommend(e.target.value)} type="text" name="" />
+        <select onChange={(e) => setRecommend(e.target.value)}>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
       </label>
       <label>
         Characteristics
@@ -52,7 +61,7 @@ const PostReviewForm = (props) => {
       </label>
       <label>
         Review summary
-        <input onChange={(e) => setSummary(e.target.value)} type="text" name="" />
+        <input placeholder="Example: Best purchase ever!" onChange={(e) => setSummary(e.target.value)} type="text" name="" />
       </label>
       <label>
         Review body
@@ -60,15 +69,17 @@ const PostReviewForm = (props) => {
       </label>
       <label>
         Upload your photos
-        <input onChange={(e) => setPhotos(e.target.value)} type="text" name="" />
+        <button>Upload photos</button>
       </label>
       <label>
         What is your nickname?
-        <input onChange={(e) => setName} type="text" name="" />
+        <input placeholder="Example: jackson11!" onChange={(e) => setName} type="text" name="" />
+        For privacy reasons, do not use your full name or email address” will appear.
       </label>
       <label>
         Your email
-        <input onChange={(e) => setEmail(e.target.value)} type="text" name="" />
+        <input placeholder="Example: jackson11@email.com"  onChange={(e) => setEmail(e.target.value)} type="text" name="" />
+        For authentication reasons, you will not be emailed” will appear.
       </label>
       <input
         type="submit"
