@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import header from '../../../../config.js'
 import Modal from 'react-modal';
@@ -8,10 +8,31 @@ const PostReviewForm = (props) => {
   const [rating, setRating] = useState(0);
   const [summary, setSummary] = useState('');
   const [body, setBody] = useState('');
-  const [recommend, setRecommend] = useState(false);
+  const [recommend, setRecommend] = useState('false');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [photos, setPhotos] = useState([]);
+  const [summaryLengthIsLessThan60, setSummaryLengthIsLessThan60] = useState(true);
+  const [bodyIsValidLength, setBodyIsValidLength] = useState(false);
+  const [reviewIsValid, setReviewIsValid] = useState(false);
+
+  useEffect(() => {
+    checkSummaryLength();
+    CheckBodyLength();
+  }, [summary, body]);
+
+  let belowBody;
+  if (body.length < 50) {
+    let amountLeft = 50 - body.length;
+    belowBody = (
+      <div>
+        Minimum required characters left:
+        {amountLeft}
+      </div>
+    );
+  } else {
+    belowBody = <div>Minimum reached</div>;
+  }
 
   let reviewPost = {
     product_id: props.review_id,
@@ -24,23 +45,72 @@ const PostReviewForm = (props) => {
     photos: photos,
     characteristics: {},
   };
+//   {
+//     "product_id": 16414,
+//     "rating": 3,
+//     "summary": "laksjdflkjasdlfkjaslkdjlkjasdflkjsa",
+//     "body": "alskdfjlasdkjflkasjdflkjasdlfkjasdlkjf",
+//     "recommend": true,
+//     "name": "tim chen",
+//     "email": "alskdjflasdkjf@gmail.com",
+//     "photos": [],
+//     "characteristics": {}
+// }
 
-  const setCharacteristic = (key, value) => {
-    console.log(key, value);
-    reviewPost.characteristics[key] = value;
+  const checkSummaryLength = () => {
+    if (summary.length > 60) {
+      setSummaryLengthIsLessThan60(false);
+      return false;
+    }
+    return true;
+  };
+  const CheckBodyLength = () => {
+    if (body.length > 50 && body.length < 1000) {
+      return true;
+      setBodyIsValidLength(true);
+    }
+    return false;
   };
 
-  const submitReview = (e) => {
-    e.preventDefault();
+  const setCharacteristic = (key, value) => {
+    reviewPost.characteristics[key] = value;
     console.log(reviewPost);
-    setPostModalIsOpen(!postModalIsOpen);
-    // axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax//reviews/${props.id}/report`, reviewPost, header)
-    //   .then(() => {
-    //     console.log('submitted a new review');
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+  };
+
+  const setBool = (bool) => {
+    if (bool === 'true') {
+      setRecommend(true);
+    } else {
+      setRecommend(false);
+    }
+  }
+
+  const submitReview = (e) => {
+    let content = "Content-Type"
+    header.headers[content] = 'application/json';
+    e.preventDefault();
+    reviewPost = JSON.stringify(reviewPost);
+    if (reviewPost.rating < 1) {
+      alert(`You must enter the following: Rating`);
+    } else if (!checkSummaryLength()) {
+      alert(`You must enter the following: Summary`);
+    } else if (!CheckBodyLength()) {
+      alert(`You must enter the following: Body`);
+    }  else if (reviewPost.name === '') {
+      alert(`You must enter the following: Name`);
+    } else if (reviewPost.email === '') {
+      alert(`You must enter the following: Email`);
+    } else {
+      setPostModalIsOpen(!postModalIsOpen)
+      axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/`, reviewPost, header)
+        .then((data) => {
+          console.log('submitted a new review', data);
+          props.getReviews();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const options = ["1 star - “Poor”", "2 stars - “Fair”", "3 stars - “Average”", "4 stars - “Good”", "5 stars - “Great”"];
@@ -58,7 +128,7 @@ const PostReviewForm = (props) => {
           <div className="review-form-component">
             <label>
               Overall rating
-              <select style={{margin: '1%'}} onChange={(e) => setRating(e.target.value)}>
+              <select style={{margin: '1%'}} onChange={(e) => setRating(Number(e.target.value))}>
                 {options.map((option, i) => (
                   <option value={i + 1} key={i}>{option}</option>
                 ))}
@@ -68,9 +138,10 @@ const PostReviewForm = (props) => {
           <div className="review-form-component">
             <label>
               Do you recommend this product?
-              <select style={{margin: '1%'}} onChange={(e) => setRecommend(e.target.value)}>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
+              <select style={{margin: '1%'}} onChange={(e) => setBool(e.target.value)}>
+                <option>Select</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
               </select>
             </label>
           </div>
@@ -118,7 +189,8 @@ const PostReviewForm = (props) => {
           <div className="review-form-component">
             <label>
               Review body:
-              <input style={{margin: '1%'}} placeholder="Why did you like the product or not?"  onChange={(e) => setBody(e.target.value)} type="text" name="" />
+              <input style={{margin: '1%', width: '100%'}} placeholder="Why did you like the product or not?"  onChange={(e) => setBody(e.target.value)} type="text" name="" />
+              {belowBody}
             </label>
           </div>
           <div className="review-form-component">
@@ -127,23 +199,24 @@ const PostReviewForm = (props) => {
               <button>Upload photos</button>
             </label>
           </div>
-         <div className="review-form-component">
-          <label>
+          <div className="review-form-component">
+            <label>
               What is your nickname?:
-              <input style={{margin: '1%'}} placeholder="Example: jackson11!" onChange={(e) => setName} type="text" name="" />
+              <input style={{margin: '1%'}} placeholder="Example: jackson11!" onChange={(e) => setName(e.target.value)} type="text" name="" />
               For privacy reasons, do not use your full name or email address” will appear.
             </label>
          </div>
         <div id="text-under-form" className="review-form-component">
             <label>
               Your email:
-              <input style={{margin: '1%'}} placeholder="Example: jackson11@email.com"  onChange={(e) => setEmail(e.target.value)} type="text" name="" />
+              <input style={{margin: '1%'}} placeholder="Example: jackson11@email.com"  onChange={(e) => setEmail(e.target.value)} type="email" name="" />
               For authentication reasons, you will not be emailed” will appear.
             </label>
         </div>
           <input
             type="submit"
             name="submit"/>
+            <button onClick={() => setPostModalIsOpen(!postModalIsOpen)} >Cancel</button>
         </form>
       </div>
     </Modal>
