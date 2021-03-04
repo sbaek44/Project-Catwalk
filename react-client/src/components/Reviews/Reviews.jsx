@@ -22,7 +22,7 @@ const Reviews = (props) => {
       getReviews();
     }
     updateMoreReviewsButton(reviews);
-  }, [selectedParameter, amountOfReviews, props.metadata, filters]);
+  }, [selectedParameter, amountOfReviews, props.currentProduct, filters]);
 
   useEffect(() => {
     if (searchQuery.length > 2) {
@@ -85,6 +85,7 @@ const Reviews = (props) => {
         setReviews(data.data.results);
         updateMoreReviewsButton(data.data.results);
         filterReviews(data.data.results);
+        props.getRatings();
       })
       .catch((err) => console.log(err));
   };
@@ -132,7 +133,7 @@ const Reviews = (props) => {
   if (!isPosting) {
     postForm = '';
   } else {
-    postForm = <PostReviewForm review_id={props.currentProduct.id} />;
+    postForm = <PostReviewForm getReviews={getReviews} review_id={props.currentProduct.id} />;
   }
 
   let filterDisplay;

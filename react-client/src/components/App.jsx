@@ -70,7 +70,7 @@ export default class App extends React.Component {
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
   }
 
   getRatings() {
@@ -84,7 +84,37 @@ export default class App extends React.Component {
       .catch((err) => {
         console.log(err);
       });
-  };
+  }
+
+  findAvgRating() {
+    const ratingsData = this.state.metadata.ratings;
+    if (Object.keys(ratingsData).length === 0) {
+      return '';
+    }
+    let totalScore = 0;
+    let amountOfRatings = 0;
+    for (let key in ratingsData) {
+      let value = Number(ratingsData[key])
+      let actualValue = key * value;
+      totalScore += actualValue;
+      amountOfRatings += value;
+    };
+    let averageScore = totalScore / amountOfRatings;
+    let rounded = Math.round(averageScore * 4) / 4;
+    this.setState({
+      avgRating: rounded,
+  });
+}
+
+  selectProduct(index) {
+    this.setState({
+      selectedItemIndex: index,
+    });
+  }
+
+  randomNumber(max) {
+    return (Math.floor(Math.random() * max)) + 1 // errors if we try to load page 0
+  }
 
   render() {
     return (
