@@ -11,13 +11,12 @@ export default class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      allProducts: [],
-      selectedItemIndex: 0,
+      selectedProduct: [],
       metadata: '',
       avgRating: 0
     }
     this.getProducts = this.getProducts.bind(this);
-    // this.selectProduct = this.selectProduct.bind(this);
+    this.selectProduct = this.selectProduct.bind(this);
     this.findAvgRating = this.findAvgRating.bind(this);
     this.getRatings = this.getRatings.bind(this);
   }
@@ -27,7 +26,6 @@ export default class App extends React.Component {
   }
 
   findAvgRating() {
-
     const ratingsData = this.state.metadata.ratings
     if (Object.keys(ratingsData).length === 0) {
       return '';
@@ -48,22 +46,26 @@ export default class App extends React.Component {
   })
 }
 
-  // selectProduct(index) {
-  //   this.setState({
-  //     selectedItemIndex: index
-  //   })
-  // }
+  selectProduct(id) {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/styles`, header)
+    .then((results) => {
+      this.setState({
+        selectedProduct: results.data
+      })
+    })
+    .catch(err => (console.log(err)))
+  }
 
   randomNumber(max) {
     return (Math.floor(Math.random() * max)) + 1 // errors if we try to load page 0
   }
 
   getProducts() {
-    let page = this.randomNumber(50);
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?count=10&page=${page}`, header)
+    let id = 16060;
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}`, header)
       .then((data) => {
         this.setState({
-          allProducts: data.data
+          selectedProduct: data.data
         }, () => this.getRatings())
       })
       .catch((err) => {
@@ -72,7 +74,7 @@ export default class App extends React.Component {
   }
 
   getRatings() {
-    let id = this.state.allProducts[this.state.selectedItemIndex].id;
+    let id = this.state.selectedProduct.id;
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/meta?product_id=${id}`, header)
       .then((result) => {
         this.setState({
@@ -87,11 +89,22 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Overview products={this.state.allProducts} selectedItemIndex={this.state.selectedItemIndex} avgRating={this.state.avgRating} />
-        <RelatedItemsList avgRating={this.state.avgRating} currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
-        <YourOutfitList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
-        <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/>
-        <Reviews avgRating={this.state.avgRating} metadata={this.state.metadata} currentProduct={this.state.allProducts[this.state.selectedItemIndex]} />
+        {/* <Overview
+          product={this.state.selectedProduct}
+          avgRating={this.state.avgRating} /> */}
+        <RelatedItemsList
+          selectProduct={this.selectProduct}
+          avgRating={this.state.avgRating}
+          currentProduct={this.state.selectedProduct} />
+        <YourOutfitList
+          avgRating={this.state.avgRating}
+          currentProduct={this.state.selectedProduct} />
+        <QA
+          currentProduct={this.state.selectedProduct}/>
+        <Reviews
+          avgRating={this.state.avgRating}
+          metadata={this.state.metadata}
+          currentProduct={this.state.selectedProduct[0]} />
       </div>
     )
   }

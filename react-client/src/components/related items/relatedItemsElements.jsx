@@ -11,7 +11,7 @@ function RelatedItemsElements(props) {
 
   useEffect(() => {
     props.relatedItemsIds.map(item => {
-      let currentProductId = item || 16095;
+      let currentProductId = item || 16060;
       axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentProductId}`, header)
         .then((results) => (updateDataArr(dataArr =>[...dataArr, results.data])))
         .then(() => (
@@ -28,7 +28,8 @@ function RelatedItemsElements(props) {
         dataArr={dataArr}
         currentProductFeatures={props.currentProductFeatures}
         relatedItemsIds={props.relatedItemsIds}
-        avgRating={props.avgRating} />
+        avgRating={props.avgRating}
+        selectProduct={props.selectProduct} />
     </div>
   )
 }

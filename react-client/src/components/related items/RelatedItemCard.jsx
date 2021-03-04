@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from'react-modal';
 import axios from 'axios';
 import header from '../../../../config.js';
+import Stars from '../Reviews/Ratings/Stars.jsx';
 
 const customStyles = {
   content : {
@@ -30,11 +31,9 @@ function RelatedItemCard(props) {
   }, [props.stylesData])
 
   useEffect(() => {
-    // let relatedFeaturesArr = props.dataArr.map(({name, id, features}) => ({name, id, features}))
-    let relatedFeaturesArr = props.dataArr.map(({features}) => ({features}))
-    updateAllFeatures(relatedFeaturesArr, props.currentProductFeatures.features
-      // {name: props.currentProductFeatures.name, id: props.currentProductFeatures.id, features: props.currentProductFeatures.features}
-      )
+    let relatedFeaturesArr = props.dataArr.map(({id, name, features}) => ({id, name, features}))
+    let currentFeaturesArr = [{id: props.currentProductFeatures.id, name: props.currentProductFeatures.name, features: props.currentProductFeatures.features}]
+    updateAllFeatures(currentFeaturesArr.concat(relatedFeaturesArr))
   }, [props.dataArr, props.currentProductFeatures])
 
   let getThumbnail = (id) => {
@@ -49,6 +48,7 @@ function RelatedItemCard(props) {
     updateModalIsOpen(true)
     updateCompareName(e.target.name)
   }
+
   // props.currentProductFeatures = current product
   // props.dataArr = related products info/features
   // props.stylesData = related products photos
@@ -75,23 +75,24 @@ function RelatedItemCard(props) {
               <tbody>
                 <tr>
                   <td></td>
-                  {/* <Checkmark size='small' color='#223344'/> */}
                   <td></td>
                   <td></td>
                 </tr>
                 <tr>
-                  <td></td>
+                  <td>&#10004;</td>
                   <td>
                   {allFeatures.map((feature) => (
                       feature.features.map((feat, i) => (
                         <div key={i} style={{display: 'flex', flexDirection: 'row'}} >
-                          <div>{feat.value ? (feat.feature) : null}</div>
-                          <div>{feat.value ? (feat.value) : null}</div>
+                          <div>{feat.value ? feat.feature : null}</div>
+                          <div>{feat.value ? ':' : null}</div>
+                          <div>{feat.value ? feat.value : null}</div>
                         </div>
                       ))
                     ))}
                   </td>
-                  <td></td>
+                  <td>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -101,16 +102,15 @@ function RelatedItemCard(props) {
       )
   } else {
     return (
-      <div /*onClick={navigateToDetailPage}*/ style={{display: 'flex', flexDirection: 'row'}}>
+      <div style={{display: 'flex', flexDirection: 'row'}}>
       {props.dataArr.map((item, i) => (
-        <div id="relatedItemCard" key={i}>
+        <div onClick={() => (props.selectProduct(item.id))} id="relatedItemCard" key={i}>
           <img src={getThumbnail(item.id)} />
-          {/* <i className="far fa-star"></i> */}
-          <button name={item.name} onClick={modalState}>Compare</button>
+          <button name={item.name} onClick={modalState}>&#9734;</button>
           <div id="cardCategory">{item.category}</div>
           <div id="cardName">{item.name}</div>
           <div id="cardPrice">{item.sale_price ? item.sale_price : item.default_price}</div>
-          <div id="cardStars">Rating: {props.avgRating}</div>
+          <Stars id="cardStars" avgRating={props.avgRating} />
         </div>
       ))}
       </div>
