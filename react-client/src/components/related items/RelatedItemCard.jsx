@@ -59,7 +59,6 @@ function RelatedItemCard(props) {
   } else if (modalIsOpen === true) {
       return (
         <div>
-          {console.log(compareName)}
           <Modal
             ariaHideApp={false}
             isOpen={modalIsOpen}
