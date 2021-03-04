@@ -9,7 +9,7 @@ function RelatedItemsList(props) {
   const [relatedItemsIds, updateRelatedItems] = useState([]);
 
   useEffect(() => {
-    let currentProductId = props.currentProduct.id || 16095;
+    let currentProductId = props.currentProduct.id || 16060;
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentProductId}`, header)
     .then((results) => (updateCurrentProductFeatures(results.data)))
     .then(() => (
@@ -25,7 +25,8 @@ function RelatedItemsList(props) {
       <RelatedItemsElements
         currentProductFeatures={currentProductFeatures}
         relatedItemsIds={relatedItemsIds}
-        avgRating={props.avgRating} />
+        avgRating={props.avgRating}
+        selectProduct={props.selectProduct} />
     </div>
   )
 }

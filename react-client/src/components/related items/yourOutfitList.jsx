@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import header from '../../../../config.js';
+import Stars from '../Reviews/Ratings/Stars.jsx';
 
 function YourOutfitList(props) {
   const [yourOutfit, updateYourOutfit] = useState([]);
@@ -8,7 +9,7 @@ function YourOutfitList(props) {
 
   useEffect(() => {
     let photoDataArr = [];
-    let currentProductId = props.currentProduct.id || 16095;
+    let currentProductId = props.currentProduct.id || 16060;
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentProductId}/styles`, header)
       .then((results) => (photoDataArr.push(Number(results.data.product_id), results.data.results[0].photos[0].thumbnail_url )))
       .then(updatePhotoData(photoDataArr))
@@ -16,7 +17,9 @@ function YourOutfitList(props) {
   }, [props.currentProduct])
 
   let addToYourOutfit = () => {
-    updateYourOutfit((yourOutfit) => ([...yourOutfit, props.currentProduct]))
+    if (!yourOutfit.includes(props.currentProduct)) {
+      updateYourOutfit((yourOutfit) => ([...yourOutfit, props.currentProduct]))
+    }
   }
 
   let removeFromYourOutfit = (e) => {
@@ -42,8 +45,8 @@ function YourOutfitList(props) {
             <img src={photoData[1]} />
             <div id="yourOutfitCategory">{outfit.category}</div>
             <div id="yourOutfitName">{outfit.name}</div>
-            <div id="yourOutfitPrice">{outfit.default_price}</div>
-            <div id="yourOutfitStars">Rating: {props.avgRating}</div>
+            <div id="yourOutfitPrice">{outfit.sale_price ? outfit.sale_price : outfit.default_price}</div>
+            <Stars id="cardStars" avgRating={props.avgRating} />
             <button value={outfit.id} onClick={removeFromYourOutfit}>Delete</button>
           </div>
         ))}
