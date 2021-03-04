@@ -7,11 +7,9 @@ import AddToCart from './AddToCart.jsx';
 import ImageGallery from './ImageGallery.jsx';
 import StyleSelector from './StyleSelector.jsx';
 
-
-
 export default function Overview({products, selectedItemIndex, avgRating}) {
 
-  // use product page 1 selectedItemIndex 9 (shoes) to demo image gallery arrows (which only appear when there's more than 7 thumbnails)
+  // use product page 1 selectedItemIndex 9 (shoes) or product id 16060 to demo image gallery arrows (which only appear when there's more than 7 thumbnails)
 
   const [selectedStyle, selectStyle] = useState(0);
   const [price, updatePrice] = useState(0);

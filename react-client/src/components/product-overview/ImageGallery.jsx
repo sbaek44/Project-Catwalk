@@ -1,4 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import Modal from 'react-modal';
+
+const modalStyle = {
+  content : {
+    top                   : '0.5%',
+    left                  : '0.5%',
+    right                 : '0.5%',
+    height                : 800,
+  }
+};
 
 export default function ImageGallery({ selectPhoto, photos }) {
 
@@ -9,10 +19,6 @@ export default function ImageGallery({ selectPhoto, photos }) {
 
   // The gallery will be viewable in two states.  A default collapsed view, and an expanded view.
   const [expandedGalleryView, toggleGalleryView] = useState(false);
-
-  // useEffect(() => {
-  //   console.log(expandedGalleryView);
-  // }, [expandedGalleryView])
 
   const between = (target, min, max) => {
     return target >= min && target <= max;
@@ -44,7 +50,7 @@ export default function ImageGallery({ selectPhoto, photos }) {
               key={i}
               src={photo.thumbnail_url}
               // Clicking on any thumbnail should update the main image to match that shown in the thumbnail clicked
-              onClick={() => handleSelect(photo.url, i)}
+              onClick={() => handleThumbnailClick(photo.url, i)}
               // The thumbnail corresponding to the image currently selected as the main image should be highlighted to indicate the current selection.
               id={i === selectedPhotoIndex ? 'selected' : null}
             />
@@ -55,18 +61,18 @@ export default function ImageGallery({ selectPhoto, photos }) {
       return <div className='gallery-thumbnails-container'>
         <div className='gallery-thumbnails'>
           <div className='arrow-container'>
-            <button className={selectedPhotoIndex > 0 ?'arrow-button' : 'arrow-button-hidden'} onClick={() => scrollBack()}>&#8963;</button>
+            <button className={selectedPhotoIndex > 0 ? 'arrow-button' : 'arrow-button-hidden'} onClick={() => scrollBack()}>&#8963;</button>
           </div>
           {photos.map((photo, i) => {
             return <img
               className={shouldShowThumbnail(i) ? 'image-thumbnail' : 'image-thumbnail-hidden'}
               key={i}
               src={photo.thumbnail_url}
-              onClick={() => handleSelect(photo.url, i)}
+              onClick={() => handleThumbnailClick(photo.url, i)}
               id={i === selectedPhotoIndex ? 'selected' : null}
             />
           })}
-          <div className='arrow-container' style={{marginTop: -10 }}>
+          <div className='arrow-container' style={{ marginTop: -10 }}>
             <button className={selectedPhotoIndex < photos.length - 1 ? 'arrow-button' : 'arrow-button-hidden'} onClick={() => scrollForward()}>&#8964;</button>
           </div>
         </div>
@@ -75,7 +81,7 @@ export default function ImageGallery({ selectPhoto, photos }) {
     }
   }
 
-  const handleSelect = (url, idx) => {
+  const handleThumbnailClick = (url, idx) => {
     selectPhoto(url);
     changePhotoIndex(idx);
   }
@@ -112,23 +118,57 @@ export default function ImageGallery({ selectPhoto, photos }) {
     }
   }
 
+  // In the expanded view, thumbnails will not appear over the main image.  Instead, icons indicating each image in the set will appear.  These icons will be much smaller, but will have the same functionality in that clicking on them will skip to that image in the set.   Additionally the icon for the currently selected image will be distinguishably different from the rest.
+
+  const renderExpandedViewIcons = () => {
+    return <div className='expanded-view-icons-row'>
+      {photos.map((photo, i) => {
+        return <div
+          className='expanded-view-icon'
+          key={i}
+          onClick={() => handleIconClick(photo.url, i)}
+          id={i === selectedPhotoIndex ? 'selected' : null}
+          >
+          </div>
+      })}
+    </div>
+  }
+
+  // this is exactly the same as handleThumbNailClick rn, not sure if they will end up needing slightly diff functionality or not, delete this and switch expanded-view-icons' onClick back to handleThumbNailClick if not
+  const handleIconClick = (url, idx) => {
+    selectPhoto(url);
+    changePhotoIndex(idx);
+  }
+
+
   return (
     <div className='image-gallery-outer'>
       {photos.length ?
         <div
-        className='image-gallery'
-        style={mainImageCSS(photos[selectedPhotoIndex].url)}
-        onClick={() => toggleGalleryView(!expandedGalleryView)
-        }>
+          className='image-gallery'
+          style={mainImageCSS(photos[selectedPhotoIndex].url)}
+          >
+
+          <Modal id='expanded-gallery-view' isOpen={expandedGalleryView} style={modalStyle} >
+            <button onClick={() => toggleGalleryView(false)}  style={{width: 60, height: 20}}>CLOSE</button>
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+              <button onClick={() => scrollBack()}>&#x2190;</button>
+              {renderExpandedViewIcons()}
+              <button onClick={() => scrollForward()}>&#x2192;</button>
+            </div>
+            <img id='expanded-view-img' src={photos[selectedPhotoIndex].url} />
+          </Modal>
+
           {renderThumbnails()}
 
-          {/* L/R arrow positions are currently hardcoded, should change them to work more consistently across monitors/zoom %s */}
+          {/* todo: refactor this disgusting css/hardcoding */}
           <button className='horizontal-arrow' id={selectedPhotoIndex > 0 ? 'left-arrow' : 'left-hidden'} onClick={() => scrollBack()}>&#x2190;</button>
-          <button className='horizontal-arrow' id={selectedPhotoIndex < photos.length - 1? 'right-arrow' : 'right-hidden'} onClick={() => scrollForward()}>&#x2192;</button>
+          <button className='horizontal-arrow' id={selectedPhotoIndex < photos.length - 1 ? 'right-arrow' : 'right-hidden'} onClick={() => scrollForward()}>&#x2192;</button>
+
+          {/* expanded view is supposed to open on img click, but for now just use this button */}
+          <button onClick={() => toggleGalleryView(!expandedGalleryView)} style={{width: 200, height: 20}}>open the EXPANDED VIEW</button>
         </div>
         : null}
     </div>
   )
 };
-
-// If the user hovers over the main image anywhere other than the thumbnails, the left arrow, or the right arrow, the mouse icon should change to show a magnifying glass.  If the user clicks on the image, the image gallery should change to the expanded view.
