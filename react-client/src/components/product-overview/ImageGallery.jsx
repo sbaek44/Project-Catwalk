@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import ExpandedView from './ExpandedView.jsx';
 import Modal from 'react-modal';
 
 const modalStyle = {
   content : {
     top                   : '0.5%',
-    left                  : '0.5%',
-    right                 : '0.5%',
+    left                  : 0,
+    right                 : 0,
+    overflowX             : 'hidden',
     height                : 800,
   }
 };
@@ -140,6 +142,10 @@ export default function ImageGallery({ selectPhoto, photos }) {
     changePhotoIndex(idx);
   }
 
+  useEffect(() => {
+    console.log(expandedGalleryView)
+  }, [expandedGalleryView])
+
 
   return (
     <div className='image-gallery-outer'>
@@ -149,14 +155,18 @@ export default function ImageGallery({ selectPhoto, photos }) {
           style={mainImageCSS(photos[selectedPhotoIndex].url)}
           >
 
-          <Modal id='expanded-gallery-view' isOpen={expandedGalleryView} style={modalStyle} >
-            <button onClick={() => toggleGalleryView(false)}  style={{width: 60, height: 20}}>CLOSE</button>
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
-              <button onClick={() => scrollBack()}>&#x2190;</button>
-              {renderExpandedViewIcons()}
-              <button onClick={() => scrollForward()}>&#x2192;</button>
-            </div>
-            <img id='expanded-view-img' src={photos[selectedPhotoIndex].url} />
+          {/* EXPANDED VIEW */}
+          <Modal id='expanded-gallery-view' isOpen={expandedGalleryView} style={modalStyle} ariaHideApp={false} >
+            <ExpandedView
+              toggleGalleryView={() => toggleGalleryView(false)}
+              url={photos[selectedPhotoIndex].url}
+              back={() => scrollBack}
+              forward={() => scrollForward}
+              photos={photos}
+              handleIconClick={handleIconClick}
+              selectedPhotoIndex={selectedPhotoIndex}
+            >
+            </ExpandedView>
           </Modal>
 
           {renderThumbnails()}

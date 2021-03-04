@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: #fefefe;
+  font-family: 'Roboto', sans-serif;
 }
 
 button:focus {
