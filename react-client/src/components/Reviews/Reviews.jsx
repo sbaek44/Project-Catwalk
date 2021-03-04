@@ -132,7 +132,7 @@ const Reviews = (props) => {
   if (!isPosting) {
     postForm = '';
   } else {
-    postForm = <PostReviewForm review_id={props.currentProduct.id} />;
+    postForm = <PostReviewForm getReviews={getReviews} review_id={props.currentProduct.id} />;
   }
 
   let filterDisplay;
