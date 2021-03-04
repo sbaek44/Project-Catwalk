@@ -26,9 +26,34 @@ export default class App extends React.Component {
     this.getProducts();
   }
 
-  findAvgRating() {
+  getProducts() {
+    let page = this.randomNumber(50);
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?count=10&page=${page}`, header)
+      .then((data) => {
+        this.setState({
+          allProducts: data.data
+        }, () => this.getRatings())
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
-    const ratingsData = this.state.metadata.ratings
+  getRatings() {
+      let id = this.state.allProducts[this.state.selectedItemIndex].id;
+      axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/meta?product_id=${id}`, header)
+        .then((result) => {
+          this.setState({
+            metadata: result.data
+          }, () => this.findAvgRating());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }
+
+  findAvgRating() {
+    const ratingsData = this.state.metadata.ratings;
     if (Object.keys(ratingsData).length === 0) {
       return '';
     }
@@ -40,49 +65,22 @@ export default class App extends React.Component {
       totalScore += actualValue;
       amountOfRatings += value;
     };
-
     let averageScore = totalScore / amountOfRatings;
     let rounded = Math.round(averageScore * 4) / 4;
     this.setState({
-      avgRating: rounded
-  })
+      avgRating: rounded,
+  });
 }
 
-  // selectProduct(index) {
-  //   this.setState({
-  //     selectedItemIndex: index
-  //   })
-  // }
+  selectProduct(index) {
+    this.setState({
+      selectedItemIndex: index,
+    });
+  }
 
   randomNumber(max) {
     return (Math.floor(Math.random() * max)) + 1 // errors if we try to load page 0
   }
-
-  getProducts() {
-    let page = this.randomNumber(50);
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products?count=10&page=1`, header)
-      .then((data) => {
-        this.setState({
-          allProducts: data.data
-        }, () => this.getRatings())
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  getRatings() {
-    let id = this.state.allProducts[this.state.selectedItemIndex].id;
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/meta?product_id=${id}`, header)
-      .then((result) => {
-        this.setState({
-          metadata: result.data
-        }, () => this.findAvgRating());
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   render() {
     return (
@@ -91,7 +89,7 @@ export default class App extends React.Component {
         <RelatedItemsList avgRating={this.state.avgRating} currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
         <YourOutfitList currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''} />
         <QA currentProduct={this.state.allProducts[this.state.selectedItemIndex] || ''}/>
-        <Reviews avgRating={this.state.avgRating} metadata={this.state.metadata} currentProduct={this.state.allProducts[this.state.selectedItemIndex]} />
+        <Reviews getRatings={this.getRatings} avgRating={this.state.avgRating} metadata={this.state.metadata} currentProduct={this.state.allProducts[this.state.selectedItemIndex]} />
       </div>
     )
   }
