@@ -171,3 +171,13 @@
 	height: 600px;
   overflow-y:auto;
 }
+
+.addReviewForm {
+	padding: 2%
+}
+.review-form-component {
+	margin: 3%;
+}
+#text-under-form {
+	display: block;
+}

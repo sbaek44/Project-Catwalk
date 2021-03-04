@@ -9,7 +9,6 @@ import Search from './Search.jsx';
 import Modal from 'react-modal';
 
 const Reviews = (props) => {
-  const [postModalIsOpen, setPostModalIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -153,9 +152,6 @@ const Reviews = (props) => {
 
   return (
     <div className="ratings-reviews">
-      <Modal isOpen={postModalIsOpen}>
-        PIZZA!
-      </Modal>
       {postForm}
         <div className="ratings">
           <Ratings
