@@ -215,6 +215,12 @@
   margin-bottom: 10px;
 }
 
+.social-media-links {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-bottom: 10px;
+}
+
 #reviews-link {
   text-decoration: underline;
   margin-left: 10px;

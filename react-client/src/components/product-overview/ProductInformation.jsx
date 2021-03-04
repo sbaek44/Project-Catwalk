@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import header from '../../../../config.js';
 import axios from 'axios';
 import Stars from '../Reviews/Ratings/Stars.jsx'
+import { SocialIcon } from 'react-social-icons';
 
 function ProductInformation({ selectedProduct, selectedStyle, price, sale, avgRating }) {
 
@@ -16,7 +17,13 @@ function ProductInformation({ selectedProduct, selectedStyle, price, sale, avgRa
     }
   }
 
-  // social media buttons wil go on either this component, style selector, or product description - not sure yet
+  const renderSocialMediaIcons = () => {
+    return <div className='social-media-links'>
+      <SocialIcon style={{marginLeft: 2, height: 25, width: 25}} url="http://pinterest.com" />
+      <SocialIcon style={{marginLeft: 2, height: 25, width: 25}} url="http://facebook.com" />
+      <SocialIcon style={{marginLeft: 2, height: 25, width: 25}} url="http://twitter.com" />
+    </div>
+  }
 
   const scrollToReviews = () => {
     document.querySelector('.reviews-list').scrollIntoView({
@@ -39,6 +46,7 @@ function ProductInformation({ selectedProduct, selectedStyle, price, sale, avgRa
             {selectedProduct.name}
           </div>
           <div className='product-price'>{renderPrice()}</div>
+          {renderSocialMediaIcons()}
         </div>
         : null}
     </div >
