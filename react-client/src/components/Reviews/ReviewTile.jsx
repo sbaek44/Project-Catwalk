@@ -1,30 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import header from '../../../../config.js';
 import ReviewPhotos from './ReviewPhotos.jsx';
 import Stars from './Ratings/Stars.jsx';
 import axios from 'axios';
 
-const ReviewTile = (props) => {
-  const date = new Date(props.review.date).toUTCString().slice(4, -12);
+const ReviewTile = ({ review, avgRating }) => {
+  const date = new Date(review.date).toUTCString().slice(4, -12);
   const [hasMarked, setHasMarked] = useState(false);
+  const [longerThan250, setLongerThan250] = useState(false);
+
+  useEffect(() => {
+    if (review.body.length > 250) {
+      setLongerThan250(true);
+    }
+  }, [review]);
+
+  let reviewText;
+  if (!longerThan250) {
+    reviewText = <div> {review.body} </div>;
+  } else {
+    reviewText = (
+      <div> {review.body.slice(0, 250)} <div style={{fontWeight: 'bold'}}  className="text"  onClick={() => setLongerThan250(false)} >show more..</div>  </div>
+    );
+  };
+
+
+  // By default the first 250 characters of the review should display.  If the review is longer than 250 characters, below the body a link reading “Show more” will appear.  Upon clicking this link, the review tile should expand and the rest of the review should display.
+  // create state that stores if review body string length is greater than 250 characters
+  // if the lenght is longer than 250 characters, set flag to true
+  // slice body length to the first 250 chars
+  // display text below body saying "show more..."
+  // onclick will set flag to false and stop displaying the button
+  // will also set review body to the full length of the review body
+
+  // Any images that were submitted as part of the review should appear as thumbnails below the review text. Upon clicking a thumbnail, the image should open in a modal window, displaying at full resolution.  The only functionality available within this modal should be the ability to close the window.
+
+
   let day = date.slice(0,3);
   let month = date.slice(-9, -6);
   let year = date.slice(-5);
-  let dateAndUser = `${props.review.reviewer_name}, ${month} ${day}, ${year}`;
+  let dateAndUser = `${review.reviewer_name}, ${month} ${day}, ${year}`;
   let form;
-  if (!props.review.recommend) {
+  if (!review.recommend) {
     form = '';
   } else {
     form = <div>✔ I recommend this product</div>;
   }
   let response;
-  if (props.review.response) {
+  if (review.response) {
     response = (<div id="response-container" >
       <div id="response" >
-      Response:
+      Response from seller:
       </div>
       <div id="response-text">
-        {props.review.response}
+        {review.response}
       </div>
     </div>)
   } else {
@@ -32,23 +61,23 @@ const ReviewTile = (props) => {
   }
 
   let reviewBody = {
-    body: props.review.body,
-    date: props.review.date,
-    helpfulness: props.review.helpfulness,
-    photos: props.review.photos,
-    recommend: props.review.recommend,
-    response: props.review.response,
-    review_className: props.review.review_className,
-    reviewer_name: props.review.reviewer_name,
-    summary: props.review.summary,
+    body: review.body,
+    date: review.date,
+    helpfulness: review.helpfulness,
+    photos: review.photos,
+    recommend: review.recommend,
+    response: review.response,
+    review_className: review.review_className,
+    reviewer_name: review.reviewer_name,
+    summary: review.summary,
   };
 
   const markAsHelpful = () => {
     if (!hasMarked) {
       reviewBody.helpfulness += 1;
-      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${props.review.review_id}/helpful`, reviewBody, header)
+      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${review.review_id}/helpful`, reviewBody, header)
         .then(() => {
-          props.getReviews();
+          getReviews();
         })
         .catch((err) => console.log(err));
       setHasMarked(true);
@@ -58,9 +87,9 @@ const ReviewTile = (props) => {
   const markAsUnHelpful = () => {
     if (!hasMarked) {
       reviewBody.helpfulness -= 1;
-      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${props.review.review_className}/helpful`, reviewBody, header)
+      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${review.review_className}/helpful`, reviewBody, header)
         .then(() => {
-          props.getReviews();
+          getReviews();
         })
         .catch((err) => console.log(err));
       setHasMarked(true);
@@ -68,30 +97,30 @@ const ReviewTile = (props) => {
   };
 
   const reportReview = () => {
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${props.review.review_className}/report`, reviewBody, header)
+    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${review.review_className}/report`, reviewBody, header)
       .then(() => {
-        props.getReviews();
+        getReviews();
       })
       .catch((err) => console.log(err));
   };
 
   return (
     <div className="reviewTile">
-      <div className="stars"> <Stars avgRating={props.avgRating} /></div>
+      <div className="stars"> <Stars avgRating={avgRating} /></div>
       <div className="userName">
         {dateAndUser}
       </div>
-      <div className="reviewSummary"> {props.review.summary} </div>
-      <div> {props.review.body} </div>
-      <ReviewPhotos photos={props.review.photos} />
+      <div className="reviewSummary"> {review.summary} </div>
+     {reviewText}
+      <ReviewPhotos photos={review.photos} />
       {form}
       {response}
         <div style={{display: 'flex', flexDirection: 'row'}}>
             Helpful?
             <div  id="yes"  className="text" onClick={markAsHelpful}>Yes</div>
-            {`(${props.review.helpfulness})`}
+            {`(${review.helpfulness})`}
             <div id="yes" className="text" onClick={markAsUnHelpful} >No</div>
-            {`(${props.review.helpfulness})`}
+            {`(${review.helpfulness})`}
           <div id="yes">|</div>
         <div id="yes" className="text" onClick={reportReview}>report</div>
       </div>

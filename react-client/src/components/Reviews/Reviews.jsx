@@ -107,7 +107,7 @@ const Reviews = (props) => {
   if (!isDisplayingMoreReviewsButton) {
     moreReviewsButton = '';
   } else {
-    moreReviewsButton = <button onClick={addMoreReviews} >MORE REVIEWS</button>;
+    moreReviewsButton = <button className="review-buttons" onClick={addMoreReviews} >MORE REVIEWS</button>;
   }
 
   const updateMoreReviewsButton = (arrOfReviews) => {
@@ -174,7 +174,7 @@ const Reviews = (props) => {
           />
           <div className="more-reviews-bar">
             {moreReviewsButton}
-            <button onClick={togglePostForm} >ADD A REVIEW +</button>
+            <button className="review-buttons" onClick={togglePostForm} >ADD A REVIEW +</button>
           </div>
         </div>
       </div>
