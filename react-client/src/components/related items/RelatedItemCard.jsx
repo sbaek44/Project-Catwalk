@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Modal from'react-modal';
-import { Checkmark } from 'react-checkmark'
 import axios from 'axios';
 import header from '../../../../config.js';
 
@@ -85,8 +84,9 @@ function RelatedItemCard(props) {
                   <td>
                   {allFeatures.map((feature) => (
                       feature.features.map((feat, i) => (
-                        <div key={i}>
-                          <div>{feat.value ? (feat.feature, feat.value) : null}</div>
+                        <div key={i} style={{display: 'flex', flexDirection: 'row'}} >
+                          <div>{feat.value ? (feat.feature) : null}</div>
+                          <div>{feat.value ? (feat.value) : null}</div>
                         </div>
                       ))
                     ))}
@@ -109,7 +109,7 @@ function RelatedItemCard(props) {
           <button name={item.name} onClick={modalState}>Compare</button>
           <div id="cardCategory">{item.category}</div>
           <div id="cardName">{item.name}</div>
-          <div id="cardPrice">{item.default_price}</div>
+          <div id="cardPrice">{item.sale_price ? item.sale_price : item.default_price}</div>
           <div id="cardStars">Rating: {props.avgRating}</div>
         </div>
       ))}
