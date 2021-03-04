@@ -4,7 +4,7 @@ import ReviewPhotos from './ReviewPhotos.jsx';
 import Stars from './Ratings/Stars.jsx';
 import axios from 'axios';
 
-const ReviewTile = ({ review, avgRating }) => {
+const ReviewTile = ({ review, avgRating, getReviews }) => {
   const date = new Date(review.date).toUTCString().slice(4, -12);
   const [hasMarked, setHasMarked] = useState(false);
   const [longerThan250, setLongerThan250] = useState(false);
@@ -87,7 +87,7 @@ const ReviewTile = ({ review, avgRating }) => {
   const markAsUnHelpful = () => {
     if (!hasMarked) {
       reviewBody.helpfulness -= 1;
-      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${review.review_className}/helpful`, reviewBody, header)
+      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${review.review_id}/helpful`, reviewBody, header)
         .then(() => {
           getReviews();
         })
@@ -97,7 +97,7 @@ const ReviewTile = ({ review, avgRating }) => {
   };
 
   const reportReview = () => {
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${review.review_className}/report`, reviewBody, header)
+    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${review.review_id}/report`, reviewBody, header)
       .then(() => {
         getReviews();
       })
