@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Modal from'react-modal';
-import { Checkmark } from 'react-checkmark'
 import axios from 'axios';
 import header from '../../../../config.js';
 
@@ -76,7 +75,6 @@ function RelatedItemCard(props) {
               <tbody>
                 <tr>
                   <td></td>
-                  {/* <Checkmark size='small' color='#223344'/> */}
                   <td></td>
                   <td></td>
                 </tr>

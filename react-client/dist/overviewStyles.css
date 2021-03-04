@@ -27,18 +27,13 @@
   /* react-modal */
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
 }
 
-img#expanded-image {
-  margin-top: 10px;
-  width: 100%;
-  height: auto;
-  overflow-x: hidden;
-}
+/* #expanded-view-img {
+} */
 
-img#expanded-image:hover {
+/* Instead of displaying a magnifying glass on hover, in the expanded view the mouse should become a “+” symbol while hovering over the main image. */
+#expanded-view-img:hover {
   cursor: crosshair
 }
 
@@ -55,10 +50,6 @@ img#expanded-image:hover {
   margin: 0.1rem;
   background: none;
   transition-duration: 0.25s;
-}
-
-.expanded-view-icon:hover {
-  cursor: pointer;
 }
 
 .expanded-view-icon#selected {
@@ -281,7 +272,7 @@ img#expanded-image:hover {
   margin-left: 2rem;
   width: 1rem;
   height: 1rem;
-  font-size: .75rem;
+  font-size: 0.8rem;
   border-radius: 50%;
   text-align: center;
   background-color: white;

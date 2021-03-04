@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ExpandedView from './ExpandedView.jsx';
+import ExpandedView from './ExpandedViewFunctional.jsx';
 import Modal from 'react-modal';
 
 const modalStyle = {
@@ -158,13 +158,13 @@ export default function ImageGallery({ selectPhoto, photos }) {
           {/* EXPANDED VIEW */}
           <Modal id='expanded-gallery-view' isOpen={expandedGalleryView} style={modalStyle} ariaHideApp={false} >
             <ExpandedView
-              toggleGalleryView={() => toggleGalleryView(false)}
+              close={() => toggleGalleryView(false)}
+              photos={photos}
               url={photos[selectedPhotoIndex].url}
+              selectedPhotoIndex={selectedPhotoIndex}
+              handleIconClick={handleIconClick}
               back={() => scrollBack}
               forward={() => scrollForward}
-              photos={photos}
-              handleIconClick={handleIconClick}
-              selectedPhotoIndex={selectedPhotoIndex}
             >
             </ExpandedView>
           </Modal>
