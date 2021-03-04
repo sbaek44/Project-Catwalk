@@ -4,6 +4,7 @@ import header from '../../../../config.js'
 import Modal from 'react-modal';
 
 const PostReviewForm = (props) => {
+  const [imageModalIsOpen, setImageModalIsOpen] = useState(false);
   const [postModalIsOpen, setPostModalIsOpen] = useState(true);
   const [rating, setRating] = useState(0);
   const [summary, setSummary] = useState('');
@@ -20,6 +21,22 @@ const PostReviewForm = (props) => {
     checkSummaryLength();
     CheckBodyLength();
   }, [summary, body]);
+
+  let images = [];
+  const setImages = (e) => {
+    let idx = Number(e.target.name);
+    images[idx] = e.target.value;
+    console.log(images);
+  };
+
+  const toggleModal = (e) => {
+    e.preventDefault();
+    setImageModalIsOpen(!imageModalIsOpen);
+  };
+  const updateImages = (e) => {
+    toggleModal(e);
+    setPhotos(images);
+  };
 
   let belowBody;
   if (body.length < 50) {
@@ -45,17 +62,6 @@ const PostReviewForm = (props) => {
     photos: photos,
     characteristics: {},
   };
-//   {
-//     "product_id": 16414,
-//     "rating": 3,
-//     "summary": "laksjdflkjasdlfkjaslkdjlkjasdflkjsa",
-//     "body": "alskdfjlasdkjflkasjdflkjasdlfkjasdlkjf",
-//     "recommend": true,
-//     "name": "tim chen",
-//     "email": "alskdjflasdkjf@gmail.com",
-//     "photos": [],
-//     "characteristics": {}
-// }
 
   const checkSummaryLength = () => {
     if (summary.length > 60) {
@@ -74,7 +80,6 @@ const PostReviewForm = (props) => {
 
   const setCharacteristic = (key, value) => {
     reviewPost.characteristics[key] = value;
-    console.log(reviewPost);
   };
 
   const setBool = (bool) => {
@@ -96,7 +101,7 @@ const PostReviewForm = (props) => {
       alert(`You must enter the following: Summary`);
     } else if (!CheckBodyLength()) {
       alert(`You must enter the following: Body`);
-    }  else if (reviewPost.name === '') {
+    } else if (reviewPost.name === '') {
       alert(`You must enter the following: Name`);
     } else if (reviewPost.email === '') {
       alert(`You must enter the following: Email`);
@@ -123,8 +128,32 @@ const PostReviewForm = (props) => {
 
   return (
     <Modal isOpen={postModalIsOpen} >
+      <Modal isOpen={imageModalIsOpen}>
+      <label>
+        Image 1:
+        <input onChange={setImages} name="0" type="text" />
+      </label>
+      <label>
+        Image 2:
+        <input onChange={setImages} name="1" type="text" />
+      </label>
+      <label>
+        Image 3:
+        <input onChange={setImages} name="2" type="text" />
+      </label>
+      <label>
+        Image 4:
+        <input onChange={setImages} name="3" type="text" />
+      </label>
+      <label>
+        Image 5:
+        <input onChange={setImages} name="4" type="text" />
+      </label>
+      <button onClick={updateImages} >Submit</button>
+      <button onClick={toggleModal} >Cancel</button>
+    </Modal>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <form className="addReviewForm" onSubmit={submitReview}>
+        <form className="addReviewForm">
           <div className="review-form-component">
             <label>
               Overall rating
@@ -196,7 +225,7 @@ const PostReviewForm = (props) => {
           <div className="review-form-component">
             <label>
               Upload your photos:
-              <button>Upload photos</button>
+              <button onClick={toggleModal}>Upload photos</button>
             </label>
           </div>
           <div className="review-form-component">
@@ -213,9 +242,7 @@ const PostReviewForm = (props) => {
               For authentication reasons, you will not be emailed” will appear.
             </label>
         </div>
-          <input
-            type="submit"
-            name="submit"/>
+          <button onClick={submitReview}>Submit</button>
             <button onClick={() => setPostModalIsOpen(!postModalIsOpen)} >Cancel</button>
         </form>
       </div>
