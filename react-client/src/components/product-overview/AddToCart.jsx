@@ -3,16 +3,11 @@ import header from '../../../../config.js';
 import axios from 'axios';
 import Select from 'react-select';
 
-export default function AddToCart(props) {
+export default function AddToCart({ selectedProduct, selectedStyle, styles, getStyleName }) {
 
-  // last todos on this component i think: test out of stock conditional renders with the following product, and make react-select tags look less weird with css
-  // https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/16392/styles
-  // style_id: 85741
-  // sku_id: 496214
-
-  const { selectedProduct, selectedStyle, styles, getStyleName } = props;
   const [size, selectSize] = useState('');
   const [qty, selectQty] = useState(1);
+  const [qtyOptions, setQtyOptions] = useState([]);
   const [sizeMenuOpen, toggleSizeMenu] = useState(false);
   const [qtyMenuOpen, toggleQtyMenu] = useState(false);
   const [outOfStock, warning] = useState(false);
@@ -76,10 +71,8 @@ export default function AddToCart(props) {
       options.push({ value: Number(i), label: String(i) })
     }
 
-    return options
-
+    setQtyOptions(options);
   }
-
 
   const pleaseSelectSize = () => {
     toggleSizeMenu(true);
@@ -110,27 +103,50 @@ export default function AddToCart(props) {
 
   const handleSizeSelect = (sizeOption) => {
     selectSize(sizeOption.value);
-    selectQty(1);
     toggleSizeMenu(false);
     changeMessage('');
   }
+
+  useEffect(() => {
+    getQtyOptions();
+  }, [size])
 
   const handleQtySelect = (qtyOption) => {
     selectQty(qtyOption.value);
     toggleQtyMenu(false);
   }
 
+  const closeMenus = () => {
+    if (sizeMenuOpen) {
+      toggleSizeMenu(false)
+    }
+    if (qtyMenuOpen) {
+      toggleQtyMenu(false)
+    }
+  }
+
   return (
-    <div className='add-to-cart'>
+    <div className='add-to-cart' onBlur={() => closeMenus()}>
       {styles.length && selectedStyle !== 0 && selectedProduct ?
         <div style={{ display: 'flex', flexDirection: 'column' }}>
 
           <span className='add-to-cart-message'>{message}</span>
-          <div style={{ display: 'flex', flexFlow: 'row-nowrap', }}>
-
+          <div className='selector-container'>
+          <Select
+              id='qty'
+              className='dropdown'
+              onFocus={() => toggleQtyMenu(true)}
+              blurInputOnSelect={true}
+              onChange={handleQtySelect}
+              disabled={size === '' ? true : false}
+              options={qtyOptions}
+              placeholder={size === '' ? '-' : 1}
+            >
+            </Select>
             {/* size dropdown should become inactive and read OUT OF STOCK when there's no stock */}
             <Select
-              id='size-selector'
+              id='size'
+              className='dropdown'
               onFocus={() => toggleSizeMenu(true)}
               blurInputOnSelect={true}
               onChange={handleSizeSelect}
@@ -141,25 +157,12 @@ export default function AddToCart(props) {
               isSearchable={false}
             >
             </Select>
-
-            {/* qty dropdown is disabled until a size is selected*/}
-            <Select
-              id='qty-selector'
-              onFocus={() => toggleQtyMenu(true)}
-              blurInputOnSelect={true}
-              onChange={handleQtySelect}
-              disabled={size === '' ? true : false}
-              options={getQtyOptions()}
-              placeholder={size === '' ? '-' : null}
-            >
-            </Select>
-
           </div>
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-            {/* add to cart button should be hidden when there's no stock */}
-            {outOfStock ? null : <button className='add-to-cart-button' onClick={() => add()}><span>ADD TO BAG</span><span>+</span></button>}
+          <div className='selector-container'>
             {/* no idea what this button is but its on the mock */}
             <button className='favorite-button'>☆</button>
+            {/* add to cart button should be hidden when there's no stock */}
+            {outOfStock ? null : <button className='add-to-cart-button' onClick={() => add()}><span>ADD TO BAG</span><span>+</span></button>}
           </div>
         </div>
         : null}

@@ -1,4 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import ExpandedView from './ExpandedView.jsx';
+import Modal from 'react-modal';
+
+const modalStyle = {
+  content : {
+    top                   : '0.5%',
+    left                  : 0,
+    right                 : 0,
+    overflowX             : 'hidden',
+    height                : 800,
+  }
+};
 
 export default function ImageGallery({ selectPhoto, photos }) {
 
@@ -6,27 +18,22 @@ export default function ImageGallery({ selectPhoto, photos }) {
   // When switching between styles, the index of the image currently selected should be maintained when the gallery updates for the new style
 
   const [selectedPhotoIndex, changePhotoIndex] = useState(0);
-  // note - some larger imgs currently bleed out of overview component, need to somehow standardize the image sizes and/or the size of the gallery component itself
 
   // The gallery will be viewable in two states.  A default collapsed view, and an expanded view.
   const [expandedGalleryView, toggleGalleryView] = useState(false);
-
-  // useEffect(() => {
-  //   console.log(selectedPhotoIndex)
-  // }, [selectedPhotoIndex])
-
 
   const between = (target, min, max) => {
     return target >= min && target <= max;
   }
 
-  // this shows the correct number of thumbnails but is still a bit buggy with what thumbnails display, even though you can scroll through them fine with the arrows. i think the logic in the else block is off
+  // If more than 7 images are in the set for the style selected, the user should be able to scroll forward and backwards through the thumbnails. An arrow button pointing either direction should allow the customer to scroll through the remaining thumbnails in either direction.
+
   const shouldShowThumbnail = (idx) => {
     if (selectedPhotoIndex + 6 < photos.length) {
       return between(idx, selectedPhotoIndex, selectedPhotoIndex + 6)
     } else {
-      let diff = Math.abs((selectedPhotoIndex + 6) - photos.length)
-      if (between(idx, 0, diff)) {
+      let diff = Math.abs((selectedPhotoIndex + 7) - photos.length)
+      if (between(idx, selectedPhotoIndex - diff, photos.length)) {
         return true;
       } else {
         return between(idx, selectedPhotoIndex, photos.length)
@@ -45,7 +52,7 @@ export default function ImageGallery({ selectPhoto, photos }) {
               key={i}
               src={photo.thumbnail_url}
               // Clicking on any thumbnail should update the main image to match that shown in the thumbnail clicked
-              onClick={() => handleSelect(photo.url, i)}
+              onClick={() => handleThumbnailClick(photo.url, i)}
               // The thumbnail corresponding to the image currently selected as the main image should be highlighted to indicate the current selection.
               id={i === selectedPhotoIndex ? 'selected' : null}
             />
@@ -54,22 +61,21 @@ export default function ImageGallery({ selectPhoto, photos }) {
       </div>
     } else {
       return <div className='gallery-thumbnails-container'>
-        {/* Up to 7  thumbnail images will be displayed at a given time in the list. this is implemented, but some thumbnails have the wrong image even though scrolling through them works properly. todo */}
         <div className='gallery-thumbnails'>
           <div className='arrow-container'>
-            {selectedPhotoIndex > 0 ? <button className='arrow-button' onClick={() => scrollBack()}>&#8963;</button> : null}
+            <button className={selectedPhotoIndex > 0 ? 'arrow-button' : 'arrow-button-hidden'} onClick={() => scrollBack()}>&#8963;</button>
           </div>
           {photos.map((photo, i) => {
             return <img
               className={shouldShowThumbnail(i) ? 'image-thumbnail' : 'image-thumbnail-hidden'}
               key={i}
               src={photo.thumbnail_url}
-              onClick={() => handleSelect(photo.url, i)}
+              onClick={() => handleThumbnailClick(photo.url, i)}
               id={i === selectedPhotoIndex ? 'selected' : null}
             />
           })}
-          <div className='arrow-container'>
-            {selectedPhotoIndex < photos.length - 1 ? <button className='arrow-button' onClick={() => scrollForward()}>&#8964;</button> : null}
+          <div className='arrow-container' style={{ marginTop: -10 }}>
+            <button className={selectedPhotoIndex < photos.length - 1 ? 'arrow-button' : 'arrow-button-hidden'} onClick={() => scrollForward()}>&#8964;</button>
           </div>
         </div>
 
@@ -77,14 +83,15 @@ export default function ImageGallery({ selectPhoto, photos }) {
     }
   }
 
-  const handleSelect = (url, idx) => {
+  const handleThumbnailClick = (url, idx) => {
     selectPhoto(url);
     changePhotoIndex(idx);
   }
 
   const scrollForward = () => {
     if (selectedPhotoIndex === photos.length - 1) {
-      changePhotoIndex(0);
+      return
+      // changePhotoIndex(0) for infinite scroll
     } else {
       let nextIndex = selectedPhotoIndex + 1;
       changePhotoIndex(nextIndex);
@@ -93,39 +100,85 @@ export default function ImageGallery({ selectPhoto, photos }) {
 
   const scrollBack = () => {
     if (selectedPhotoIndex === 0) {
-      changePhotoIndex(photos.length - 1)
+      return
+      // changePhotoIndex(photos.length - 1) for infinite scroll
     } else {
       let nextIndex = selectedPhotoIndex - 1;
       changePhotoIndex(nextIndex)
     }
   }
 
+  // still needs work but ok for testing
+  const mainImageCSS = (photoURL) => {
+    return {
+      width: 'auto',
+      height: '100%',
+      backgroundImage: `url(${photoURL})`,
+      overflow: 'hidden',
+      backgroundPosition: '50% 50%',
+      backgroundRepeat: 'no-repeat'
+    }
+  }
+
+  // In the expanded view, thumbnails will not appear over the main image.  Instead, icons indicating each image in the set will appear.  These icons will be much smaller, but will have the same functionality in that clicking on them will skip to that image in the set.   Additionally the icon for the currently selected image will be distinguishably different from the rest.
+
+  const renderExpandedViewIcons = () => {
+    return <div className='expanded-view-icons-row'>
+      {photos.map((photo, i) => {
+        return <div
+          className='expanded-view-icon'
+          key={i}
+          onClick={() => handleIconClick(photo.url, i)}
+          id={i === selectedPhotoIndex ? 'selected' : null}
+          >
+          </div>
+      })}
+    </div>
+  }
+
+  // this is exactly the same as handleThumbNailClick rn, not sure if they will end up needing slightly diff functionality or not, delete this and switch expanded-view-icons' onClick back to handleThumbNailClick if not
+  const handleIconClick = (url, idx) => {
+    selectPhoto(url);
+    changePhotoIndex(idx);
+  }
+
+  useEffect(() => {
+    console.log(expandedGalleryView)
+  }, [expandedGalleryView])
+
+
   return (
     <div className='image-gallery-outer'>
       {photos.length ?
-        <div className='image-gallery'>
+        <div
+          className='image-gallery'
+          style={mainImageCSS(photos[selectedPhotoIndex].url)}
+          >
+
+          {/* EXPANDED VIEW */}
+          <Modal id='expanded-gallery-view' isOpen={expandedGalleryView} style={modalStyle} ariaHideApp={false} >
+            <ExpandedView
+              toggleGalleryView={() => toggleGalleryView(false)}
+              url={photos[selectedPhotoIndex].url}
+              back={() => scrollBack}
+              forward={() => scrollForward}
+              photos={photos}
+              handleIconClick={handleIconClick}
+              selectedPhotoIndex={selectedPhotoIndex}
+            >
+            </ExpandedView>
+          </Modal>
+
           {renderThumbnails()}
-          <img className='main-img' src={photos[selectedPhotoIndex].url}></img>
-          <div>
-          {selectedPhotoIndex > 0 ?
-            <button id='left' className='arrow-button' onClick={() => scrollBack()}>&#x2190;</button>
-            : null}
-          {selectedPhotoIndex < photos.length - 1 ?
-            <button id='right' className='arrow-button' onClick={() => scrollForward()}>&#x2192;</button>
-            : null}
-          </div>
+
+          {/* todo: refactor this disgusting css/hardcoding */}
+          <button className='horizontal-arrow' id={selectedPhotoIndex > 0 ? 'left-arrow' : 'left-hidden'} onClick={() => scrollBack()}>&#x2190;</button>
+          <button className='horizontal-arrow' id={selectedPhotoIndex < photos.length - 1 ? 'right-arrow' : 'right-hidden'} onClick={() => scrollForward()}>&#x2192;</button>
+
+          {/* expanded view is supposed to open on img click, but for now just use this button */}
+          <button onClick={() => toggleGalleryView(!expandedGalleryView)} style={{width: 200, height: 20}}>open the EXPANDED VIEW</button>
         </div>
         : null}
     </div>
   )
 };
-
-
-
-// Customers should also be able to change to the next or previous image in the set using forward and backwards arrow buttons appearing near the right and left edges of the image, respectively.  Upon clicking the right or left arrow, the main image and the thumbnail highlighted should update.
-
-// If upon navigating to the previous or next image using the arrows, the thumbnail corresponding to the now selected image is no longer visible, then the thumbnail list should scroll similarly such that the newly selected thumbnail is visible.
-
-// If the user hovers over the main image anywhere other than the thumbnails, the left arrow, or the right arrow, the mouse icon should change to show a magnifying glass.  If the user clicks on the image, the image gallery should change to the expanded view.
-
-// If the first image is selected, the left arrow should not appear.  Similarly, if the last image is selected, the right arrow should not appear.

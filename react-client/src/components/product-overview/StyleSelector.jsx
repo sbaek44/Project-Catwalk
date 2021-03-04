@@ -3,13 +3,12 @@ import axios from 'axios';
 import header from '../../../../config.js';
 import AddToCart from './AddToCart.jsx';
 
-function StyleSelector(props) {
-
-  const { selectedProduct, selectedStyle, selectStyle, updatePrice, updateSale, updatePhotos, selectPhoto } = props;
+function StyleSelector({ selectedProduct, selectedStyle, selectStyle, updatePrice, updateSale, updatePhotos, selectPhoto }) {
 
   const [styles, updateStyles] = useState([]);
 
   const getStyles = (id) => {
+
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/styles`, header)
       .then((res) => {
         updateStyles(res.data.results);
@@ -51,7 +50,6 @@ function StyleSelector(props) {
     }
   }, [selectedProduct])
 
-  // buttons do render from their thumbnail_image props but this css still needs a lot of work
   const makeButtonCSS = (thumbnail) => {
     return {
       border: '2px solid black',
@@ -60,7 +58,8 @@ function StyleSelector(props) {
       marginRight: 5,
       borderRadius: '50%',
       backgroundImage: `url(${thumbnail})`,
-      backgroundSize: 'contain',
+      backgroundPosition: '50% 50%',
+      backgroundRepeat: 'no-repeat'
     }
   }
 
@@ -74,30 +73,28 @@ function StyleSelector(props) {
   }
 
   return (
-    <div className='style-selector'>
+    <div>
       {styles.length ?
-        <div>
-          <div style={{ display: 'flex', flexDirection: 'row', fontSize: 16 }}>
+        <div className='style-selector'>
+          <div className='selected-style-label'>
             <span style={{ fontWeight: 'bold', marginRight: 5 }}>STYLE ></span>
             <span>{getNameOfSelectedStyle('uppercase')}</span>
           </div>
 
-          <div className='style-options-container'
-            // first time using 'grid', 'template columns' and 'auto rows' - will come back to this
-            // for some reason this grid css only works inline, not when i move it to css file??
-            style={{ width: 200, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gridAutoRows: 60 }}>
-            {styles.map((option, index) => {
-              return <div key={index}>
+          <div className='style-options-container'>
+            <div className='style-options-grid'>
+              {styles.map((option, index) => {
+                return <div key={index}>
+                  <div className='checkmark' id={selectedStyle === option.style_id ? 'on' : 'off'}>✔</div>
+                  <button key={index}
+                    className='style-option-button'
+                    style={makeButtonCSS(option.photos[0].thumbnail_url)}
+                    onClick={() => handleSelect(option.style_id, option.original_price, option.sale_price, option.photos[0].url, true)}>
+                  </button>
+                </div>
+              })}
+            </div>
 
-                <div className='checkmark' id={selectedStyle === option.style_id ? 'on' : 'off'}>✔</div>
-
-                <button key={index}
-                  className='style-option-button'
-                  style={makeButtonCSS(option.photos[0].thumbnail_url)}
-                  onClick={() => handleSelect(option.style_id, option.original_price, option.sale_price, option.photos[0].url, true)}>
-                </button>
-              </div>
-            })}
           </div>
           <AddToCart selectedProduct={selectedProduct} selectedStyle={selectedStyle} styles={styles} getStyleName={getNameOfSelectedStyle} />
         </div>

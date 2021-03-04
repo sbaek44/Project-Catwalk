@@ -7,13 +7,9 @@ import AddToCart from './AddToCart.jsx';
 import ImageGallery from './ImageGallery.jsx';
 import StyleSelector from './StyleSelector.jsx';
 
+export default function Overview({products, selectedItemIndex, avgRating}) {
 
-
-export default function Overview(props) {
-
-  // use product page 1 selectedItemIndex 9 (shoes) to demo image gallery arrows (which only appear when there's more than 7 thumbnails)
-
-  const {products, selectedItemIndex, avgRating} = props;
+  // use product page 1 selectedItemIndex 9 (shoes) or product id 16060 to demo image gallery arrows (which only appear when there's more than 7 thumbnails)
 
   const [selectedStyle, selectStyle] = useState(0);
   const [price, updatePrice] = useState(0);
@@ -23,7 +19,7 @@ export default function Overview(props) {
 
   return (
     <div className='overview'>
-      <ImageGallery selectedPhoto={selectedPhoto} selectPhoto={selectPhoto} photos={photos} selectedProduct={products[selectedItemIndex] || null} />
+      <ImageGallery selectedPhoto={selectedPhoto} selectPhoto={selectPhoto} photos={photos}/>
       <div className='right-side'>
         <ProductInformation selectedProduct={products[selectedItemIndex] || null} selectedStyle={selectedStyle} price={price} sale={sale} avgRating={avgRating} />
         <StyleSelector selectedProduct={products[selectedItemIndex] || null} selectedStyle={selectedStyle} selectStyle={selectStyle} updatePrice={updatePrice} updateSale={updateSale} selectPhoto={selectPhoto} updatePhotos={updatePhotos} />

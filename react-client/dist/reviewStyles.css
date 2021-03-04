@@ -15,12 +15,11 @@
 	position: relative;
 	margin: 15px 0;
 	height: 7px;
-	width: 200px;
+	width: 225px;
 }
 
 .progress-done {
 	background: linear-gradient(to left, lightgreen, lightgreen);
-	box-shadow: 0 3px 3px -5px #000000, 0 2px 5px #000000;
 	color: #fff;
 	display: flex;
 	align-items: center;
@@ -31,7 +30,6 @@
 }
 .characteristicsTriple {
 	background-color: #d8d8d8;
-	position: relative;
 	margin: 2px;
 	height: 7px;
 	width: 79px;
@@ -49,4 +47,137 @@
 .reviewSummary {
 	font-weight: bold;
 	font-size: larger;
+}
+.stars-outer {
+  position: relative;
+	display: inline-block;
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+.stars-outer::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: #ccc;
+}
+
+.stars-inner::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: #000000;
+}
+#average-rating-in-ratings {
+	font-size: 45px;
+	font-weight: bold;
+}
+.ratings {
+	padding-left: 20%;
+}
+.reviews {
+	padding-right: 20%;
+	margin-left: 10%;
+}
+.ratings-breakdown {
+	margin-bottom: 5%;
+}
+#recommended {
+	white-space: nowrap;
+  overflow: hidden;
+}
+#score {
+	white-space: nowrap;
+	overflow: hidden;
+	padding-right: 10px;
+}
+.text:hover {
+	text-decoration: underline;
+}
+.sort-bar {
+	display: flex;
+	flex-direction: row;
+	padding-left: 20px;
+	font-weight: bold;
+}
+.search-reviews {
+	padding-left: 10px;
+}
+.more-reviews-bar {
+	padding-top: 20px;
+}
+
+#yes {
+	padding-left: 4px;
+}
+.userName {
+	float:right;
+	font-size: 15px;
+}
+#response-container {
+	background-color: rgb(187, 187, 187);
+	margin-bottom: 10px;
+	margin-top: 10px
+}
+#response-text {
+	white-space: nowrap;
+	overflow: hidden;
+	padding-left: 20px;
+	padding-bottom: 10px;
+	padding-top: 10px
+}
+#response {
+	padding-left: 20px;
+	font-weight: bold;
+	padding-top: 10px;
+}
+.sort {
+	background-color: #fefefe;
+	Border: none;
+	text-decoration: underline;
+	font-weight: bold;
+}
+.reviewSummary {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.selector {
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+	border-top: 6px solid black;
+	position: absolute;
+}
+.container {
+	display: flex;
+	position: relative;
+}
+.triple-text {
+	font-size: 13px;
+	padding-bottom: 10px;
+}
+.review-buttons {
+	background-color: #fefefe;
+}
+.reviews-list {
+	height: 600px;
+  overflow-y:auto;
+}
+
+.addReviewForm {
+	padding: 2%
+}
+.review-form-component {
+	margin: 3%;
+}
+#text-under-form {
+	display: block;
 }

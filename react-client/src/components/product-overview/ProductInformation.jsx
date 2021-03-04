@@ -1,24 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
 import header from '../../../../config.js';
 import axios from 'axios';
+import Stars from '../Reviews/Ratings/Stars.jsx'
+import { SocialIcon } from 'react-social-icons';
 
-function ProductInformation(props) {
-
-  const { selectedProduct, selectedStyle, price, sale, avgRating } = props;
-
-  // todo: star rating
-
-  // The price may be on sale.  If the SKU is currently discounted, then the sale price should appear in red, followed by the original price which is struckthrough.
+function ProductInformation({ selectedProduct, selectedStyle, price, sale, avgRating }) {
 
   const renderPrice = () => {
     if (sale) {
       return <span>
-        <span style={{ color: 'red' }}>${sale} </span>
-        <span style={{ textDecoration: 'line-through' }}> {price}</span>
+        <span className='price' style={{ color: 'red' }}>${sale} </span>
+        <span className='price' style={{ textDecoration: 'line-through' }}> {price}</span>
       </span>
     } else {
-      return <span>${price}</span>
+      return <span className='price'>${price}</span>
     }
+  }
+
+  const renderSocialMediaIcons = () => {
+    return <div className='social-media-links'>
+      <SocialIcon style={{marginLeft: 2, height: 25, width: 25}} url="http://pinterest.com" />
+      <SocialIcon style={{marginLeft: 2, height: 25, width: 25}} url="http://facebook.com" />
+      <SocialIcon style={{marginLeft: 2, height: 25, width: 25}} url="http://twitter.com" />
+    </div>
   }
 
   const scrollToReviews = () => {
@@ -27,22 +31,22 @@ function ProductInformation(props) {
     });
   }
 
-
   return (
     <div>
       {selectedProduct !== null ?
         <div className='product-info-side'>
           <div className='product-rating'>
-            <span style={{marginRight: 5}}>Rating: {avgRating}</span>
-            <span id="reviews-link" style={{textDecoration: 'underline'}} onClick={() => scrollToReviews()}>Read all reviews</span>
+            <span id="reviews-link" onClick={() => scrollToReviews()}>Read all reviews</span>
+            <Stars avgRating={avgRating} />
           </div>
           <div className='product-category'>
-            {selectedProduct.category}
+            {selectedProduct.category.toUpperCase()}
           </div>
-          <div className='product-name' style={{fontSize: 24, fontWeight: 'bold'}}>
-           {selectedProduct.name}
+          <div className='product-name'>
+            {selectedProduct.name}
           </div>
           <div className='product-price'>{renderPrice()}</div>
+          {renderSocialMediaIcons()}
         </div>
         : null}
     </div >

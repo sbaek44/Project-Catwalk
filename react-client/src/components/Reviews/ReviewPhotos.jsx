@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ReviewImageElement from './ReviewImageElement.jsx';
 
 const ReviewPhotos = (props) => (
-  <div>
-    { props.photos.map((photo) => (
-      <img className="reviewThumb" key={photo.id} src={photo.url} alt="" />
+  <div style={{display: 'flex', flexDirection: 'row'}}>
+      { props.photos.map((photo, i) => (
+      <ReviewImageElement key={i} url={photo.url} />
     )) }
   </div>
 );
