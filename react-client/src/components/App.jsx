@@ -48,7 +48,6 @@ export default class App extends React.Component {
   })
 }
 
-
   // selectProduct(index) {
   //   this.setState({
   //     selectedItemIndex: index
