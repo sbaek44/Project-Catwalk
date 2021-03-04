@@ -17,10 +17,43 @@
 }
 
 .image-gallery {
-  /* curret selected img gets passed as background of .image-gallery */
+  /* current selected img gets passed as background of .image-gallery */
   display: flex;
   flex-direction: row nowrap;
   cursor: zoom-in;  /* when clicked, should open an expanded view modal */
+}
+
+#expanded-gallery-view {
+  /* react-modal */
+  display: flex;
+  flex-direction: column;
+}
+
+/* #expanded-view-img {
+} */
+
+/* Instead of displaying a magnifying glass on hover, in the expanded view the mouse should become a “+” symbol while hovering over the main image. */
+#expanded-view-img:hover {
+  cursor: crosshair
+}
+
+.expanded-view-icons-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.expanded-view-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid black;
+  margin: 0.1rem;
+  background: none;
+  transition-duration: 0.25s;
+}
+
+.expanded-view-icon#selected {
+  background: rgb(255, 0, 140);
 }
 
 .arrow-button {
@@ -115,6 +148,7 @@
 }
 
 .image-thumbnail {
+  z-index: 5;
   height: 40px;
   width: 40px;
   margin: 2px;
@@ -305,24 +339,24 @@
   background-color: lightgreen;
 }
 
-.selector {
+.dropdown {
   padding: 0.1%;
   height: 40px;
   font-size: 18px;
 }
 
-.selector:hover {
+.dropdown:hover {
   /* cursor change on hover not working for some reason */
   cursor: pointer;
 }
 
-.selector#size {
+.dropdown#size {
   width: 180px;
   margin-right: 10px;
   margin-bottom: 10px
 }
 
-.selector#qty {
+.dropdown#qty {
   width: 80px;
 }
 

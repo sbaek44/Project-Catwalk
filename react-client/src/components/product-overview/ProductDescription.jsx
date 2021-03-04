@@ -23,16 +23,25 @@ function ProductDescription({ selectedProduct }) {
   }, [selectedProduct])
 
   const renderFeatures = () => {
-    // sometimes there are duplicate features on one product, should add logic to remove them before mapping
-    return features.map((feature, i) => {
+    // sometimes there are duplicate features on one product (???)
+    let uniqueFeatures = [];
+    for (let feature of features) {
+      if (!uniqueFeatures.includes(feature)) {
+        uniqueFeatures.push(feature)
+      }
+    }
+    return uniqueFeatures.map((feature, i) => {
+      let valueWithoutQuotes = '';
+      if (feature.value) {
+        valueWithoutQuotes = feature.value.replace(/^"|"$/g, ''); // remove quotation marks from values (not all features have a value prop)
+      }
       return <li key={i}>
-        <span>✔</span>
-        <span>{` ${feature.feature} `}</span>
-        <span>{feature.value}</span>
+        <span>✔ </span>
+        <span >{` ${feature.feature} `}</span>
+        <span style={{fontStyle: 'italic'}}>{valueWithoutQuotes}</span>
       </li>
     })
   }
-
 
   return (
     <div>
@@ -52,7 +61,6 @@ function ProductDescription({ selectedProduct }) {
         : null}
     </div >
   )
-
 };
 
 export default ProductDescription;

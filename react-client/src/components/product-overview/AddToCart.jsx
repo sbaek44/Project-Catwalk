@@ -134,7 +134,7 @@ export default function AddToCart({ selectedProduct, selectedStyle, styles, getS
           <div className='selector-container'>
           <Select
               id='qty'
-              className='selector'
+              className='dropdown'
               onFocus={() => toggleQtyMenu(true)}
               blurInputOnSelect={true}
               onChange={handleQtySelect}
@@ -146,7 +146,7 @@ export default function AddToCart({ selectedProduct, selectedStyle, styles, getS
             {/* size dropdown should become inactive and read OUT OF STOCK when there's no stock */}
             <Select
               id='size'
-              className='selector'
+              className='dropdown'
               onFocus={() => toggleSizeMenu(true)}
               blurInputOnSelect={true}
               onChange={handleSizeSelect}
