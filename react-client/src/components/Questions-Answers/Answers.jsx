@@ -10,7 +10,6 @@ const Answers = (props) => {
   const [helpfulClicked, setHelpfulClicked] = useState([])
   const [reportClicked, setReportClicked] =useState([])
   const [moreAnswers, setMoreAnswers] = useState(false)
-  const [addAnswer, setAnswer] =useState(false)
   const [picmodal, setPicModal] = useState(false)
 
   useEffect(() => {
@@ -77,16 +76,14 @@ const Answers = (props) => {
           )
   }
 
-  let modalShower = () => {
-    setAnswer(!addAnswer)
-  }
+
 
 
   return (
     <div>
       {!moreAnswers ?
       <div>
-        {!addAnswer? <p onClick={()=>{modalShower()}}>Add Answer</p>: <AnswerModals question = {props.questionInfo} product={props.product}/>}
+        {<AnswerModals question = {props.questionInfo} product={props.product}/>}
       {answers.slice(0, 2).map( (answer, index) => {
         return (
           <div key = {index}>{insertAnswers(answer, index)}</div>
