@@ -1,8 +1,9 @@
 .overview {
-  width: 100%;
-  height: 400px;
+  width: 100vw;
+  height: 60vh;
   display: flex;
   flex-flow: row wrap;
+  justify-content: flex-start;
   margin-bottom: 15%; /* getting attacked by sarah's carousel without this huge margin...what */
 }
 
@@ -16,89 +17,45 @@
   height: 100%;
 }
 
-.image-gallery {
-  /* current selected img gets passed as background of .image-gallery */
-  display: flex;
-  flex-direction: row nowrap;
-  cursor: zoom-in;  /* when clicked, should open an expanded view modal */
-}
-
-#expanded-gallery-view {
-  /* react-modal */
-  display: flex;
-  flex-direction: column;
-}
-
-/* #expanded-view-img {
-} */
-
-/* Instead of displaying a magnifying glass on hover, in the expanded view the mouse should become a “+” symbol while hovering over the main image. */
-#expanded-view-img:hover {
-  cursor: crosshair
-}
-
-.expanded-view-icons-row {
-  display: flex;
-  flex-direction: row;
-}
-
-.expanded-view-icon {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid black;
-  margin: 0.1rem;
-  background: none;
-  transition-duration: 0.25s;
-}
-
-.expanded-view-icon:hover {
-  cursor: pointer;
-}
-
-.expanded-view-icon#selected {
-  background: rgb(255, 0, 140);
-}
-
-.arrow-button {
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: lightgrey;
-  opacity: 1;
-  height: 20px;
-  width: 40px;
-  z-index: 2;
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+/Edge */
-  user-select: none; /* Standard */
-  transition-duration: 0.25s;
-}
-
 .arrow-button:hover {
   color:rgb(255, 0, 140);
 }
 
-.arrow-button-hidden {
-  opacity: 0;
-}
-
-.arrow-button-hidden:hover {
-  cursor: auto;
-}
-
-.arrow-container {
+.vertical-arrow-container {
   height: 20px;
   width: 40px;
   padding-left: 0.25rem;
 }
 
+.vertical-arrow-button {
+  background: none;
+  border: none;
+  color: lightgray;
+  height: 20px;
+  width: 40px;
+  font-size: 32px;
+  opacity: 1;
+  z-index: 2;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  transition-duration: 0.5s;
+}
+
+.vertical-arrow-button:hover {
+  color:rgb(255, 0, 140);
+}
+
+.vertical-arrow-button#hidden {
+  opacity: 0;
+}
+
 .horizontal-arrow {
   background: none;
   border: none;
-  font-size: 30px;
-  color: gray;
+  font-size: 40px;
+  color: lightgray;
   z-index: 2;
   position: relative;
   -webkit-user-select: none; /* Safari */
@@ -115,17 +72,12 @@
 /* hardcoded left/right arrows for now, need to refactor all this to work on diff monitor sizes and be less repetitive */
 
 #left-arrow {
-  left: 3%;
-  opacity: 1;
-}
-
-#right-arrow {
-  left: 82%;
+  left: 1%;
   opacity: 1;
 }
 
 #left-hidden {
-  left: 3%;
+  left: 1%;
   opacity: 0;
 }
 
@@ -134,18 +86,26 @@
 }
 
 #right-hidden {
-  left: 82%;
+  left: 85%;
   opacity: 0;
+}
+
+#right-arrow {
+  left: 85%;
+  opacity: 1;
 }
 
 #right-hidden:hover {
   cursor: auto;
 }
 
+.gallery-thumbnails-container {
+  z-index: 10;
+}
+
 .gallery-thumbnails {
   display: flex;
   flex-flow: column nowrap;
-  z-index: 1;
   position: relative;
   top: 10px;
   left: 10px;
@@ -156,12 +116,18 @@
   height: 40px;
   width: 40px;
   margin: 2px;
-  border: 2px solid gray;
+  border: 2px solid black;
   border-radius: 0.25rem;
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
+}
+
+.image-thumbnail:hover {
+  cursor: pointer;
+  border: 2px solid gray;
+  transition-duration: 0.25s;
 }
 
 .image-thumbnail-hidden {
@@ -174,12 +140,132 @@
   border: 2px solid rgb(255, 0, 140);
 }
 
+/* ExpandedView.jsx */
+
+#expanded-gallery-modal {
+  display: flex;
+  flex-direction: column;
+  padding: 0 !important;
+}
+
+#modal-x-button {
+  width: 30px;
+  height: 30px;
+  font-size: 1.5rem;
+  color: lightgray;
+  border: none;
+  background: none;
+  transition-duration: 0.25s;
+}
+
+#modal-x-button:hover {
+  color: red
+}
+
+.expanded-arrow-button:hover {
+  color:rgb(255, 0, 140);
+}
+
+.expanded-arrow-and-icon-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: fixed;
+  top: 5%;
+  width: 100%;
+  z-index: 1;
+  opacity: 1;
+  transition-duration: 0.5;
+}
+
+.expanded-view-message {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: fixed;
+  color: lightgray;
+  top: 5%;
+  width: 100%;
+  z-index: 1;
+  opacity: 1;
+  transition-duration: 0.5;
+}
+
+.expanded-arrow-placeholder {
+  opacity: 0;
+  width: 32px;
+}
+
+.expanded-arrow-button {
+  background: none;
+  border: none;
+  font-size: 32px;
+  width: 32px;
+  margin-top: -0.5rem;
+  color: lightgray;
+  opacity: 1;
+  z-index: 2;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  transition-duration: 1s;
+}
+
+.expanded-gallery-modal-inner {
+  justify-content: center;
+}
+
+.expanded-view-image {
+  display: block;
+  margin: auto;
+  max-width: 99%;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+/* Instead of displaying a magnifying glass on hover, in the expanded view the mouse should become a “+” symbol while hovering over the main image. */
+.expanded-view-image#not-zoomed:hover {
+  cursor: crosshair
+}
+
+/* while zoomed in and panning around display four-way cursor */
+.expanded-view-image#zoomed:hover {
+  cursor: all-scroll
+}
+
+.expanded-view-icons-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.expanded-view-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid lightgray;
+  margin: 0.1rem;
+  background: none;
+  transition-duration: 0.25s;
+}
+
+.expanded-view-icon:hover {
+  cursor: pointer;
+}
+
+.expanded-view-icon#selected {
+  background: rgb(255, 0, 140);
+}
+
+/* wrapper for everything besides gallery and description*/
 .right-side {
   display: flex;
   width: 20%;
   padding: 0.1%;
   flex-direction: column;
-  justify-content: right;
+  justify-content: flex-start;
   text-align: right;
   font-size: 20px;
 }
@@ -195,6 +281,7 @@
 .price {
   font-family: 'Roboto Mono', monospace;
   font-weight: 'bold';
+  font-size: 24px;
 }
 
 .product-rating {
@@ -319,10 +406,11 @@
   background-color: white;
   width: 220px;
   height: 40px;
-  font-size: 1.5rem;
-  padding: 2%;
+  font-size: 1rem;
+  padding: 0.75rem;
   margin-right: 10px;
   transition-duration: 0.25s;
+  box-shadow: 1px 2px 2px darkgray;
 }
 
 .add-to-cart-button:hover {
@@ -342,6 +430,7 @@
   border: 1px solid gray;
   border-radius: 0.25rem;
   background-color: white;
+  box-shadow: 1px 2px 2px darkgray;
 }
 
 .favorite-button:hover {
@@ -373,25 +462,25 @@
 .product-info-bottom {
   width: 100%;
   display: flex;
+  margin-top: 1%;
   flex-direction: row;
-  justify-content: space-around;
-  padding: 0.1%;
-  border-bottom: 1px solid gray;
+  justify-content: space-between;
 }
 
 .slogan-description-container {
   display: flex;
   flex-direction: column;
-  width: 75%;
-  padding: 0.1%;
-  margin-right: 1%;
+  width: 65%;
+  margin-top: 1%;
+  padding-left: 5%;
+  padding-right: 5%;
+  border-right: 2px solid gray;
 }
 
 .feature-list {
   display: flex;
   flex-direction: column;
-  width: 20%;
-  padding: 0.1%;
+  width: 25%;
   font-size: 18px;
 }
 
@@ -408,4 +497,12 @@
 .product-description {
   font-size: 24px;
   margin-bottom: 10px;
+}
+
+.banner-top {
+  height: 30px;
+  background-color: rgb(68, 67, 67);
+  padding: 1rem;
+  font-size: 24px;
+  margin-bottom: 5px;
 }

@@ -19,11 +19,14 @@ const SearchBar = (props) => {
       setList(props.questions)
     }
   }
+  // let highlighted = () => {
+  //   if (searchValue === )
+  // }
   return (
     <div>
       <input className ='search'
       type= 'text'
-      placeholder='Have a question? Search for answers…'
+      placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...'
       value={searchValue}
       onChange={filterQuestions}/>
     </div>

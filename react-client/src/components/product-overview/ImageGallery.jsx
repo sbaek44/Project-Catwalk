@@ -3,12 +3,12 @@ import ExpandedView from './ExpandedView.jsx';
 import Modal from 'react-modal';
 
 const modalStyle = {
-  content : {
-    top                   : '0.5%',
-    left                  : 0,
-    right                 : 0,
-    overflowX             : 'hidden',
-    height                : 800,
+  content: {
+    top: 0,
+    left: 0,
+    right: 0,
+    width: '100vw',
+    height: '100vh',
   }
 };
 
@@ -52,7 +52,9 @@ export default function ImageGallery({ selectPhoto, photos }) {
               key={i}
               src={photo.thumbnail_url}
               // Clicking on any thumbnail should update the main image to match that shown in the thumbnail clicked
-              onClick={() => handleThumbnailClick(photo.url, i)}
+              onClick={(event) => {
+                handleThumbnailClick(event, photo.url, i)
+              }}
               // The thumbnail corresponding to the image currently selected as the main image should be highlighted to indicate the current selection.
               id={i === selectedPhotoIndex ? 'selected' : null}
             />
@@ -62,33 +64,44 @@ export default function ImageGallery({ selectPhoto, photos }) {
     } else {
       return <div className='gallery-thumbnails-container'>
         <div className='gallery-thumbnails'>
-          <div className='arrow-container'>
-            <button className={selectedPhotoIndex > 0 ? 'arrow-button' : 'arrow-button-hidden'} onClick={() => scrollBack()}>&#8963;</button>
+          <div className='vertical-arrow-container' style={{ marginBottom: 10 }}>
+            <button
+              id={selectedPhotoIndex === 0 ? 'hidden' : null}
+              className='vertical-arrow-button'
+              onClick={(event) => {scrollBack(event)}}>
+              &#8963;</button>
           </div>
           {photos.map((photo, i) => {
             return <img
               className={shouldShowThumbnail(i) ? 'image-thumbnail' : 'image-thumbnail-hidden'}
               key={i}
               src={photo.thumbnail_url}
-              onClick={() => handleThumbnailClick(photo.url, i)}
+              onClick={(event) => {
+                handleThumbnailClick(event, photo.url, i)
+              }}
               id={i === selectedPhotoIndex ? 'selected' : null}
             />
           })}
-          <div className='arrow-container' style={{ marginTop: -10 }}>
-            <button className={selectedPhotoIndex < photos.length - 1 ? 'arrow-button' : 'arrow-button-hidden'} onClick={() => scrollForward()}>&#8964;</button>
+          <div className='vertical-arrow-container' style={{ marginTop: -15 }}>
+          <button
+              id={selectedPhotoIndex === photos.length - 1 ? 'hidden' : null}
+              className='vertical-arrow-button'
+              onClick={(event) => {scrollForward(event)}}>
+              &#8964;</button>
           </div>
         </div>
-
       </div>
     }
   }
 
-  const handleThumbnailClick = (url, idx) => {
+  const handleThumbnailClick = (event, url, idx) => {
+    event.stopPropagation();
     selectPhoto(url);
     changePhotoIndex(idx);
   }
 
-  const scrollForward = () => {
+  const scrollForward = (event) => {
+    event.stopPropagation();
     if (selectedPhotoIndex === photos.length - 1) {
       return
       // changePhotoIndex(0) for infinite scroll
@@ -98,7 +111,8 @@ export default function ImageGallery({ selectPhoto, photos }) {
     }
   }
 
-  const scrollBack = () => {
+  const scrollBack = (event) => {
+    event.stopPropagation();
     if (selectedPhotoIndex === 0) {
       return
       // changePhotoIndex(photos.length - 1) for infinite scroll
@@ -108,44 +122,25 @@ export default function ImageGallery({ selectPhoto, photos }) {
     }
   }
 
-  // still needs work but ok for testing
-  const mainImageCSS = (photoURL) => {
+  const mainImageCSS = (url) => {
+    // possibly need to add error handling for the api url strings with typos in them ?
     return {
+      marginLeft: '5px',
+      border: '1px solid rgb(68, 67, 67)',
+      borderRadius: '0.25rem',
+      boxShadow: '1px 2px 2px darkgray',
+      display: 'flex',
+      flexDirection: 'row nowrap',
+      zIndex: 5,
+      cursor: 'zoom-in',
       width: 'auto',
       height: '100%',
-      backgroundImage: `url(${photoURL})`,
-      overflow: 'hidden',
-      backgroundPosition: '50% 50%',
-      backgroundRepeat: 'no-repeat'
+      backgroundImage: `url(${url})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundAttachment: 'scroll',
+      backgroundPosition: 'center',
     }
   }
-
-  // In the expanded view, thumbnails will not appear over the main image.  Instead, icons indicating each image in the set will appear.  These icons will be much smaller, but will have the same functionality in that clicking on them will skip to that image in the set.   Additionally the icon for the currently selected image will be distinguishably different from the rest.
-
-  const renderExpandedViewIcons = () => {
-    return <div className='expanded-view-icons-row'>
-      {photos.map((photo, i) => {
-        return <div
-          className='expanded-view-icon'
-          key={i}
-          onClick={() => handleIconClick(photo.url, i)}
-          id={i === selectedPhotoIndex ? 'selected' : null}
-          >
-          </div>
-      })}
-    </div>
-  }
-
-  // this is exactly the same as handleThumbNailClick rn, not sure if they will end up needing slightly diff functionality or not, delete this and switch expanded-view-icons' onClick back to handleThumbNailClick if not
-  const handleIconClick = (url, idx) => {
-    selectPhoto(url);
-    changePhotoIndex(idx);
-  }
-
-  useEffect(() => {
-    // console.log(expandedGalleryView)
-  }, [expandedGalleryView])
-
 
   return (
     <div className='image-gallery-outer'>
@@ -153,29 +148,26 @@ export default function ImageGallery({ selectPhoto, photos }) {
         <div
           className='image-gallery'
           style={mainImageCSS(photos[selectedPhotoIndex].url)}
-          >
+          onClick={() => expandedGalleryView ? null : toggleGalleryView(true)}
+        >
+          {renderThumbnails()}
+
           {/* EXPANDED VIEW */}
-          <Modal id='expanded-gallery-view' isOpen={expandedGalleryView} style={modalStyle} ariaHideApp={false} >
+          <Modal id='expanded-gallery-modal' isOpen={expandedGalleryView} style={modalStyle} ariaHideApp={false} >
             <ExpandedView
               close={() => toggleGalleryView(false)}
               photos={photos}
-              url={photos[selectedPhotoIndex].url}
               selectedPhotoIndex={selectedPhotoIndex}
-              handleIconClick={handleIconClick}
-              back={() => scrollBack}
-              forward={() => scrollForward}
+              url={photos[selectedPhotoIndex].url}
+              handleIconClick={handleThumbnailClick}
+              back={scrollBack}
+              forward={scrollForward}
             >
             </ExpandedView>
           </Modal>
 
-          {renderThumbnails()}
-
-          {/* todo: refactor this disgusting css/hardcoding */}
-          <button className='horizontal-arrow' id={selectedPhotoIndex > 0 ? 'left-arrow' : 'left-hidden'} onClick={() => scrollBack()}>&#x2190;</button>
-          <button className='horizontal-arrow' id={selectedPhotoIndex < photos.length - 1 ? 'right-arrow' : 'right-hidden'} onClick={() => scrollForward()}>&#x2192;</button>
-
-          {/* expanded view is supposed to open on img click, but for now just use this button */}
-          <button onClick={() => toggleGalleryView(!expandedGalleryView)} style={{width: 200, height: 20}}>open the EXPANDED VIEW</button>
+          <button className='horizontal-arrow' id={selectedPhotoIndex > 0 ? 'left-arrow' : 'left-hidden'} onClick={(event) => {scrollBack(event)}}>&#x2190;</button>
+          <button className='horizontal-arrow' id={selectedPhotoIndex < photos.length - 1 ? 'right-arrow' : 'right-hidden'} onClick={(event) => {scrollForward(event)}}>&#x2192;</button>
         </div>
         : null}
     </div>
