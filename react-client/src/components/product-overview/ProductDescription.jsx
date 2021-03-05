@@ -17,7 +17,7 @@ function ProductDescription({ selectedProduct }) {
   }
 
   useEffect(() => {
-    if (selectedProduct !== null) {
+    if (selectedProduct.hasOwnProperty('id')) {
       getAllProductInfo(selectedProduct.id)
     }
   }, [selectedProduct])

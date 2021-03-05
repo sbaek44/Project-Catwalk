@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import header from '../../../../config.js';
+import Modal from 'react-modal'
 
 
 const QuestionModals = (props) => {
@@ -8,6 +9,17 @@ const QuestionModals = (props) => {
   const [question, setQuestion] = useState('')
   const [nickname, setNickname] = useState('')
   const [email, setEmail] = useState('')
+
+  const customStyles = {
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)'
+    }
+  };
 
 
   useEffect( ()=> {
@@ -22,6 +34,7 @@ const QuestionModals = (props) => {
         email: email,
         product_id: props.product.id
       }, header)
+      .then( ()=> {props.getQuestions()})
       .then(() => {console.log('success')})
       .catch( (err)=> {console.log('error')})
 
@@ -50,9 +63,13 @@ const QuestionModals = (props) => {
 
   return (
     <div>
-      <button onClick={()=>{addClicked(!addClick)}}>ADD A QUESTION +</button>
-      {!addClick ? null
-      : <div className = "QuestionModal">
+      <Modal
+      ariaHideApp={false}
+      isOpen={addClick}
+      style={customStyles}
+      onRequestClose={() => addClicked(!addClick)}
+      contentLabel="Example Modal">
+      <div className = "QuestionModal">
         <h1>Ask Your Question</h1> <h3>About the {props.product.name}</h3>
         <form onSubmit ={submitHandler}>
 
@@ -76,7 +93,9 @@ const QuestionModals = (props) => {
 
         </form>
         </div>
-        }
+
+        </Modal>
+        <button onClick={()=>{addClicked(!addClick)}}>ADD A QUESTION +</button>
     </div>
       )
 };

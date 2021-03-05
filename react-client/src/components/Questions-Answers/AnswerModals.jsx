@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import header from '../../../../config.js';
+import Modal from 'react-modal';
 
 
 const AnswerModals = (props) => {
@@ -12,10 +13,21 @@ const AnswerModals = (props) => {
   const [imgPreview, setImgPreview] = useState([])
 
 
+  const customStyles = {
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)'
+    }
+  };
+
+
 
   useEffect( ()=> {
     imageDisplay()
-    console.log(photos)
 
   },[photos,imgPreview])
 
@@ -88,22 +100,25 @@ const AnswerModals = (props) => {
     if(img) {reader.readAsDataURL(img);}
   }
 
+
   return (
     <div>
+      <Modal
+      ariaHideApp={false}
+      isOpen={photoClicked}
+      style={customStyles}
+      onRequestClose={() => setClicked(!photoClicked)}
+      contentLabel="Example Modal">
        <div className = "AnswerModal">
         <h1>Sumbit your answer</h1> <h3>{props.question.question_body}:{props.product.name}</h3>
         <form onSubmit ={submitHandler}>
-
           <label>Your Answer *
           <input type="text" onChange= {e=> setAnswer(e.target.value)} value= {answer}/>>
           </label>
-
-
           <label>What is your nickname? *
           <input type="text" placeholder="Example: jack543!" onChange= {e=> setNickname(e.target.value)} value = {nickname}/>
           For privacy reasons, do not use your full name or email address
           </label>
-
           <label>Your Email *
             <input type="text" placeholder="Example: jack@email.com" onChange= {e=> setEmail(e.target.value)} value={email}/>
             For authentication reasons, you will not be emailed
@@ -119,6 +134,8 @@ const AnswerModals = (props) => {
 
         </form>
         </div>
+        </Modal>
+        <p onClick={()=>{setClicked(!photoClicked)}}>Add Answer</p>
     </div>
       )
 };

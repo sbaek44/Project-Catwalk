@@ -9,7 +9,7 @@ import QuestionModals from './QuestionModals.jsx'
 const Questions = (props) => {
   const [questions, setQuestions] = useState([]);
   const [addQuestions, hasClicked] = useState(false)
-  const [currentQuestion, changeQuestionLen] = useState(4)
+  const [currentQuestion, changeQuestionLen] = useState(2)
   const [helpfulClicked, setHelpfulClicked] = useState([])
   const [searchValue, setSearchValue] = useState([])
   const [search, setSearch] = useState('')
@@ -138,7 +138,7 @@ const Questions = (props) => {
       <div>
         <SearchBar questions = {questions} setSearchValue= {setSearchValue} searchValue= {searchValue} setSearch={setSearch} search= {search} insertAllQuestion={insertAllQuestion}/>
         {insertAllQuestion()}
-        <QuestionModals product = {props.currentProduct}/>
+        <QuestionModals product = {props.currentProduct} getQuestions={getQuestions}/>
         </div>
       :<button>ADD A QUESTION +</button>
       }

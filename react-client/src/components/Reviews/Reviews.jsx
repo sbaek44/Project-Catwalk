@@ -79,7 +79,7 @@ const Reviews = (props) => {
   };
 
   const getReviews = () => {
-    let id = props.currentProduct.id;
+    let id = props.currentProduct;
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/?product_id=${id}&count=100&sort=${selectedParameter}`, header)
       .then((data) => {
         setReviews(data.data.results);
@@ -94,7 +94,6 @@ const Reviews = (props) => {
     let searchReviews = [];
     reviews.filter((review) => {
       if (review.body.includes(input) || review.summary.includes(input)) {
-        console.log(review.body, input);
         searchReviews.push(review);
       }
     });
@@ -133,7 +132,7 @@ const Reviews = (props) => {
   if (!isPosting) {
     postForm = '';
   } else {
-    postForm = <PostReviewForm getReviews={getReviews} review_id={props.currentProduct.id} />;
+    postForm = <PostReviewForm getReviews={getReviews} review_id={props.currentProduct} />;
   }
 
   let filterDisplay;
