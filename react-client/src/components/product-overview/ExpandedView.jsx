@@ -1,39 +1,19 @@
 import React, { useState, useEffect, createRef } from 'react';
+import PrismaZoom from 'react-prismazoom'
 
-// import PrismaZoom from 'react-prismazoom'
-// <PrismaZoom>
-//   <img src="my-image.png" />
-//   <p>A text that can be zoomed and dragged</p>
-// </PrismaZoom>
+export default function ExpandedView({ close, handleIconClick, url, photos, back, forward, selectedPhotoIndex }) {
 
-export default function ExpandedView({close, handleIconClick, url, photos, back, forward, selectedPhotoIndex}) {
+  const prismaZoom = createRef();
 
-  const [currentHeight, setHeight] = useState(null);
-  const [currentWidth, setWidth] = useState(null);
-
-  const imgRef = createRef();
-  let initialHeight;
-  let initialWidth;
-
-  useEffect(() => {
-    // save initial image dimensions
-    initialHeight = imgRef.current.clientHeight;
-    initialWidth = imgRef.current.clientWidth;
-  }, []);
-
-  const handleZoomIn = () => {
-    let height = imgRef.current.clientHeight
-    let width = imgRef.current.clientWidth
-    setHeight(currentHeight * 2.5);
-    setWidth(currentWidth * 2.5);
+  const onClickOnZoomOut = () => {
+    prismaZoom.current.zoomOut(1)
   }
 
-  const handleZoomOut = () => {
-    setHeight(initialHeight);
-    setWidth(initialWidth);
+  const onClickOnZoomIn = () => {
+    prismaZoom.current.zoomIn(2.5)
   }
 
-  const renderExpandedViewIcons = () =>  {
+  const renderExpandedViewIcons = () => {
     return <div className='expanded-view-icons-row'>
       {photos.map((photo, i) => {
         return <div
@@ -41,8 +21,8 @@ export default function ExpandedView({close, handleIconClick, url, photos, back,
           key={i}
           onClick={() => handleIconClick(photo.url, i)}
           id={i === selectedPhotoIndex ? 'selected' : null}
-          >
-          </div>
+        >
+        </div>
       })}
     </div>
   }
@@ -50,20 +30,19 @@ export default function ExpandedView({close, handleIconClick, url, photos, back,
   return (
     <div>
       <div>
-        <button onClick={() => close()} style={{ width: 60, height: 20 }}>CLOSE</button>
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-          <button onClick={() => handleZoomIn}>Zoom In</button>
-          <button onClick={() => handleZoomOut}>Zoom Out</button>
-          <button onClick={back()}>&#x2190;</button>
-          <div>{renderExpandedViewIcons()}</div>
-          <button onClick={forward()}>&#x2192;</button>
+        <button onClick={() => close()} style={{ width: 20, height: 20 }}>X</button>
+        <div className='expanded-arrow-and-icon-container'>
+          <button className='expanded-arrow-button' onClick={back()}>&#x2190;</button>
+          {renderExpandedViewIcons()}
+          <button className='expanded-arrow-button' onClick={forward()}>&#x2192;</button>
         </div>
-        {/* Assign reference to DOM element     */}
-        <img id='expanded-image' style={{width: currentWidth, height: currentHeight}} ref={imgRef} src={url} alt='hello world' />
+        <PrismaZoom
+          maxZoom={2.5}
+          ref={prismaZoom}
+        >
+          <img className='expanded-view-image' src={url} />
+        </PrismaZoom>
       </div>
-
     </div>
-
   )
-
 }

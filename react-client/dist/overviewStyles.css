@@ -23,17 +23,19 @@
   cursor: zoom-in;  /* when clicked, should open an expanded view modal */
 }
 
-#expanded-gallery-view {
-  /* react-modal */
+#expanded-gallery-modal {
   display: flex;
   flex-direction: column;
 }
 
-/* #expanded-view-img {
-} */
+.expanded-arrow-and-icon-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
 /* Instead of displaying a magnifying glass on hover, in the expanded view the mouse should become a “+” symbol while hovering over the main image. */
-#expanded-view-img:hover {
+.expanded-view-image:hover {
   cursor: crosshair
 }
 
