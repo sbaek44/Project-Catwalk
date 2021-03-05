@@ -3,7 +3,7 @@ import header from '../../../../config.js';
 import axios from 'axios';
 import Select from 'react-select';
 
-export default function AddToCart({ selectedProduct, selectedStyle, styles, getStyleName }) {
+export default function AddToCart({ product, selectedStyle, styles, getStyleName }) {
 
   const [size, selectSize] = useState('');
   const [qty, selectQty] = useState(1);
@@ -97,7 +97,7 @@ export default function AddToCart({ selectedProduct, selectedStyle, styles, getS
         .catch((err) => {
           console.error(err)
         })
-      alert(`Added (${qty}) size ${size} ${selectedProduct.name} in ${getStyleName()} to cart!`)
+      alert(`Added (${qty}) size ${size} ${product.name} in ${getStyleName()} to cart!`)
     }
   }
 
@@ -127,7 +127,7 @@ export default function AddToCart({ selectedProduct, selectedStyle, styles, getS
 
   return (
     <div className='add-to-cart' onBlur={() => closeMenus()}>
-      {styles.length && selectedStyle !== 0 && selectedProduct.hasOwnProperty('id') ?
+      {styles.length && selectedStyle !== 0 && product.hasOwnProperty('id') ?
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <span className='add-to-cart-message'>{message}</span>
           <div className='selector-container'>
@@ -159,7 +159,7 @@ export default function AddToCart({ selectedProduct, selectedStyle, styles, getS
           </div>
           <div className='selector-container'>
             {/* no idea what this button is but its on the mock */}
-            <button className='favorite-button'>☆</button>
+            <button className='favorite-button' onClick={() => alert(`FAVORITED ${product.name}`)}>☆</button>
             {/* add to cart button should be hidden when there's no stock */}
             {outOfStock ? null : <button className='add-to-cart-button' onClick={() => add()}><span>ADD TO BAG</span><span>+</span></button>}
           </div>
