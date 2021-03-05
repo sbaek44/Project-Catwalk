@@ -12,6 +12,7 @@ const Reviews = (props) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState([]);
   const [reviews, setReviews] = useState([]);
+  const [alteredArray, setAlteredArray] = useState([]);
   const [amountOfReviews, addReviews] = useState(2);
   const [sortParameters] = useState(['relevance', 'newest', 'helpful']);
   const [selectedParameter, updateParam] = useState('relevance');
@@ -22,13 +23,11 @@ const Reviews = (props) => {
       getReviews();
     }
     updateMoreReviewsButton(reviews);
-  }, [selectedParameter, amountOfReviews, props.currentProduct, filters]);
+  }, [selectedParameter, amountOfReviews, props.currentProduct]);
 
   useEffect(() => {
-    if (searchQuery.length > 2) {
-      searchReviews(searchQuery);
-    }
-  }, [searchQuery]);
+    filterAndSearchReviews(reviews);
+  }, [searchQuery, filters]);
 
   const togglePostModalIsOpen = () => {
     setPostModalIsOpen(!postModalIsOpen);
@@ -58,6 +57,7 @@ const Reviews = (props) => {
   };
 
   const filterReviews = (untouchedReviews) => {
+    console.log(untouchedReviews);
     let filteredReviews = [];
     untouchedReviews.filter((review) => {
       if (filters.includes(review.rating)) {
@@ -67,7 +67,7 @@ const Reviews = (props) => {
     if (filteredReviews.length === 0) {
       return;
     }
-    setReviews(filteredReviews);
+    return filteredReviews;
   };
 
   const addMoreReviews = () => {
@@ -84,21 +84,37 @@ const Reviews = (props) => {
       .then((data) => {
         setReviews(data.data.results);
         updateMoreReviewsButton(data.data.results);
-        filterReviews(data.data.results);
+        // filterReviews(data.data.results);
         props.getRatings();
       })
       .catch((err) => console.log(err));
   };
 
-  const searchReviews = (input) => {
+  const filterAndSearchReviews = (arrayToSearch) => {
+    if (filters.length > 0 && searchQuery.length > 2) {
+      let searchedAndFiltered = filterReviews(arrayToSearch);
+      return searchReviews(searchQuery, searchedAndFiltered);
+    }
+
+    if (filters.length > 0) {
+      console.log('length is greater..')
+      return setAlteredArray(filterReviews(arrayToSearch));
+    }
+    if (searchQuery.length > 2) {
+      return searchReviews(searchQuery, reviews);
+    }
+  };
+
+  const searchReviews = (input, arrToSearch) => {
     let searchReviews = [];
-    reviews.filter((review) => {
+    console.log('array that has been filtered by rating', arrToSearch)
+    arrToSearch.filter((review) => {
       if (review.body.includes(input) || review.summary.includes(input)) {
         searchReviews.push(review);
       }
     });
-    //setReviews(searchReviews);
-    console.log(searchReviews);
+    console.log('output', searchReviews)
+    setAlteredArray(searchReviews);
   };
 
   let lengthOfReviews;
@@ -137,13 +153,13 @@ const Reviews = (props) => {
 
   let filterDisplay;
   if (filters.length > 1) {
-    let filterString = 'Now displaying items with ';
+    let filterString = `Now displaying ${alteredArray.length} items with `;
     filters.forEach((e => filterString += ` ${e} star,`));
     filterString = filterString.slice(0, -1);
     filterString += ' ratings.';
     filterDisplay = (
       <div id="filter-display" >{filterString}
-        <button className="review-buttons" onClick={() => { setFilters([]) }} >REMOVE ALL FILTERS</button>
+        <button id="removeAll" className="review-buttons" onClick={() => { setFilters([]) }} >REMOVE ALL FILTERS</button>
       </div>
     );
   } else {
@@ -170,11 +186,18 @@ const Reviews = (props) => {
             />
           </div>
           {filterDisplay}
-          <ReviewsList avgRating={props.avgRating}
-            getReviews={getReviews}
-            reviews={reviews}
-            amountOfReviews={amountOfReviews}
-          />
+          {searchQuery.length > 2 || filters.length > 0
+          ? <ReviewsList avgRating={props.avgRating}
+          getReviews={getReviews}
+          reviews={alteredArray}
+          amountOfReviews={amountOfReviews}
+        />
+          : <ReviewsList avgRating={props.avgRating}
+          getReviews={getReviews}
+          reviews={reviews}
+          amountOfReviews={amountOfReviews}
+        />}
+
           <div className="more-reviews-bar">
             {moreReviewsButton}
             <button className="review-buttons" onClick={togglePostForm} >ADD A REVIEW +</button>

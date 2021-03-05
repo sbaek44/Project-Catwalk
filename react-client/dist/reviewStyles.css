@@ -112,6 +112,7 @@
 	overflow: hidden;
 }
 #filter-display {
+	margin: 5px;
 }
 .search-reviews {
 	padding-left: 10px;
@@ -201,4 +202,7 @@
 }
 #characteristic {
 	padding-top: 7px;
+}
+#removeAll {
+	margin-left: 10px;
 }
