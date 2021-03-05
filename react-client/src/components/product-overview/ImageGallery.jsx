@@ -82,7 +82,7 @@ export default function ImageGallery({ selectPhoto, photos }) {
               id={i === selectedPhotoIndex ? 'selected' : null}
             />
           })}
-          <div className='vertical-arrow-container' style={{ marginTop: -20 }}>
+          <div className='vertical-arrow-container' style={{ marginTop: -15 }}>
           <button
               id={selectedPhotoIndex === photos.length - 1 ? 'hidden' : null}
               className='vertical-arrow-button'
@@ -123,12 +123,21 @@ export default function ImageGallery({ selectPhoto, photos }) {
   }
 
   const mainImageCSS = (url) => {
+    // possibly need to add error handling for the api url strings with typos in them ?
     return {
+      marginLeft: '5px',
+      border: '1px solid rgb(68, 67, 67)',
+      borderRadius: '0.25rem',
+      boxShadow: '1px 2px 2px darkgray',
+      display: 'flex',
+      flexDirection: 'row nowrap',
+      zIndex: 5,
+      cursor: 'zoom-in',
       width: 'auto',
       height: '100%',
       backgroundImage: `url(${url})`,
       backgroundRepeat: 'no-repeat',
-      backgroundAttachment: 'fixed',
+      backgroundAttachment: 'scroll',
       backgroundPosition: 'center',
     }
   }
@@ -157,7 +166,6 @@ export default function ImageGallery({ selectPhoto, photos }) {
             </ExpandedView>
           </Modal>
 
-          {/* todo: refactor this disgusting css/hardcoding */}
           <button className='horizontal-arrow' id={selectedPhotoIndex > 0 ? 'left-arrow' : 'left-hidden'} onClick={(event) => {scrollBack(event)}}>&#x2190;</button>
           <button className='horizontal-arrow' id={selectedPhotoIndex < photos.length - 1 ? 'right-arrow' : 'right-hidden'} onClick={(event) => {scrollForward(event)}}>&#x2192;</button>
         </div>
