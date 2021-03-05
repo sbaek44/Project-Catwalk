@@ -51,7 +51,6 @@ function ProductDescription({ selectedProduct }) {
             <div className='product-slogan'>{selectedProduct.slogan}</div>
             <div className='product-description'>{selectedProduct.description}</div>
           </div>
-          {/* todo - mock shows a horizontal line seperating the description/slogan and feature list */}
           {features.length ?
             <ul className='feature-list'>
               {renderFeatures()}
