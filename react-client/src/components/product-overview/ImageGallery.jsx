@@ -7,8 +7,8 @@ const modalStyle = {
     top: 0,
     left: 0,
     right: 0,
-    overflowX: 'hidden',
-    height: 800,
+    width: '100vw',
+    height: '100vh',
   }
 };
 
@@ -64,8 +64,12 @@ export default function ImageGallery({ selectPhoto, photos }) {
     } else {
       return <div className='gallery-thumbnails-container'>
         <div className='gallery-thumbnails'>
-          <div className='arrow-container'>
-            <button className={selectedPhotoIndex > 0 ? 'arrow-button' : 'arrow-button-hidden'}  onClick={(event) => {scrollBack(event)}}>&#8963;</button>
+          <div className='vertical-arrow-container' style={{ marginBottom: 10 }}>
+            <button
+              id={selectedPhotoIndex === 0 ? 'hidden' : null}
+              className='vertical-arrow-button'
+              onClick={(event) => {scrollBack(event)}}>
+              &#8963;</button>
           </div>
           {photos.map((photo, i) => {
             return <img
@@ -78,8 +82,12 @@ export default function ImageGallery({ selectPhoto, photos }) {
               id={i === selectedPhotoIndex ? 'selected' : null}
             />
           })}
-          <div className='arrow-container' style={{ marginTop: -10 }}>
-            <button className={selectedPhotoIndex < photos.length - 1 ? 'arrow-button' : 'arrow-button-hidden'} onClick={(event) => {scrollForward(event)}}>&#8964;</button>
+          <div className='vertical-arrow-container' style={{ marginTop: -20 }}>
+          <button
+              id={selectedPhotoIndex === photos.length - 1 ? 'hidden' : null}
+              className='vertical-arrow-button'
+              onClick={(event) => {scrollForward(event)}}>
+              &#8964;</button>
           </div>
         </div>
       </div>
@@ -114,15 +122,14 @@ export default function ImageGallery({ selectPhoto, photos }) {
     }
   }
 
-  // still needs work but ok for testing
-  const mainImageCSS = (photoURL) => {
+  const mainImageCSS = (url) => {
     return {
       width: 'auto',
       height: '100%',
-      backgroundImage: `url(${photoURL})`,
-      overflow: 'hidden',
-      backgroundPosition: '50% 50%',
-      backgroundRepeat: 'no-repeat'
+      backgroundImage: `url(${url})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundAttachment: 'fixed',
+      backgroundPosition: 'center',
     }
   }
 

@@ -24,45 +24,45 @@
   cursor: zoom-in;
 }
 
-.arrow-button {
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: lightgrey;
-  opacity: 1;
+.arrow-button:hover {
+  color:rgb(255, 0, 140);
+}
+
+.vertical-arrow-container {
   height: 20px;
   width: 40px;
+  padding-left: 0.25rem;
+}
+
+.vertical-arrow-button {
+  background: none;
+  border: none;
+  color: lightgray;
+  height: 20px;
+  width: 40px;
+  font-size: 32px;
+  opacity: 1;
   z-index: 2;
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
-  transition-duration: 0.25s;
+  transition-duration: 0.5s;
 }
 
-.arrow-button:hover {
+.vertical-arrow-button:hover {
   color:rgb(255, 0, 140);
 }
 
-.arrow-button-hidden {
+.vertical-arrow-button#hidden {
   opacity: 0;
-}
-
-.arrow-button-hidden:hover {
-  cursor: auto;
-}
-
-.arrow-container {
-  height: 20px;
-  width: 40px;
-  padding-left: 0.25rem;
 }
 
 .horizontal-arrow {
   background: none;
   border: none;
   font-size: 40px;
-  color: gray;
+  color: lightgray;
   z-index: 2;
   position: relative;
   -webkit-user-select: none; /* Safari */
@@ -79,12 +79,12 @@
 /* hardcoded left/right arrows for now, need to refactor all this to work on diff monitor sizes and be less repetitive */
 
 #left-arrow {
-  left: 3%;
+  left: 1%;
   opacity: 1;
 }
 
 #left-hidden {
-  left: 3%;
+  left: 1%;
   opacity: 0;
 }
 
@@ -151,13 +151,14 @@
 #expanded-gallery-modal {
   display: flex;
   flex-direction: column;
+  padding: 0 !important;
 }
 
 #modal-x-button {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   font-size: 1.5rem;
-  color: gray;
+  color: lightgray;
   border: none;
   background: none;
   transition-duration: 0.25s;
@@ -167,10 +168,54 @@
   color: red
 }
 
+.expanded-arrow-button:hover {
+  color:rgb(255, 0, 140);
+}
+
 .expanded-arrow-and-icon-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  position: fixed;
+  top: 5%;
+  width: 100%;
+  z-index: 1;
+  opacity: 1;
+  transition-duration: 0.5;
+}
+
+.expanded-view-message {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: fixed;
+  color: white;
+  top: 5%;
+  width: 100%;
+  z-index: 1;
+  opacity: 1;
+  transition-duration: 0.5;
+}
+
+.expanded-arrow-placeholder {
+  opacity: 0;
+  width: 32px;
+}
+
+.expanded-arrow-button {
+  background: none;
+  border: none;
+  font-size: 32px;
+  width: 32px;
+  margin-top: -0.5rem;
+  color: lightgray;
+  opacity: 1;
+  z-index: 2;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  transition-duration: 1s;
 }
 
 .expanded-gallery-modal-inner {
@@ -180,6 +225,11 @@
 .expanded-view-image {
   display: block;
   margin: auto;
+  max-width: 99%;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
 
 /* Instead of displaying a magnifying glass on hover, in the expanded view the mouse should become a “+” symbol while hovering over the main image. */
