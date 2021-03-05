@@ -3,7 +3,7 @@ import axios from 'axios';
 import header from '../../../../config.js';
 import AddToCart from './AddToCart.jsx';
 
-function StyleSelector({ selectedProduct, selectedStyle, selectStyle, updatePrice, updateSale, updatePhotos, selectPhoto }) {
+function StyleSelector({ product, selectedStyle, selectStyle, updatePrice, updateSale, updatePhotos, selectPhoto }) {
 
   const [styles, updateStyles] = useState([]);
 
@@ -44,10 +44,10 @@ function StyleSelector({ selectedProduct, selectedStyle, selectStyle, updatePric
   }
 
   useEffect(() => {
-    if (selectedProduct.hasOwnProperty('id')) {
-      getStyles(selectedProduct.id)
+    if (product.hasOwnProperty('id')) {
+      getStyles(product.id)
     }
-  }, [selectedProduct])
+  }, [product])
 
   const makeButtonCSS = (thumbnail) => {
     return {
@@ -95,7 +95,7 @@ function StyleSelector({ selectedProduct, selectedStyle, selectStyle, updatePric
             </div>
 
           </div>
-          <AddToCart selectedProduct={selectedProduct} selectedStyle={selectedStyle} styles={styles} getStyleName={getNameOfSelectedStyle} />
+          <AddToCart product={product} selectedStyle={selectedStyle} styles={styles} getStyleName={getNameOfSelectedStyle} />
         </div>
         : null
       }
