@@ -416,23 +416,22 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  padding: 0.1%;
-  border-bottom: 1px solid gray;
+  justify-content: space-between;
 }
 
 .slogan-description-container {
   display: flex;
   flex-direction: column;
-  width: 70%;
-  padding: 0.1%;
-  margin-right: 1%;
+  width: 74.4%; /* somehow this lines up with image gallery, maybe only on my screen... */
+  margin-top: 0.25%;
+  padding-left: 0.5%;
+  border-right: 2px solid gray;
 }
 
 .feature-list {
   display: flex;
   flex-direction: column;
-  width: 25%;
+  width: 20%;
   padding: 0.1%;
   font-size: 18px;
 }
