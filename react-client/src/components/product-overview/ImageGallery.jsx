@@ -75,7 +75,6 @@ export default function ImageGallery({ selectPhoto, photos }) {
               onClick={(event) => {
                 handleThumbnailClick(event, photo.url, i)
               }}
-              // onClick={() => handleThumbnailClick(photo.url, i)}
               id={i === selectedPhotoIndex ? 'selected' : null}
             />
           })}
@@ -127,7 +126,6 @@ export default function ImageGallery({ selectPhoto, photos }) {
     }
   }
 
-
   return (
     <div className='image-gallery-outer'>
       {photos.length ?
@@ -137,6 +135,7 @@ export default function ImageGallery({ selectPhoto, photos }) {
           onClick={() => expandedGalleryView ? null : toggleGalleryView(true)}
         >
           {renderThumbnails()}
+
           {/* EXPANDED VIEW */}
           <Modal id='expanded-gallery-modal' isOpen={expandedGalleryView} style={modalStyle} ariaHideApp={false} >
             <ExpandedView

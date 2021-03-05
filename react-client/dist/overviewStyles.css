@@ -21,68 +21,7 @@
   display: flex;
   flex-direction: row nowrap;
   z-index: 5;
-  cursor: zoom-in;  /* when clicked, should open an expanded view modal */
-}
-
-#expanded-gallery-modal {
-  display: flex;
-  flex-direction: column;
-}
-
-/* .expanded-gallery-modal-inner {
-
-} */
-
-#modal-x-button {
-  width: 40px;
-  height: 40px;
-  font-size: 1.5rem;
-  color: gray;
-  border: none;
-  background: none;
-  transition-duration: 0.25s;
-}
-
-#modal-x-button:hover {
-  color: red
-}
-
-.expanded-arrow-and-icon-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-/* Instead of displaying a magnifying glass on hover, in the expanded view the mouse should become a “+” symbol while hovering over the main image. */
-.expanded-view-image#not-zoomed:hover {
-  cursor: crosshair
-}
-
-.expanded-view-image#zoomed:hover {
-  cursor: all-scroll
-}
-
-.expanded-view-icons-row {
-  display: flex;
-  flex-direction: row;
-}
-
-.expanded-view-icon {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid black;
-  margin: 0.1rem;
-  background: none;
-  transition-duration: 0.25s;
-}
-
-.expanded-view-icon:hover {
-  cursor: pointer;
-}
-
-.expanded-view-icon#selected {
-  background: rgb(255, 0, 140);
+  cursor: zoom-in;
 }
 
 .arrow-button {
@@ -122,7 +61,7 @@
 .horizontal-arrow {
   background: none;
   border: none;
-  font-size: 30px;
+  font-size: 40px;
   color: gray;
   z-index: 2;
   position: relative;
@@ -144,11 +83,6 @@
   opacity: 1;
 }
 
-#right-arrow {
-  left: 82%;
-  opacity: 1;
-}
-
 #left-hidden {
   left: 3%;
   opacity: 0;
@@ -159,8 +93,13 @@
 }
 
 #right-hidden {
-  left: 82%;
+  left: 85%;
   opacity: 0;
+}
+
+#right-arrow {
+  left: 85%;
+  opacity: 1;
 }
 
 #right-hidden:hover {
@@ -184,8 +123,8 @@
   height: 40px;
   width: 40px;
   margin: 2px;
-  border: 2px solid gray;
-  border-radius: 0.25rem;
+  border: 2px solid black;
+  border-radius: 0.1rem;
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
@@ -194,6 +133,7 @@
 
 .image-thumbnail:hover {
   cursor: pointer;
+  border: 2px solid gray;
 }
 
 .image-thumbnail-hidden {
@@ -206,6 +146,76 @@
   border: 2px solid rgb(255, 0, 140);
 }
 
+/* ExpandedView.jsx */
+
+#expanded-gallery-modal {
+  display: flex;
+  flex-direction: column;
+}
+
+#modal-x-button {
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  color: gray;
+  border: none;
+  background: none;
+  transition-duration: 0.25s;
+}
+
+#modal-x-button:hover {
+  color: red
+}
+
+.expanded-arrow-and-icon-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.expanded-gallery-modal-inner {
+  justify-content: center;
+}
+
+.expanded-view-image {
+  display: block;
+  margin: auto;
+}
+
+/* Instead of displaying a magnifying glass on hover, in the expanded view the mouse should become a “+” symbol while hovering over the main image. */
+.expanded-view-image#not-zoomed:hover {
+  cursor: crosshair
+}
+
+/* while zoomed in and panning around display four-way cursor */
+.expanded-view-image#zoomed:hover {
+  cursor: all-scroll
+}
+
+.expanded-view-icons-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.expanded-view-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid black;
+  margin: 0.1rem;
+  background: none;
+  transition-duration: 0.25s;
+}
+
+.expanded-view-icon:hover {
+  cursor: pointer;
+}
+
+.expanded-view-icon#selected {
+  background: rgb(255, 0, 140);
+}
+
+/* wrapper for everything besides gallery and description*/
 .right-side {
   display: flex;
   width: 20%;
@@ -414,7 +424,7 @@
 .slogan-description-container {
   display: flex;
   flex-direction: column;
-  width: 75%;
+  width: 70%;
   padding: 0.1%;
   margin-right: 1%;
 }
@@ -422,7 +432,7 @@
 .feature-list {
   display: flex;
   flex-direction: column;
-  width: 20%;
+  width: 25%;
   padding: 0.1%;
   font-size: 18px;
 }
