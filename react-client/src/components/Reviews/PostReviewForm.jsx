@@ -16,11 +16,14 @@ const PostReviewForm = (props) => {
   const [summaryLengthisValid, setSummaryLengthIsValid] = useState(false);
   const [bodyIsValidLength, setBodyIsValidLength] = useState(false);
   const [reviewIsValid, setReviewIsValid] = useState(false);
+  const [arrOfCharacteristicChoices, setArrOfCharacteristicChoices] = useState([]);
+  const [charObj, setCharObj] = useState({});
 
   useEffect(() => {
+    createCharacteristicChoices();
     checkSummaryLength();
     CheckBodyLength();
-  }, [summary, body]);
+  }, [summary, body, props.characteristicsArr]);
 
   let images = [];
   const setImages = (e) => {
@@ -59,7 +62,7 @@ const PostReviewForm = (props) => {
     name: name,
     email: email,
     photos: photos,
-    characteristics: {},
+    characteristics: charObj,
   };
 
   const checkSummaryLength = () => {
@@ -78,7 +81,8 @@ const PostReviewForm = (props) => {
   };
 
   const setCharacteristic = (key, value) => {
-    reviewPost.characteristics[key] = value;
+    charObj[key] = Number(value);
+    setCharObj(charObj);
   };
 
   const setBool = (bool) => {
@@ -119,14 +123,44 @@ const PostReviewForm = (props) => {
         });
     }
   };
+  const createCharacteristicChoices = () => {
+    let possibilities = [];
+    let size = ["id", 'Size', "1 - A size too small", "2 - ½ a size too small", "3 - Perfect", "4 - ½ a size too big", "5 - A size too wide"];
+    let width = ['id', 'Width', '1 - Too narrow', '2 - Slightly narrow', '3 - Perfect', '4 - Slightly wide', '5 - Too wide'];
+    let comfort = ['id', 'Comfort', '1 - Uncomfortable', '2 - Slightly uncomfortable', '3 - Ok', '4 - Comfortable', '5 - Perfect'];
+    let quality = ['id', 'Quality', '1 - Poor', '2 - Below average', '3 - What I expected', '4 - Pretty great', '5 - Perfect'];
+    let length = ['id', 'Length', '1 - Runs Short', '2 - Runs slightly short', '3 - Perfect', '4 - Runs slightly long', '5 - Runs long'];
+    let fit = ['id', 'Fit', '1 - Runs tight', '2 - Runs slightly tight', '3 - Perfect', '4 - Runs slightly long', '5 - Runs long'];
+    props.characteristicsArr.forEach((e) => {
+      if (e[0] === 'Size') {
+        size[0] = e[1].id;
+        possibilities.push(size);
+      }
+      if (e[0] === 'Width') {
+        width[0] = e[1].id;
+        possibilities.push(width);
+      }
+      if (e[0] === 'Comfort') {
+        comfort[0] = e[1].id;
+        possibilities.push(comfort);
+      }
+      if (e[0] === 'Quality') {
+        quality[0] = e[1].id;
+        possibilities.push(quality);
+      }
+      if (e[0] === 'Length') {
+        length[0] = e[1].id;
+        possibilities.push(length);
+      }
+      if (e[0] === 'Fit') {
+        fit[0] = e[1].id;
+        possibilities.push(fit);
+      }
+      setArrOfCharacteristicChoices(possibilities);
+    });
+  };
 
   const options = ['Select Rating', "1 star - “Poor”", "2 stars - “Fair”", "3 stars - “Average”", "4 stars - “Good”", "5 stars - “Great”"];
-  const size = ["Size", "1 - A size too small", "2 - ½ a size too small", "3 - Perfect", "4 - ½ a size too big", "5 - A size too wide"];
-  const width = ['Width', '1 - Too narrow', '2 - Slightly narrow', '3 - Perfect', '4 - Slightly wide', '5 - Too wide'];
-  const comfort = ['Comfort', '1 - Uncomfortable', '2 - Slightly uncomfortable', '3 - Ok', '4 - Comfortable', '5 - Perfect'];
-  const quality = ['Quality', '1 - Poor', '2 - Below average', '3 - What I expected', '4 - Pretty great', '5 - Perfect'];
-  const length = ['Length', '1 - Runs Short', '2 - Runs slightly short', '3 - Perfect', '4 - Runs slightly long', '5 - Runs long'];
-  const fit = ['Fit', '1 - Runs tight', '2 - Runs slightly tight', '3 - Perfect', '4 - Runs slightly long', '5 - Runs long'];
 
   return (
     <Modal isOpen={postModalIsOpen}>
@@ -189,36 +223,13 @@ const PostReviewForm = (props) => {
           <div className="review-form-component" style={{display: 'flex', flexDirection: 'row'}}>
           <label>
             Characteristics:
-            <select style={{margin: '1%'}} name="size" onChange={(e) => setCharacteristic(e.target.name, e.target.value)}>
-              {size.map((ele, i) => (
-                <option key={i} value={i} >{ele}</option>
-              ))}
-            </select>
-            <select style={{margin: '1%'}} onChange={(e) => setCharacteristic(e.target.name, e.target.value)} name="width">
-              {width.map((ele, i) => (
-                <option key={i} value={i} >{ele}</option>
-              ))}
-            </select>
-            <select style={{margin: '1%'}} onChange={(e) => setCharacteristic(e.target.name, e.target.value)} name="comfort">
-              {comfort.map((ele, i) => (
-                <option key={i} value={i} >{ele}</option>
-              ))}
-            </select>
-            <select style={{margin: '1%'}} onChange={(e) => setCharacteristic(e.target.name, e.target.value)} name="quality">
-              {quality.map((ele, i) => (
-                <option key={i} value={i} >{ele}</option>
-              ))}
-            </select>
-            <select style={{margin: '1%'}} onChange={(e) => setCharacteristic(e.target.name, e.target.value)} name="length">
-              {length.map((ele, i) => (
-                <option key={i} value={i} >{ele}</option>
-              ))}
-            </select>
-            <select style={{margin: '1%'}} onChange={(e) => setCharacteristic(e.target.name, e.target.value)} name="select">
-              {fit.map((ele, i) => (
-                <option key={i} value={i} >{ele}</option>
-              ))}
-            </select>
+            { arrOfCharacteristicChoices.map((choiceArray, idx) => (
+              <select key={idx} name={choiceArray[0]} onChange={(e) => setCharacteristic(e.target.name, e.target.value)} >
+                {choiceArray.slice(1, 7).map((choiceE, i) => (
+                  <option key={i} value={i} >{choiceE}</option>
+                ))}
+              </select>
+            )) }
           </label>
           </div>
           <div className="review-form-component">
@@ -255,7 +266,7 @@ const PostReviewForm = (props) => {
             </label>
         </div>
           <button onClick={submitReview}>Submit</button>
-            <button onClick={() => setPostModalIsOpen(!postModalIsOpen)} >Cancel</button>
+          <button onClick={() => setPostModalIsOpen(!postModalIsOpen)} >Cancel</button>
         </form>
       </div>
     </Modal>

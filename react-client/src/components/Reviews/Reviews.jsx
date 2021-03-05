@@ -9,6 +9,7 @@ import Search from './Search.jsx';
 import Modal from 'react-modal';
 
 const Reviews = (props) => {
+  const [characteristicsArr, setCharacteristicsArr] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -27,7 +28,18 @@ const Reviews = (props) => {
 
   useEffect(() => {
     filterAndSearchReviews(reviews);
-  }, [searchQuery, filters]);
+    if (props.metadata.characteristics) {
+      splitCharacteristics()
+    }
+  }, [searchQuery, filters, props.metadata]);
+
+  const splitCharacteristics = () => {
+    let arrOfChars = [];
+    Object.keys(props.metadata.characteristics).map((key) => {
+      arrOfChars.push([key, props.metadata.characteristics[key]]);
+    });
+    setCharacteristicsArr(arrOfChars);
+  };
 
   const togglePostModalIsOpen = () => {
     setPostModalIsOpen(!postModalIsOpen);
@@ -84,7 +96,6 @@ const Reviews = (props) => {
       .then((data) => {
         setReviews(data.data.results);
         updateMoreReviewsButton(data.data.results);
-        // filterReviews(data.data.results);
         props.getRatings();
       })
       .catch((err) => console.log(err));
@@ -97,7 +108,6 @@ const Reviews = (props) => {
     }
 
     if (filters.length > 0) {
-      console.log('length is greater..')
       return setAlteredArray(filterReviews(arrayToSearch));
     }
     if (searchQuery.length > 2) {
@@ -107,13 +117,12 @@ const Reviews = (props) => {
 
   const searchReviews = (input, arrToSearch) => {
     let searchReviews = [];
-    console.log('array that has been filtered by rating', arrToSearch)
     arrToSearch.filter((review) => {
       if (review.body.includes(input) || review.summary.includes(input)) {
         searchReviews.push(review);
       }
     });
-    console.log('output', searchReviews)
+    console.log('output', searchReviews);
     setAlteredArray(searchReviews);
   };
 
@@ -148,7 +157,7 @@ const Reviews = (props) => {
   if (!isPosting) {
     postForm = '';
   } else {
-    postForm = <PostReviewForm getReviews={getReviews} review_id={props.currentProduct} />;
+    postForm = <PostReviewForm characteristicsArr={characteristicsArr} getReviews={getReviews} review_id={props.currentProduct} />;
   }
 
   let filterDisplay;
@@ -171,6 +180,7 @@ const Reviews = (props) => {
       {postForm}
         <div className="ratings">
           <Ratings
+            characteristicsArr={characteristicsArr}
             manipulateFilters={manipulateFilters}
             avgRating={props.avgRating}
             metadata={props.metadata}/>
@@ -187,17 +197,18 @@ const Reviews = (props) => {
           </div>
           {filterDisplay}
           {searchQuery.length > 2 || filters.length > 0
-          ? <ReviewsList avgRating={props.avgRating}
-          getReviews={getReviews}
-          reviews={alteredArray}
-          amountOfReviews={amountOfReviews}
-        />
-          : <ReviewsList avgRating={props.avgRating}
-          getReviews={getReviews}
-          reviews={reviews}
-          amountOfReviews={amountOfReviews}
-        />}
-
+            ? <ReviewsList avgRating={props.avgRating}
+                getReviews={getReviews}
+                reviews={alteredArray}
+                amountOfReviews={amountOfReviews}
+                characteristicsArr={characteristicsArr}
+                />
+            : <ReviewsList avgRating={props.avgRating}
+                getReviews={getReviews}
+                reviews={reviews}
+                amountOfReviews={amountOfReviews}
+                characteristicsArr={characteristicsArr}
+                />}
           <div className="more-reviews-bar">
             {moreReviewsButton}
             <button className="review-buttons" onClick={togglePostForm} >ADD A REVIEW +</button>
