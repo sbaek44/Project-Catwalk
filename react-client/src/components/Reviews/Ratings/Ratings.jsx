@@ -15,7 +15,6 @@ const Ratings = (props) => {
     }
   }, [props.metadata]);
 
-
   const findPercentagePerRating = () => {
     let percentages = [0, 0, 0, 0, 0, 0];
     let ratings = props.metadata.ratings;
@@ -67,9 +66,9 @@ const Ratings = (props) => {
       </div>
       <RatingsBreakdownList
         manipulateFilters={props.manipulateFilters}
-        percentagePerRating={percentagePerRating} />
+        percentagePerRating={percentagePerRating}/>
       <CharacteristicsList
-        characteristics={props.metadata.characteristics} />
+        characteristics={props.characteristicsArr}/>
     </div>
   );
 };
