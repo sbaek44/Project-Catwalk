@@ -20,7 +20,12 @@ const ReviewTile = ({ characteristicsArr, metadata, review, avgRating, getReview
     reviewText = <div> {review.body} </div>;
   } else {
     reviewText = (
-      <div> {review.body.slice(0, 250)} <div style={{fontWeight: 'bold'}}  className="text"  onClick={() => setLongerThan250(false)} >show more..</div>  </div>
+      <div>
+        {review.body.slice(0, 250)}
+          <div style={{fontWeight: 'bold'}}  className="text"  onClick={() => setLongerThan250(false)} >
+            show more..
+          </div>
+      </div>
     );
   };
 
@@ -96,17 +101,17 @@ const ReviewTile = ({ characteristicsArr, metadata, review, avgRating, getReview
 
   return (
     <div className="reviewTile">
-      <div className="stars"> <Stars avgRating={avgRating} /></div>
+      <div className="stars"> <Stars avgRating={review.rating} /></div>
       <div className="userName">
         {dateAndUser}
       </div>
       <div className="reviewSummary"> {review.summary} </div>
-     {reviewText}
+      <div className="reviewGuts" > {reviewText}  </div>
       <ReviewPhotos photos={review.photos} />
-      {form}
-      {response}
-        <div style={{display: 'flex', flexDirection: 'row'}}>
-            Helpful?
+      <div className="reviewGuts">{form}</div>
+      <div className="reviewGuts">{response}  </div>
+        <div className="reviewGuts" style={{display: 'flex', flexDirection: 'row'}}>
+          Helpful?
             <div  id="yes"  className="text" onClick={markAsHelpful}>Yes</div>
             {`(${review.helpfulness})`}
             <div id="yes" className="text" onClick={markAsUnHelpful} >No</div>

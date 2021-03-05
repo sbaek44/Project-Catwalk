@@ -1,7 +1,8 @@
 import React from 'react';
 
 const CharacteristicsElement = ({ characteristic }) => {
-  let percent = characteristic[1].value * 20;
+  let score = characteristic[1].value || 0.2;
+  let percent =  score * 20;
   let first;
   let second;
   let third;
