@@ -142,8 +142,8 @@ const Reviews = (props) => {
     filterString = filterString.slice(0, -1);
     filterString += ' ratings.';
     filterDisplay = (
-      <div>{filterString}
-        <button onClick={() => { setFilters([]) }} >REMOVE ALL FILTERS</button>
+      <div id="filter-display" >{filterString}
+        <button className="review-buttons" onClick={() => { setFilters([]) }} >REMOVE ALL FILTERS</button>
       </div>
     );
   } else {
@@ -159,19 +159,17 @@ const Reviews = (props) => {
             avgRating={props.avgRating}
             metadata={props.metadata}/>
         </div>
-      <div>
-
         <div className="reviews" >
           <div className="sort-bar">
             {`${lengthOfReviews} reviews, sorted by`}
             <SortForm updateParamFunc={updateParamFunc} sortParameters={sortParameters} />
-            {filterDisplay}
             <Search
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
               searchReviews={searchReviews}
             />
           </div>
+          {filterDisplay}
           <ReviewsList avgRating={props.avgRating}
             getReviews={getReviews}
             reviews={reviews}
@@ -183,7 +181,6 @@ const Reviews = (props) => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
