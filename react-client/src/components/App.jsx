@@ -82,6 +82,7 @@ export default class App extends React.Component {
       });
   }
 
+
   render() {
     return (
       <div>
@@ -94,9 +95,9 @@ export default class App extends React.Component {
           currentProduct={this.state.selectedProduct} /> */}
         {/* <YourOutfitList
           avgRating={this.state.avgRating}
-          currentProduct={this.state.selectedProduct} /> */}
+          currentProduct={this.state.selectedProduct} />
         {/* <QA
-          currentProduct={this.state.selectedProduct}/> */}
+          currentProduct={this.state.selectedProduct} /> */}
         <Reviews
           avgRating={this.state.avgRating}
           metadata={this.state.metadata}
