@@ -94,7 +94,7 @@ export default class App extends React.Component {
           currentProduct={this.state.selectedProduct} />
         <YourOutfitList
           avgRating={this.state.avgRating}
-          currentProduct={this.state.selectedProduct} /> */}
+          currentProduct={this.state.selectedProduct} />
         <QA
           currentProduct={this.state.selectedProduct} />
         <Reviews
