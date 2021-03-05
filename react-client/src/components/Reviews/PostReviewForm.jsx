@@ -26,7 +26,6 @@ const PostReviewForm = (props) => {
   const setImages = (e) => {
     let idx = Number(e.target.name);
     images[idx] = e.target.value;
-    console.log(images);
   };
 
   const toggleModal = (e) => {
@@ -91,7 +90,6 @@ const PostReviewForm = (props) => {
   }
 
   const submitReview = (e) => {
-    console.log(typeof reviewPost.recommend)
     let content = "Content-Type"
     header.headers[content] = 'application/json';
     e.preventDefault();
@@ -104,14 +102,13 @@ const PostReviewForm = (props) => {
     } else if (!CheckBodyLength()) {
       alert(`You must enter the following: Body`);
     } else if (reviewPost.name === '') {
-      console.log('name')
       alert(`You must enter the following: Name`);
     } else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(reviewPost.email)) {
       alert(`You must enter the following: Email`);
     } else {
-      console.log(reviewPost)
+      console.log(reviewPost);
       reviewPost = JSON.stringify(reviewPost);
-      setPostModalIsOpen(!postModalIsOpen)
+      setPostModalIsOpen(!postModalIsOpen);
       axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/`, reviewPost, header)
         .then((data) => {
           console.log('submitted a new review', data);
@@ -132,9 +129,9 @@ const PostReviewForm = (props) => {
   const fit = ['Fit', '1 - Runs tight', '2 - Runs slightly tight', '3 - Perfect', '4 - Runs slightly long', '5 - Runs long'];
 
   return (
-    <Modal isOpen={postModalIsOpen} >
+    <Modal isOpen={postModalIsOpen}>
       <Modal isOpen={imageModalIsOpen}>
-        <div className="review-form-component" >
+        <div className="review-form-component">
           <label>
             Image 1:
             <input style={{margin: '1%'}} onChange={setImages} name="0" type="text" />
