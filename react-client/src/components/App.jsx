@@ -47,7 +47,7 @@ export default class App extends React.Component {
 }
 
   selectProduct(id) {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/styles`, header)
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}`, header)
     .then((results) => {
       this.setState({
         selectedProduct: results.data
@@ -106,12 +106,6 @@ export default class App extends React.Component {
   });
 }
 
-  selectProduct(index) {
-    this.setState({
-      selectedItemIndex: index,
-    });
-  }
-
   randomNumber(max) {
     return (Math.floor(Math.random() * max)) + 1 // errors if we try to load page 0
   }
@@ -129,12 +123,12 @@ export default class App extends React.Component {
         <YourOutfitList
           avgRating={this.state.avgRating}
           currentProduct={this.state.selectedProduct} />
-        <QA
+        {/* <QA
           currentProduct={this.state.selectedProduct}/>
         <Reviews
           avgRating={this.state.avgRating}
           metadata={this.state.metadata}
-          currentProduct={this.state.selectedProduct[0]} />
+          currentProduct={this.state.selectedProduct[0]} /> */}
       </div>
     )
   }

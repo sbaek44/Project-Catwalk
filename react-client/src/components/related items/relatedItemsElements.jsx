@@ -10,13 +10,16 @@ function RelatedItemsElements(props) {
   const [stylesData, updateStylesData] = useState([])
 
   useEffect(() => {
+    let uniqueItems = [];
     props.relatedItemsIds.map(item => {
       let currentProductId = item || 16060;
       axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentProductId}`, header)
-        .then((results) => (updateDataArr(dataArr =>[...dataArr, results.data])))
+      // .then((results) => (updateDataArr(results.data)))
+        .then((results) => ((uniqueItems.push(results.data))))
+        .then(() => (updateDataArr(uniqueItems)))
         .then(() => (
           axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentProductId}/styles`, header)))
-          .then((results) => (updateStylesData(stylesData => [...stylesData, results.data])))
+          .then((results) => (updateStylesData(stylesData => ([...stylesData, results.data]))))
         .catch(err => console.log(err))
     })
   }, [props.relatedItemsIds])
