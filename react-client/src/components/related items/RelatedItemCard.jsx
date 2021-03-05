@@ -17,7 +17,7 @@ const customStyles = {
 };
 
 function RelatedItemCard(props) {
-  const [thumbnails, updateThumbnails] = useState([]);;
+  const [thumbnails, updateThumbnails] = useState([]);
   const [modalIsOpen, updateModalIsOpen] = useState(false);
   const [allFeatures, updateAllFeatures] = useState([]);
   const [compareName, updateCompareName] = useState('');
@@ -35,6 +35,7 @@ function RelatedItemCard(props) {
     let currentFeaturesArr = [{id: props.currentProductFeatures.id, name: props.currentProductFeatures.name, features: props.currentProductFeatures.features}]
     updateAllFeatures(currentFeaturesArr.concat(relatedFeaturesArr))
   }, [props.dataArr, props.currentProductFeatures])
+
 
   let getThumbnail = (id) => {
     for (let i = 0; i < thumbnails.length; i++) {
@@ -55,10 +56,20 @@ function RelatedItemCard(props) {
 
   if (props.stylesData.length === 0 || props.currentProductFeatures.length === 0) {
     return null
-  } else if (modalIsOpen === true) {
-      return (
-        <div>
-          <Modal
+  } else {
+    return (
+      <div style={{display: 'flex', flexDirection: 'row'}}>
+      {props.dataArr.map((item, i) => (
+        <div id="relatedItemCard" key={i}>
+          <img onClick={() => (props.selectProduct(item.id))} src={getThumbnail(item.id)} />
+          <button name={item.name} onClick={modalState}>&#9734;</button>
+          <div id="cardCategory">{item.category}</div>
+          <div id="cardName">{item.name}</div>
+          <div id="cardPrice">{item.sale_price ? item.sale_price : item.default_price}</div>
+          <Stars id="cardStars" avgRating={props.avgRating} />
+        </div>
+      ))}
+      <Modal
             ariaHideApp={false}
             isOpen={modalIsOpen}
             style={customStyles}
@@ -83,13 +94,14 @@ function RelatedItemCard(props) {
                   <td>
                   {allFeatures.map((feature) => (
                       feature.features.map((feat, i) => (
+                      // {props.currentProductFeatures.features.map((feat, i) => (
                         <div key={i} style={{display: 'flex', flexDirection: 'row'}} >
                           <div>{feat.value ? feat.feature : null}</div>
                           <div>{feat.value ? ':' : null}</div>
                           <div>{feat.value ? feat.value : null}</div>
                         </div>
-                      ))
-                    ))}
+                      )))
+                  )}
                   </td>
                   <td>
                   </td>
@@ -98,21 +110,6 @@ function RelatedItemCard(props) {
             </table>
             <button style={{textAlign: 'center'}} onClick={() => updateModalIsOpen(false)}>Close</button>
           </Modal>
-        </div>
-      )
-  } else {
-    return (
-      <div style={{display: 'flex', flexDirection: 'row'}}>
-      {props.dataArr.map((item, i) => (
-        <div onClick={() => (props.selectProduct(item.id))} id="relatedItemCard" key={i}>
-          <img src={getThumbnail(item.id)} />
-          <button name={item.name} onClick={modalState}>&#9734;</button>
-          <div id="cardCategory">{item.category}</div>
-          <div id="cardName">{item.name}</div>
-          <div id="cardPrice">{item.sale_price ? item.sale_price : item.default_price}</div>
-          <Stars id="cardStars" avgRating={props.avgRating} />
-        </div>
-      ))}
       </div>
     )
   }

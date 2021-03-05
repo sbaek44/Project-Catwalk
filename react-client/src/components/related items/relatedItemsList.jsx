@@ -7,26 +7,34 @@ import YourOutfitList from './YourOutfitList.jsx';
 function RelatedItemsList(props) {
   const [currentProductFeatures, updateCurrentProductFeatures] = useState([]);
   const [relatedItemsIds, updateRelatedItems] = useState([]);
+  let currentProductId = props.currentProduct.id || 16060;
 
   useEffect(() => {
-    let currentProductId = props.currentProduct.id || 16060;
+    getCurrentFeatures()
+    getRelatedIds()
+  },  [props.currentProduct])
+
+  let getCurrentFeatures = () => {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentProductId}`, header)
-    .then((results) => (updateCurrentProductFeatures(results.data)))
-    .then(() => (
-      axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentProductId}/related`, header)
+      .then((results) => (updateCurrentProductFeatures(results.data)))
+      .catch((err) => (console.log))
+  }
+
+  let getRelatedIds = () => {
+    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentProductId}/related`, header)
       .then((results) => (updateRelatedItems(results.data)))
       .catch((err) => console.log(err))
-    ))
-  },  [props.currentProduct])
+  }
 
   return (
     <div>
       <h3>RELATED PRODUCTS</h3>
       <RelatedItemsElements
         currentProductFeatures={currentProductFeatures}
-        relatedItemsIds={relatedItemsIds}
+        relatedItemsIds={[...new Set(relatedItemsIds)]}
         avgRating={props.avgRating}
-        selectProduct={props.selectProduct} />
+        selectProduct={props.selectProduct}
+        currentProduct={props.currentProduct} />
     </div>
   )
 }
