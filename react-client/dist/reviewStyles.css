@@ -202,6 +202,13 @@
 	background: none;
 	margin-right: 2%;
 	padding: 2%;
+	box-shadow: 2px 2px 2px rgb(72,72,72);
+}
+.review-buttons:hover {
+  background-color: rgb(255, 0, 140);
+  border: 1px solid rgb(72,72,72);
+  box-shadow: 2px 2px 2px rgb(72,72,72);
+  color: rgb(240,240,240);
 }
 .reviews-list {
 	height: 600px;
@@ -228,7 +235,15 @@
 	padding-top: 7px;
 }
 #removeAll {
+	box-shadow: 2px 2px 2px rgb(72,72,72);
 	margin-left: 10px;
+	background: none;
+}
+#removeAll:hover {
+  background-color: rgb(255, 0, 140);
+  border: 1px solid rgb(72,72,72);
+  box-shadow: 2px 2px 2px rgb(72,72,72);
+  color: rgb(240,240,240);
 }
 .close {
   color: #aaa;
@@ -242,4 +257,7 @@
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+.found {
+	color: black;
 }

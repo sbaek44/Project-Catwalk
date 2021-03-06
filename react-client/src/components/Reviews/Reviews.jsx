@@ -168,7 +168,7 @@ const Reviews = (props) => {
     filterString += ' ratings.';
     filterDisplay = (
       <div id="filter-display" >{filterString}
-        <button id="removeAll" style={{background: 'none'}} onClick={() => { setFilters([]) }} >REMOVE ALL FILTERS</button>
+        <button id="removeAll"  onClick={() => { setFilters([]) }} >REMOVE ALL FILTERS</button>
       </div>
     );
   } else {

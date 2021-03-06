@@ -195,8 +195,8 @@ const PostReviewForm = (props) => {
             <input style={{margin: '1%'}} onChange={setImages} name="4" type="text" />
         </label>
         </div>
-      <button onClick={updateImages} >Submit</button>
-      <button onClick={toggleModal} >Cancel</button>
+      <button className="review-buttons"  onClick={updateImages} >Submit</button>
+      <button className="review-buttons" onClick={toggleModal} >Cancel</button>
     </Modal>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <form className="addReviewForm">
@@ -256,7 +256,7 @@ const PostReviewForm = (props) => {
               What is your nickname?:
               <input style={{margin: '1%'}} placeholder="Example: jackson11!" onChange={(e) => setName(e.target.value)} type="text" name="" />
               <div style={{fontWeight: 'bold'}} >
-              For privacy reasons, do not use your full name or email address” will appear.
+              For privacy reasons, do not use your full name or email address
               </div>
             </label>
          </div>
@@ -265,12 +265,12 @@ const PostReviewForm = (props) => {
               Your email:
               <input style={{margin: '1%'}} placeholder="Example: jackson11@email.com"  onChange={(e) => setEmail(e.target.value)} type="email" name="" />
               <div style={{fontWeight: 'bold'}} >
-              For authentication reasons, you will not be emailed” will appear.
+              For authentication reasons, you will not be emailed
               </div>
             </label>
         </div>
-          <button onClick={submitReview}>Submit</button>
-          <button onClick={() => setPostModalIsOpen(!postModalIsOpen)} >Cancel</button>
+          <button className="review-buttons" onClick={submitReview}>Submit</button>
+          <button className="review-buttons" onClick={() => setPostModalIsOpen(!postModalIsOpen)} >Cancel</button>
         </form>
       </div>
     </Modal>
