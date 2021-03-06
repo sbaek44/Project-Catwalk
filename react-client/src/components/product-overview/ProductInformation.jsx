@@ -4,7 +4,7 @@ import axios from 'axios';
 import Stars from '../Reviews/Ratings/Stars.jsx'
 import { SocialIcon } from 'react-social-icons';
 
-function ProductInformation({ selectedProduct, selectedStyle, price, sale, avgRating }) {
+function ProductInformation({ product, selectedStyle, price, sale, avgRating }) {
 
   const renderPrice = () => {
     if (sale) {
@@ -33,17 +33,17 @@ function ProductInformation({ selectedProduct, selectedStyle, price, sale, avgRa
 
   return (
     <div>
-      {selectedProduct.hasOwnProperty('id') ?
+      {product.hasOwnProperty('id') ?
         <div className='product-info-side'>
           <div className='product-rating'>
             <span id="reviews-link" onClick={() => scrollToReviews()}>Read all reviews</span>
             <Stars avgRating={avgRating} />
           </div>
           <div className='product-category'>
-            {selectedProduct.category}
+            {product.category}
           </div>
           <div className='product-name'>
-            {selectedProduct.name}
+            {product.name}
           </div>
           <div className='product-price'>{renderPrice()}</div>
           {renderSocialMediaIcons()}

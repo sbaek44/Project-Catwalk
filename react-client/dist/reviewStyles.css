@@ -15,7 +15,8 @@
 	position: relative;
 	margin: 15px 0;
 	height: 7px;
-	width: 225px;
+	width: 245px;
+	margin-top: 7px;
 }
 
 .progress-done {
@@ -38,12 +39,14 @@
 .ratings-reviews {
 	display: flex;
 	flex-direction: row;
+	width: 100%;
+	margin-bottom: 2%
 }
 .reviewTile {
 	border-bottom: 1px solid black;
 	padding: 3%;
-
 }
+
 .reviewSummary {
 	font-weight: bold;
 	font-size: larger;
@@ -82,8 +85,9 @@
 	padding-left: 20%;
 }
 .reviews {
-	padding-right: 20%;
+	padding-right: 40%;
 	margin-left: 10%;
+	width: 100%;
 }
 .ratings-breakdown {
 	margin-bottom: 5%;
@@ -105,6 +109,11 @@
 	flex-direction: row;
 	padding-left: 20px;
 	font-weight: bold;
+	white-space: nowrap;
+	overflow: hidden;
+}
+#filter-display {
+	margin: 5px;
 }
 .search-reviews {
 	padding-left: 10px;
@@ -146,7 +155,17 @@
 .reviewSummary {
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+	text-overflow: ellipsis;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+.reviewBody {
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+.reviewGuts {
+	margin-top: 8px;
+	margin-bottom: 8px;
 }
 
 .selector {
@@ -155,22 +174,26 @@
   border-right: 6px solid transparent;
 	border-top: 6px solid black;
 	position: absolute;
+	margin-left: -12px;
 }
 .container {
 	display: flex;
 	position: relative;
+	padding-bottom: 10px;
 }
 .triple-text {
 	font-size: 13px;
-	padding-bottom: 10px;
+	padding-bottom: 5px;
 	width: 33%;
+	position: relative;
 }
 .review-buttons {
 	background-color: #fefefe;
 }
 .reviews-list {
 	height: 600px;
-  overflow-y:auto;
+	overflow-y:auto;
+	width: 600px;
 }
 
 .addReviewForm {
@@ -181,4 +204,16 @@
 }
 #text-under-form {
 	display: block;
+}
+.text-under-bar {
+	position: absolute;
+	left: 30%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+#characteristic {
+	padding-top: 7px;
+}
+#removeAll {
+	margin-left: 10px;
 }

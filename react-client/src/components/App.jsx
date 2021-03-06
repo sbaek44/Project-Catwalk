@@ -43,17 +43,17 @@ export default class App extends React.Component {
     let rounded = Math.round(averageScore * 4) / 4;
     this.setState({
       avgRating: rounded
-  })
-}
+    })
+  }
 
   selectProduct(id) {
     axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}`, header)
-    .then((results) => {
-      this.setState({
-        selectedProduct: results.data
+      .then((results) => {
+        this.setState({
+          selectedProduct: results.data
+        })
       })
-    })
-    .catch(err => (console.log(err)))
+      .catch(err => (console.log(err)))
   }
 
   getProducts() {
@@ -85,23 +85,23 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Overview
+        {/* <Overview
           product={this.state.selectedProduct}
           avgRating={this.state.avgRating} />
-        {/* <RelatedItemsList
+        <RelatedItemsList
           selectProduct={this.selectProduct}
           avgRating={this.state.avgRating}
-          currentProduct={this.state.selectedProduct} /> */}
-        {/* <YourOutfitList
+          currentProduct={this.state.selectedProduct} />
+        <YourOutfitList
           avgRating={this.state.avgRating}
           currentProduct={this.state.selectedProduct} /> */}
-        {/* <QA
-          currentProduct={this.state.selectedProduct}/> */}
-        <Reviews
+        <QA
+          currentProduct={this.state.selectedProduct} />
+        {/* <Reviews
           avgRating={this.state.avgRating}
           metadata={this.state.metadata}
           getRatings={this.getRatings}
-          currentProduct={this.state.selectedProduct.id} />
+          currentProduct={this.state.selectedProduct.id} /> */}
       </div>
     )
   }

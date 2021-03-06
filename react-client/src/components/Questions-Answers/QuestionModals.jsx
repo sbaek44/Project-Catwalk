@@ -10,16 +10,7 @@ const QuestionModals = (props) => {
   const [nickname, setNickname] = useState('')
   const [email, setEmail] = useState('')
 
-  const customStyles = {
-    content : {
-      top                   : '50%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto',
-      marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)'
-    }
-  };
+
 
 
   useEffect( ()=> {
@@ -66,29 +57,36 @@ const QuestionModals = (props) => {
       <Modal
       ariaHideApp={false}
       isOpen={addClick}
-      style={customStyles}
+      className ="ModalStyle"
+      overlayClassName = "ModalOverlay"
       onRequestClose={() => addClicked(!addClick)}
       contentLabel="Example Modal">
       <div className = "QuestionModal">
-        <h1>Ask Your Question</h1> <h3>About the {props.product.name}</h3>
-        <form onSubmit ={submitHandler}>
-
-          <label>Your Question *
-          <input type="text" onChange= {e=> setQuestion(e.target.value)} value= {question}></input>
+        <div className ="ModalHeader"><h1 style={{paddingTop:'5%'}}>Ask Your Question</h1> <h3>About the {props.product.name}</h3></div>
+        <form onSubmit ={submitHandler  }>
+          <div className = "modalTitle">
+            <p>Your Question <span style={{color: "red"}}>*</span></p>
+          <label>
+          <textarea  style = {{width: "100%", height: "75px"}}maxLength ="1000"  onChange= {e=> setQuestion(e.target.value)} value= {question}></textarea>
           </label>
+          </div>
 
-
-          <label>What is your nickname?*
-          <input type="text" placeholder="Example: jackson11!" onChange= {e=> setNickname(e.target.value)} value = {nickname}></input>
-          For privacy reasons, do not use your full name or email address
+          <div>
+          <label>What is your nickname?<span style={{color: "red"}}>*</span>
+          <input  type="text" style = {{width: "80%"}} placeholder="Example: jackson11!" onChange= {e=> setNickname(e.target.value)} value = {nickname}></input>
           </label>
+          <p style= {{fontStyle: 'italic'}}>For privacy reasons, do not use your full name or email address</p>
+          </div>
 
-          <label>Your Email*
-            <input type="text" placeholder="Why did you like the product or not?" onChange= {e=> setEmail(e.target.value)} value={email}></input>
-            For authentication reasons, you will not be emailed
+          <div>
+            <p>Your Email <span style={{color: "red"}}>*</span></p>
+          <label>
+            <input type="text" style = {{width: "80%"}} placeholder="Why did you like the product or not?" onChange= {e=> setEmail(e.target.value)} value={email}></input>
           </label>
+          <p style= {{fontStyle: 'italic'}}>For authentication reasons, you will not be emailed</p>
+          </div>
 
-          <input type="submit" value = "Submit"></input>
+          <input style ={{borderRadius: "5px", height: "50px", width: "100px", float: "right"}}type="submit" value = "Submit"></input>
 
 
         </form>

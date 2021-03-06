@@ -4,7 +4,7 @@ import ReviewPhotos from './ReviewPhotos.jsx';
 import Stars from './Ratings/Stars.jsx';
 import axios from 'axios';
 
-const ReviewTile = ({ review, avgRating, getReviews }) => {
+const ReviewTile = ({ characteristicsArr, metadata, review, avgRating, getReviews }) => {
   const date = new Date(review.date).toUTCString().slice(4, -12);
   const [hasMarked, setHasMarked] = useState(false);
   const [longerThan250, setLongerThan250] = useState(false);
@@ -20,21 +20,14 @@ const ReviewTile = ({ review, avgRating, getReviews }) => {
     reviewText = <div> {review.body} </div>;
   } else {
     reviewText = (
-      <div> {review.body.slice(0, 250)} <div style={{fontWeight: 'bold'}}  className="text"  onClick={() => setLongerThan250(false)} >show more..</div>  </div>
+      <div>
+        {review.body.slice(0, 250)}
+          <div style={{fontWeight: 'bold'}}  className="text"  onClick={() => setLongerThan250(false)} >
+            show more..
+          </div>
+      </div>
     );
   };
-
-
-  // By default the first 250 characters of the review should display.  If the review is longer than 250 characters, below the body a link reading “Show more” will appear.  Upon clicking this link, the review tile should expand and the rest of the review should display.
-  // create state that stores if review body string length is greater than 250 characters
-  // if the lenght is longer than 250 characters, set flag to true
-  // slice body length to the first 250 chars
-  // display text below body saying "show more..."
-  // onclick will set flag to false and stop displaying the button
-  // will also set review body to the full length of the review body
-
-  // Any images that were submitted as part of the review should appear as thumbnails below the review text. Upon clicking a thumbnail, the image should open in a modal window, displaying at full resolution.  The only functionality available within this modal should be the ability to close the window.
-
 
   let day = date.slice(0,3);
   let month = date.slice(-9, -6);
@@ -48,14 +41,16 @@ const ReviewTile = ({ review, avgRating, getReviews }) => {
   }
   let response;
   if (review.response) {
-    response = (<div id="response-container" >
-      <div id="response" >
-      Response from seller:
+    response = (
+    <div id="response-container" >
+      <div id="response">
+        Response from seller:
       </div>
       <div id="response-text">
         {review.response}
       </div>
-    </div>)
+    </div>
+    )
   } else {
     response = '';
   }
@@ -106,17 +101,17 @@ const ReviewTile = ({ review, avgRating, getReviews }) => {
 
   return (
     <div className="reviewTile">
-      <div className="stars"> <Stars avgRating={avgRating} /></div>
+      <div className="stars"> <Stars avgRating={review.rating} /></div>
       <div className="userName">
         {dateAndUser}
       </div>
       <div className="reviewSummary"> {review.summary} </div>
-     {reviewText}
+      <div className="reviewGuts" > {reviewText}  </div>
       <ReviewPhotos photos={review.photos} />
-      {form}
-      {response}
-        <div style={{display: 'flex', flexDirection: 'row'}}>
-            Helpful?
+      <div className="reviewGuts">{form}</div>
+      <div className="reviewGuts">{response}  </div>
+        <div className="reviewGuts" style={{display: 'flex', flexDirection: 'row'}}>
+          Helpful?
             <div  id="yes"  className="text" onClick={markAsHelpful}>Yes</div>
             {`(${review.helpfulness})`}
             <div id="yes" className="text" onClick={markAsUnHelpful} >No</div>
