@@ -44,7 +44,7 @@ const PostReviewForm = (props) => {
   if (body.length < 50) {
     let amountLeft = 50 - body.length;
     belowBody = (
-      <div>
+      <div style={{fontWeight: 'bold', margin: '1%'}} >
         Minimum required characters left:
         {amountLeft}
       </div>
@@ -255,14 +255,18 @@ const PostReviewForm = (props) => {
             <label>
               What is your nickname?:
               <input style={{margin: '1%'}} placeholder="Example: jackson11!" onChange={(e) => setName(e.target.value)} type="text" name="" />
+              <div style={{fontWeight: 'bold'}} >
               For privacy reasons, do not use your full name or email address” will appear.
+              </div>
             </label>
          </div>
         <div id="text-under-form" className="review-form-component">
             <label>
               Your email:
               <input style={{margin: '1%'}} placeholder="Example: jackson11@email.com"  onChange={(e) => setEmail(e.target.value)} type="email" name="" />
+              <div style={{fontWeight: 'bold'}} >
               For authentication reasons, you will not be emailed” will appear.
+              </div>
             </label>
         </div>
           <button onClick={submitReview}>Submit</button>

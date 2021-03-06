@@ -168,7 +168,7 @@ const Reviews = (props) => {
     filterString += ' ratings.';
     filterDisplay = (
       <div id="filter-display" >{filterString}
-        <button id="removeAll" className="review-buttons" onClick={() => { setFilters([]) }} >REMOVE ALL FILTERS</button>
+        <button id="removeAll" style={{background: 'none'}} onClick={() => { setFilters([]) }} >REMOVE ALL FILTERS</button>
       </div>
     );
   } else {
@@ -178,13 +178,12 @@ const Reviews = (props) => {
   return (
     <div className="ratings-reviews">
       {postForm}
-        <div className="ratings">
+
           <Ratings
             characteristicsArr={characteristicsArr}
             manipulateFilters={manipulateFilters}
             avgRating={props.avgRating}
             metadata={props.metadata}/>
-        </div>
         <div className="reviews" >
           <div className="sort-bar">
             {`${lengthOfReviews} reviews, sorted by`}
@@ -202,12 +201,14 @@ const Reviews = (props) => {
                 reviews={alteredArray}
                 amountOfReviews={amountOfReviews}
                 characteristicsArr={characteristicsArr}
+                searchQuery={searchQuery}
                 />
             : <ReviewsList avgRating={props.avgRating}
                 getReviews={getReviews}
                 reviews={reviews}
                 amountOfReviews={amountOfReviews}
                 characteristicsArr={characteristicsArr}
+                searchQuery={searchQuery}
                 />}
           <div className="more-reviews-bar">
             {moreReviewsButton}
