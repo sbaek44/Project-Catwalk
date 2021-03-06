@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import header from '../../../../config.js';
 import axios from 'axios';
 import Stars from '../Reviews/Ratings/Stars.jsx'
 import { SocialIcon } from 'react-social-icons';
@@ -19,9 +18,9 @@ function ProductInformation({ product, selectedStyle, price, sale, avgRating }) 
 
   const renderSocialMediaIcons = () => {
     return <div className='social-media-links'>
-      <SocialIcon style={{marginLeft: 2, height: 25, width: 25}} url="http://pinterest.com" />
-      <SocialIcon style={{marginLeft: 2, height: 25, width: 25}} url="http://facebook.com" />
-      <SocialIcon style={{marginLeft: 2, height: 25, width: 25}} url="http://twitter.com" />
+      <SocialIcon style={{marginRight: 2, height: '2rem', width: '2rem'}} url="http://facebook.com" />
+      <SocialIcon style={{marginRight: 2, height: '2rem', width: '2rem'}} url="http://twitter.com" />
+      <SocialIcon style={{marginRight: 2, height: '2rem', width: '2rem'}} url="http://pinterest.com" />
     </div>
   }
 
@@ -36,8 +35,8 @@ function ProductInformation({ product, selectedStyle, price, sale, avgRating }) 
       {product.hasOwnProperty('id') ?
         <div className='product-info-side'>
           <div className='product-rating'>
-            <span id="reviews-link" onClick={() => scrollToReviews()}>Read all reviews</span>
             <Stars avgRating={avgRating} />
+            <span id="reviews-link" onClick={() => scrollToReviews()}>Read all reviews</span>
           </div>
           <div className='product-category'>
             {product.category}

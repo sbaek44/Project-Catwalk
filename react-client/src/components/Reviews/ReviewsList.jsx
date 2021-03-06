@@ -10,6 +10,7 @@ const ReviewsList = (props) => {
       { props.reviews.slice(0, props.amountOfReviews).map((review, index) => {
         return (
           <ReviewTile characteristicsArr={props.characteristicsArr}
+          searchQuery={props.searchQuery}
             avgRating={props.avgRating} getReviews={props.getReviews} review={review} key={index} />
           )
       }) }

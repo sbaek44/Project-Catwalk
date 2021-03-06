@@ -3,17 +3,27 @@ import header from '../../../../config.js';
 import ReviewPhotos from './ReviewPhotos.jsx';
 import Stars from './Ratings/Stars.jsx';
 import axios from 'axios';
+import Highlighter from "react-highlight-words";
 
-const ReviewTile = ({ characteristicsArr, metadata, review, avgRating, getReviews }) => {
+
+const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRating, getReviews }) => {
   const date = new Date(review.date).toUTCString().slice(4, -12);
   const [hasMarked, setHasMarked] = useState(false);
   const [longerThan250, setLongerThan250] = useState(false);
+  const [isHighlighting, setIsHighlighting] = useState(false);
 
   useEffect(() => {
     if (review.body.length > 250) {
       setLongerThan250(true);
     }
   }, [review]);
+  useEffect(() => {
+    if (searchQuery.length > 2) {
+      setIsHighlighting(true);
+    } else {
+      setIsHighlighting(false);
+    }
+  }, [searchQuery])
 
   let reviewText;
   if (!longerThan250) {
@@ -37,7 +47,7 @@ const ReviewTile = ({ characteristicsArr, metadata, review, avgRating, getReview
   if (!review.recommend) {
     form = '';
   } else {
-    form = <div>✔ I recommend this product</div>;
+    form = <div className="reviewGuts" style={{fontWeight: 'bold'}}>✔ I recommend this product</div>;
   }
   let response;
   if (review.response) {
@@ -70,19 +80,7 @@ const ReviewTile = ({ characteristicsArr, metadata, review, avgRating, getReview
   const markAsHelpful = () => {
     if (!hasMarked) {
       reviewBody.helpfulness += 1;
-      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${review.review_id}/helpful`, reviewBody, header)
-        .then(() => {
-          getReviews();
-        })
-        .catch((err) => console.log(err));
-      setHasMarked(true);
-    }
-  };
-
-  const markAsUnHelpful = () => {
-    if (!hasMarked) {
-      reviewBody.helpfulness -= 1;
-      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${review.review_id}/helpful`, reviewBody, header)
+      axios.put(`http://127.0.0.1:3000/api/reviews/${review.review_id}/helpful`, reviewBody)
         .then(() => {
           getReviews();
         })
@@ -92,7 +90,7 @@ const ReviewTile = ({ characteristicsArr, metadata, review, avgRating, getReview
   };
 
   const reportReview = () => {
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${review.review_id}/report`, reviewBody, header)
+    axios.put(`http://127.0.0.1:3000/api/reviews/${review.review_id}/report`, reviewBody)
       .then(() => {
         getReviews();
       })
@@ -101,24 +99,37 @@ const ReviewTile = ({ characteristicsArr, metadata, review, avgRating, getReview
 
   return (
     <div className="reviewTile">
+      <div id="stars-user" style={{display: 'flex', flexDirection: 'row'}} >
       <div className="stars"> <Stars avgRating={review.rating} /></div>
       <div className="userName">
         {dateAndUser}
       </div>
+      </div>
+
+
       <div className="reviewSummary"> {review.summary} </div>
       <div className="reviewGuts" > {reviewText}  </div>
       <ReviewPhotos photos={review.photos} />
-      <div className="reviewGuts">{form}</div>
+      {form}
       <div className="reviewGuts">{response}  </div>
         <div className="reviewGuts" style={{display: 'flex', flexDirection: 'row'}}>
           Helpful?
             <div  id="yes"  className="text" onClick={markAsHelpful}>Yes</div>
             {`(${review.helpfulness})`}
-            <div id="yes" className="text" onClick={markAsUnHelpful} >No</div>
+            <div id="yes" className="text" onClick={markAsHelpful} >No</div>
             {`(${review.helpfulness})`}
           <div id="yes">|</div>
         <div id="yes" className="text" onClick={reportReview}>report</div>
       </div>
+      {isHighlighting
+      ?     <Highlighter
+      highlightClassName="found"
+      searchWords={[searchQuery]}
+      autoEscape={true}
+      textToHighlight={review.body}
+    />
+    : ''
+      }
     </div>
   );
 };

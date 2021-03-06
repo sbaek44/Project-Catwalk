@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import header from '../../../../config.js';
 import AddToCart from './AddToCart.jsx';
 
 function StyleSelector({ product, selectedStyle, selectStyle, updatePrice, updateSale, updatePhotos, selectPhoto }) {
@@ -8,7 +7,7 @@ function StyleSelector({ product, selectedStyle, selectStyle, updatePrice, updat
   const [styles, updateStyles] = useState([]);
 
   const getStyles = (id) => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/styles`, header)
+    axios.get(`http://127.0.0.1:3000/api/shared/products/${id}/styles`)
       .then((res) => {
         updateStyles(res.data.results);
         updatePhotos(res.data.results[0].photos);
@@ -49,12 +48,8 @@ function StyleSelector({ product, selectedStyle, selectStyle, updatePrice, updat
     }
   }, [product])
 
-  const makeButtonCSS = (thumbnail) => {
+  const styleButtonCSS = (thumbnail) => {
     return {
-      border: '2px solid black',
-      width: 50,
-      height: 50,
-      marginRight: 5,
       borderRadius: '50%',
       backgroundImage: `url(${thumbnail})`,
       backgroundPosition: '50% 50%',
@@ -76,8 +71,8 @@ function StyleSelector({ product, selectedStyle, selectStyle, updatePrice, updat
       {styles.length ?
         <div className='style-selector'>
           <div className='selected-style-label'>
-            <span style={{ fontWeight: 'bold', marginRight: 5 }}>STYLE ></span>
-            <span>{getNameOfSelectedStyle('uppercase')}</span>
+            <span style={{ fontWeight: 'bold', marginRight: 5 }}>STYLE </span>
+            <span style={{ color: 'rgb(160,160,160)' }}>{getNameOfSelectedStyle('uppercase')}</span>
           </div>
 
           <div className='style-options-container'>
@@ -87,7 +82,7 @@ function StyleSelector({ product, selectedStyle, selectStyle, updatePrice, updat
                   <div className='checkmark' id={selectedStyle === option.style_id ? 'on' : 'off'}>✔</div>
                   <button key={index}
                     className='style-option-button'
-                    style={makeButtonCSS(option.photos[0].thumbnail_url)}
+                    style={styleButtonCSS(option.photos[0].thumbnail_url)}
                     onClick={() => handleSelect(option.style_id, option.original_price, option.sale_price, option.photos[0].url, true)}>
                   </button>
                 </div>

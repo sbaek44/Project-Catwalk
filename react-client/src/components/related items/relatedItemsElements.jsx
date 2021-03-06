@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import header from '../../../../config.js';
 import RelatedItemCard from './RelatedItemCard.jsx';
 
 // need a function to clear out or reset dataArr when a new product is clicked
@@ -17,7 +16,7 @@ function RelatedItemsElements(props) {
   let getRelatedData = () => {
     let uniqueItems = [];
     props.relatedItemsIds.map(item => {
-      axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${item}`, header)
+      axios.get(`http://127.0.0.1:3000/api/shared/products/${item}`)
         .then((results) => (uniqueItems.push(results.data)))
         .then(() => (updateDataArr(uniqueItems)))
         .catch((err) => (console.log(err)))
@@ -26,7 +25,7 @@ function RelatedItemsElements(props) {
 
   let getRelatedPhotos = () => {
     props.relatedItemsIds.map(item => {
-      axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${item}/styles`, header)
+      axios.get(`http://127.0.0.1:3000/api/shared/products/${item}/styles`)
         .then((results) => (updateStylesData(stylesData => ([...stylesData, results.data]))))
         .catch((err) => (console.log(err)))
     })
@@ -37,6 +36,7 @@ function RelatedItemsElements(props) {
       <RelatedItemCard
         stylesData={stylesData}
         dataArr={dataArr}
+        currentProduct={props.currentProduct}
         currentProductFeatures={props.currentProductFeatures}
         relatedItemsIds={props.relatedItemsIds}
         avgRating={props.avgRating}

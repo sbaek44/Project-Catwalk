@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// import ExpandedView from './ExpandedView_old.jsx'; // keeping a copy of old one with prismazoom for now, will delete one of these and uninstall the unneeded package by the time we deploy
 import ExpandedView from './ExpandedView.jsx';
 import Modal from 'react-modal';
 
@@ -8,7 +9,7 @@ const modalStyle = {
     left: 0,
     right: 0,
     width: '100vw',
-    height: '100vh',
+    height: '98vh',
   }
 };
 
@@ -45,51 +46,45 @@ export default function ImageGallery({ selectPhoto, photos }) {
   const renderThumbnails = () => {
     if (photos.length < 7) {
       return <div className='gallery-thumbnails-container'>
-        <div className='gallery-thumbnails'>
-          {photos.map((photo, i) => {
-            return <img
-              className='image-thumbnail'
-              key={i}
-              src={photo.thumbnail_url}
-              // Clicking on any thumbnail should update the main image to match that shown in the thumbnail clicked
-              onClick={(event) => {
-                handleThumbnailClick(event, photo.url, i)
-              }}
-              // The thumbnail corresponding to the image currently selected as the main image should be highlighted to indicate the current selection.
-              id={i === selectedPhotoIndex ? 'selected' : null}
-            />
-          })}
-        </div>
+        {photos.map((photo, i) => {
+          return <img
+            className='image-thumbnail'
+            key={i}
+            src={photo.thumbnail_url}
+            // Clicking on any thumbnail should update the main image to match that shown in the thumbnail clicked
+            onClick={(event) => {
+              handleThumbnailClick(event, photo.url, i)
+            }}
+            // The thumbnail corresponding to the image currently selected as the main image should be highlighted to indicate the current selection.
+            id={i === selectedPhotoIndex ? 'selected' : null}
+          />
+        })}
       </div>
     } else {
       return <div className='gallery-thumbnails-container'>
-        <div className='gallery-thumbnails'>
-          <div className='vertical-arrow-container' style={{ marginBottom: 10 }}>
-            <button
-              id={selectedPhotoIndex === 0 ? 'hidden' : null}
-              className='vertical-arrow-button'
-              onClick={(event) => {scrollBack(event)}}>
-              &#8963;</button>
-          </div>
-          {photos.map((photo, i) => {
-            return <img
-              className={shouldShowThumbnail(i) ? 'image-thumbnail' : 'image-thumbnail-hidden'}
-              key={i}
-              src={photo.thumbnail_url}
-              onClick={(event) => {
-                handleThumbnailClick(event, photo.url, i)
-              }}
-              id={i === selectedPhotoIndex ? 'selected' : null}
-            />
-          })}
-          <div className='vertical-arrow-container' style={{ marginTop: -15 }}>
-          <button
-              id={selectedPhotoIndex === photos.length - 1 ? 'hidden' : null}
-              className='vertical-arrow-button'
-              onClick={(event) => {scrollForward(event)}}>
-              &#8964;</button>
-          </div>
-        </div>
+
+        <button
+          id={selectedPhotoIndex === 0 ? 'hidden' : null}
+          className='vertical-arrow'
+          onClick={(event) => { scrollBack(event) }}>&#8963;</button>
+
+        {photos.map((photo, i) => {
+          return <img
+            className={shouldShowThumbnail(i) ? 'image-thumbnail' : 'image-thumbnail-hidden'}
+            key={i}
+            src={photo.thumbnail_url}
+            onClick={(event) => {
+              handleThumbnailClick(event, photo.url, i)
+            }}
+            id={i === selectedPhotoIndex ? 'selected' : null}
+          />
+        })}
+
+        <button
+          id={selectedPhotoIndex === photos.length - 1 ? 'hidden' : null}
+          className='vertical-arrow'
+          onClick={(event) => { scrollForward(event) }}>&#8964;</button>
+
       </div>
     }
   }
@@ -125,16 +120,6 @@ export default function ImageGallery({ selectPhoto, photos }) {
   const mainImageCSS = (url) => {
     // possibly need to add error handling for the api url strings with typos in them ?
     return {
-      marginLeft: '5px',
-      border: '1px solid rgb(68, 67, 67)',
-      borderRadius: '0.25rem',
-      boxShadow: '1px 2px 2px darkgray',
-      display: 'flex',
-      flexDirection: 'row nowrap',
-      zIndex: 5,
-      cursor: 'zoom-in',
-      width: 'auto',
-      height: '100%',
       backgroundImage: `url(${url})`,
       backgroundRepeat: 'no-repeat',
       backgroundAttachment: 'scroll',
@@ -146,7 +131,7 @@ export default function ImageGallery({ selectPhoto, photos }) {
     <div className='image-gallery-outer'>
       {photos.length ?
         <div
-          className='image-gallery'
+          className='image-gallery-main'
           style={mainImageCSS(photos[selectedPhotoIndex].url)}
           onClick={() => expandedGalleryView ? null : toggleGalleryView(true)}
         >
@@ -165,9 +150,10 @@ export default function ImageGallery({ selectPhoto, photos }) {
             >
             </ExpandedView>
           </Modal>
-
-          <button className='horizontal-arrow' id={selectedPhotoIndex > 0 ? 'left-arrow' : 'left-hidden'} onClick={(event) => {scrollBack(event)}}>&#x2190;</button>
-          <button className='horizontal-arrow' id={selectedPhotoIndex < photos.length - 1 ? 'right-arrow' : 'right-hidden'} onClick={(event) => {scrollForward(event)}}>&#x2192;</button>
+          <div className='horizontal-arrow-container'>
+            <button className='horizontal-arrow' id={selectedPhotoIndex > 0 ? null : 'hidden'} onClick={(event) => { scrollBack(event) }}>&#x2190;</button>
+            <button className='horizontal-arrow' id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'} onClick={(event) => { scrollForward(event) }}>&#x2192;</button>
+          </div>
         </div>
         : null}
     </div>

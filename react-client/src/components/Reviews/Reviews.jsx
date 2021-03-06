@@ -23,8 +23,11 @@ const Reviews = (props) => {
     if (props.currentProduct) {
       getReviews();
     }
+
+  }, [selectedParameter, props.currentProduct]);
+  useEffect(() => {
     updateMoreReviewsButton(reviews);
-  }, [selectedParameter, amountOfReviews, props.currentProduct]);
+  }, [amountOfReviews])
 
   useEffect(() => {
     filterAndSearchReviews(reviews);
@@ -69,7 +72,6 @@ const Reviews = (props) => {
   };
 
   const filterReviews = (untouchedReviews) => {
-    console.log(untouchedReviews);
     let filteredReviews = [];
     untouchedReviews.filter((review) => {
       if (filters.includes(review.rating)) {
@@ -92,7 +94,7 @@ const Reviews = (props) => {
 
   const getReviews = () => {
     let id = props.currentProduct;
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/?product_id=${id}&count=100&sort=${selectedParameter}`, header)
+    axios.get(`http://127.0.0.1:3000/api/reviews/?product_id=${id}&count=100&sort=${selectedParameter}`)
       .then((data) => {
         setReviews(data.data.results);
         updateMoreReviewsButton(data.data.results);
@@ -122,7 +124,6 @@ const Reviews = (props) => {
         searchReviews.push(review);
       }
     });
-    console.log('output', searchReviews);
     setAlteredArray(searchReviews);
   };
 
@@ -168,7 +169,7 @@ const Reviews = (props) => {
     filterString += ' ratings.';
     filterDisplay = (
       <div id="filter-display" >{filterString}
-        <button id="removeAll" className="review-buttons" onClick={() => { setFilters([]) }} >REMOVE ALL FILTERS</button>
+        <button id="removeAll"  onClick={() => { setFilters([]) }} >REMOVE ALL FILTERS</button>
       </div>
     );
   } else {
@@ -178,13 +179,12 @@ const Reviews = (props) => {
   return (
     <div className="ratings-reviews">
       {postForm}
-        <div className="ratings">
+
           <Ratings
             characteristicsArr={characteristicsArr}
             manipulateFilters={manipulateFilters}
             avgRating={props.avgRating}
             metadata={props.metadata}/>
-        </div>
         <div className="reviews" >
           <div className="sort-bar">
             {`${lengthOfReviews} reviews, sorted by`}
@@ -202,12 +202,14 @@ const Reviews = (props) => {
                 reviews={alteredArray}
                 amountOfReviews={amountOfReviews}
                 characteristicsArr={characteristicsArr}
+                searchQuery={searchQuery}
                 />
             : <ReviewsList avgRating={props.avgRating}
                 getReviews={getReviews}
                 reviews={reviews}
                 amountOfReviews={amountOfReviews}
                 characteristicsArr={characteristicsArr}
+                searchQuery={searchQuery}
                 />}
           <div className="more-reviews-bar">
             {moreReviewsButton}

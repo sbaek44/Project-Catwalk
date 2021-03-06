@@ -87,9 +87,9 @@ export default function AddToCart({ product, selectedStyle, styles, getStyleName
       let cart = {
         sku_id: Number(getQtyOrEntireSKU('sku')),
       };
-      axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/cart', cart, header)
+      axios.post('http://127.0.0.1:3000/api/cart', cart)
         .then(() => {
-          axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/cart', header)
+          axios.get('http://127.0.0.1:3000/api/cart', cart)
             .then((result) => {
               console.log('cart:', result.data);
             })
@@ -131,17 +131,6 @@ export default function AddToCart({ product, selectedStyle, styles, getStyleName
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <span className='add-to-cart-message'>{message}</span>
           <div className='selector-container'>
-          <Select
-              id='qty'
-              className='dropdown'
-              onFocus={() => toggleQtyMenu(true)}
-              blurInputOnSelect={true}
-              onChange={handleQtySelect}
-              disabled={size === '' ? true : false}
-              options={qtyOptions}
-              placeholder={size === '' ? '-' : 1}
-            >
-            </Select>
             {/* size dropdown should become inactive and read OUT OF STOCK when there's no stock */}
             <Select
               id='size'
@@ -156,12 +145,23 @@ export default function AddToCart({ product, selectedStyle, styles, getStyleName
               isSearchable={false}
             >
             </Select>
+            <Select
+              id='qty'
+              className='dropdown'
+              onFocus={() => toggleQtyMenu(true)}
+              blurInputOnSelect={true}
+              onChange={handleQtySelect}
+              disabled={size === '' ? true : false}
+              options={qtyOptions}
+              placeholder={size === '' ? '-' : 1}
+            >
+            </Select>
           </div>
           <div className='selector-container'>
-            {/* no idea what this button is but its on the mock */}
-            <button className='favorite-button' onClick={() => alert(`FAVORITED ${product.name}`)}>☆</button>
-            {/* add to cart button should be hidden when there's no stock */}
+            {/* add to cart button is hidden when there's no stock */}
             {outOfStock ? null : <button className='add-to-cart-button' onClick={() => add()}><span>ADD TO BAG</span><span>+</span></button>}
+            {/* useless */}
+            <button className='favorite-button' onClick={() => alert(`FAVORITED ${product.name} !`)}>☆</button>
           </div>
         </div>
         : null}

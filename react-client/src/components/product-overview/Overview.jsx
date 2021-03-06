@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import header from '../../../../config.js';
 import axios from 'axios';
 import ProductInformation from './ProductInformation.jsx';
 import ProductDescription from './ProductDescription.jsx';
@@ -26,9 +25,9 @@ export default function Overview({ product, selectedItemIndex, avgRating }) {
             <ProductInformation product={product} selectedStyle={selectedStyle} price={price} sale={sale} avgRating={avgRating} />
             <StyleSelector product={product} selectedStyle={selectedStyle} selectStyle={selectStyle} updatePrice={updatePrice} updateSale={updateSale} selectPhoto={selectPhoto} updatePhotos={updatePhotos} />
           </div>
-          <ProductDescription product={product} />
         </div>
         : null}
+        <ProductDescription product={product} />
     </div>
   )
 

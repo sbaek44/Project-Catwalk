@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import header from '../../../../config.js';
 
 function ProductDescription({ product }) {
 
   const [features, changeFeatures] = useState([]);
 
   const getAllProductInfo = (id) => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}`, header)
+    axios.get(`http://127.0.0.1:3000/api/shared/products/${id}`)
       .then((res) => {
         changeFeatures(res.data.features);
       })

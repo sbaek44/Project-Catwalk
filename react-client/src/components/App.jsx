@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import header from '../../../config.js'
 import Overview from './product-overview/Overview.jsx'
 import RelatedItemsList from './related items/RelatedItemsList.jsx';
 import YourOutfitList from './related items/YourOutfitList.jsx'
@@ -47,7 +46,7 @@ export default class App extends React.Component {
   }
 
   selectProduct(id) {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}`, header)
+    axios.get(`http://127.0.0.1:3000/api/shared/products/${id}`)
       .then((results) => {
         this.setState({
           selectedProduct: results.data
@@ -58,7 +57,7 @@ export default class App extends React.Component {
 
   getProducts() {
     let id = 16060;
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}`, header)
+    axios.get(`http://127.0.0.1:3000/api/shared/products/${id}`)
       .then((data) => {
         this.setState({
           selectedProduct: data.data
@@ -71,7 +70,7 @@ export default class App extends React.Component {
 
   getRatings() {
     let id = this.state.selectedProduct.id;
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/meta?product_id=${id}`, header)
+    axios.get(`http://127.0.0.1:3000/api/reviews/meta?product_id=${id}`)
       .then((result) => {
         this.setState({
           metadata: result.data
@@ -97,7 +96,7 @@ export default class App extends React.Component {
           currentProduct={this.state.selectedProduct} /> */}
         <QA
           currentProduct={this.state.selectedProduct} />
-        {/* <Reviews
+        <Reviews
           avgRating={this.state.avgRating}
           metadata={this.state.metadata}
           getRatings={this.getRatings}

@@ -44,7 +44,7 @@ const PostReviewForm = (props) => {
   if (body.length < 50) {
     let amountLeft = 50 - body.length;
     belowBody = (
-      <div>
+      <div style={{fontWeight: 'bold', margin: '1%'}} >
         Minimum required characters left:
         {amountLeft}
       </div>
@@ -111,12 +111,12 @@ const PostReviewForm = (props) => {
       alert(`You must enter the following: Email`);
     } else {
       console.log(reviewPost);
-      reviewPost = JSON.stringify(reviewPost);
       setPostModalIsOpen(!postModalIsOpen);
-      axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/`, reviewPost, header)
+      axios.post(`http://127.0.0.1:3000/api/reviews/`, reviewPost)
         .then((data) => {
-          console.log('submitted a new review', data);
+          alert('submitted a new review');
           props.getReviews();
+          console.log(data)
         })
         .catch((err) => {
           console.log(err);
@@ -195,8 +195,8 @@ const PostReviewForm = (props) => {
             <input style={{margin: '1%'}} onChange={setImages} name="4" type="text" />
         </label>
         </div>
-      <button onClick={updateImages} >Submit</button>
-      <button onClick={toggleModal} >Cancel</button>
+      <button className="review-buttons"  onClick={updateImages} >Submit</button>
+      <button className="review-buttons" onClick={toggleModal} >Cancel</button>
     </Modal>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <form className="addReviewForm">
@@ -235,7 +235,7 @@ const PostReviewForm = (props) => {
           <div className="review-form-component">
             <label>
               Review summary:
-              <input style={{margin: '1%'}} placeholder="Example: Best purchase ever!" onChange={(e) => setSummary(e.target.value)} type="text" name="" />
+              <input style={{margin: '1%', width: '50%'}} placeholder="Example: Best purchase ever!" onChange={(e) => setSummary(e.target.value)} type="text" name="" />
             </label>
           </div>
           <div className="review-form-component">
@@ -255,18 +255,22 @@ const PostReviewForm = (props) => {
             <label>
               What is your nickname?:
               <input style={{margin: '1%'}} placeholder="Example: jackson11!" onChange={(e) => setName(e.target.value)} type="text" name="" />
-              For privacy reasons, do not use your full name or email address” will appear.
+              <div style={{fontWeight: 'bold'}} >
+              For privacy reasons, do not use your full name or email address
+              </div>
             </label>
          </div>
         <div id="text-under-form" className="review-form-component">
             <label>
               Your email:
               <input style={{margin: '1%'}} placeholder="Example: jackson11@email.com"  onChange={(e) => setEmail(e.target.value)} type="email" name="" />
-              For authentication reasons, you will not be emailed” will appear.
+              <div style={{fontWeight: 'bold'}} >
+              For authentication reasons, you will not be emailed
+              </div>
             </label>
         </div>
-          <button onClick={submitReview}>Submit</button>
-          <button onClick={() => setPostModalIsOpen(!postModalIsOpen)} >Cancel</button>
+          <button className="review-buttons" onClick={submitReview}>Submit</button>
+          <button className="review-buttons" onClick={() => setPostModalIsOpen(!postModalIsOpen)} >Cancel</button>
         </form>
       </div>
     </Modal>
