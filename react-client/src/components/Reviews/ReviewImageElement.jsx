@@ -9,7 +9,7 @@ const ReviewImageElement = ({ url }) => {
   return (
     <div onClick={toggleModal}>
       <Modal isOpen={modalIsOpen} >
-        <button onClick={toggleModal} >Exit</button>
+        <span className="close" onClick={toggleModal} >Close</span>
       <img src={url}/>
       </Modal>
       <img className="reviewThumb" src={url}/>
