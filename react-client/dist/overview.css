@@ -67,7 +67,7 @@
   width: 50px;
   border: 2px solid rgb(24,24,24);
   border-radius: 0.25rem;
-  margin: 0.25rem;
+  margin: 0.1rem;
 }
 
 .image-thumbnail-hidden {
@@ -92,7 +92,7 @@
   color: rgb(160,160,160);
   width: 50px;
   height: 50px;
-  margin-left: 0.5rem;
+  margin-left: 0.25rem;
   font-size: 32px;
   text-align: center;
   justify-content: center;
@@ -150,6 +150,8 @@
 
 .expanded-gallery-modal-inner {
   margin: 0;
+  width: 100%;
+  height: 100%;
 }
 
 #modal-x-button {
@@ -219,26 +221,28 @@
   top: 5%;
   width: 100%;
   z-index: 10;
-  opacity: 1;
+  opacity: 0;
   transition-duration: 0.5s;
+  animation-name: fade_out;
+  animation-duration: 3s;
+}
+
+@keyframes fade_out {
+  from {opacity: 1;}
+  to {opacity: 0;}
 }
 
 .expanded-view-image {
+  object-fit: scale-down;
+  object-position: 50% 50%;
   display: block;
   margin: auto;
-  border: 3px solid rgb(24,24,24);
+  border: 2px solid rgb(24,24,24);
   border-radius: 0.25rem;
-  max-width: 99%;
-  transition-duration: 0.3s;
-}
-
-.expanded-view-image#not-zoomed:hover {
-  cursor: crosshair
-}
-
-.expanded-view-image#zoomed:hover {
-  /* should be '-' actually, but there's no default for that in css, will need a package */
-  cursor: all-scroll
+  max-width: 95%;
+  max-height: 95%;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .right-side {
