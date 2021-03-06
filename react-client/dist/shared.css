@@ -1,8 +1,10 @@
 body {
   margin: 0;
   padding: 0;
+  width: 100vw;
   background-color: #fefefe;
   font-family: 'Roboto', sans-serif;
+  overflow-x: hidden
 }
 
 button:focus {

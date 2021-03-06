@@ -26,16 +26,23 @@ export default function ExpandedView({ close, handleIconClick, url, photos, back
       <button onClick={() => close()} id='modal-x-button'>&#x2715;</button>
       {isZoomed ?
         <div className='expanded-view-message'>Click and hold to pan; double click to zoom out.</div>
-        : <div className='expanded-arrow-and-icon-container'>
-          {selectedPhotoIndex > 0 ?
-            <button style={{ marginRight: 8 }} className='expanded-arrow-button' onClick={(e) => { back(e) }}>&#x2190;</button>
-            : <div style={{ marginRight: 8 }} className='expanded-arrow-placeholder'></div>
-          }
+        :
+        <div className='expanded-arrow-and-icon-container'>
+          <button
+            id={selectedPhotoIndex > 0 ? null : 'hidden'}
+            className='horizontal-arrow'
+            style={{marginTop: '-0.5rem'}}
+            onClick={(e) => { back(e) }}
+          >&#x2190;
+            </button>
           {renderExpandedViewIcons()}
-          {selectedPhotoIndex < photos.length - 1 ?
-            <button className='expanded-arrow-button' onClick={(e) => { forward(e) }}>&#x2192;</button>
-            : <div className='expanded-arrow-placeholder'></div>
-          }
+          <button
+            id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'}
+            className='horizontal-arrow'
+            style={{marginTop: '-0.5rem'}}
+            onClick={(e) => { forward(e) }}
+          >&#x2192;
+            </button>
         </div>
       }
       <PrismaZoom
@@ -48,6 +55,6 @@ export default function ExpandedView({ close, handleIconClick, url, photos, back
       >
         <img className='expanded-view-image' id={isZoomed ? 'zoomed' : 'not-zoomed'} src={url} />
       </PrismaZoom>
-    </div>
+    </div >
   )
 }
