@@ -47,7 +47,7 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
   if (!review.recommend) {
     form = '';
   } else {
-    form = <div style={{fontWeight: 'bold'}}>✔ I recommend this product</div>;
+    form = <div className="reviewGuts" style={{fontWeight: 'bold'}}>✔ I recommend this product</div>;
   }
   let response;
   if (review.response) {
@@ -122,7 +122,7 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
       <div className="reviewSummary"> {review.summary} </div>
       <div className="reviewGuts" > {reviewText}  </div>
       <ReviewPhotos photos={review.photos} />
-      <div className="reviewGuts">{form}</div>
+      {form}
       <div className="reviewGuts">{response}  </div>
         <div className="reviewGuts" style={{display: 'flex', flexDirection: 'row'}}>
           Helpful?

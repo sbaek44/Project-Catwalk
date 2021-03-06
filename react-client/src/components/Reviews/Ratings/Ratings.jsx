@@ -58,11 +58,14 @@ const Ratings = (props) => {
         & REVIEWS
       </div>
       <div className="ratings-breakdown" style={{display: 'flex', flexDirection: 'rows'}} >
-       <div id="average-rating-in-ratings" > {props.avgRating} </div>  <Stars avgRating={props.avgRating} />
+       <div id="average-rating-in-ratings" > {props.avgRating} </div>
+       <div style={{marginLeft: '5%'}} >
+          <Stars avgRating={props.avgRating} />
+       </div>
       </div>
       <div id="recommended" className="ratings-breakdown">
         {recommendedPercent}
-        % of reviewers recommend this product
+        % of reviews recommend this product
       </div>
       <RatingsBreakdownList
         manipulateFilters={props.manipulateFilters}
