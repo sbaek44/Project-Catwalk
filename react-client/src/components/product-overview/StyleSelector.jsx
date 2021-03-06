@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import header from '../../../../config.js';
 import AddToCart from './AddToCart.jsx';
 
 function StyleSelector({ product, selectedStyle, selectStyle, updatePrice, updateSale, updatePhotos, selectPhoto }) {
@@ -8,7 +7,7 @@ function StyleSelector({ product, selectedStyle, selectStyle, updatePrice, updat
   const [styles, updateStyles] = useState([]);
 
   const getStyles = (id) => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${id}/styles`, header)
+    axios.get(`http://127.0.0.1:3000/api/shared/products/${id}/styles`)
       .then((res) => {
         updateStyles(res.data.results);
         updatePhotos(res.data.results[0].photos);

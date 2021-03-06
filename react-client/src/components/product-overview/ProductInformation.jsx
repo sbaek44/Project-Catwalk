@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import header from '../../../../config.js';
 import axios from 'axios';
 import Stars from '../Reviews/Ratings/Stars.jsx'
 import { SocialIcon } from 'react-social-icons';

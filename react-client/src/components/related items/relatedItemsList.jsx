@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import header from '../../../../config.js';
 import RelatedItemsElements from './RelatedItemsElements.jsx';
 import YourOutfitList from './YourOutfitList.jsx';
 
@@ -15,13 +14,13 @@ function RelatedItemsList(props) {
   },  [props.currentProduct])
 
   let getCurrentFeatures = () => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentProductId}`, header)
+    axios.get(`http://127.0.0.1:3000/api/shared/products/${currentProductId}`)
       .then((results) => (updateCurrentProductFeatures(results.data)))
       .catch((err) => (console.log))
   }
 
   let getRelatedIds = () => {
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentProductId}/related`, header)
+    axios.get(`http://127.0.0.1:3000/api/shared/products/${currentProductId}/related`)
       .then((results) => (updateRelatedItems(results.data)))
       .catch((err) => console.log(err))
   }

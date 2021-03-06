@@ -80,19 +80,7 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
   const markAsHelpful = () => {
     if (!hasMarked) {
       reviewBody.helpfulness += 1;
-      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${review.review_id}/helpful`, reviewBody, header)
-        .then(() => {
-          getReviews();
-        })
-        .catch((err) => console.log(err));
-      setHasMarked(true);
-    }
-  };
-
-  const markAsUnHelpful = () => {
-    if (!hasMarked) {
-      reviewBody.helpfulness -= 1;
-      axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${review.review_id}/helpful`, reviewBody, header)
+      axios.put(`http://127.0.0.1:3000/api/reviews/${review.review_id}/helpful`, reviewBody)
         .then(() => {
           getReviews();
         })
@@ -102,7 +90,7 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
   };
 
   const reportReview = () => {
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/${review.review_id}/report`, reviewBody, header)
+    axios.put(`http://127.0.0.1:3000/api/reviews/${review.review_id}/report`, reviewBody)
       .then(() => {
         getReviews();
       })
@@ -128,7 +116,7 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
           Helpful?
             <div  id="yes"  className="text" onClick={markAsHelpful}>Yes</div>
             {`(${review.helpfulness})`}
-            <div id="yes" className="text" onClick={markAsUnHelpful} >No</div>
+            <div id="yes" className="text" onClick={markAsHelpful} >No</div>
             {`(${review.helpfulness})`}
           <div id="yes">|</div>
         <div id="yes" className="text" onClick={reportReview}>report</div>

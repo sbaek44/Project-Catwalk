@@ -87,9 +87,9 @@ export default function AddToCart({ product, selectedStyle, styles, getStyleName
       let cart = {
         sku_id: Number(getQtyOrEntireSKU('sku')),
       };
-      axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/cart', cart, header)
+      axios.post('http://127.0.0.1:3000/api/cart', cart)
         .then(() => {
-          axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/cart', header)
+          axios.get('http://127.0.0.1:3000/api/cart', cart)
             .then((result) => {
               console.log('cart:', result.data);
             })

@@ -94,7 +94,7 @@ const Reviews = (props) => {
 
   const getReviews = () => {
     let id = props.currentProduct;
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/?product_id=${id}&count=100&sort=${selectedParameter}`, header)
+    axios.get(`http://127.0.0.1:3000/api/reviews/?product_id=${id}&count=100&sort=${selectedParameter}`)
       .then((data) => {
         setReviews(data.data.results);
         updateMoreReviewsButton(data.data.results);
