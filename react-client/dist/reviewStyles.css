@@ -91,6 +91,7 @@
 	width: 50%;
 }
 .ratings-breakdown {
+	font-size: 20px;
 	font-weight: bold;
 	margin-bottom: 5%;
 }
@@ -190,6 +191,7 @@
 	margin-left: -12px;
 }
 .container {
+	width: 305px;
 	display: flex;
 	position: relative;
 	padding-bottom: 10px;
@@ -239,6 +241,7 @@
 }
 #characteristic {
 	padding-top: 7px;
+	font-size: 16px;
 }
 #removeAll {
 	margin-left: 10px;
