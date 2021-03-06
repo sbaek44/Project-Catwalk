@@ -1,0 +1,25 @@
+#star-button {
+  background: none;
+  border: none;
+  font-size: x-large;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: rgb(255, 0, 140)
+
+}
+
+#relatedItemCard {
+  border-style: solid;
+  border-width: thin;
+  min-width: 240px;
+  max-width: 280px;
+  max-height: 475px;
+  min-height: 450px;
+  margin: 10px;
+  position: relative;
+}
+
+#related-img {
+  max-width: 100%
+}

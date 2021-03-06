@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+// import ExpandedView from './ExpandedView_old.jsx'; // keeping a copy of old one with prismazoom for now, will delete one of these and uninstall the unneeded package by the time we deploy
 import ExpandedView from './ExpandedView.jsx';
 import Modal from 'react-modal';
 
@@ -8,7 +9,7 @@ const modalStyle = {
     left: 0,
     right: 0,
     width: '100vw',
-    height: '99vh',
+    height: '98vh',
   }
 };
 
