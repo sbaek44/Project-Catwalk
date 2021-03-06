@@ -37,6 +37,7 @@
 }
 .Question{
   border: 1px solid #C0C0C0;
+  display:grid
 }
 
 .QuestionModal {
@@ -93,18 +94,19 @@
 
 .question_body {
   display: grid;
-  grid-template-columns: 1fr .5fr .2fr;
+  grid-template-columns: 1fr .5fr .4fr;
   grid-template-rows: 1fr;
   gap: 10px 10px;
   font-weight: bold;
   font-size: 16px;
+  padding-left:1em;
 }
 /* .question_body div:last-child {
   margin-right: auto;
 } */
 
 .answer_body {
-
+  padding-left:1em
 }
 .SearchBar {
   margin:auto;
@@ -129,10 +131,13 @@
   display: flex;
   flex-wrap: nowrap;
   justify-content: start;
-  margin-left:8px;
-  padding-left:10px;
+  padding-left:2em;
 }
 .helpItem {
   padding-left: 5px;
   margin-right: 5px;
+}
+
+.answerUser {
+  color: #C0C0C0;
 }

@@ -49,13 +49,10 @@ function uploadImageAsPromise (imageFile) {
   let arr = []
   return new Promise(function (resolve, reject) {
       var storageRef = firebase.storage().ref("/"+imageFile.name);
-
-      //Upload file
       var task = storageRef.put(imageFile)
 
       task.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) => {
-
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log('Upload is ' + progress + '% done');
         switch (snapshot.state) {
@@ -68,17 +65,12 @@ function uploadImageAsPromise (imageFile) {
         }
       },
       (error) => {
-
         switch (error.code) {
           case 'storage/unauthorized':
-
             break;
           case 'storage/canceled':
-
             break;
-
           case 'storage/unknown':
-
             break;
         }
       },
@@ -97,11 +89,9 @@ function uploadImageAsPromise (imageFile) {
             .then(() => {console.log('success')})
             .catch( (err)=> {console.log('error')})
           )
-
         });
       }
     );
-
   });
 }
 
@@ -109,9 +99,7 @@ function uploadImageAsPromise (imageFile) {
 
   let addAnswer = () => {
     let id = props.question.question_id
-
       upload()
-
         axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/questions/${id}/answers`,{
         body: answer,
         name: nickname,
@@ -224,13 +212,7 @@ function uploadImageAsPromise (imageFile) {
           </div>
 
           <input style ={{borderRadius: "5px", height: "50px", width: "100px", float: "right"}}type="submit" value = "Submit"></input>
-
-
           {imageDisplay()}
-
-          {/* {!photoClicked ? <div></div>} */}
-
-
         </form>
         </div>
         </Modal>

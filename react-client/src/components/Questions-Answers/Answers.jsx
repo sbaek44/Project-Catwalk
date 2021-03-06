@@ -68,14 +68,15 @@ const Answers = (props) => {
             </div>
             {answer.answerer_name === "Seller" ?
             <div className="AnswerHelp">
-              <p>by <span style = {{fontWeight: 'bold'}}>{answer.answerer_name}</span>, {date.toDateString().substring(4)}</p>
+              <p className="answerUser">by <span style = {{fontWeight: 'bold'}}>{answer.answerer_name}</span>, {date.toDateString().substring(4)}</p>
               <div className='helpItem'>{helpfulClicked.indexOf(answer.answer_id) < 0 ? <div> <p onClick = {()=>{increaseHelpfulness(answer)}}> Helpful? <span style ={{textDecorationLine: 'underline'}}>Yes</span>  ({answer.helpfulness})</p> </div>
+
             : <div> <p>Helpful? Yes ({answer.helpfulness})</p> </div>}</div>
             <div className='helpItem'>{reportClicked.indexOf(answer.answer_id) < 0 ? <div><p onClick = {()=>{reportAnswer(answer)}} style = {{textDecorationLine:'underline'}}> Report</p></div>
             : <div><p onClick = {()=>{reportAnswer(answer)}}>Reported</p></div>}</div>
             </div>
             :<div className="AnswerHelp">
-              <p>by {answer.answerer_name}, {date.toDateString().substring(4)} | </p>
+              <p className="answerUser">by {answer.answerer_name}, {date.toDateString().substring(4)} | </p>
               <div className='helpItem'>{helpfulClicked.indexOf(answer.answer_id) < 0 ? <div> <p onClick = {()=>{increaseHelpfulness(answer)}}> Helpful? <span style ={{textDecorationLine: 'underline'}}>Yes</span>  ({answer.helpfulness})</p> </div>
             : <div> <p>Helpful? Yes ({answer.helpfulness})</p> </div>}</div>
             <div className='helpItem'>{reportClicked.indexOf(answer.answer_id) < 0 ? <div><p onClick = {()=>{reportAnswer(answer)}} style = {{textDecorationLine:'underline'}}> Report</p></div>

@@ -53,13 +53,14 @@ const Questions = (props) => {
     let date = new Date(question.question_date)
     return (
     <div className="Question">
+
       <div className = 'question_body'>
-      <p>Q: {search.length > 2 ? <Highlighter
-      searchWords={[search]}
-      textToHighlight= {question.question_body}/> : question.question_body }</p>
-      {helpfulClicked.indexOf(question.question_id) < 0 ?  <p className="Qhelpful" onClick = {()=>{increaseHelpfulness(question)}}>Helpful? <span style ={{textDecorationLine: 'underline'}}>Yes</span> {question.question_helpfulness}  |  </p>
-      :<p className="Qhelpful" >Helpful? Yes {question.question_helpfulness}  |  </p> }
-      {<AnswerModals question = {question} product={props.currentProduct}/>}
+        <p>Q: {search.length > 2 ? <Highlighter searchWords={[search]} textToHighlight= {question.question_body}/> : question.question_body }</p>
+
+        {helpfulClicked.indexOf(question.question_id) < 0 ?
+        <p className="Qhelpful" onClick = {()=>{increaseHelpfulness(question)}}>Helpful? <span style ={{textDecorationLine: 'underline'}}>Yes</span> {question.question_helpfulness}  |  </p>
+        :<p className="Qhelpful" >Helpful? Yes {question.question_helpfulness}  |  </p> }
+        {<AnswerModals question = {question} product={props.currentProduct}/>}
       </div>
 
       <Answers key = {index} id = {question.question_id} questionInfo={question} product = {props.currentProduct}/>
