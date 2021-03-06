@@ -276,3 +276,21 @@
 .found {
 	color: black;
 }
+#addMore {
+	margin-top: 1%;
+	margin-left: 3%;
+	padding: 1%;
+	box-shadow: 2px 2px 2px rgb(72,72,72);
+  border: 1px solid rgb(160,160,160);
+  border-radius: 0.25rem;
+  background-color: rgb(240,240,240);
+  font-size: 1rem;
+  transition-duration: 0.25s;
+
+}
+#addMore:hover {
+  background-color: rgb(255, 0, 140);
+  border: 1px solid rgb(72,72,72);
+  box-shadow: 2px 2px 2px rgb(72,72,72);
+  color: rgb(240,240,240);
+}
