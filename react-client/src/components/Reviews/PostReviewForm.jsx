@@ -111,12 +111,12 @@ const PostReviewForm = (props) => {
       alert(`You must enter the following: Email`);
     } else {
       console.log(reviewPost);
-      reviewPost = JSON.stringify(reviewPost);
       setPostModalIsOpen(!postModalIsOpen);
-      axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/`, reviewPost, header)
+      axios.post(`http://127.0.0.1:3000/api/reviews/`, reviewPost)
         .then((data) => {
           alert('submitted a new review');
           props.getReviews();
+          console.log(data)
         })
         .catch((err) => {
           console.log(err);

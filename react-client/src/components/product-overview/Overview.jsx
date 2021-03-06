@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import header from '../../../../config.js';
 import axios from 'axios';
 import ProductInformation from './ProductInformation.jsx';
 import ProductDescription from './ProductDescription.jsx';
