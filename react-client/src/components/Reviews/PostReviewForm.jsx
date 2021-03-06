@@ -115,7 +115,7 @@ const PostReviewForm = (props) => {
       setPostModalIsOpen(!postModalIsOpen);
       axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/`, reviewPost, header)
         .then((data) => {
-          console.log('submitted a new review', data);
+          alert('submitted a new review');
           props.getReviews();
         })
         .catch((err) => {
