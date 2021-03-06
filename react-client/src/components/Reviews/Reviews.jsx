@@ -118,9 +118,10 @@ const Reviews = (props) => {
   };
 
   const searchReviews = (input, arrToSearch) => {
+    input = input.toLowerCase();
     let searchReviews = [];
     arrToSearch.filter((review) => {
-      if (review.body.includes(input) || review.summary.includes(input)) {
+      if (review.body.toLowerCase().includes(input) || review.summary.toLowerCase().includes(input)) {
         searchReviews.push(review);
       }
     });
