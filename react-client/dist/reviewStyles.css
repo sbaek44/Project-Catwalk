@@ -40,7 +40,9 @@
 	display: flex;
 	flex-direction: row;
 	width: 100%;
-	margin-bottom: 2%
+	margin-bottom: 2%;
+	color: rgb(72,72,72);
+	;
 }
 .reviewTile {
 	border-bottom: 1px solid black;
@@ -49,7 +51,7 @@
 
 .reviewSummary {
 	font-weight: bold;
-	font-size: larger;
+	font-size: 25px;
 }
 .stars-outer {
   position: relative;
@@ -82,15 +84,19 @@
 	font-weight: bold;
 }
 .ratings {
-	padding-left: 20%;
+	margin-left: 15%;
 }
 .reviews {
-	padding-right: 40%;
-	margin-left: 10%;
-	width: 100%;
+	margin-left: 5%;
+	width: 50%;
 }
 .ratings-breakdown {
+	font-weight: bold;
 	margin-bottom: 5%;
+}
+#average-rating-in-ratings {
+	font-weight: bold;
+
 }
 #recommended {
 	white-space: nowrap;
@@ -116,21 +122,25 @@
 	margin: 5px;
 }
 .search-reviews {
-	padding-left: 10px;
+	margin-left: 30%;
 }
 .more-reviews-bar {
 	padding-top: 20px;
 }
+#stars-user {
+	margin-top: 3%;
+}
+
 
 #yes {
 	padding-left: 4px;
 }
 .userName {
-	float:right;
 	font-size: 15px;
+	margin-left: auto;
 }
 #response-container {
-	background-color: rgb(187, 187, 187);
+	background-color: rgb(160,160,160);
 	margin-bottom: 10px;
 	margin-top: 10px
 }
@@ -151,6 +161,7 @@
 	Border: none;
 	text-decoration: underline;
 	font-weight: bold;
+	font-size: 15px;
 }
 .reviewSummary {
   white-space: nowrap;
@@ -188,12 +199,14 @@
 	position: relative;
 }
 .review-buttons {
-	background-color: #fefefe;
+	background: none;
+	margin-right: 2%;
+	padding: 2%;
 }
 .reviews-list {
 	height: 600px;
 	overflow-y:auto;
-	width: 600px;
+	width: 90%
 }
 
 .addReviewForm {

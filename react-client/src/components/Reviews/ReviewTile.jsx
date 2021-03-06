@@ -37,7 +37,7 @@ const ReviewTile = ({ characteristicsArr, metadata, review, avgRating, getReview
   if (!review.recommend) {
     form = '';
   } else {
-    form = <div>✔ I recommend this product</div>;
+    form = <div style={{fontWeight: 'bold'}}>✔ I recommend this product</div>;
   }
   let response;
   if (review.response) {
@@ -101,10 +101,14 @@ const ReviewTile = ({ characteristicsArr, metadata, review, avgRating, getReview
 
   return (
     <div className="reviewTile">
+      <div id="stars-user" style={{display: 'flex', flexDirection: 'row'}} >
       <div className="stars"> <Stars avgRating={review.rating} /></div>
       <div className="userName">
         {dateAndUser}
       </div>
+      </div>
+
+
       <div className="reviewSummary"> {review.summary} </div>
       <div className="reviewGuts" > {reviewText}  </div>
       <ReviewPhotos photos={review.photos} />

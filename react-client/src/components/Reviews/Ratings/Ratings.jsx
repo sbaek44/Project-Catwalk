@@ -52,7 +52,7 @@ const Ratings = (props) => {
   };
 
   return (
-    <div>
+    <div className="ratings">
       <div className="ratings-breakdown">
         RATINGS
         & REVIEWS
