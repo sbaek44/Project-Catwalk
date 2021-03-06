@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import header from '../../../../config.js';
 import Stars from '../Reviews/Ratings/Stars.jsx';
 
 function YourOutfitList(props) {
@@ -10,7 +9,7 @@ function YourOutfitList(props) {
 
   useEffect(() => {
     let currentProductId = props.currentProduct.id
-    axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/products/${currentProductId}/styles`, header)
+    axios.get(`http://127.0.0.1:3000/api/shared/products/${currentProductId}/styles`)
       .then((results) => (updateTempPhotoData(results.data)))
       .catch((err) => (console.log(err)))
   }, [props.currentProduct])
