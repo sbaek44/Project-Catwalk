@@ -115,7 +115,7 @@ const PostReviewForm = (props) => {
       setPostModalIsOpen(!postModalIsOpen);
       axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/reviews/`, reviewPost, header)
         .then((data) => {
-          console.log('submitted a new review', data);
+          alert('submitted a new review');
           props.getReviews();
         })
         .catch((err) => {
@@ -235,7 +235,7 @@ const PostReviewForm = (props) => {
           <div className="review-form-component">
             <label>
               Review summary:
-              <input style={{margin: '1%'}} placeholder="Example: Best purchase ever!" onChange={(e) => setSummary(e.target.value)} type="text" name="" />
+              <input style={{margin: '1%', width: '50%'}} placeholder="Example: Best purchase ever!" onChange={(e) => setSummary(e.target.value)} type="text" name="" />
             </label>
           </div>
           <div className="review-form-component">
