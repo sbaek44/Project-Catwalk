@@ -78,12 +78,14 @@ function RelatedItemCard(props) {
       <div style={{display: 'flex', flexDirection: 'row'}}>
       {props.dataArr.map((item, i) => (
         <div id="relatedItemCard" key={i}>
-          <img onClick={() => (props.selectProduct(item.id))} src={getThumbnail(item.id)} />
-          <button name={item.name} value={item.id} onClick={modalState}>&#9734;</button>
-          <div id="cardCategory">{item.category}</div>
-          <div id="cardName">{item.name}</div>
-          <div id="cardPrice">{item.sale_price ? item.sale_price : item.default_price}</div>
-          <Stars id="cardStars" avgRating={props.avgRating} />
+          <img id="related-img" onClick={() => (props.selectProduct(item.id))} src={getThumbnail(item.id)} />
+          <button id="star-button" name={item.name} value={item.id} onClick={modalState}>&#9734;</button>
+          <div id="related-desc">
+            <div id="cardCategory">{item.category}</div>
+            <div id="cardName">{item.name}</div>
+            <div id="cardPrice">{item.sale_price ? item.sale_price : item.default_price}</div>
+            <Stars id="cardStars" avgRating={props.avgRating} />
+          </div>
         </div>
       ))}
           <Modal
@@ -107,28 +109,40 @@ function RelatedItemCard(props) {
                   <td></td>
                 </tr>
                 <tr>
-                  <td>&#10004;</td>
+                <td id="left-checkmark">
+                    {
+                      currentFeaturesArr[0].features.map((feature, i) => (
+                        <div key={i}>&#10004;</div>
+                      ))
+                    }
+                  </td>
                   <td>
                     {currentFeaturesArr[0].features.map((feature, i) => (
-                      <div key={i} style={{display: 'flex', flexDirection: 'row'}}>
-                          <div>{feature.value ? feature.feature : null}</div>
-                          <div>{feature.value ? ':' : null}</div>
+                      <div id="modal-features" key={i} style={{display: 'flex', flexDirection: 'row'}}>
                           <div>{feature.value ? feature.value : null}</div>
+                          <div>{feature.value ? feature.feature : null}</div>
                       </div>
                       ))}
                     {
                     compareFeatures.length ?
-                    compareFeatures[0].features.map((feat, i) => (
-                      <div key={i} style={{display: 'flex', flexDirection: 'row'}} >
-                          <div>{feat.value ? feat.feature : null}</div>
-                          <div>{feat.value ? ':' : null}</div>
-                          <div>{feat.value ? feat.value : null}</div>
+                    compareFeatures[0].features.map((feature, i) => (
+                      <div id="modal-features" key={i} style={{display: 'flex', flexDirection: 'row'}} >
+                          <div>{feature.value ? feature.value : null}</div>
+                          <div>{feature.value ? feature.feature : null}</div>
                       </div>
                     ))
                     : null
                     }
                   </td>
-                  <td></td>
+                  <td id="right-checkmark">
+                    {
+                    compareFeatures.length ?
+                    compareFeatures[0].features.map((feature, i) => (
+                      <div key={i}>&#10004;</div>
+                    ))
+                    : null
+                    }
+                  </td>
                 </tr>
               </tbody>
             </table>
