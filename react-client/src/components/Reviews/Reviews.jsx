@@ -184,7 +184,6 @@ const Reviews = (props) => {
             manipulateFilters={manipulateFilters}
             avgRating={props.avgRating}
             metadata={props.metadata}/>
-
         <div className="reviews" >
           <div className="sort-bar">
             {`${lengthOfReviews} reviews, sorted by`}
@@ -202,12 +201,14 @@ const Reviews = (props) => {
                 reviews={alteredArray}
                 amountOfReviews={amountOfReviews}
                 characteristicsArr={characteristicsArr}
+                searchQuery={searchQuery}
                 />
             : <ReviewsList avgRating={props.avgRating}
                 getReviews={getReviews}
                 reviews={reviews}
                 amountOfReviews={amountOfReviews}
                 characteristicsArr={characteristicsArr}
+                searchQuery={searchQuery}
                 />}
           <div className="more-reviews-bar">
             {moreReviewsButton}

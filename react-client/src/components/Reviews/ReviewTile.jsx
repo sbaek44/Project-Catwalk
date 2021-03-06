@@ -3,17 +3,27 @@ import header from '../../../../config.js';
 import ReviewPhotos from './ReviewPhotos.jsx';
 import Stars from './Ratings/Stars.jsx';
 import axios from 'axios';
+import Highlighter from "react-highlight-words";
 
-const ReviewTile = ({ characteristicsArr, metadata, review, avgRating, getReviews }) => {
+
+const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRating, getReviews }) => {
   const date = new Date(review.date).toUTCString().slice(4, -12);
   const [hasMarked, setHasMarked] = useState(false);
   const [longerThan250, setLongerThan250] = useState(false);
+  const [isHighlighting, setIsHighlighting] = useState(false);
 
   useEffect(() => {
     if (review.body.length > 250) {
       setLongerThan250(true);
     }
   }, [review]);
+  useEffect(() => {
+    if (searchQuery.length > 2) {
+      setIsHighlighting(true);
+    } else {
+      setIsHighlighting(false);
+    }
+  }, [searchQuery])
 
   let reviewText;
   if (!longerThan250) {
@@ -123,6 +133,15 @@ const ReviewTile = ({ characteristicsArr, metadata, review, avgRating, getReview
           <div id="yes">|</div>
         <div id="yes" className="text" onClick={reportReview}>report</div>
       </div>
+      {isHighlighting
+      ?     <Highlighter
+      highlightClassName="found"
+      searchWords={[searchQuery]}
+      autoEscape={true}
+      textToHighlight={review.body}
+    />
+    : ''
+      }
     </div>
   );
 };
