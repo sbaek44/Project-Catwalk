@@ -235,7 +235,7 @@ const PostReviewForm = (props) => {
           <div className="review-form-component">
             <label>
               Review summary:
-              <input style={{margin: '1%'}} placeholder="Example: Best purchase ever!" onChange={(e) => setSummary(e.target.value)} type="text" name="" />
+              <input style={{margin: '1%', width: '50%'}} placeholder="Example: Best purchase ever!" onChange={(e) => setSummary(e.target.value)} type="text" name="" />
             </label>
           </div>
           <div className="review-form-component">

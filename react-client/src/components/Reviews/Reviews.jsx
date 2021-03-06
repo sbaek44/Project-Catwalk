@@ -23,8 +23,11 @@ const Reviews = (props) => {
     if (props.currentProduct) {
       getReviews();
     }
+
+  }, [selectedParameter, props.currentProduct]);
+  useEffect(() => {
     updateMoreReviewsButton(reviews);
-  }, [selectedParameter, amountOfReviews, props.currentProduct]);
+  }, [amountOfReviews])
 
   useEffect(() => {
     filterAndSearchReviews(reviews);
@@ -69,7 +72,6 @@ const Reviews = (props) => {
   };
 
   const filterReviews = (untouchedReviews) => {
-    console.log(untouchedReviews);
     let filteredReviews = [];
     untouchedReviews.filter((review) => {
       if (filters.includes(review.rating)) {
@@ -122,7 +124,6 @@ const Reviews = (props) => {
         searchReviews.push(review);
       }
     });
-    console.log('output', searchReviews);
     setAlteredArray(searchReviews);
   };
 
