@@ -95,8 +95,7 @@
 	width: 50%;
 }
 .ratings-breakdown {
-	font-size: 20px;
-	font-weight: bold;
+	font-size: 17px;
 	margin-bottom: 5%;
 }
 #average-rating-in-ratings {
@@ -111,7 +110,6 @@
 	white-space: nowrap;
 	overflow: hidden;
 	padding-right: 10px;
-	font-weight: bold;
 }
 .text:hover {
 	text-decoration: underline;
@@ -123,9 +121,10 @@
 	font-weight: bold;
 	white-space: nowrap;
 	overflow: hidden;
-	font-size: 20px;
+	font-size: 16px;
 }
 #filter-display {
+	font-weight: bold;
 	margin: 5px;
 }
 .search-reviews {
@@ -168,7 +167,7 @@
 	Border: none;
 	text-decoration: underline;
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 16px;
 }
 .reviewSummary {
   white-space: nowrap;

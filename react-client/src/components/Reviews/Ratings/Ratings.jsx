@@ -59,7 +59,7 @@ const Ratings = (props) => {
       </div>
       <div className="ratings-breakdown" style={{display: 'flex', flexDirection: 'rows'}} >
        <div id="average-rating-in-ratings" > {props.avgRating.toFixed(1)} </div>
-       <div style={{marginLeft: '5%'}} >
+       <div style={{marginLeft: '3%'}} >
           <Stars avgRating={props.avgRating} />
        </div>
       </div>
