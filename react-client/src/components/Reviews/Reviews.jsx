@@ -74,7 +74,7 @@ const Reviews = (props) => {
       }
     });
     if (filteredReviews.length === 0) {
-      return;
+      return [];
     }
     return filteredReviews;
   };
