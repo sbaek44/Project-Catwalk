@@ -84,9 +84,9 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Overview
+        {/* <Overview
           product={this.state.selectedProduct}
-          avgRating={this.state.avgRating} />
+          avgRating={this.state.avgRating} /> */}
         <RelatedItemsList
           selectProduct={this.selectProduct}
           avgRating={this.state.avgRating}
@@ -96,11 +96,11 @@ export default class App extends React.Component {
           currentProduct={this.state.selectedProduct} />
         {/* <QA
           currentProduct={this.state.selectedProduct} />  */}
-        <Reviews
+        {/* <Reviews
           avgRating={this.state.avgRating}
           metadata={this.state.metadata}
           getRatings={this.getRatings}
-          currentProduct={this.state.selectedProduct.id} />
+          currentProduct={this.state.selectedProduct.id} /> */}
       </div>
     )
   }

@@ -38,29 +38,32 @@ function YourOutfitList(props) {
 
   if (yourOutfit.length === 0) {
     return (
-      <div>
-        <h3>YOUR OUTFIT</h3>
+      <div id="addOutfit">
+        <h3 id="outfit-title">YOUR OUTFIT</h3>
         <div id="emptyOutfit">
-          <button onClick={addToYourOutfit}>+</button>
+          <div id="outfit-button" onClick={addToYourOutfit}>+</div>
         </div>
       </div>
     )
   } else {
     return (
       <div>
-        <h3>YOUR OUTFIT</h3>
+        <h3 id="outfit-title">YOUR OUTFIT</h3>
         <div style={{display: 'flex', flexDirection: 'row'}}>
           {yourOutfit.map((outfit, i) => (
             <div id="yourOutfitCard" key={i}>
-              <img src={getImgSrc(outfit.id)} />
-              <div id="yourOutfitCategory">{outfit.category}</div>
-              <div id="yourOutfitName">{outfit.name}</div>
-              <div id="yourOutfitPrice">{outfit.sale_price ? outfit.sale_price : outfit.default_price}</div>
-              <Stars id="cardStars" avgRating={props.avgRating} />
-              <button value={outfit.id} onClick={removeFromYourOutfit}>Delete</button>
+              <img id="yourOutfitImg" src={getImgSrc(outfit.id)} />
+              <button id="remove-outfit" value={outfit.id} onClick={removeFromYourOutfit}>&#9447;</button>
+              <div id="outfit-desc">
+                <div id="yourOutfitCategory">{outfit.category}</div>
+                <div id="yourOutfitName">{outfit.name}</div>
+                <div id="yourOutfitPrice">{outfit.sale_price ? outfit.sale_price : outfit.default_price}</div>
+                <Stars id="cardStars" avgRating={props.avgRating} />
+              </div>
+              <div id="addOutfit"></div>
             </div>
           ))}
-          <button onClick={addToYourOutfit}>+</button>
+          <div id="outfit-button" onClick={addToYourOutfit}>+</div>
          </div>
       </div>
     )
