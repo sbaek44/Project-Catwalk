@@ -3,6 +3,8 @@ import Modal from 'react-modal';
 import axios from 'axios';
 import header from '../../../../config.js';
 import Stars from '../Reviews/Ratings/Stars.jsx';
+import Carousel from 'react-elastic-carousel';
+import styled from 'styled-components'
 
 const customStyles = {
   content : {
@@ -19,7 +21,6 @@ const customStyles = {
 function RelatedItemCard(props) {
   const [thumbnails, updateThumbnails] = useState([]);
   const [modalIsOpen, updateModalIsOpen] = useState(false);
-  // const [allFeatures, updateAllFeatures] = useState([]);
   const [compareName, updateCompareName] = useState('');
   const [compareFeatures, updateCompareFeatures] = useState([]);
 
@@ -34,19 +35,6 @@ function RelatedItemCard(props) {
   let relatedFeaturesArr = props.dataArr.map(({id, name, features}) => ({id, name, features}))
   let currentFeaturesArr = [{id: props.currentProductFeatures.id, name: props.currentProductFeatures.name, features: props.currentProductFeatures.features}]
   let allFeatures = currentFeaturesArr.concat(relatedFeaturesArr)
-
-  // let modalFeatures = []
-  // for (let i = 0; i < compareFeatures.length; i++) {
-  //   for (let j = 0; j < compareFeatures[i].features.length; j++) {
-  //     modalFeatures.push(compareFeatures[i].features[j])
-  //   }
-  // }
-  // for (let i = 0; i < currentFeaturesArr.length; i++) {
-  //   for (let j = 0; j < currentFeaturesArr[i].features.length; j++) {
-  //     modalFeatures.push(currentFeaturesArr[i].features[j])
-  //   }
-  // }
-  // console.log(modalFeatures)
 
   let getThumbnail = (id) => {
     for (let i = 0; i < thumbnails.length; i++) {
@@ -67,15 +55,13 @@ function RelatedItemCard(props) {
     }
     updateCompareFeatures(compFeat)
   }
-  // props.currentProductFeatures = current product
-  // props.dataArr = related products info/features
-  // props.stylesData = related products photos
 
   if (props.stylesData.length === 0 || props.currentProductFeatures.length === 0) {
     return null
   } else {
     return (
       <div style={{display: 'flex', flexDirection: 'row'}}>
+      <Carousel itemsToShow={4}>
       {props.dataArr.map((item, i) => (
         <div id="relatedItemCard" key={i}>
         {/* {console.log(item)} */}
@@ -89,67 +75,46 @@ function RelatedItemCard(props) {
           </div>
         </div>
       ))}
-          <Modal
-            ariaHideApp={false}
-            isOpen={modalIsOpen}
-            style={customStyles}
-            onRequestClose={() => updateModalIsOpen(false)}>
-            <h3 id="comparing">Comparing</h3>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>{props.currentProductFeatures.name}</th>
-                  <th></th>
-                  <th>{compareName}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                <td id="left-checkmark">
-                    {
-                      currentFeaturesArr[0].features.map((feature, i) => (
-                        <div key={i}>&#10004;</div>
-                      ))
-                    }
-                  </td>
-                  <td>
-                    {
-                    currentFeaturesArr[0].features.map((feature, i) => (
-                      <div id="modal-features" key={i} style={{display: 'flex', flexDirection: 'row'}}>
-                          <div>{feature.value ? feature.value : null}</div>
-                          <div style={{marginLeft: 6}}>{feature.value ? feature.feature : null}</div>
-                      </div>
-                      ))}
-                    {
-                    compareFeatures.length ?
-                    compareFeatures[0].features.map((feature, i) => (
-                      <div id="modal-features" key={i} style={{display: 'flex', flexDirection: 'row'}} >
-                          <div>{feature.value ? feature.value : null}</div>
-                          <div style={{marginLeft: 6}}>{feature.value ? feature.feature : null}</div>
-                      </div>
-                    ))
-                    : null
-                    }
-                  </td>
-                  <td id="right-checkmark">
-                    {
-                    compareFeatures.length ?
-                    compareFeatures[0].features.map((feature, i) => (
-                      <div key={i}>&#10004;</div>
-                    ))
-                    : null
-                    }
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <button style={{textAlign: 'center'}} onClick={() => updateModalIsOpen(false)}>Close</button>
-          </Modal>
+      </Carousel>
+      <Modal
+        ariaHideApp={false}
+        isOpen={modalIsOpen}
+        style={customStyles}
+        onRequestClose={() => updateModalIsOpen(false)}>
+        <h3 id="comparing">Comparing</h3>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>{props.currentProductFeatures.name}</th>
+              <th></th>
+              <th>{compareName}</th>
+            </tr>
+          </thead>
+          <tbody>
+                {
+                  currentFeaturesArr[0].features.map((feature, i) => (
+                    <tr id="modal-features" key={i}>
+                      <td id="left-checkmark">&#10004;</td>
+                      <td>{feature.value ? feature.value : null} {feature.value ? feature.feature : null}</td>
+                      <td></td>
+                    </tr>
+                  ))
+                }
+                {
+                compareFeatures.length ?
+                compareFeatures[0].features.map((feature, i) => (
+                  <tr id="modal-features" key={i} >
+                    <td></td>
+                      <td>{feature.value ? feature.value : null} {feature.value ? feature.feature : null}</td>
+                      <td id="right-checkmark">&#10004;</td>
+                  </tr>
+                ))
+                : null
+                }
+          </tbody>
+        </table>
+        <button style={{textAlign: 'center'}} onClick={() => updateModalIsOpen(false)}>Close</button>
+      </Modal>
       </div>
     )
   }

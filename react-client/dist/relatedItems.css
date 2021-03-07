@@ -10,6 +10,7 @@
   height: 350px;
   margin: 10px;
   position: relative;
+  box-shadow: 1px 1px #cccccc;
 }
 
 #star-button {
@@ -98,4 +99,49 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 1px 1px #cccccc;
+}
+
+.rec.rec-arrow:disabled {
+  visibility: hidden;
+}
+
+.rec.rec-arrow {
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+  color: black;
+  font-size: 2.5em;
+}
+
+.rec.rec-arrow.rec-arrow-right:hover {
+  transform: none;
+  background: none;
+  color: rgb(255, 0, 140);
+  box-shadow: none;
+}
+
+.rec.rec-arrow.rec-arrow-left:hover {
+  transform: none;
+  background: none;
+  color: rgb(255, 0, 140);
+  box-shadow: none;
+}
+
+.rec-carousel-item:focus {
+  outline: none;
+  box-shadow: inset 0 0 1px 1px lightgrey;
+}
+
+button.rec-dot {
+  background-color: white;
+}
+
+.rec.rec-dot.rec-dot_active {
+  background-color: white;
+  box-shadow: 0 0 1px 3px rgb(255, 0, 140);
+}
+
+.rec.rec-dot:hover  {
+  box-shadow: 0 0 1px 3px rgb(241, 174, 211);
 }

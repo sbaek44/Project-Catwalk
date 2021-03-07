@@ -132,7 +132,7 @@ const Reviews = (props) => {
   let addReviewsButton;
   let moreReviewsButton;
   if (!isDisplayingMoreReviewsButton) {
-    addReviewsButton = <div  ><button id="addMore" onClick={(e) => {
+    addReviewsButton = <div  ><button style={{marginLeft: '2%'}} id="addMore" onClick={(e) => {
       e.preventDefault()
       togglePostForm()
     }} >ADD A REVIEW +</button></div>
@@ -172,7 +172,7 @@ const Reviews = (props) => {
     filterString = filterString.slice(0, -1);
     filterString += ' ratings.';
     filterDisplay = (
-      <div id="filter-display" >{filterString}
+      <div id="filter-display" ><div style={{marginTop: '2%'}}>{filterString}</div>
         <button id="addMore"  onClick={() => { setFilters([]) }} >Remove all rating filters</button>
       </div>
     );
@@ -192,13 +192,14 @@ const Reviews = (props) => {
           <div className="sort-bar">
             {`${lengthOfReviews} reviews, sorted by`}
             <SortForm updateParamFunc={updateParamFunc} sortParameters={sortParameters} />
+            {addReviewsButton}
             <Search
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
               searchReviews={searchReviews}
             />
           </div>
-          {addReviewsButton}
+
           {filterDisplay}
           {searchQuery.length > 2 || filters.length > 0
             ? <ReviewsList avgRating={props.avgRating}

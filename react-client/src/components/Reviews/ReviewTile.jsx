@@ -32,7 +32,7 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
     reviewText = (
       <div>
         {review.body.slice(0, 250)}
-          <div style={{fontWeight: 'bold'}}  className="text"  onClick={() => setLongerThan250(false)} >
+          <div style={{fontSize: '14px', fontWeight: 'bold'}}  className="text"  onClick={() => setLongerThan250(false)} >
             show more..
           </div>
       </div>
