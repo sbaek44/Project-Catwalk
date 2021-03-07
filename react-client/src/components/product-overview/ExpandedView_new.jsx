@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ZoomedImage from './ZoomedImage.jsx';
-// UNINSTALL REACT IMAGE MAGNIFIERS
 
 export default function ExpandedView({ close, handleIconClick, url, photos, back, forward, selectedPhotoIndex }) {
 

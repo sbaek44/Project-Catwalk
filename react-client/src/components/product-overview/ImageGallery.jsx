@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import ExpandedView from './ExpandedView_old.jsx';
+// import ExpandedView from './ExpandedView_old.jsx';
 
-// ^ the old one has less smooth controls (double click + click and drag instead of single click + follow mouse) but actually works without bugs.
-
-// going to spend a few hours trying to debug the the newer version but will just keep the _old one when we deploy if i have to
-
-// import ExpandedView from './ExpandedView_new.jsx';
+import ExpandedView from './ExpandedView_new.jsx';
 
 import Modal from 'react-modal';
 
@@ -13,9 +9,8 @@ const modalStyle = {
   content: {
     top: 0,
     left: 0,
-    right: 0,
     width: '100vw',
-    height: '98vh',
+    height: '100vh'
   }
 };
 
