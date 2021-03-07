@@ -140,7 +140,7 @@
 .horizontal-arrow {
   border: none;
   background: none;
-  font-size: 50px;
+  font-size: 40px;
   color: rgb(160,160,160);
   transition-duration: 0.5s;
 }
@@ -185,7 +185,10 @@
   color: red
 }
 
-.expanded-arrow-and-icon-container {
+.expanded-view-message {
+  font-size: 16px;
+  color: rgb(240,240,240);
+  text-shadow: 1px 1px rgb(24,24,24);
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -194,9 +197,29 @@
   top: 5%;
   width: 100%;
   z-index: 10;
+  opacity: 0;
+  animation-name: fade_out;
+  animation-duration: 3s;
+}
+
+.expanded-arrow-and-icon-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 6%;
+  width: 100%;
+  z-index: 10;
   opacity: 1;
   animation-name: fade_in;
-  animation-duration: 1.5s;
+  animation-duration: 0.5s;
+}
+
+.expanded-arrow-and-icon-container-fadeout {
+  opacity: 0;
+  animation-name: fade_out;
+  animation-duration: 0.5s;
 }
 
 .expanded-view-icons-row {
@@ -222,22 +245,6 @@
   background: rgb(255, 0, 140);
 }
 
-.expanded-view-message {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  position: fixed;
-  color: rgb(240,240,240);
-  font-size: 16px;
-  text-shadow: 1px 1px rgb(24,24,24);
-  top: 5%;
-  width: 100%;
-  z-index: 10;
-  opacity: 0;
-  transition-duration: 0.5s;
-  animation-name: fade_out;
-  animation-duration: 3s;
-}
 
 .expanded-view-image {
   object-fit: scale-down;
@@ -250,6 +257,14 @@
   max-height: 95%;
   overflow-x: hidden;
   overflow-y: hidden;
+}
+
+.expanded-view-image#not-zoomed:hover {
+  cursor: zoom-in;
+}
+
+.expanded-view-image#zoomed:hover {
+  cursor: all-scroll; /* should be - */
 }
 
 .right-side {
@@ -484,3 +499,33 @@
   font-size: 24px;
   margin-bottom: 1rem;
 }
+
+/* ZoomedImage.jsx */
+
+figure {
+  width: 100vw;
+  background-repeat: no-repeat;
+  border: 2px solid rgb(24,24,24);
+  border-radius: 0.25rem;
+}
+
+figure:hover {
+  cursor: all-scroll /* should be minus */
+}
+
+figure:hover img {
+  opacity: 0;
+}
+
+#zoomed-image {
+  background-repeat: no-repeat;
+  object-fit: contain;
+  object-position: 50% 50%;
+  display: block;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+

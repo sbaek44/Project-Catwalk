@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Magnifier, MOUSE_ACTIVATION, TOUCH_ACTIVATION } from "react-image-magnifiers";
+import ZoomedImage from './ZoomedImage.jsx';
+// UNINSTALL REACT IMAGE MAGNIFIERS
 
 export default function ExpandedView({ close, handleIconClick, url, photos, back, forward, selectedPhotoIndex }) {
 
@@ -19,21 +20,18 @@ export default function ExpandedView({ close, handleIconClick, url, photos, back
     </div>
   }
 
-  useEffect(() => {
-    let box = document.querySelector('.expanded-view-image');
-    if (box !== null) {
-      let width = box.clientWidth;
-      let height = box.clientHeight;
-      console.log(`img number ${selectedPhotoIndex} dimensions: ${width} x ${height}`)
-    }
-  }, [url])
+  const zoom = () => {
+    toggleZoom(!isZoomed)
+  }
 
   return (
     <div className='expanded-gallery-modal-inner'>
       <button onClick={() => close()} id='modal-x-button'>&#x2715;</button>
       {isZoomed ?
-        <div className='expanded-view-message'>pan around by dragging the cursor; click again to zoom out</div>
-        :
+        <ZoomedImage url={url} zoom={zoom} />
+        : <img className='expanded-view-image' onClick={() => zoom()} src={url} />
+      }
+      <div className={isZoomed ? 'expanded-arrow-and-icon-container-fadeout' : 'expanded-arrow-and-icon-container'} >
         <div className='expanded-arrow-and-icon-container'>
           <button
             id={selectedPhotoIndex > 0 ? null : 'hidden'}
@@ -41,7 +39,7 @@ export default function ExpandedView({ close, handleIconClick, url, photos, back
             style={{ marginTop: '-0.5rem' }}
             onClick={(e) => { back(e) }}
           >&#x2190;
-            </button>
+          </button>
           {renderExpandedViewIcons()}
           <button
             id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'}
@@ -49,20 +47,10 @@ export default function ExpandedView({ close, handleIconClick, url, photos, back
             style={{ marginTop: '-0.5rem' }}
             onClick={(e) => { forward(e) }}
           >&#x2192;
-            </button>
+          </button>
         </div>
-      }
-      <Magnifier
-        className='expanded-view-image'
-        cursorStyle='crosshair'
-        imageSrc={url}
-        imageAlt='HEIR FORCE ONES'
-        onZoomStart={() => toggleZoom(true)}
-        onZoomEnd={() => toggleZoom(false)}
-        mouseActivation={MOUSE_ACTIVATION.CLICK}
-        touchActivation={TOUCH_ACTIVATION.TAP}
-        dragToMove={false}
-      />
-    </div >
+      </div>
+    </div>
+
   )
 }
