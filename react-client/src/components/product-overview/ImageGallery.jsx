@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import ExpandedView from './ExpandedView_old.jsx';
-
-import ExpandedView from './ExpandedView_new.jsx';
+import ExpandedView from './ExpandedView.jsx';
 
 import Modal from 'react-modal';
 
