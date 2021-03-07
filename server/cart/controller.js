@@ -6,7 +6,6 @@ const cartController = (req, res) => {
   let method = req.method;
   let url = req.url;
   let body = req.body || null;
-  console.log(method, url)
   axios({
     method: `${method}`,
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/cart${url}`,
