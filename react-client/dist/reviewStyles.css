@@ -115,6 +115,7 @@
 	text-decoration: underline;
 }
 .sort-bar {
+	width: 85%;
 	display: flex;
 	flex-direction: row;
 	padding-left: 20px;
@@ -124,11 +125,18 @@
 	font-size: 16px;
 }
 #filter-display {
+	margin-top: 2%;
+	width: 85%;
+	display: flex;
+	flex-direction: row;
+	padding-left: 20px;
 	font-weight: bold;
-	margin: 5px;
+	white-space: nowrap;
+	overflow: hidden;
+	font-size: 16px;
 }
 .search-reviews {
-	margin-left: 24%;
+	margin-left: auto;
 }
 .more-reviews-bar {
 	padding-top: 20px;
@@ -280,8 +288,9 @@
 	color: black;
 }
 #addMore {
+	margin-left: 1%;
+	margin-bottom: 1%;
 	margin-top: 1%;
-	margin-left: 3%;
 	padding: 1%;
 	box-shadow: 2px 2px 2px rgb(72,72,72);
   border: 1px solid rgb(160,160,160);
