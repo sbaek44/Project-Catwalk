@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Stars from '../Reviews/Ratings/Stars.jsx';
+import Carousel from 'react-elastic-carousel';
+import styled from 'styled-components'
 
 function YourOutfitList(props) {
   const [yourOutfit, updateYourOutfit] = useState([]);
@@ -42,6 +44,28 @@ function YourOutfitList(props) {
         <h3 id="outfit-title">YOUR OUTFIT</h3>
         <div id="emptyOutfit">
           <div id="outfit-button" onClick={addToYourOutfit}>+</div>
+        </div>
+      </div>
+    )
+  } else if (yourOutfit.length > 4) {
+    return (
+      <div>
+      <h3 id="outfit-title">YOUR OUTFIT</h3>
+        <div style={{display: 'flex', flexDirection: 'row'}}>
+        <Carousel itemsToShow={4}>
+        {yourOutfit.map((outfit, i) => (
+          <div id="yourOutfitCard" key={i}>
+            <img id="yourOutfitImg" src={getImgSrc(outfit.id)} />
+            <button id="remove-outfit" value={outfit.id} onClick={removeFromYourOutfit}>&#9447;</button>
+            <div id="outfit-desc">
+              <div id="yourOutfitCategory">{outfit.category}</div>
+              <div id="yourOutfitName">{outfit.name}</div>
+              <div id="yourOutfitPrice">{outfit.sale_price ? outfit.sale_price : outfit.default_price}</div>
+              <Stars id="cardStars" avgRating={props.avgRating} />
+            </div>
+          </div>
+        ))}
+        </Carousel>
         </div>
       </div>
     )
