@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
-// import ExpandedView from './ExpandedView_old.jsx'; // keeping a copy of old one with prismazoom for now, will delete one of these and uninstall the unneeded package by the time we deploy
-import ExpandedView from './ExpandedView.jsx';
+import ExpandedView from './ExpandedView_old.jsx';
+
+// ^ the old one has less smooth controls (double click + click and drag instead of single click + follow mouse) but actually works without bugs.
+
+// going to spend a few hours trying to debug the the newer version but will just keep the _old one when we deploy if i have to
+
+// import ExpandedView from './ExpandedView_new.jsx';
+
 import Modal from 'react-modal';
 
 const modalStyle = {
