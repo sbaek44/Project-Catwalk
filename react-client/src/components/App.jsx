@@ -94,8 +94,8 @@ export default class App extends React.Component {
         <YourOutfitList
           avgRating={this.state.avgRating}
           currentProduct={this.state.selectedProduct} />
-        <QA
-          currentProduct={this.state.selectedProduct} /> 
+        {/* <QA
+          currentProduct={this.state.selectedProduct} />  */}
         <Reviews
           avgRating={this.state.avgRating}
           metadata={this.state.metadata}
