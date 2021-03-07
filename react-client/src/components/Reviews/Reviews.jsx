@@ -23,7 +23,6 @@ const Reviews = (props) => {
     if (props.currentProduct) {
       getReviews();
     }
-
   }, [selectedParameter, props.currentProduct]);
   useEffect(() => {
     updateMoreReviewsButton(reviews);
@@ -42,10 +41,6 @@ const Reviews = (props) => {
       arrOfChars.push([key, props.metadata.characteristics[key]]);
     });
     setCharacteristicsArr(arrOfChars);
-  };
-
-  const togglePostModalIsOpen = () => {
-    setPostModalIsOpen(!postModalIsOpen);
   };
 
   const addFilters = (filterToAdd) => {
@@ -118,9 +113,10 @@ const Reviews = (props) => {
   };
 
   const searchReviews = (input, arrToSearch) => {
+    input = input.toLowerCase();
     let searchReviews = [];
     arrToSearch.filter((review) => {
-      if (review.body.includes(input) || review.summary.includes(input)) {
+      if (review.body.toLowerCase().includes(input) || review.summary.toLowerCase().includes(input)) {
         searchReviews.push(review);
       }
     });
@@ -133,12 +129,20 @@ const Reviews = (props) => {
   } else {
     lengthOfReviews = reviews.length;
   }
-
+  let addReviewsButton;
   let moreReviewsButton;
   if (!isDisplayingMoreReviewsButton) {
+    addReviewsButton = <div  ><button id="addMore" onClick={(e) => {
+      e.preventDefault()
+      togglePostForm()
+    }} >ADD A REVIEW +</button></div>
     moreReviewsButton = '';
   } else {
-    moreReviewsButton = <button className="review-buttons" onClick={addMoreReviews} >MORE REVIEWS</button>;
+    addReviewsButton = '';
+    moreReviewsButton = <div><button className="review-buttons" onClick={addMoreReviews} >MORE REVIEWS</button><button className="review-buttons" onClick={(e) => {
+      e.preventDefault()
+      togglePostForm()
+    }} >ADD A REVIEW +</button></div>
   }
 
   const updateMoreReviewsButton = (arrOfReviews) => {
@@ -158,7 +162,7 @@ const Reviews = (props) => {
   if (!isPosting) {
     postForm = '';
   } else {
-    postForm = <PostReviewForm characteristicsArr={characteristicsArr} getReviews={getReviews} review_id={props.currentProduct} />;
+    postForm = <PostReviewForm togglePostForm={togglePostForm} characteristicsArr={characteristicsArr} getReviews={getReviews} review_id={props.currentProduct} />;
   }
 
   let filterDisplay;
@@ -169,7 +173,7 @@ const Reviews = (props) => {
     filterString += ' ratings.';
     filterDisplay = (
       <div id="filter-display" >{filterString}
-        <button id="removeAll"  onClick={() => { setFilters([]) }} >REMOVE ALL FILTERS</button>
+        <button id="addMore"  onClick={() => { setFilters([]) }} >Remove all rating filters</button>
       </div>
     );
   } else {
@@ -179,7 +183,6 @@ const Reviews = (props) => {
   return (
     <div className="ratings-reviews">
       {postForm}
-
           <Ratings
             characteristicsArr={characteristicsArr}
             manipulateFilters={manipulateFilters}
@@ -195,6 +198,7 @@ const Reviews = (props) => {
               searchReviews={searchReviews}
             />
           </div>
+          {addReviewsButton}
           {filterDisplay}
           {searchQuery.length > 2 || filters.length > 0
             ? <ReviewsList avgRating={props.avgRating}
@@ -213,7 +217,6 @@ const Reviews = (props) => {
                 />}
           <div className="more-reviews-bar">
             {moreReviewsButton}
-            <button className="review-buttons" onClick={togglePostForm} >ADD A REVIEW +</button>
           </div>
         </div>
       </div>
