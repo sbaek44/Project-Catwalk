@@ -72,7 +72,7 @@ function StyleSelector({ product, selectedStyle, selectStyle, updatePrice, updat
         <div className='style-selector'>
           <div className='selected-style-label'>
             <span style={{ fontWeight: 'bold', marginRight: 5 }}>STYLE </span>
-            <span style={{ color: 'rgb(160,160,160)' }}>{getNameOfSelectedStyle('uppercase')}</span>
+            <span>{getNameOfSelectedStyle('uppercase')}</span>
           </div>
 
           <div className='style-options-container'>
