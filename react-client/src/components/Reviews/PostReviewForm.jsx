@@ -271,7 +271,10 @@ const PostReviewForm = (props) => {
             e.preventDefault();
             submitReview(e)
           }}>Submit</button>
-          <button className="review-buttons" onClick={() => setPostModalIsOpen(!postModalIsOpen)} >Cancel</button>
+          <button className="review-buttons" onClick={() =>{
+            setPostModalIsOpen(!postModalIsOpen)
+            props.togglePostForm()
+          }} >Cancel</button>
         </form>
       </div>
     </Modal>

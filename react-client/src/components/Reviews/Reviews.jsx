@@ -23,7 +23,6 @@ const Reviews = (props) => {
     if (props.currentProduct) {
       getReviews();
     }
-
   }, [selectedParameter, props.currentProduct]);
   useEffect(() => {
     updateMoreReviewsButton(reviews);
@@ -42,10 +41,6 @@ const Reviews = (props) => {
       arrOfChars.push([key, props.metadata.characteristics[key]]);
     });
     setCharacteristicsArr(arrOfChars);
-  };
-
-  const togglePostModalIsOpen = () => {
-    setPostModalIsOpen(!postModalIsOpen);
   };
 
   const addFilters = (filterToAdd) => {
@@ -167,7 +162,7 @@ const Reviews = (props) => {
   if (!isPosting) {
     postForm = '';
   } else {
-    postForm = <PostReviewForm characteristicsArr={characteristicsArr} getReviews={getReviews} review_id={props.currentProduct} />;
+    postForm = <PostReviewForm togglePostForm={togglePostForm} characteristicsArr={characteristicsArr} getReviews={getReviews} review_id={props.currentProduct} />;
   }
 
   let filterDisplay;
