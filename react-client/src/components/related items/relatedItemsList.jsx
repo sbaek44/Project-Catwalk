@@ -27,7 +27,7 @@ function RelatedItemsList(props) {
 
   return (
     <div>
-      <h3>RELATED PRODUCTS</h3>
+      <h3 id="related-title">RELATED PRODUCTS</h3>
       <RelatedItemsElements
         currentProductFeatures={currentProductFeatures}
         relatedItemsIds={[...new Set(relatedItemsIds)]}

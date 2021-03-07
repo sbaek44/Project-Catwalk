@@ -78,12 +78,13 @@ function RelatedItemCard(props) {
       <div style={{display: 'flex', flexDirection: 'row'}}>
       {props.dataArr.map((item, i) => (
         <div id="relatedItemCard" key={i}>
+        {/* {console.log(item)} */}
           <img id="related-img" onClick={() => (props.selectProduct(item.id))} src={getThumbnail(item.id)} />
           <button id="star-button" name={item.name} value={item.id} onClick={modalState}>&#9734;</button>
           <div id="related-desc">
             <div id="cardCategory">{item.category}</div>
             <div id="cardName">{item.name}</div>
-            <div id="cardPrice">{item.sale_price ? item.sale_price : item.default_price}</div>
+            <div id="cardPrice">${item.sale_price ? item.sale_price : item.default_price}</div>
             <Stars id="cardStars" avgRating={props.avgRating} />
           </div>
         </div>
@@ -93,7 +94,7 @@ function RelatedItemCard(props) {
             isOpen={modalIsOpen}
             style={customStyles}
             onRequestClose={() => updateModalIsOpen(false)}>
-            <h3>Comparing</h3>
+            <h3 id="comparing">Comparing</h3>
             <table className="table">
               <thead>
                 <tr>
@@ -117,10 +118,11 @@ function RelatedItemCard(props) {
                     }
                   </td>
                   <td>
-                    {currentFeaturesArr[0].features.map((feature, i) => (
+                    {
+                    currentFeaturesArr[0].features.map((feature, i) => (
                       <div id="modal-features" key={i} style={{display: 'flex', flexDirection: 'row'}}>
                           <div>{feature.value ? feature.value : null}</div>
-                          <div>{feature.value ? feature.feature : null}</div>
+                          <div style={{marginLeft: 6}}>{feature.value ? feature.feature : null}</div>
                       </div>
                       ))}
                     {
@@ -128,7 +130,7 @@ function RelatedItemCard(props) {
                     compareFeatures[0].features.map((feature, i) => (
                       <div id="modal-features" key={i} style={{display: 'flex', flexDirection: 'row'}} >
                           <div>{feature.value ? feature.value : null}</div>
-                          <div>{feature.value ? feature.feature : null}</div>
+                          <div style={{marginLeft: 6}}>{feature.value ? feature.feature : null}</div>
                       </div>
                     ))
                     : null
