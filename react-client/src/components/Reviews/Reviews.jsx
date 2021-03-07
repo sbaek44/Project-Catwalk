@@ -137,12 +137,17 @@ const Reviews = (props) => {
   let addReviewsButton;
   let moreReviewsButton;
   if (!isDisplayingMoreReviewsButton) {
-    addReviewsButton = <div  ><button id="addMore" onClick={togglePostForm} >ADD A REVIEW +</button></div>
+    addReviewsButton = <div  ><button id="addMore" onClick={(e) => {
+      e.preventDefault()
+      togglePostForm()
+    }} >ADD A REVIEW +</button></div>
     moreReviewsButton = '';
   } else {
     addReviewsButton = '';
-    moreReviewsButton = <div><button className="review-buttons" onClick={addMoreReviews} >MORE REVIEWS</button><button className="review-buttons" onClick={togglePostForm} >ADD A REVIEW +</button></div>
-
+    moreReviewsButton = <div><button className="review-buttons" onClick={addMoreReviews} >MORE REVIEWS</button><button className="review-buttons" onClick={(e) => {
+      e.preventDefault()
+      togglePostForm()
+    }} >ADD A REVIEW +</button></div>
   }
 
   const updateMoreReviewsButton = (arrOfReviews) => {

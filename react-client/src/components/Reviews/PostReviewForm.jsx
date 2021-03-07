@@ -94,8 +94,6 @@ const PostReviewForm = (props) => {
   }
 
   const submitReview = (e) => {
-    let content = "Content-Type"
-    header.headers[content] = 'application/json';
     e.preventDefault();
     if (reviewPost.rating < 1) {
       alert(`You must enter the following: Rating`);
@@ -269,7 +267,10 @@ const PostReviewForm = (props) => {
               </div>
             </label>
         </div>
-          <button className="review-buttons" onClick={submitReview}>Submit</button>
+          <button className="review-buttons" onClick={(e) => {
+            e.preventDefault();
+            submitReview(e)
+          }}>Submit</button>
           <button className="review-buttons" onClick={() => setPostModalIsOpen(!postModalIsOpen)} >Cancel</button>
         </form>
       </div>
