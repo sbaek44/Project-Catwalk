@@ -19,13 +19,14 @@ const QuestionModals = (props) => {
 
   let addQuestions = () => {
     let id = props.product.id
-      axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/questions`,{
+      axios.post(`http://127.0.0.1:3000/api/qa/questions`,{
         body: question,
         name: nickname,
         email: email,
         product_id: props.product.id
-      }, header)
+      })
       .then( ()=> {props.getQuestions()})
+      .then ( ()=> {addClicked(!addClick)})
       .then(() => {console.log('success')})
       .catch( (err)=> {console.log('error')})
 
@@ -93,9 +94,9 @@ const QuestionModals = (props) => {
         </div>
 
         </Modal>
-        <button onClick={()=>{addClicked(!addClick)}}>ADD A QUESTION +</button>
+        <button className="moreadd" onClick={()=>{addClicked(!addClick)}}>ADD A QUESTION +</button>
     </div>
       )
-};
+  }
 
 export default QuestionModals;

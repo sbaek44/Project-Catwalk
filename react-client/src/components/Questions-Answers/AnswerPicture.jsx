@@ -35,7 +35,7 @@ const AnswerPicture = (props) => {
   }
 
   return (
-    <div>
+    <div style={{paddingLeft: "30px"}}>
          {props.answer.photos.length >0 ? <div className="answerImages">
     {props.answer.photos.map( (image,index)=>  {
       return (
@@ -43,10 +43,11 @@ const AnswerPicture = (props) => {
       <Modal
       ariaHideApp={false}
       isOpen={photoClicked}
-      style={customStyles}
+      className ="ModalStyle"
+      overlayClassName = "ModalOverlay"
       onRequestClose={() => setClicked(!photoClicked)}
       contentLabel="Example Modal">
-        <button onClick={()=>{setClicked(!photoClicked)}}>X</button>
+        <button className="buttonModal" onClick={()=>{setClicked(!photoClicked)}}>X</button>
          <img className='imgModal' src={correct(image)} alt="" key={index}/>
 
 

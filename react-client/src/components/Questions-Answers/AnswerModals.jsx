@@ -33,20 +33,31 @@ const AnswerModals = (props) => {
   },[photos,imgPreview])
 
   let upload = () => {
+  let empty = [];
+  let id = props.question.question_id;
 
-
-  let empty = []
-
-  for (var i = 0; i < photos.length; i++) {
+  if(photos.length >0) {
+    for (var i = 0; i < photos.length; i++) {
       var imageFile = photos[i]
-
       uploadImageAsPromise(imageFile);
+  }
+  } else {
+    axios.post(`http://127.0.0.1:3000/api/qa/questions/${id}/answers`,{
+      body: answer,
+      name: nickname,
+      email: email,
+      photos: []
+      })
+      .then(() => {console.log('success')})
+      .then( ()=> {props.getQuestions()})
+      .catch( (err)=> {console.log('error')})
   }
 
 
 
+
+
 function uploadImageAsPromise (imageFile) {
-  let arr = []
   return new Promise(function (resolve, reject) {
       var storageRef = firebase.storage().ref("/"+imageFile.name);
       var task = storageRef.put(imageFile)
@@ -77,18 +88,19 @@ function uploadImageAsPromise (imageFile) {
       () => {
         // Upload completed successfully, now we can get the download URL
         task.snapshot.ref.getDownloadURL().then((downloadURL) => {
-          arr.push(downloadURL)
+          empty.push(downloadURL)
           console.log('File available at', downloadURL);
-          resolve(
-            axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/questions/${props.question.question_id}/answers`,{
+            if(empty.length === photos.length) {
+            axios.post(`http://127.0.0.1:3000/api/qa/questions/${props.question.question_id}/answers`,{
               body: answer,
               name: nickname,
               email: email,
-              photos: arr
-            }, header)
+              photos: empty
+            })
             .then(() => {console.log('success')})
+            .then( ()=> {props.getQuestions()})
             .catch( (err)=> {console.log('error')})
-          )
+          }
         });
       }
     );
@@ -96,22 +108,6 @@ function uploadImageAsPromise (imageFile) {
 }
 
   }
-
-  let addAnswer = () => {
-    let id = props.question.question_id
-      upload()
-        axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/questions/${id}/answers`,{
-        body: answer,
-        name: nickname,
-        email: email,
-        photos: photosURL
-      }, header)
-      .then(() => {console.log('success')})
-      .catch( (err)=> {console.log('error')})
-
-
-
-  };
 
 
   let validEmail = (email) => {
@@ -130,7 +126,10 @@ function uploadImageAsPromise (imageFile) {
     else if (!validEmail(email)) {if(error.length ===0) {error.push('The email address provided is not in correct email format')} else{error.push(', and The email address provided is not in correct email format')}}
 
 
-    if(error.length===0) {upload()}
+    if(error.length===0) {
+      upload()
+      setClicked(!photoClicked)
+    }
     else {alert(error.join(''))}
   }
 
