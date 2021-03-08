@@ -87,7 +87,7 @@
   margin: 0.1rem;
   opacity: 1;
   animation: fade_in;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
 }
 
 .image-thumbnail-hidden {
@@ -95,7 +95,7 @@
   width: 0;
   opacity: 0;
   animation: fade_out;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
 }
 
 .image-thumbnail:hover {
@@ -170,7 +170,7 @@
   padding: 0 !important;
   margin: 0;
   width: 100%;
-  height: 90%;
+  height: 100%;
   overflow-y: hidden;
 }
 
@@ -244,11 +244,12 @@
   border-radius: 50%;
   background-color: rgb(175,175,175);
   margin: 0 2px 0.1rem 2px;
-  transition-duration: 0.25s;
+  transition-duration: 0.5s;
 }
 
 .expanded-view-icon:hover {
   cursor: pointer;
+  background-color: rgb(240,240,240);
 }
 
 .expanded-view-icon#selected {
@@ -398,7 +399,8 @@
 /* AddToCart.jsx */
 
 .add-to-cart-message {
-  font-size: 24;
+  font-size: 16;
+  font-weight: bold;
   padding: 0.1rem;
   color: rgb(255, 0, 140);
 }
