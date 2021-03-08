@@ -35,17 +35,17 @@ export default function ExpandedView({ close, handleIconClick, url, photos, back
           <button
             id={selectedPhotoIndex > 0 ? null : 'hidden'}
             className='horizontal-arrow'
-            style={{ marginTop: '-0.5rem' }}
             onClick={(e) => { back(e) }}
-          >&#x2190;
+          >
+            <i class="fas fa-arrow-left"></i>
           </button>
           {renderExpandedViewIcons()}
           <button
             id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'}
             className='horizontal-arrow'
-            style={{ marginTop: '-0.5rem' }}
             onClick={(e) => { forward(e) }}
-          >&#x2192;
+          >
+            <i class="fas fa-arrow-right"></i>
           </button>
         </div>
       </div>

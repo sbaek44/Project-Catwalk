@@ -61,12 +61,12 @@ export default function ImageGallery({ selectPhoto, photos }) {
       </div>
     } else {
       return <div className='gallery-thumbnails-container'>
-
         <button
           id={selectedPhotoIndex === 0 ? 'hidden' : null}
           className='vertical-arrow'
-          onClick={(event) => { scrollBack(event) }}>&#8963;</button>
-
+          onClick={(event) => { scrollBack(event) }}>
+          <i class="fas fa-chevron-up"></i>
+        </button>
         {photos.map((photo, i) => {
           return <img
             className={shouldShowThumbnail(i) ? 'image-thumbnail' : 'image-thumbnail-hidden'}
@@ -78,12 +78,12 @@ export default function ImageGallery({ selectPhoto, photos }) {
             id={i === selectedPhotoIndex ? 'selected' : null}
           />
         })}
-
         <button
           id={selectedPhotoIndex === photos.length - 1 ? 'hidden' : null}
           className='vertical-arrow'
-          onClick={(event) => { scrollForward(event) }}>&#8964;</button>
-
+          onClick={(event) => { scrollForward(event) }}>
+          <i class="fas fa-chevron-down"></i>
+        </button>
       </div>
     }
   }
@@ -150,8 +150,10 @@ export default function ImageGallery({ selectPhoto, photos }) {
             </ExpandedView>
           </Modal>
           <div className='horizontal-arrow-container'>
-            <button className='horizontal-arrow' id={selectedPhotoIndex > 0 ? null : 'hidden'} onClick={(event) => { scrollBack(event) }}>&#x2190;</button>
-            <button className='horizontal-arrow' id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'} onClick={(event) => { scrollForward(event) }}>&#x2192;</button>
+            <button className='horizontal-arrow' id={selectedPhotoIndex > 0 ? null : 'hidden'} onClick={(event) => { scrollBack(event) }}><i class="fas fa-chevron-left"></i>
+            </button>
+            <button className='horizontal-arrow' id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'} onClick={(event) => { scrollForward(event) }}><i class="fas fa-chevron-right"></i>
+            </button>
           </div>
         </div>
         : null}

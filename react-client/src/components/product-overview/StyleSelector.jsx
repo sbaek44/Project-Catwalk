@@ -53,7 +53,7 @@ function StyleSelector({ product, selectedStyle, selectStyle, updatePrice, updat
       borderRadius: '50%',
       backgroundImage: `url(${thumbnail})`,
       backgroundPosition: '50% 50%',
-      backgroundRepeat: 'no-repeat'
+      backgroundRepeat: 'no-repeat',
     }
   }
 
