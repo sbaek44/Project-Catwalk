@@ -10,13 +10,9 @@ const QuestionModals = (props) => {
   const [nickname, setNickname] = useState('')
   const [email, setEmail] = useState('')
 
-
-
-
   useEffect( ()=> {
 
   },[])
-
   let addQuestions = () => {
     let id = props.product.id
       axios.post(`http://127.0.0.1:3000/api/qa/questions`,{
@@ -29,17 +25,12 @@ const QuestionModals = (props) => {
       .then ( ()=> {addClicked(!addClick)})
       .then(() => {console.log('success')})
       .catch( (err)=> {console.log('error')})
-
   };
-
 
   let validEmail = (email) => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
     return re.test(String(email).toLowerCase());
   }
-
-
   let submitHandler = (e) => {
     e.preventDefault()
    let error = []
@@ -47,7 +38,6 @@ const QuestionModals = (props) => {
     if (nickname.length === 0) {if (error.length===0){error.push("You must enter the following: Name")} else{error.push(", Name")}}
     if (email.length === 0) {if (error.length===0){error.push("You must enter the following: Email")} else{error.push(", Email")}}
     else if (!validEmail(email)) {if(error.length ===0) {error.push('The email address provided is not in correct email format')} else{error.push(', and The email address provided is not in correct email format')}}
-
 
     if(error.length===0) {addQuestions()}
     else {alert(error.join(''))}
@@ -71,14 +61,12 @@ const QuestionModals = (props) => {
           <textarea  style = {{width: "100%", height: "75px"}}maxLength ="1000"  onChange= {e=> setQuestion(e.target.value)} value= {question}></textarea>
           </label>
           </div>
-
           <div>
           <label>What is your nickname?<span style={{color: "red"}}>*</span>
           <input  type="text" style = {{width: "80%"}} placeholder="Example: jackson11!" onChange= {e=> setNickname(e.target.value)} value = {nickname}></input>
           </label>
           <p style= {{fontStyle: 'italic'}}>For privacy reasons, do not use your full name or email address</p>
           </div>
-
           <div>
             <p>Your Email <span style={{color: "red"}}>*</span></p>
           <label>
@@ -86,13 +74,9 @@ const QuestionModals = (props) => {
           </label>
           <p style= {{fontStyle: 'italic'}}>For authentication reasons, you will not be emailed</p>
           </div>
-
           <input style ={{borderRadius: "5px", height: "50px", width: "100px", float: "right"}}type="submit" value = "Submit"></input>
-
-
         </form>
         </div>
-
         </Modal>
         <button className="moreadd" onClick={()=>{addClicked(!addClick)}}>ADD A QUESTION +</button>
     </div>
