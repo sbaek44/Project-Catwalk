@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-// import ExpandedView from './ExpandedView_old.jsx'; // keeping a copy of old one with prismazoom for now, will delete one of these and uninstall the unneeded package by the time we deploy
 import ExpandedView from './ExpandedView.jsx';
+
 import Modal from 'react-modal';
 
 const modalStyle = {
   content: {
     top: 0,
     left: 0,
-    right: 0,
     width: '100vw',
-    height: '98vh',
+    height: '100vh'
   }
 };
 
@@ -62,12 +61,12 @@ export default function ImageGallery({ selectPhoto, photos }) {
       </div>
     } else {
       return <div className='gallery-thumbnails-container'>
-
         <button
           id={selectedPhotoIndex === 0 ? 'hidden' : null}
           className='vertical-arrow'
-          onClick={(event) => { scrollBack(event) }}>&#8963;</button>
-
+          onClick={(event) => { scrollBack(event) }}>
+          <i class="fas fa-chevron-up"></i>
+        </button>
         {photos.map((photo, i) => {
           return <img
             className={shouldShowThumbnail(i) ? 'image-thumbnail' : 'image-thumbnail-hidden'}
@@ -79,12 +78,12 @@ export default function ImageGallery({ selectPhoto, photos }) {
             id={i === selectedPhotoIndex ? 'selected' : null}
           />
         })}
-
         <button
           id={selectedPhotoIndex === photos.length - 1 ? 'hidden' : null}
           className='vertical-arrow'
-          onClick={(event) => { scrollForward(event) }}>&#8964;</button>
-
+          onClick={(event) => { scrollForward(event) }}>
+          <i class="fas fa-chevron-down"></i>
+        </button>
       </div>
     }
   }
@@ -151,8 +150,10 @@ export default function ImageGallery({ selectPhoto, photos }) {
             </ExpandedView>
           </Modal>
           <div className='horizontal-arrow-container'>
-            <button className='horizontal-arrow' id={selectedPhotoIndex > 0 ? null : 'hidden'} onClick={(event) => { scrollBack(event) }}>&#x2190;</button>
-            <button className='horizontal-arrow' id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'} onClick={(event) => { scrollForward(event) }}>&#x2192;</button>
+            <button className='horizontal-arrow' id={selectedPhotoIndex > 0 ? null : 'hidden'} onClick={(event) => { scrollBack(event) }}><i class="fas fa-chevron-left"></i>
+            </button>
+            <button className='horizontal-arrow' id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'} onClick={(event) => { scrollForward(event) }}><i class="fas fa-chevron-right"></i>
+            </button>
           </div>
         </div>
         : null}

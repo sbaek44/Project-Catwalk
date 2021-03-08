@@ -44,7 +44,7 @@ const PostReviewForm = (props) => {
   if (body.length < 50) {
     let amountLeft = 50 - body.length;
     belowBody = (
-      <div style={{fontWeight: 'bold', margin: '1%'}} >
+      <div style={{margin: '1%'}} >
         Minimum required characters left:
         {amountLeft}
       </div>
@@ -94,8 +94,6 @@ const PostReviewForm = (props) => {
   }
 
   const submitReview = (e) => {
-    let content = "Content-Type"
-    header.headers[content] = 'application/json';
     e.preventDefault();
     if (reviewPost.rating < 1) {
       alert(`You must enter the following: Rating`);
@@ -255,7 +253,7 @@ const PostReviewForm = (props) => {
             <label>
               What is your nickname?:
               <input style={{margin: '1%'}} placeholder="Example: jackson11!" onChange={(e) => setName(e.target.value)} type="text" name="" />
-              <div style={{fontWeight: 'bold'}} >
+              <div>
               For privacy reasons, do not use your full name or email address
               </div>
             </label>
@@ -264,13 +262,19 @@ const PostReviewForm = (props) => {
             <label>
               Your email:
               <input style={{margin: '1%'}} placeholder="Example: jackson11@email.com"  onChange={(e) => setEmail(e.target.value)} type="email" name="" />
-              <div style={{fontWeight: 'bold'}} >
+              <div >
               For authentication reasons, you will not be emailed
               </div>
             </label>
         </div>
-          <button className="review-buttons" onClick={submitReview}>Submit</button>
-          <button className="review-buttons" onClick={() => setPostModalIsOpen(!postModalIsOpen)} >Cancel</button>
+          <button className="review-buttons" onClick={(e) => {
+            e.preventDefault();
+            submitReview(e)
+          }}>Submit</button>
+          <button className="review-buttons" onClick={() =>{
+            setPostModalIsOpen(!postModalIsOpen)
+            props.togglePostForm()
+          }} >Cancel</button>
         </form>
       </div>
     </Modal>

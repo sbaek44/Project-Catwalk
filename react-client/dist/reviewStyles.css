@@ -56,10 +56,12 @@
 .stars-outer {
   position: relative;
 	display: inline-block;
+	font-size: large;
 }
 
 .stars-inner {
   position: absolute;
+	font-size: large;
   top: 0;
   left: 0;
   white-space: nowrap;
@@ -67,15 +69,17 @@
   width: 0;
 }
 .stars-outer::before {
-  content: "\f005 \f005 \f005 \f005 \f005";
-  font-family: "Font Awesome 5 Free";
+	/* content: "\f005 \f005 \f005 \f005 \f005"; */
+  content: "\2605 \2605 \2605 \2605 \2605";
+  /* font-family: "Font Awesome 5 Free"; */
   font-weight: 900;
   color: #ccc;
 }
 
 .stars-inner::before {
-  content: "\f005 \f005 \f005 \f005 \f005";
-  font-family: "Font Awesome 5 Free";
+  /* content: "\f005 \f005 \f005 \f005 \f005"; */
+  content: "\2605 \2605 \2605 \2605 \2605";
+  /* font-family: "Font Awesome 5 Free"; */
   font-weight: 900;
 	color: rgb(72,72,72);
 }
@@ -91,7 +95,7 @@
 	width: 50%;
 }
 .ratings-breakdown {
-	font-weight: bold;
+	font-size: 17px;
 	margin-bottom: 5%;
 }
 #average-rating-in-ratings {
@@ -106,25 +110,34 @@
 	white-space: nowrap;
 	overflow: hidden;
 	padding-right: 10px;
-	font-weight: bold;
 }
 .text:hover {
 	text-decoration: underline;
 }
 .sort-bar {
+	margin-bottom: 1%;
+	width: 85%;
 	display: flex;
 	flex-direction: row;
 	padding-left: 20px;
 	font-weight: bold;
 	white-space: nowrap;
 	overflow: hidden;
-	font-size: 20px;
+	font-size: 16px;
 }
 #filter-display {
-	margin: 5px;
+	margin-top: 2%;
+	width: 85%;
+	display: flex;
+	flex-direction: row;
+	padding-left: 20px;
+	font-weight: bold;
+	white-space: nowrap;
+	overflow: hidden;
+	font-size: 16px;
 }
 .search-reviews {
-	margin-left: 24%;
+	margin-left: auto;
 }
 .more-reviews-bar {
 	padding-top: 20px;
@@ -163,7 +176,7 @@
 	Border: none;
 	text-decoration: underline;
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 16px;
 }
 .reviewSummary {
   white-space: nowrap;
@@ -190,6 +203,7 @@
 	margin-left: -12px;
 }
 .container {
+	width: 305px;
 	display: flex;
 	position: relative;
 	padding-bottom: 10px;
@@ -239,6 +253,7 @@
 }
 #characteristic {
 	padding-top: 7px;
+	font-size: 16px;
 }
 #removeAll {
 	margin-left: 10px;
@@ -272,4 +287,23 @@
 }
 .found {
 	color: black;
+}
+#addMore {
+	margin-left: 1%;
+	margin-bottom: 1%;
+	margin-top: 1%;
+	padding: 1%;
+	box-shadow: 2px 2px 2px rgb(72,72,72);
+  border: 1px solid rgb(160,160,160);
+  border-radius: 0.25rem;
+  background-color: rgb(240,240,240);
+  font-size: 1rem;
+  transition-duration: 0.25s;
+
+}
+#addMore:hover {
+  background-color: rgb(255, 0, 140);
+  border: 1px solid rgb(72,72,72);
+  box-shadow: 2px 2px 2px rgb(72,72,72);
+  color: rgb(240,240,240);
 }
