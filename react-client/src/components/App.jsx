@@ -96,7 +96,7 @@ export default class App extends React.Component {
           currentProduct={this.state.selectedProduct} /> */}
         <QA
           currentProduct={this.state.selectedProduct} />
-        <Reviews
+        {/* <Reviews
           avgRating={this.state.avgRating}
           metadata={this.state.metadata}
           getRatings={this.getRatings}

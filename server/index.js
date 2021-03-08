@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const reviewsController = require('./reviews/controller.js');
 const sharedController = require('./shared/controller.js');
 const cartController = require('./cart/controller.js');
+const questionsController = require('./qa/controller.js');
 
 
 app.use(cors());
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 app.use('/api/reviews', reviewsController);
 app.use('/api/shared', sharedController);
 app.use('/api/cart', cartController);
+app.use('/api/qa', questionsController)
 
 app.use(express.static(path.join(__dirname + '/../react-client/dist')));
 

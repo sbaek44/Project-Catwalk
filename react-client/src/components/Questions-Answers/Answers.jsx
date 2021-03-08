@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import header from '../../../../config.js';
-import AnswerList from './AnswerList.jsx';
 import AnswerModals from './AnswerModals.jsx'
 import AnswerPicture from './AnswerPicture.jsx'
 
@@ -16,11 +15,11 @@ const Answers = (props) => {
   useEffect(() => {
     getAnswers();
 
-  }, [helpfulClicked], [reportClicked]);
+  }, [helpfulClicked, reportClicked, props.questionInfo]);
 
   let getAnswers = () => {
     let id = props.id
-      axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/questions/${id}/answers`, header)
+      axios.get(`http://127.0.0.1:3000/api/qa/questions/${id}/answers`)
       .then((answersList) => {
         setAnswers(answersList.data.results);
       })
@@ -30,16 +29,16 @@ const Answers = (props) => {
 
   let increaseHelpfulness = (answer) => {
     let id = answer.answer_id || 11111
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/answers/${id}/helpful`,null ,header)
-    .then(()=> {setHelpfulClicked(prevArray=> [...prevArray, id])})
+    setHelpfulClicked(prevArray=> [...prevArray, id])
+    axios.put(`http://127.0.0.1:3000/api/qa/answers/${id}/helpful`,null)
     .catch( (err)=> {console.log(err)})
 
   }
 
   let reportAnswer = (answer) => {
     let id = answer.answer_id
-    axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-lax/qa/answers/${id}/report`,null ,header)
-    .then(()=> {setReportClicked(prevArray=> [...prevArray, id])})
+    setReportClicked(prevArray=> [...prevArray, id])
+    axios.put(`http://127.0.0.1:3000/api/qa/answers/${id}/report`,null)
     .catch( (err)=> {console.log(err)})
 
   }
@@ -52,18 +51,10 @@ const Answers = (props) => {
   let insertAnswers = (answer, index)=> {
     let date = new Date(answer.date)
         return (
-          <div>
-            <span className = 'answer_body'>
-            A: {answer.body}
-            </span>
+          <div className="singleAnswer" key ={index}>
+            <span className = 'aInAnswer'>A: </span>
+              <span>{answer.body}</span>
             <div>
-              {/* {answer.photos !== undefined ? <div className="answerImages">
-                {answer.photos.map( (image,index)=> {
-                  return !picmodal? <img onClick={()=>{setPicModal(!picmodal)}} className='img' src={image.url} alt="" key={index}/>
-                  : <img onClick={()=>{setPicModal(!picmodal)}} src={image.url} alt="" key={index}/>
-                })}
-              </div>
-              :null} */}
               <AnswerPicture answer ={answer} key = {index}/>
             </div>
             {answer.answerer_name === "Seller" ?
@@ -98,29 +89,21 @@ const Answers = (props) => {
 
 
   return (
-    <div>
+    <div className= "AllAnswers">
       {!moreAnswers ?
-      <div>
-        {/* {<AnswerModals question = {props.questionInfo} product={props.product}/>} */}
+      <div className="MoreAnswers">
       {answers.slice(0, 2).map( (answer, index) => {
-        return (
-          <div key = {index}>{insertAnswers(answer, index)}</div>
-        )
+        return insertAnswers(answer, index)
       })}
-      {answers.length > 2 ? <button onClick={()=>{setMoreAnswers(!moreAnswers)}}>See more Answers</button> : null}
+      {answers.length > 2 ? <button className ="moreButton" onClick={()=>{setMoreAnswers(!moreAnswers)}}>See more Answers</button> : null}
     </div>
     :
-    <div>
+    <div className="MoreAnswers">
         {answers.map( (answer, index) => {
-          return (
-            <div key = {index}>{insertAnswers(answer, index)}</div>
-          )
+          return insertAnswers(answer, index)
         })}
-        {answers.length > 2 ? <button onClick={()=>{setMoreAnswers(!moreAnswers)}}>Collpase answers</button> : null}
+        {answers.length > 2 ? <button button className ="moreButton" onClick={()=>{setMoreAnswers(!moreAnswers)}}>Collpase answers</button> : null}
       </div> }
-
-
-
     </div>
   )
 }
