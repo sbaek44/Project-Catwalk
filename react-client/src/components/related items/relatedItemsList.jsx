@@ -21,7 +21,7 @@ function RelatedItemsList(props) {
 
   let getRelatedIds = () => {
     axios.get(`http://127.0.0.1:3000/api/shared/products/${currentProductId}/related`)
-      .then((results) => (updateRelatedItems(results.data)))
+      .then((results) => (updateRelatedItems(results.data.filter(item => (item !== 16057)))))
       .catch((err) => console.log(err))
   }
 
