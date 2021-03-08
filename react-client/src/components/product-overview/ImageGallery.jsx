@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ExpandedView from './ExpandedView.jsx';
-
 import Modal from 'react-modal';
 
 const modalStyle = {
@@ -8,7 +7,8 @@ const modalStyle = {
     top: 0,
     left: 0,
     width: '100vw',
-    height: '100vh'
+    height: '100vh',
+    overflowY: 'hidden'
   }
 };
 
@@ -122,41 +122,43 @@ export default function ImageGallery({ selectPhoto, photos }) {
       backgroundImage: `url(${url})`,
       backgroundRepeat: 'no-repeat',
       backgroundAttachment: 'scroll',
-      backgroundPosition: 'center',
+      backgroundPosition: 'center'
     }
   }
 
   return (
     <div className='image-gallery-outer'>
       {photos.length ?
-        <div
-          className='image-gallery-main'
-          style={mainImageCSS(photos[selectedPhotoIndex].url)}
-          onClick={() => expandedGalleryView ? null : toggleGalleryView(true)}
-        >
-          {renderThumbnails()}
-
-          {/* EXPANDED VIEW */}
-          <Modal id='expanded-gallery-modal' isOpen={expandedGalleryView} style={modalStyle} ariaHideApp={false} >
-            <ExpandedView
-              close={() => toggleGalleryView(false)}
-              photos={photos}
-              selectedPhotoIndex={selectedPhotoIndex}
-              url={photos[selectedPhotoIndex].url}
-              handleIconClick={handleThumbnailClick}
-              back={scrollBack}
-              forward={scrollForward}
-            >
-            </ExpandedView>
-          </Modal>
-          <div className='horizontal-arrow-container'>
-            <button className='horizontal-arrow' id={selectedPhotoIndex > 0 ? null : 'hidden'} onClick={(event) => { scrollBack(event) }}><i className="fas fa-chevron-left"></i>
-            </button>
-            <button className='horizontal-arrow' id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'} onClick={(event) => { scrollForward(event) }}><i className="fas fa-chevron-right"></i>
-            </button>
+        <div>
+          <div
+            className='image-gallery-main-image'
+            style={mainImageCSS(photos[selectedPhotoIndex].url)}
+            onClick={() => expandedGalleryView ? null : toggleGalleryView(true)}
+          >
+            {renderThumbnails()}
+            {/* EXPANDED VIEW */}
+            <Modal id='expanded-gallery-modal' isOpen={expandedGalleryView} style={modalStyle} ariaHideApp={false} >
+              <ExpandedView
+                close={() => toggleGalleryView(false)}
+                photos={photos}
+                selectedPhotoIndex={selectedPhotoIndex}
+                url={photos[selectedPhotoIndex].url}
+                handleIconClick={handleThumbnailClick}
+                back={scrollBack}
+                forward={scrollForward}
+              >
+              </ExpandedView>
+            </Modal>
+            <div className='horizontal-arrow-container'>
+              <button className='horizontal-arrow' id={selectedPhotoIndex > 0 ? null : 'hidden'} onClick={(event) => { scrollBack(event) }}><i className="fas fa-chevron-left"></i>
+              </button>
+              <button className='horizontal-arrow' id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'} onClick={(event) => { scrollForward(event) }}><i className="fas fa-chevron-right"></i>
+              </button>
+            </div>
           </div>
         </div>
-        : null}
-    </div>
+        : null
+}
+    </div >
   )
 };

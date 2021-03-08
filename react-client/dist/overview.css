@@ -10,11 +10,6 @@
   to {opacity: 0;}
 }
 
-/* @keyframes slide_left {
-  from {transform: 'translateX (0%)';}
-  to {transform: 'translateX (-100%)';}
-} */
-
 /* Banner.jsx */
 .banner-top {
   background-color: rgb(24,24,24);
@@ -54,7 +49,7 @@
   user-select: none;
 }
 
-.image-gallery-main {
+.image-gallery-main-image {
   margin-left: 0.5rem;
   border: 1px solid rgb(24,24,24);
   border-radius: 0.25rem;
@@ -65,6 +60,12 @@
   cursor: zoom-in;
   width: auto;
   height: 100%;
+}
+
+.image-gallery-main-image img {
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center
 }
 
 .gallery-thumbnails-container {
@@ -80,10 +81,12 @@
 }
 
 .image-thumbnail {
-  height: 50px;
-  width: 50px;
+  min-height: 50px;
+  min-width: 50px;
+  max-height: 50px;
+  max-width: 50px;
   border: 2px solid rgb(24,24,24);
-  border-radius: 0.25rem;
+  border-radius: 0.1rem;
   margin: 0.1rem;
   opacity: 1;
 }
@@ -136,6 +139,7 @@
   align-items: center;
   margin-left: 0;
   padding-right: 1.5rem;
+  z-index: 6;
 }
 
 .horizontal-arrow {
@@ -189,24 +193,7 @@
 }
 
 #modal-x-button:hover {
-  color: red
-}
-
-.expanded-view-message {
-  font-size: 16px;
-  color: rgb(240,240,240);
-  text-shadow: 1px 1px rgb(24,24,24);
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 5%;
-  width: 100%;
-  z-index: 10;
-  opacity: 0;
-  animation-name: fade_out;
-  animation-duration: 3s;
+  color: rgb(255, 0, 140);
 }
 
 .expanded-arrow-and-icon-container {
@@ -243,8 +230,13 @@
   transition-duration: 0.5s;
 }
 
-.expanded-view-icon:hover {
+.expanded-arrow-and-icon-container .expanded-view-icon:hover {
+  cursor: pointer;
   background-color: rgb(240,240,240);
+}
+
+.expanded-arrow-and-icon-container-fadeout .expanded-view-icon:hover, .horizontal-arrow:hover {
+  cursor: all-scroll;
 }
 
 .expanded-view-icon#selected {
@@ -524,6 +516,7 @@ figure {
   display: block;
   margin: auto;
   overflow-x: hidden;
+  overflow-y: hidden;
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
