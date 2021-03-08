@@ -42,17 +42,20 @@ function YourOutfitList(props) {
     return (
       <div id="addOutfit">
         <h3 id="outfit-title">YOUR OUTFIT</h3>
-        <div id="short-outfitList">
+        <div style={{display: 'flex', flexDirection: 'row'}} id="short-outfitList">
+          <Carousel itemsToShow={4} showEmptySlots>
           <div id="outfit-button" onClick={addToYourOutfit}>+</div>
+          </Carousel>
         </div>
       </div>
     )
-  } else if (yourOutfit.length > 4) {
+
+  } else if (yourOutfit.length > 0) {
     return (
       <div>
       <h3 id="outfit-title">YOUR OUTFIT</h3>
         <div style={{display: 'flex', flexDirection: 'row'}}>
-        <Carousel itemsToShow={4}>
+        <Carousel itemsToShow={4} showEmptySlots>
         {yourOutfit.map((outfit, i) => (
           <div id="yourOutfitCard" key={i}>
             <img id="yourOutfitImg" src={getImgSrc(outfit.id)} />
