@@ -1,8 +1,13 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable no-console */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable react/forbid-prop-types */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 function ProductDescription({ product }) {
-
   const [features, changeFeatures] = useState([]);
 
   const getAllProductInfo = (id) => {
@@ -12,21 +17,21 @@ function ProductDescription({ product }) {
       })
       .catch((err) => {
         console.error(err);
-      })
-  }
+      });
+  };
 
   useEffect(() => {
     if (product.hasOwnProperty('id')) {
-      getAllProductInfo(product.id)
+      getAllProductInfo(product.id);
     }
-  }, [product])
+  }, [product]);
 
   const renderFeatures = () => {
     // sometimes there are duplicate features on one product (???)
-    let uniqueFeatures = [];
-    for (let feature of features) {
+    const uniqueFeatures = [];
+    for (const feature of features) {
       if (!uniqueFeatures.includes(feature)) {
-        uniqueFeatures.push(feature)
+        uniqueFeatures.push(feature);
       }
     }
     return uniqueFeatures.map((feature, i) => {
@@ -34,40 +39,61 @@ function ProductDescription({ product }) {
       if (feature.value) {
         valueWithoutQuotes = feature.value.replace(/^"|"$/g, ''); // remove quotation marks from values (not all features have a value prop)
       }
-      return <li key={i} style={{ display: 'flex', flexFlow: 'row nowrap' }}>
-        <span style={{ marginRight: 5 }}>✔ </span>
-        <span style={{ marginRight: 5 }}>{`${feature.feature}`}</span>
-        <span style={{ color: 'gray' }}>{valueWithoutQuotes}</span>
-      </li>
-    })
-  }
+      return (
+        <li key={i} style={{ display: 'flex', flexFlow: 'row nowrap' }}>
+          <span style={{ marginRight: 5 }}>✔ </span>
+          <span style={{ marginRight: 5 }}>{`${feature.feature}`}</span>
+          <span style={{ color: 'gray' }}>{valueWithoutQuotes}</span>
+        </li>
+      );
+    });
+  };
 
   const addPeriodIfMissing = (str = null) => {
     if (str) {
-      let lastChar = str.slice(-1);
+      const lastChar = str.slice(-1);
       if (lastChar !== '.') {
-        return '.'
+        return '.';
       }
     }
-  }
+    return null;
+  };
 
   return (
     <div>
-      {product !== null ?
-        <div className='product-info-bottom'>
-          <div className='slogan-description-container'>
-            <div className='product-slogan'>{product.slogan}{addPeriodIfMissing(product.slogan)}</div>
-            <div className='product-description'>{product.description}{addPeriodIfMissing(product.description)}</div>
+      {product !== null
+        ? (
+          <div className="product-info-bottom">
+            <div className="slogan-description-container">
+              <div className="product-slogan">
+                {product.slogan}
+                {addPeriodIfMissing(product.slogan)}
+              </div>
+              <div className="product-description">
+                {product.description}
+                {addPeriodIfMissing(product.description)}
+              </div>
+            </div>
+            {features.length
+              ? (
+                <ul className="feature-list">
+                  {renderFeatures()}
+                </ul>
+              )
+              : null}
           </div>
-          {features.length ?
-            <ul className='feature-list'>
-              {renderFeatures()}
-            </ul>
-            : null}
-        </div>
+        )
         : null}
-    </div >
-  )
+    </div>
+  );
+}
+
+ProductDescription.propTypes = {
+  product: PropTypes.object,
+};
+
+ProductDescription.defaultProps = {
+  product: {},
 };
 
 export default ProductDescription;

@@ -205,6 +205,9 @@
   top: 2.5%;
   width: 100%;
   z-index: 10;
+}
+
+.expanded-arrow-and-icon-container-fadein {
   opacity: 1;
   animation-name: fade_in;
   animation-duration: 0.5s;
@@ -233,10 +236,6 @@
 .expanded-arrow-and-icon-container .expanded-view-icon:hover {
   cursor: pointer;
   background-color: rgb(240,240,240);
-}
-
-.expanded-arrow-and-icon-container-fadeout .expanded-view-icon:hover, .horizontal-arrow:hover {
-  cursor: all-scroll;
 }
 
 .expanded-view-icon#selected {

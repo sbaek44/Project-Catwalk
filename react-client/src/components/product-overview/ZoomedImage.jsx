@@ -1,28 +1,27 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function ZoomedImage({url, zoom}) {
-
+export default function ZoomedImage({ url, zoom }) {
   const [backgroundImage, setBackgroundImage] = useState('');
   const [backgroundPosition, changePosition] = useState('50% 50%');
 
   useEffect(() => {
-    setBackgroundImage(`url(${url})`)
+    setBackgroundImage(`url(${url})`);
   }, [url]);
 
-  const handleMouseMove = e => {
-    const { left, top, width, height } = e.target.getBoundingClientRect()
-    const x = e.pageX / width * 100
-    const y = e.pageY / height * 100
+  const handleMouseMove = (e) => {
+    const {
+      left, top, width, height,
+    } = e.target.getBoundingClientRect();
+    const x = e.pageX / width * 100;
+    const y = e.pageY / height * 100;
     changePosition(`${x}% ${y}%`);
-  }
+  };
 
   return (
     <figure
       onMouseMove={(e) => handleMouseMove(e)}
-      style={{backgroundImage, backgroundPosition}}
-      onClick={() => zoom()}>
-    </figure>
-  )
-
+      style={{ backgroundImage, backgroundPosition }}
+      onClick={() => zoom()}
+    />
+  );
 }
-
