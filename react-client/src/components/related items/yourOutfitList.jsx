@@ -42,7 +42,7 @@ function YourOutfitList(props) {
     return (
       <div id="addOutfit">
         <h3 id="outfit-title">YOUR OUTFIT</h3>
-        <div id="emptyOutfit">
+        <div id="short-outfitList">
           <div id="outfit-button" onClick={addToYourOutfit}>+</div>
         </div>
       </div>
@@ -65,6 +65,7 @@ function YourOutfitList(props) {
             </div>
           </div>
         ))}
+        <div id="outfit-button" onClick={addToYourOutfit}>+</div>
         </Carousel>
         </div>
       </div>
@@ -73,7 +74,7 @@ function YourOutfitList(props) {
     return (
       <div>
         <h3 id="outfit-title">YOUR OUTFIT</h3>
-        <div style={{display: 'flex', flexDirection: 'row'}}>
+        <div id="short-outfitList" style={{display: 'flex', flexDirection: 'row'}}>
           {yourOutfit.map((outfit, i) => (
             <div id="yourOutfitCard" key={i}>
               <img id="yourOutfitImg" src={getImgSrc(outfit.id)} />
