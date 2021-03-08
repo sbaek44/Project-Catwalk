@@ -37,7 +37,7 @@ export default function ExpandedView({ close, handleIconClick, url, photos, back
             className='horizontal-arrow'
             onClick={(e) => { back(e) }}
           >
-            <i class="fas fa-arrow-left"></i>
+            <i className="fas fa-arrow-left"></i>
           </button>
           {renderExpandedViewIcons()}
           <button
@@ -45,7 +45,7 @@ export default function ExpandedView({ close, handleIconClick, url, photos, back
             className='horizontal-arrow'
             onClick={(e) => { forward(e) }}
           >
-            <i class="fas fa-arrow-right"></i>
+            <i className="fas fa-arrow-right"></i>
           </button>
         </div>
       </div>
