@@ -76,7 +76,7 @@ export default function AddToCart({ product, selectedStyle, styles, getStyleName
 
   const pleaseSelectSize = () => {
     toggleSizeMenu(true);
-    changeMessage('Please select a size.')
+    changeMessage('PLEASE SELECT A SIZE')
   }
 
   const add = () => {
@@ -133,6 +133,24 @@ export default function AddToCart({ product, selectedStyle, styles, getStyleName
           <div className='selector-container'>
             {/* size dropdown should become inactive and read OUT OF STOCK when there's no stock */}
             <Select
+              theme={theme => ({
+                ...theme,
+                colors: {
+                  ...theme.colors,
+                  primary: 'rgb(255, 0, 140)',
+                  primary25: 'rgb(250, 203, 229)'
+                }
+              })}
+              styles={{
+                option: (styles, state) => ({
+                  ...styles,
+                  cursor: 'pointer',
+                }),
+                control: (styles) => ({
+                  ...styles,
+                  cursor: 'pointer',
+                })
+              }}
               id='size'
               className='dropdown'
               onFocus={() => toggleSizeMenu(true)}
@@ -146,6 +164,24 @@ export default function AddToCart({ product, selectedStyle, styles, getStyleName
             >
             </Select>
             <Select
+              theme={theme => ({
+                ...theme,
+                colors: {
+                  ...theme.colors,
+                  primary: 'rgb(255, 0, 140)',
+                  primary25: 'rgb(250, 203, 229)'
+                }
+              })}
+              styles={{
+                option: (styles, state) => ({
+                  ...styles,
+                  cursor: 'pointer',
+                }),
+                control: (styles) => ({
+                  ...styles,
+                  cursor: 'pointer',
+                })
+              }}
               id='qty'
               className='dropdown'
               onFocus={() => toggleQtyMenu(true)}
@@ -163,9 +199,10 @@ export default function AddToCart({ product, selectedStyle, styles, getStyleName
             {/* useless */}
             <button className='favorite-button' onClick={() => alert(`FAVORITED ${product.name} !`)}>☆</button>
           </div>
-        </div>
-        : null}
-    </div>
+        </div >
+        : null
+      }
+    </div >
   )
 }
 

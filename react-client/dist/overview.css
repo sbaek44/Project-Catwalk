@@ -87,7 +87,7 @@
   margin: 0.1rem;
   opacity: 1;
   animation: fade_in;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
 }
 
 .image-thumbnail-hidden {
@@ -95,7 +95,7 @@
   width: 0;
   opacity: 0;
   animation: fade_out;
-  animation-duration: 1s;
+  animation-duration: 0.5s;
 }
 
 .image-thumbnail:hover {
@@ -145,8 +145,8 @@
 .horizontal-arrow {
   border: none;
   background: none;
-  font-size: 40px;
-  color: rgb(160,160,160);
+  font-size: 2rem;
+  color: rgb(175,175,175);
   transition-duration: 0.5s;
 }
 
@@ -168,26 +168,28 @@
   display: flex;
   flex-direction: column;
   padding: 0 !important;
-}
-
-.expanded-gallery-modal-inner {
   margin: 0;
   width: 100%;
   height: 100%;
   overflow-y: hidden;
 }
 
+.expanded-gallery-modal-inner {
+  background-color: rgb(235,235,235);
+}
+
 #modal-x-button {
   position: absolute;
   top: 0.1%;
   left: 0.1%;
-  width: 1.5rem;
-  height: 1.5rem;
-  font-size: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+  font-size: 2rem;
   color: rgb(160,160,160);
   border: none;
   background: none;
   transition-duration: 0.25s;
+  z-index: 30;
 }
 
 #modal-x-button:hover {
@@ -240,18 +242,18 @@
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
-  border: 2px solid rgb(160,160,160);
-  margin: 0.1rem;
-  background: none;
-  transition-duration: 0.25s;
+  background-color: rgb(175,175,175);
+  margin: 0 2px 0.1rem 2px;
+  transition-duration: 0.5s;
 }
 
 .expanded-view-icon:hover {
   cursor: pointer;
+  background-color: rgb(240,240,240);
 }
 
 .expanded-view-icon#selected {
-  background: rgb(255, 0, 140);
+  background-color: rgb(255, 0, 140);
 }
 
 .expanded-view-image {
@@ -294,6 +296,7 @@
 }
 
 #reviews-link {
+  padding-top: 0.25rem;
   padding-left: 0.5rem;
   text-decoration: underline;
   transition-duration: 0.25s;
@@ -301,7 +304,7 @@
 
 #reviews-link:hover {
   cursor: pointer;
-  color: rgb(0, 217, 255);
+  color: rgb(255, 0, 140);
 }
 
 .product-category {
@@ -311,13 +314,14 @@
 
 .product-name {
   font-size: 34px;
+  font-weight: bold;
   margin-bottom: 0.25rem;
 }
 
 .price {
   font-family: 'Roboto Mono', monospace;
   font-weight: 'bold';
-  font-size: 20px;
+  font-size: 24px;
 }
 
 .social-media-links {
@@ -395,7 +399,8 @@
 /* AddToCart.jsx */
 
 .add-to-cart-message {
-  font-size: 24;
+  font-size: 16;
+  font-weight: bold;
   padding: 0.1rem;
   color: rgb(255, 0, 140);
 }
@@ -519,14 +524,11 @@ figure {
   height: 100vh;
   background-repeat: no-repeat;
   background-size: 250%;
-  border: 2px solid rgb(24,24,24);
-  border-radius: 0.25rem;
   object-fit: cover;
   object-position: 50% 50%;
   display: block;
   margin: auto;
   overflow-x: hidden;
-  overflow-y: hidden;
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */

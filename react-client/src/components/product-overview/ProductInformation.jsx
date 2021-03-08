@@ -39,7 +39,7 @@ function ProductInformation({ product, selectedStyle, price, sale, avgRating }) 
             <span id="reviews-link" onClick={() => scrollToReviews()}>Read all reviews</span>
           </div>
           <div className='product-category'>
-            {product.category}
+            {product.category.toUpperCase()}
           </div>
           <div className='product-name'>
             {product.name}
