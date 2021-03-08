@@ -1,10 +1,18 @@
+/* eslint-disable no-console */
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-alert */
+/* eslint-disable no-restricted-syntax */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
-import header from '../../../../config.js';
+import PropTypes from 'prop-types';
 
-export default function AddToCart({
-  product, selectedStyle, styles, getStyleName,
+function AddToCart({
+  product,
+  selectedStyle,
+  styleOptions,
+  getStyleName,
 }) {
   const [size, selectSize] = useState('');
   const [qty, selectQty] = useState(1);
@@ -15,8 +23,8 @@ export default function AddToCart({
   const [message, changeMessage] = useState('');
 
   function getQtyOrEntireSKU(sku = null) {
-    // find selected style id in the styles-options array
-    for (const option of styles) {
+    // find selected style id in the styleOptions array
+    for (const option of styleOptions) {
       if (option.style_id === selectedStyle) {
         for (const each in option.skus) {
           // find currently selected size of the style
@@ -27,15 +35,16 @@ export default function AddToCart({
         }
       }
     }
+    return null;
   }
 
   const getSizeOptions = () => {
     const sizeOptions = [];
 
-    // find selected style id in the styles-options array
-    for (const option of styles) {
+    // find selected style id in the styleOptions array
+    for (const option of styleOptions) {
       if (option.style_id === selectedStyle) {
-        // when found, use the size property of the objects in the option's skus array to populate options
+        // when found, use the size property of the objects in the option's skus to populate options
         if (Object.keys(option.skus).length) {
           if (outOfStock === true) {
             warning(false);
@@ -58,15 +67,15 @@ export default function AddToCart({
   };
 
   const getQtyOptions = () => {
-    let qtyOptions = getQtyOrEntireSKU();
+    let numOfOptions = getQtyOrEntireSKU();
 
     // hard limit 15
-    if (qtyOptions > 15) {
-      qtyOptions = 15;
+    if (numOfOptions > 15) {
+      numOfOptions = 15;
     }
 
     const options = [];
-    for (let i = 1; i <= qtyOptions; i++) {
+    for (let i = 1; i <= numOfOptions; i += 1) {
       options.push({ value: Number(i), label: String(i) });
     }
 
@@ -79,7 +88,6 @@ export default function AddToCart({
   };
 
   const add = () => {
-    // If both a valid size and valid quantity are selected: Clicking this button will add the product to the user’s cart.
     if (size === '') {
       pleaseSelectSize();
     } else if (qty > 0) {
@@ -126,12 +134,12 @@ export default function AddToCart({
 
   return (
     <div className="add-to-cart" onBlur={() => closeMenus()}>
-      {styles.length && selectedStyle !== 0 && product.hasOwnProperty('id')
+      {styleOptions.length && selectedStyle !== 0 && product.hasOwnProperty('id')
         ? (
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span className="add-to-cart-message">{message}</span>
             <div className="selector-container">
-              {/* size dropdown should become inactive and read OUT OF STOCK when there's no stock */}
+              {/* size dropdown becomes inactive and reads OUT OF STOCK when there's no stock */}
               <Select
                 theme={(theme) => ({
                   ...theme,
@@ -142,7 +150,7 @@ export default function AddToCart({
                   },
                 })}
                 styles={{
-                  option: (styles, state) => ({
+                  option: (styles) => ({
                     ...styles,
                     cursor: 'pointer',
                   }),
@@ -172,7 +180,7 @@ export default function AddToCart({
                   },
                 })}
                 styles={{
-                  option: (styles, state) => ({
+                  option: (styles) => ({
                     ...styles,
                     cursor: 'pointer',
                   }),
@@ -194,13 +202,23 @@ export default function AddToCart({
             <div className="selector-container">
               {/* add to cart button is hidden when there's no stock */}
               {outOfStock ? null : (
-                <button className="add-to-cart-button" onClick={() => add()}>
+                <button
+                  type="button"
+                  className="add-to-cart-button"
+                  onClick={() => add()}
+                >
                   <span>ADD TO BAG</span>
                   <span>+</span>
                 </button>
               )}
               {/* useless */}
-              <button className="favorite-button" onClick={() => alert(`FAVORITED ${product.name} !`)}>☆</button>
+              <button
+                type="button"
+                className="favorite-button"
+                onClick={() => alert(`FAVORITED ${product.name} !`)}
+              >
+                ☆
+              </button>
             </div>
           </div>
         )
@@ -208,3 +226,19 @@ export default function AddToCart({
     </div>
   );
 }
+
+AddToCart.propTypes = {
+  product: PropTypes.object,
+  selectedStyle: PropTypes.number,
+  styleOptions: PropTypes.array,
+  getStyleName: PropTypes.func,
+};
+
+AddToCart.defaultProps = {
+  product: {},
+  selectedStyle: null,
+  styleOptions: null,
+  getStyleName: null,
+};
+
+export default AddToCart;

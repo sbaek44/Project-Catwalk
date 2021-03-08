@@ -4,8 +4,8 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable import/extensions */
 import React from 'react';
-import { SocialIcon } from 'react-social-icons';
 import PropTypes from 'prop-types';
+import { SocialIcon } from 'react-social-icons';
 import Stars from '../Reviews/Ratings/Stars.jsx';
 
 function ProductInformation({

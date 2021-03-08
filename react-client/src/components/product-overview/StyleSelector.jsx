@@ -115,7 +115,7 @@ function StyleSelector({
             <AddToCart
               product={product}
               selectedStyle={selectedStyle}
-              styles={styles}
+              styleOptions={styles}
               getStyleName={getNameOfSelectedStyle}
             />
           </div>

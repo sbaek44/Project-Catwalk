@@ -1,15 +1,16 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable import/extensions */
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import ProductInformation from './ProductInformation.jsx';
 import ProductDescription from './ProductDescription.jsx';
 import ImageGallery from './ImageGallery.jsx';
 import StyleSelector from './StyleSelector.jsx';
 import Banner from './Banner.jsx';
 
-export default function Overview({
+function Overview({
   product,
-  selectedItemIndex,
-  avgRating
+  avgRating,
 }) {
   const [selectedStyle, selectStyle] = useState(0);
   const [price, updatePrice] = useState(0);
@@ -49,3 +50,15 @@ export default function Overview({
     </div>
   );
 }
+
+Overview.propTypes = {
+  product: PropTypes.object,
+  avgRating: PropTypes.number,
+};
+
+Overview.defaultProps = {
+  product: null,
+  avgRating: null,
+};
+
+export default Overview;

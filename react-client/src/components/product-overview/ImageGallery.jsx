@@ -1,4 +1,11 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable import/extensions */
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import ExpandedView from './ExpandedView.jsx';
 
@@ -12,18 +19,41 @@ const modalStyle = {
   },
 };
 
-export default function ImageGallery({ selectPhoto, photos }) {
-  // By default, the first image in the set will be displayed as the main image
-  // When switching between styles, the index of the image currently selected should be maintained when the gallery updates for the new style
-
+function ImageGallery({
+  selectPhoto,
+  photos,
+}) {
   const [selectedPhotoIndex, changePhotoIndex] = useState(0);
 
-  // The gallery will be viewable in two states.  A default collapsed view, and an expanded view.
   const [expandedGalleryView, toggleGalleryView] = useState(false);
 
   const between = (target, min, max) => target >= min && target <= max;
 
-  // If more than 7 images are in the set for the style selected, the user should be able to scroll forward and backwards through the thumbnails. An arrow button pointing either direction should allow the customer to scroll through the remaining thumbnails in either direction.
+  const handleThumbnailClick = (event, url, idx) => {
+    event.stopPropagation();
+    selectPhoto(url);
+    changePhotoIndex(idx);
+  };
+
+  const scrollForward = (event) => {
+    event.stopPropagation();
+    if (selectedPhotoIndex === photos.length - 1) {
+      // changePhotoIndex(0) for infinite scroll
+    } else {
+      const nextIndex = selectedPhotoIndex + 1;
+      changePhotoIndex(nextIndex);
+    }
+  };
+
+  const scrollBack = (event) => {
+    event.stopPropagation();
+    if (selectedPhotoIndex === 0) {
+      // changePhotoIndex(photos.length - 1) for infinite scroll
+    } else {
+      const nextIndex = selectedPhotoIndex - 1;
+      changePhotoIndex(nextIndex);
+    }
+  };
 
   const shouldShowThumbnail = (idx) => {
     if (selectedPhotoIndex + 6 < photos.length) {
@@ -43,13 +73,12 @@ export default function ImageGallery({ selectPhoto, photos }) {
           {photos.map((photo, i) => (
             <img
               className="image-thumbnail"
+              alt=""
               key={i}
               src={photo.thumbnail_url}
-            // Clicking on any thumbnail should update the main image to match that shown in the thumbnail clicked
               onClick={(event) => {
                 handleThumbnailClick(event, photo.url, i);
               }}
-            // The thumbnail corresponding to the image currently selected as the main image should be highlighted to indicate the current selection.
               id={i === selectedPhotoIndex ? 'selected' : null}
             />
           ))}
@@ -59,6 +88,7 @@ export default function ImageGallery({ selectPhoto, photos }) {
     return (
       <div className="gallery-thumbnails-container">
         <button
+          type="button"
           id={selectedPhotoIndex === 0 ? 'hidden' : null}
           className="vertical-arrow"
           onClick={(event) => { scrollBack(event); }}
@@ -68,6 +98,7 @@ export default function ImageGallery({ selectPhoto, photos }) {
         {photos.map((photo, i) => (
           <img
             className={shouldShowThumbnail(i) ? 'image-thumbnail' : 'image-thumbnail-hidden'}
+            alt=""
             key={i}
             src={photo.thumbnail_url}
             onClick={(event) => {
@@ -77,6 +108,7 @@ export default function ImageGallery({ selectPhoto, photos }) {
           />
         ))}
         <button
+          type="button"
           id={selectedPhotoIndex === photos.length - 1 ? 'hidden' : null}
           className="vertical-arrow"
           onClick={(event) => { scrollForward(event); }}
@@ -87,42 +119,12 @@ export default function ImageGallery({ selectPhoto, photos }) {
     );
   };
 
-  const handleThumbnailClick = (event, url, idx) => {
-    event.stopPropagation();
-    selectPhoto(url);
-    changePhotoIndex(idx);
-  };
-
-  const scrollForward = (event) => {
-    event.stopPropagation();
-    if (selectedPhotoIndex === photos.length - 1) {
-
-      // changePhotoIndex(0) for infinite scroll
-    } else {
-      const nextIndex = selectedPhotoIndex + 1;
-      changePhotoIndex(nextIndex);
-    }
-  };
-
-  const scrollBack = (event) => {
-    event.stopPropagation();
-    if (selectedPhotoIndex === 0) {
-
-      // changePhotoIndex(photos.length - 1) for infinite scroll
-    } else {
-      const nextIndex = selectedPhotoIndex - 1;
-      changePhotoIndex(nextIndex);
-    }
-  };
-
-  const mainImageCSS = (url) =>
-    // possibly need to add error handling for the api url strings with typos in them ?
-    ({
-      backgroundImage: `url(${url})`,
-      backgroundRepeat: 'no-repeat',
-      backgroundAttachment: 'scroll',
-      backgroundPosition: 'center',
-    });
+  const mainImageCSS = (url) => ({
+    backgroundImage: `url(${url})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'scroll',
+    backgroundPosition: 'center',
+  });
 
   return (
     <div className="image-gallery-outer">
@@ -148,10 +150,10 @@ export default function ImageGallery({ selectPhoto, photos }) {
                 />
               </Modal>
               <div className="horizontal-arrow-container">
-                <button className="horizontal-arrow" id={selectedPhotoIndex > 0 ? null : 'hidden'} onClick={(event) => { scrollBack(event); }}>
+                <button type="button" className="horizontal-arrow" id={selectedPhotoIndex > 0 ? null : 'hidden'} onClick={(event) => { scrollBack(event); }}>
                   <i className="fas fa-chevron-left" />
                 </button>
-                <button className="horizontal-arrow" id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'} onClick={(event) => { scrollForward(event); }}>
+                <button type="button" className="horizontal-arrow" id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'} onClick={(event) => { scrollForward(event); }}>
                   <i className="fas fa-chevron-right" />
                 </button>
               </div>
@@ -162,3 +164,15 @@ export default function ImageGallery({ selectPhoto, photos }) {
     </div>
   );
 }
+
+ImageGallery.propTypes = {
+  selectPhoto: PropTypes.func,
+  photos: PropTypes.array,
+};
+
+ImageGallery.defaultProps = {
+  selectPhoto: null,
+  photos: null,
+};
+
+export default ImageGallery;
