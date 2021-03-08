@@ -24,9 +24,6 @@ const AnswerModals = (props) => {
       transform             : 'translate(-50%, -50%)'
     }
   };
-
-
-
   useEffect( ()=> {
     imageDisplay()
 
@@ -35,7 +32,6 @@ const AnswerModals = (props) => {
   let upload = () => {
   let empty = [];
   let id = props.question.question_id;
-
   if(photos.length >0) {
     for (var i = 0; i < photos.length; i++) {
       var imageFile = photos[i]
@@ -52,10 +48,6 @@ const AnswerModals = (props) => {
       .then( ()=> {props.getQuestions()})
       .catch( (err)=> {console.log('error')})
   }
-
-
-
-
 
 function uploadImageAsPromise (imageFile) {
   return new Promise(function (resolve, reject) {
@@ -106,17 +98,11 @@ function uploadImageAsPromise (imageFile) {
     );
   });
 }
-
   }
-
-
   let validEmail = (email) => {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
     return re.test(String(email).toLowerCase());
   }
-
-
   let submitHandler = (e) => {
     e.preventDefault()
    let error = []
@@ -124,7 +110,6 @@ function uploadImageAsPromise (imageFile) {
     if (nickname.length === 0) {if (error.length===0){error.push("You must enter the following: Name")} else{error.push(", Name")}}
     if (email.length === 0) {if (error.length===0){error.push("You must enter the following: Email")} else{error.push(", Email")}}
     else if (!validEmail(email)) {if(error.length ===0) {error.push('The email address provided is not in correct email format')} else{error.push(', and The email address provided is not in correct email format')}}
-
 
     if(error.length===0) {
       upload()
@@ -161,12 +146,10 @@ function uploadImageAsPromise (imageFile) {
     e.preventDefault();
     let reader = new FileReader();
     let img = e.target.files[0];
-
     reader.onloadend = () => {
       setPhotos([...photos, img])
       setImgPreview([...imgPreview, reader.result])
     }
-
     if(img) {reader.readAsDataURL(img);}
 
   }
@@ -186,22 +169,18 @@ function uploadImageAsPromise (imageFile) {
          <h1 style={{paddingTop:'5%'}}>Submit your answer</h1> <h3>{props.question.question_body}:{props.product.name}</h3>
          </div>
         <form onSubmit ={submitHandler}>
-
           <div className = "modalTitle">
             <p>Your Answer <span style={{color: "red"}}>*</span></p>
           <label>
           <textarea onChange= {e=> setAnswer(e.target.value)} style = {{width: "100%", height: "75px"}}maxLength ="1000" value= {answer}/>
           </label>
           </div>
-
           <div>
           <label>What is your nickname? <span style={{color: "red"}}>*</span>
           <input type="text" style = {{width: "80%"}} placeholder="Example: jack543!" onChange= {e=> setNickname(e.target.value)} value = {nickname}/>
-
           </label>
           <p style= {{fontStyle: 'italic'}}>For privacy reasons, do not use your full name or email address</p>
           </div>
-
           <div>
             <p>Your Email <span style={{color: "red"}}>*</span></p>
           <label>
@@ -209,7 +188,6 @@ function uploadImageAsPromise (imageFile) {
           </label>
           <p style= {{fontStyle: 'italic'}}>For authentication reasons, you will not be emailed</p>
           </div>
-
           <input style ={{borderRadius: "5px", height: "50px", width: "100px", float: "right"}}type="submit" value = "Submit"></input>
           {imageDisplay()}
         </form>

@@ -7,9 +7,7 @@ const SearchBar = (props) => {
   useEffect( ()=> {
     props.setSearch(searchValue)
     props.setSearchValue(filteredList)
-
   }, [searchValue])
-
   let filterQuestions = (e)=> {
     setSearch(e.target.value);
     if( (e.target.value).length >= 3) {
@@ -23,12 +21,14 @@ const SearchBar = (props) => {
   //   if (searchValue === )
   // }
   return (
-    <div>
+    <div className="form-group fg--search">
       <input className ='search'
       type= 'text'
       placeholder='HAVE A QUESTION? SEARCH FOR ANSWERS...'
       value={searchValue}
+      results="0"
       onChange={filterQuestions}/>
+      <button type="submit"><i className="fa fa-search"></i></button>
     </div>
   );
 };
