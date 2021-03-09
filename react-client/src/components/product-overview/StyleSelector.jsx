@@ -67,6 +67,7 @@ function StyleSelector({
     backgroundImage: `url(${thumbnail})`,
     backgroundPosition: '50% 50%',
     backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
   });
 
   const getNameOfSelectedStyle = (uppercase = null) => {
@@ -91,7 +92,9 @@ function StyleSelector({
               <div className="style-options-grid">
                 {styles.map((option, index) => (
                   <div key={index}>
-                    <div className="checkmark" id={selectedStyle === option.style_id ? 'on' : 'off'}>✔</div>
+                    <div className="checkmark" id={selectedStyle === option.style_id ? 'on' : 'off'}>
+                      <i className="fa fa-check" style={{ fontSize: '0.8rem' }} aria-hidden="true" />
+                    </div>
                     <button
                       type="button"
                       className="style-option-button"

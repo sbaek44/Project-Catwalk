@@ -10,6 +10,11 @@
   to {opacity: 0;}
 }
 
+/* for mobile css in theory. going to come back to this soon - site looks passable on mobile but would be better to give it a  different layout
+@media only screen and (max-width: 768px) {
+
+} */
+
 /* Banner.jsx */
 .banner-top {
   background-color: rgb(24,24,24);
@@ -89,6 +94,7 @@
   border-radius: 0.1rem;
   margin: 0.1rem;
   opacity: 1;
+  background-size: 'cover',
 }
 
 .image-thumbnail-hidden {
@@ -444,7 +450,7 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   padding: 0.1rem;
 }
 
@@ -454,11 +460,11 @@
 }
 
 .dropdown#size {
-  width: 74%;
+  width: 72.5%;
 }
 
 .dropdown#qty {
-  width: 24%;
+  width: 25%;
 }
 
 .product-info-bottom {
