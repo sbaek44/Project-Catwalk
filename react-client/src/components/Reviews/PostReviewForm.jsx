@@ -1,7 +1,8 @@
+/* eslint-disable no-alert */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import header from '../../../../config.js'
 import Modal from 'react-modal';
+import header from '../../../../config.js';
 
 const PostReviewForm = (props) => {
   const [imageModalIsOpen, setImageModalIsOpen] = useState(false);
@@ -25,9 +26,9 @@ const PostReviewForm = (props) => {
     CheckBodyLength();
   }, [summary, body, props.characteristicsArr]);
 
-  let images = [];
+  const images = [];
   const setImages = (e) => {
-    let idx = Number(e.target.name);
+    const idx = Number(e.target.name);
     images[idx] = e.target.value;
   };
 
@@ -42,9 +43,9 @@ const PostReviewForm = (props) => {
 
   let belowBody;
   if (body.length < 50) {
-    let amountLeft = 50 - body.length;
+    const amountLeft = 50 - body.length;
     belowBody = (
-      <div style={{margin: '1%'}} >
+      <div style={{ margin: '1%' }}>
         Minimum required characters left:
         {amountLeft}
       </div>
@@ -53,15 +54,15 @@ const PostReviewForm = (props) => {
     belowBody = <div>Minimum reached</div>;
   }
 
-  let reviewPost = {
+  const reviewPost = {
     product_id: props.review_id,
-    rating: rating,
-    summary: summary,
-    body: body,
-    recommend: recommend,
-    name: name,
-    email: email,
-    photos: photos,
+    rating,
+    summary,
+    body,
+    recommend,
+    name,
+    email,
+    photos,
     characteristics: charObj,
   };
 
@@ -91,30 +92,29 @@ const PostReviewForm = (props) => {
     } else {
       setRecommend(false);
     }
-  }
+  };
 
   const submitReview = (e) => {
     e.preventDefault();
     if (reviewPost.rating < 1) {
-      alert(`You must enter the following: Rating`);
+      alert('You must enter the following: Rating');
     } else if (!checkSummaryLength()) {
-      alert(`You must enter the following: Summary`);
+      alert('You must enter the following: Summary');
     } else if (typeof reviewPost.recommend !== 'boolean') {
-      alert(`You must enter the following: recommend`);
+      alert('You must enter the following: recommend');
     } else if (!CheckBodyLength()) {
-      alert(`You must enter the following: Body`);
+      alert('You must enter the following: Body');
     } else if (reviewPost.name === '') {
-      alert(`You must enter the following: Name`);
+      alert('You must enter the following: Name');
     } else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(reviewPost.email)) {
-      alert(`You must enter the following: Email`);
+      alert('You must enter the following: Email');
     } else {
-      console.log(reviewPost);
       setPostModalIsOpen(!postModalIsOpen);
-      axios.post(`http://127.0.0.1:3000/api/reviews/`, reviewPost)
+      axios.post('http://127.0.0.1:3000/api/reviews/', reviewPost)
         .then((data) => {
           alert('submitted a new review');
           props.getReviews();
-          console.log(data)
+          console.log(data);
         })
         .catch((err) => {
           console.log(err);
@@ -122,13 +122,13 @@ const PostReviewForm = (props) => {
     }
   };
   const createCharacteristicChoices = () => {
-    let possibilities = [];
-    let size = ["id", 'Size', "1 - A size too small", "2 - ½ a size too small", "3 - Perfect", "4 - ½ a size too big", "5 - A size too wide"];
-    let width = ['id', 'Width', '1 - Too narrow', '2 - Slightly narrow', '3 - Perfect', '4 - Slightly wide', '5 - Too wide'];
-    let comfort = ['id', 'Comfort', '1 - Uncomfortable', '2 - Slightly uncomfortable', '3 - Ok', '4 - Comfortable', '5 - Perfect'];
-    let quality = ['id', 'Quality', '1 - Poor', '2 - Below average', '3 - What I expected', '4 - Pretty great', '5 - Perfect'];
-    let length = ['id', 'Length', '1 - Runs Short', '2 - Runs slightly short', '3 - Perfect', '4 - Runs slightly long', '5 - Runs long'];
-    let fit = ['id', 'Fit', '1 - Runs tight', '2 - Runs slightly tight', '3 - Perfect', '4 - Runs slightly long', '5 - Runs long'];
+    const possibilities = [];
+    const size = ['id', 'Size', '1 - A size too small', '2 - ½ a size too small', '3 - Perfect', '4 - ½ a size too big', '5 - A size too wide'];
+    const width = ['id', 'Width', '1 - Too narrow', '2 - Slightly narrow', '3 - Perfect', '4 - Slightly wide', '5 - Too wide'];
+    const comfort = ['id', 'Comfort', '1 - Uncomfortable', '2 - Slightly uncomfortable', '3 - Ok', '4 - Comfortable', '5 - Perfect'];
+    const quality = ['id', 'Quality', '1 - Poor', '2 - Below average', '3 - What I expected', '4 - Pretty great', '5 - Perfect'];
+    const length = ['id', 'Length', '1 - Runs Short', '2 - Runs slightly short', '3 - Perfect', '4 - Runs slightly long', '5 - Runs long'];
+    const fit = ['id', 'Fit', '1 - Runs tight', '2 - Runs slightly tight', '3 - Perfect', '4 - Runs slightly long', '5 - Runs long'];
     props.characteristicsArr.forEach((e) => {
       if (e[0] === 'Size') {
         size[0] = e[1].id;
@@ -158,7 +158,7 @@ const PostReviewForm = (props) => {
     });
   };
 
-  const options = ['Select Rating', "1 star - “Poor”", "2 stars - “Fair”", "3 stars - “Average”", "4 stars - “Good”", "5 stars - “Great”"];
+  const options = ['Select Rating', '1 star - “Poor”', '2 stars - “Fair”', '3 stars - “Average”', '4 stars - “Good”', '5 stars - “Great”'];
 
   return (
     <Modal isOpen={postModalIsOpen}>
@@ -166,42 +166,42 @@ const PostReviewForm = (props) => {
         <div className="review-form-component">
           <label>
             Image 1:
-            <input style={{margin: '1%'}} onChange={setImages} name="0" type="text" />
+            <input style={{ margin: '1%' }} onChange={setImages} name="0" type="text" />
           </label>
         </div>
         <div className="review-form-component">
           <label>
             Image 2:
-            <input style={{margin: '1%'}} onChange={setImages} name="1" type="text" />
+            <input style={{ margin: '1%' }} onChange={setImages} name="1" type="text" />
           </label>
         </div>
         <div className="review-form-component">
-            <label>
-              Image 3:
-              <input style={{margin: '1%'}} onChange={setImages} name="2" type="text" />
+          <label>
+            Image 3:
+            <input style={{ margin: '1%' }} onChange={setImages} name="2" type="text" />
           </label>
         </div>
         <div className="review-form-component">
           <label>
             Image 4:
-            <input style={{margin: '1%'}} onChange={setImages} name="3" type="text" />
+            <input style={{ margin: '1%' }} onChange={setImages} name="3" type="text" />
           </label>
         </div>
         <div className="review-form-component">
           <label>
             Image 5:
-            <input style={{margin: '1%'}} onChange={setImages} name="4" type="text" />
-        </label>
+            <input style={{ margin: '1%' }} onChange={setImages} name="4" type="text" />
+          </label>
         </div>
-      <button className="review-buttons"  onClick={updateImages} >Submit</button>
-      <button className="review-buttons" onClick={toggleModal} >Cancel</button>
-    </Modal>
+        <button className="review-buttons" onClick={updateImages}>Submit</button>
+        <button className="review-buttons" onClick={toggleModal}>Cancel</button>
+      </Modal>
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <form className="addReviewForm">
           <div className="review-form-component">
             <label>
               Overall rating
-              <select style={{margin: '1%'}} onChange={(e) => setRating(Number(e.target.value))}>
+              <select style={{ margin: '1%' }} onChange={(e) => setRating(Number(e.target.value))}>
                 {options.map((option, i) => (
                   <option value={i} key={i}>{option}</option>
                 ))}
@@ -211,35 +211,35 @@ const PostReviewForm = (props) => {
           <div className="review-form-component">
             <label>
               Do you recommend this product?
-              <select style={{margin: '1%'}} onChange={(e) => setBool(e.target.value)}>
+              <select style={{ margin: '1%' }} onChange={(e) => setBool(e.target.value)}>
                 <option>Select</option>
                 <option value="true">Yes</option>
                 <option value="false">No</option>
               </select>
             </label>
           </div>
-          <div className="review-form-component" style={{display: 'flex', flexDirection: 'row'}}>
-          <label>
-            Characteristics:
-            { arrOfCharacteristicChoices.map((choiceArray, idx) => (
-              <select key={idx} name={choiceArray[0]} onChange={(e) => setCharacteristic(e.target.name, e.target.value)} >
-                {choiceArray.slice(1, 7).map((choiceE, i) => (
-                  <option key={i} value={i} >{choiceE}</option>
-                ))}
-              </select>
-            )) }
-          </label>
+          <div className="review-form-component" style={{ display: 'flex', flexDirection: 'row' }}>
+            <label>
+              Characteristics:
+              {arrOfCharacteristicChoices.map((choiceArray, idx) => (
+                <select key={idx} name={choiceArray[0]} onChange={(e) => setCharacteristic(e.target.name, e.target.value)}>
+                  {choiceArray.slice(1, 7).map((choiceE, i) => (
+                    <option key={i} value={i}>{choiceE}</option>
+                  ))}
+                </select>
+              ))}
+            </label>
           </div>
           <div className="review-form-component">
             <label>
               Review summary:
-              <input style={{margin: '1%', width: '50%'}} placeholder="Example: Best purchase ever!" onChange={(e) => setSummary(e.target.value)} type="text" name="" />
+              <input style={{ margin: '1%', width: '50%' }} placeholder="Example: Best purchase ever!" onChange={(e) => setSummary(e.target.value)} type="text" name="" />
             </label>
           </div>
           <div className="review-form-component">
             <label>
               Review body:
-              <input style={{margin: '1%', width: '100%'}} placeholder="Why did you like the product or not?"  onChange={(e) => setBody(e.target.value)} type="text" name="" />
+              <input style={{ margin: '1%', width: '100%' }} placeholder="Why did you like the product or not?" onChange={(e) => setBody(e.target.value)} type="text" name="" />
               {belowBody}
             </label>
           </div>
@@ -252,29 +252,39 @@ const PostReviewForm = (props) => {
           <div className="review-form-component">
             <label>
               What is your nickname?:
-              <input style={{margin: '1%'}} placeholder="Example: jackson11!" onChange={(e) => setName(e.target.value)} type="text" name="" />
+              <input style={{ margin: '1%' }} placeholder="Example: jackson11!" onChange={(e) => setName(e.target.value)} type="text" name="" />
               <div>
-              For privacy reasons, do not use your full name or email address
+                For privacy reasons, do not use your full name or email address
               </div>
             </label>
-         </div>
-        <div id="text-under-form" className="review-form-component">
+          </div>
+          <div id="text-under-form" className="review-form-component">
             <label>
               Your email:
-              <input style={{margin: '1%'}} placeholder="Example: jackson11@email.com"  onChange={(e) => setEmail(e.target.value)} type="email" name="" />
-              <div >
-              For authentication reasons, you will not be emailed
+              <input style={{ margin: '1%' }} placeholder="Example: jackson11@email.com" onChange={(e) => setEmail(e.target.value)} type="email" name="" />
+              <div>
+                For authentication reasons, you will not be emailed
               </div>
             </label>
-        </div>
-          <button className="review-buttons" onClick={(e) => {
-            e.preventDefault();
-            submitReview(e)
-          }}>Submit</button>
-          <button className="review-buttons" onClick={() =>{
-            setPostModalIsOpen(!postModalIsOpen)
-            props.togglePostForm()
-          }} >Cancel</button>
+          </div>
+          <button
+            className="review-buttons"
+            onClick={(e) => {
+              e.preventDefault();
+              submitReview(e);
+            }}
+          >
+            Submit
+          </button>
+          <button
+            className="review-buttons"
+            onClick={() => {
+              setPostModalIsOpen(!postModalIsOpen);
+              props.togglePostForm();
+            }}
+          >
+            Cancel
+          </button>
         </form>
       </div>
     </Modal>

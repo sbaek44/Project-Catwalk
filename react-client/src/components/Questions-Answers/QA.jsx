@@ -6,13 +6,8 @@ import Answers from './Answers.jsx';
 
 const QA= (props) => {
 
-
-
-
-
-
   return (
-    <div>
+    <div style={{marginBottom: "2em", marginTop: "2em"}}>
       <Questions currentProduct = {props.currentProduct}/>
     </div>
   )
