@@ -87,7 +87,6 @@ export default class App extends React.Component {
         <Overview
           product={this.state.selectedProduct}
           avgRating={this.state.avgRating}
-        />
         <RelatedItemsList
           selectProduct={this.selectProduct}
           avgRating={this.state.avgRating}
@@ -97,6 +96,7 @@ export default class App extends React.Component {
           avgRating={this.state.avgRating}
           currentProduct={this.state.selectedProduct}
         />
+
         <QA
           currentProduct={this.state.selectedProduct}
         />
@@ -106,6 +106,7 @@ export default class App extends React.Component {
           getRatings={this.getRatings}
           currentProduct={this.state.selectedProduct.id}
         />
+
       </div>
     )
   }
