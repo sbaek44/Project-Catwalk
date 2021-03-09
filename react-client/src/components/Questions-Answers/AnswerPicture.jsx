@@ -1,42 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import Modal from 'react-modal'
+import React, { useState } from 'react';
+import Modal from 'react-modal';
 
 const AnswerPicture = (props) => {
-  const [currentPic, setCurrentPic] = useState([])
-  const [photoClicked, setClicked] = useState(false)
+  const [currentPic, setCurrentPic] = useState([]);
+  const [photoClicked, setClicked] = useState(false);
 
-
-  useEffect( ()=> {
-
-  }, [currentPic])
-
-  const customStyles = {
-    content : {
-      top                   : '50%',
-      left                  : '50%',
-      right                 : 'auto',
-      bottom                : 'auto',
-      marginRight           : '-50%',
-      transform             : 'translate(-50%, -50%)'
-    }
+  const selectedPhoto = (image) => {
+    setCurrentPic(image);
+    setClicked(!photoClicked);
   };
 
-
-
-  let selectedPhoto = (image) => {
-    setCurrentPic(image)
-    setClicked(!photoClicked)
-
-  }
-
-  let correct = (image) => {
-    return currentPic.url
-
-  }
+  const correct = () => currentPic.url;
 
   return (
-    <div style={{paddingLeft: "30px"}}>
-         {props.answer.photos.length >0 ? <div className="answerImages">
+    <div style={{ paddingLeft: '30px' }}>
+      {props.answer.photos.length > 0 ? <div className="answerImages">
     {props.answer.photos.map( (image,index)=>  {
       return (
         <div key ={index}>

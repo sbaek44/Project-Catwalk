@@ -209,6 +209,9 @@
   justify-content: right;
   padding-top:1em;
 }
+.addAnswer:hover{
+  text-Decoration:underline;
+}
 .buttonModal {
   width: 1em;
   background-color: Transparent;
@@ -245,4 +248,28 @@
   font-size: 16px;
   font-weight: normal;
   padding-left: 15%;
+}
+.underline:hover {
+  text-Decoration:underline;
+}
+
+@media (max-device-width : 400px) and (max-device-height : 900px) {
+  .Questions{
+    display: flex;
+    flex-direction: column;
+    height: 40vh ;
+    width:70%;
+    margin:auto;
+    padding-left:14px;
+    overflow-y: scroll;
+  }
+  .Questions2{
+    display: flex;
+    flex-direction: column;
+    height: 40vh ;
+    width:70%;
+    margin:auto;
+    padding-left:14px;
+    overflow-y: scroll;
+  }
 }
