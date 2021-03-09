@@ -25,7 +25,6 @@ function YourOutfitList(props) {
     if (storedPhotos) {
       updateYourOutfitPhoto(JSON.parse(storedPhotos))
     }
-
   }, [])
 
   useEffect(() => {

@@ -42,7 +42,7 @@
 	flex-direction: row;
 	width: 100%;
 	margin-bottom: 2%;
-	color: rgb(72,72,72);
+	/* color: rgb(72,72,72); */
 }
 .reviewTile {
 	border-bottom: 1px solid black;
@@ -81,7 +81,7 @@
   content: "\2605 \2605 \2605 \2605 \2605";
   /* font-family: "Font Awesome 5 Free"; */
   font-weight: 900;
-	color: rgb(72,72,72);
+	/* color: rgb(72,72,72); */
 }
 #average-rating-in-ratings {
 	font-size: 45px;
