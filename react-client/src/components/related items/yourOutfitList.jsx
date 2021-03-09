@@ -16,10 +16,26 @@ function YourOutfitList(props) {
       .catch((err) => (console.log(err)))
   }, [props.currentProduct])
 
+  useEffect(() => {
+    const storedOutfits = localStorage.getItem('outfits')
+    const storedPhotos = localStorage.getItem('photos')
+    if (storedOutfits) {
+      updateYourOutfit(JSON.parse(storedOutfits))
+    }
+    if (storedPhotos) {
+      updateYourOutfitPhoto(JSON.parse(storedPhotos))
+    }
+
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('outfits', JSON.stringify(yourOutfit))
+    localStorage.setItem('photos', JSON.stringify(yourOutfitPhoto))
+  }, [yourOutfit, yourOutfitPhoto])
+
   let addToYourOutfit = () => {
     if (!yourOutfit.includes(props.currentProduct)) {
-      updateYourOutfit((yourOutfit) => ([...yourOutfit, props.currentProduct]))
-      // updateYourOutfit((yourOutfit) => (yourOutfit[yourOutfit.length - 1].photo = tempPhotoData.results[0].photos[0].thumbnail_url))
+      updateYourOutfit((yourOutfit) => ([props.currentProduct, ...yourOutfit]))
       updateYourOutfitPhoto((yourOutfitPhoto) => ([...yourOutfitPhoto, [Number(tempPhotoData.product_id), tempPhotoData.results[0].photos[0].thumbnail_url]]))
     }
   }
@@ -50,12 +66,13 @@ function YourOutfitList(props) {
       </div>
     )
 
-  } else if (yourOutfit.length > 0) {
+  } else {
     return (
       <div>
       <h3 id="outfit-title">YOUR OUTFIT</h3>
         <div style={{display: 'flex', flexDirection: 'row'}}>
         <Carousel itemsToShow={4} showEmptySlots>
+        <div id="outfit-button" onClick={addToYourOutfit}>+</div>
         {yourOutfit.map((outfit, i) => (
           <div id="yourOutfitCard" key={i}>
             <img id="yourOutfitImg" src={getImgSrc(outfit.id)} />
@@ -68,31 +85,8 @@ function YourOutfitList(props) {
             </div>
           </div>
         ))}
-        <div id="outfit-button" onClick={addToYourOutfit}>+</div>
         </Carousel>
         </div>
-      </div>
-    )
-  } else {
-    return (
-      <div>
-        <h3 id="outfit-title">YOUR OUTFIT</h3>
-        <div id="short-outfitList" style={{display: 'flex', flexDirection: 'row'}}>
-          {yourOutfit.map((outfit, i) => (
-            <div id="yourOutfitCard" key={i}>
-              <img id="yourOutfitImg" src={getImgSrc(outfit.id)} />
-              <button id="remove-outfit" value={outfit.id} onClick={removeFromYourOutfit}>&#9447;</button>
-              <div id="outfit-desc">
-                <div id="yourOutfitCategory">{outfit.category}</div>
-                <div id="yourOutfitName">{outfit.name}</div>
-                <div id="yourOutfitPrice">{outfit.sale_price ? outfit.sale_price : outfit.default_price}</div>
-                <Stars id="cardStars" avgRating={props.avgRating} />
-              </div>
-              <div id="addOutfit"></div>
-            </div>
-          ))}
-          <div id="outfit-button" onClick={addToYourOutfit}>+</div>
-         </div>
       </div>
     )
   }
