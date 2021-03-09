@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/storage';
 
-let firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyBrztNJBwpza34M89hUiVhxDZxMdCGH0kQ",
   authDomain: "catwalk-a4888.firebaseapp.com",
   projectId: "catwalk-a4888",
@@ -10,6 +10,5 @@ let firebaseConfig = {
   appId: "1:513023449849:web:b814ef58a043024f642028"
 };
 
-firebase.initializeApp(firebaseConfig)
-
-export default firebase
+firebase.initializeApp(firebaseConfig);
+export default firebase;
