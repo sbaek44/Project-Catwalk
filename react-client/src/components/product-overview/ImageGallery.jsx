@@ -130,33 +130,31 @@ function ImageGallery({
     <div className="image-gallery-outer">
       {photos.length
         ? (
-          <div>
-            <div
-              className="image-gallery-main-image"
-              style={mainImageCSS(photos[selectedPhotoIndex].url)}
-              onClick={() => (expandedGalleryView ? null : toggleGalleryView(true))}
-            >
-              {renderThumbnails()}
-              {/* EXPANDED VIEW */}
-              <Modal id="expanded-gallery-modal" isOpen={expandedGalleryView} style={modalStyle} ariaHideApp={false}>
-                <ExpandedView
-                  close={() => toggleGalleryView(false)}
-                  photos={photos}
-                  selectedPhotoIndex={selectedPhotoIndex}
-                  url={photos[selectedPhotoIndex].url}
-                  handleIconClick={handleThumbnailClick}
-                  back={scrollBack}
-                  forward={scrollForward}
-                />
-              </Modal>
-              <div className="horizontal-arrow-container">
-                <button type="button" className="horizontal-arrow" id={selectedPhotoIndex > 0 ? null : 'hidden'} onClick={(event) => { scrollBack(event); }}>
-                  <i className="fas fa-chevron-left" />
-                </button>
-                <button type="button" className="horizontal-arrow" id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'} onClick={(event) => { scrollForward(event); }}>
-                  <i className="fas fa-chevron-right" />
-                </button>
-              </div>
+          <div
+            className="image-gallery-main-image"
+            style={mainImageCSS(photos[selectedPhotoIndex].url)}
+            onClick={() => (expandedGalleryView ? null : toggleGalleryView(true))}
+          >
+            {renderThumbnails()}
+            {/* EXPANDED VIEW */}
+            <Modal id="expanded-gallery-modal" isOpen={expandedGalleryView} style={modalStyle} ariaHideApp={false}>
+              <ExpandedView
+                close={() => toggleGalleryView(false)}
+                photos={photos}
+                selectedPhotoIndex={selectedPhotoIndex}
+                url={photos[selectedPhotoIndex].url}
+                handleIconClick={handleThumbnailClick}
+                back={scrollBack}
+                forward={scrollForward}
+              />
+            </Modal>
+            <div className="horizontal-arrow-container">
+              <button type="button" className="horizontal-arrow" id={selectedPhotoIndex > 0 ? null : 'hidden'} onClick={(event) => { scrollBack(event); }}>
+                <i className="fas fa-chevron-left" />
+              </button>
+              <button type="button" className="horizontal-arrow" id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'} onClick={(event) => { scrollForward(event); }}>
+                <i className="fas fa-chevron-right" />
+              </button>
             </div>
           </div>
         )
