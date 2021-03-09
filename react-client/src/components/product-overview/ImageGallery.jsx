@@ -96,15 +96,19 @@ function ImageGallery({
           <i className="fas fa-chevron-up" />
         </button>
         {photos.map((photo, i) => (
-          <img
+          <div
             className={shouldShowThumbnail(i) ? 'image-thumbnail' : 'image-thumbnail-hidden'}
-            alt=""
+            id={i === selectedPhotoIndex ? 'selected' : null}
+            style={{
+              backgroundImage: `url(${photo.thumbnail_url})`,
+              backgroundPosition: '50% 50%',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+            }}
             key={i}
-            src={photo.thumbnail_url}
             onClick={(event) => {
               handleThumbnailClick(event, photo.url, i);
             }}
-            id={i === selectedPhotoIndex ? 'selected' : null}
           />
         ))}
         <button

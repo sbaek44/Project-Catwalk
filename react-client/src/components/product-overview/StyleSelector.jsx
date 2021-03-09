@@ -67,6 +67,7 @@ function StyleSelector({
     backgroundImage: `url(${thumbnail})`,
     backgroundPosition: '50% 50%',
     backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
   });
 
   const getNameOfSelectedStyle = (uppercase = null) => {
