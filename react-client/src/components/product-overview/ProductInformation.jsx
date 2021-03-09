@@ -18,12 +18,12 @@ function ProductInformation({
     if (sale) {
       return (
         <span>
-          <span className="price" style={{ color: 'red' }}>
+          <span className="price" style={{ color: 'rgb(255, 0, 140)' }}>
             $
             {sale}
+            {' '}
           </span>
           <span className="price" style={{ textDecoration: 'line-through' }}>
-            {' '}
             {price}
           </span>
         </span>
