@@ -64,7 +64,6 @@ function RelatedItemCard(props) {
       <Carousel itemsToShow={4}>
       {props.dataArr.map((item, i) => (
         <div id="relatedItemCard" key={i}>
-        {/* {console.log(item)} */}
           <img id="related-img" onClick={() => (props.selectProduct(item.id))} src={getThumbnail(item.id)} />
           <button id="star-button" name={item.name} value={item.id} onClick={modalState}>&#9734;</button>
           <div id="related-desc">
@@ -95,7 +94,7 @@ function RelatedItemCard(props) {
                   currentFeaturesArr[0].features.map((feature, i) => (
                     <tr id="modal-features" key={i}>
                       <td id="left-checkmark">&#10004;</td>
-                      <td>{feature.value ? feature.value : null} {feature.value ? feature.feature : null}</td>
+                      <td>{feature.value ? feature.value : null} {feature.feature}</td>
                       <td></td>
                     </tr>
                   ))
@@ -105,7 +104,7 @@ function RelatedItemCard(props) {
                 compareFeatures[0].features.map((feature, i) => (
                   <tr id="modal-features" key={i} >
                     <td></td>
-                      <td>{feature.value ? feature.value : null} {feature.value ? feature.feature : null}</td>
+                      <td>{feature.value ? feature.value : null} {feature.feature}</td>
                       <td id="right-checkmark">&#10004;</td>
                   </tr>
                 ))
