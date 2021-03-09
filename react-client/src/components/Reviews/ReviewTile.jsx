@@ -108,7 +108,24 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
 
 
       <div className="reviewSummary"> {review.summary} </div>
-      <div className="reviewGuts" > {reviewText}  </div>
+      <div className="reviewGuts" >
+      {isHighlighting
+      ?  <Highlighter
+      highlightClassName="found"
+      searchWords={[searchQuery]}
+      autoEscape={true}
+      textToHighlight={review.body}
+    />
+    : longerThan250
+      ? <div>
+          {review.body.slice(0, 250)}
+            <div style={{fontSize: '14px', fontWeight: 'bold'}}  className="text"  onClick={() => setLongerThan250(false)} >
+              show more..
+            </div>
+        </div>
+    : <div> {review.body} </div>
+    }
+      </div>
       <ReviewPhotos photos={review.photos} />
       {form}
       <div className="reviewGuts">{response}  </div>
@@ -121,15 +138,6 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
           <div id="yes">|</div>
         <div id="yes" className="text" onClick={reportReview}>report</div>
       </div>
-      {isHighlighting
-      ?     <Highlighter
-      highlightClassName="found"
-      searchWords={[searchQuery]}
-      autoEscape={true}
-      textToHighlight={review.body}
-    />
-    : ''
-      }
     </div>
   );
 };
