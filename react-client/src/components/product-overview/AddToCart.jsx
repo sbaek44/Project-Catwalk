@@ -15,6 +15,7 @@ function AddToCart({
   getStyleName,
 }) {
   const [size, selectSize] = useState('');
+  const [sizeOptions, setSizeOptions] = useState([]);
   const [qty, selectQty] = useState(1);
   const [qtyOptions, setQtyOptions] = useState([]);
   const [sizeMenuOpen, toggleSizeMenu] = useState(false);
@@ -39,7 +40,7 @@ function AddToCart({
   }
 
   const getSizeOptions = () => {
-    const sizeOptions = [];
+    const current = [];
 
     // find selected style id in the styleOptions array
     for (const option of styleOptions) {
@@ -54,7 +55,7 @@ function AddToCart({
             // only sizes that are currently in stock for the style selected should be listed
             if (option.skus[each].quantity > 0) {
               const o = option.skus[each].size;
-              sizeOptions.push({ value: o, label: o });
+              current.push({ value: o, label: o });
             }
           }
         } else if (outOfStock === false) {
@@ -63,7 +64,7 @@ function AddToCart({
         }
       }
     }
-    return sizeOptions;
+    return setSizeOptions(current);
   };
 
   const getQtyOptions = () => {
@@ -118,6 +119,14 @@ function AddToCart({
     getQtyOptions();
   }, [size]);
 
+  useEffect(() => {
+    toggleSizeMenu(false);
+    selectSize('');
+    getSizeOptions();
+    toggleQtyMenu(false);
+    selectQty(1);
+  }, [product, selectedStyle]);
+
   const handleQtySelect = (qtyOption) => {
     selectQty(qtyOption.value);
     toggleQtyMenu(false);
@@ -164,8 +173,9 @@ function AddToCart({
                 onFocus={() => toggleSizeMenu(true)}
                 blurInputOnSelect
                 onChange={handleSizeSelect}
+                value={[{ value: size !== '' ? size : 'SELECT SIZE', label: size !== '' ? size : 'SELECT SIZE' }]}
                 disabled={outOfStock}
-                options={getSizeOptions()}
+                options={sizeOptions}
                 placeholder={outOfStock ? 'OUT OF STOCK' : 'SELECT SIZE'}
                 menuIsOpen={sizeMenuOpen}
                 isSearchable={false}
@@ -194,6 +204,7 @@ function AddToCart({
                 onFocus={() => toggleQtyMenu(true)}
                 blurInputOnSelect
                 onChange={handleQtySelect}
+                value={[{ value: qty, label: qty }]}
                 disabled={size === ''}
                 options={qtyOptions}
                 placeholder={size === '' ? '-' : 1}
