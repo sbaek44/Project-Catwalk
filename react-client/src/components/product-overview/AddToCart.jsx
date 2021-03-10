@@ -13,6 +13,7 @@ function AddToCart({
   selectedStyle,
   styleOptions,
   getStyleName,
+  darkMode,
 }) {
   const [size, selectSize] = useState('');
   const [sizeOptions, setSizeOptions] = useState([]);
@@ -96,16 +97,17 @@ function AddToCart({
         sku_id: Number(getQtyOrEntireSKU('sku')),
       };
       axios.post('http://127.0.0.1:3000/api/cart', cart)
-        .then(() => {
-          axios.get('http://127.0.0.1:3000/api/cart', cart)
-            .then((result) => {
-              console.log('cart:', result.data);
-            });
-        })
+        // unneccessary get request, just confirms that it did get posted to cart api
+        // .then(() => {
+        //   axios.get('http://127.0.0.1:3000/api/cart', cart)
+        //     .then((result) => {
+        //       console.log('cart:', result.data);
+        //     });
+        // })
         .catch((err) => {
           console.error(err);
         });
-      alert(`Added (${qty}) size ${size} ${product.name} in ${getStyleName()} to cart!`);
+      alert(`Added ${qty}${qty > 1 ? 'x' : '' } size ${size} ${product.name} in ${getStyleName()} to cart!`);
     }
   };
 
@@ -117,6 +119,7 @@ function AddToCart({
 
   useEffect(() => {
     getQtyOptions();
+    selectQty(1);
   }, [size]);
 
   useEffect(() => {
@@ -124,7 +127,6 @@ function AddToCart({
     selectSize('');
     getSizeOptions();
     toggleQtyMenu(false);
-    selectQty(1);
   }, [product, selectedStyle]);
 
   const handleQtySelect = (qtyOption) => {
@@ -150,13 +152,28 @@ function AddToCart({
             <div className="selector-container">
               {/* size dropdown becomes inactive and reads OUT OF STOCK when there's no stock */}
               <Select
-                theme={(theme) => ({
+                theme={darkMode ? (theme) => ({
+                  ...theme,
+                  colors: {
+                    ...theme.colors,
+                    neutral0: 'rgb(72,72,72)',
+                    neutral10: 'rgb(240,240,240)',
+                    neutral20: 'rgb(24,24,24)',
+                    neutral30: 'rgb(24,24,24)',
+                    neutral80: 'rgb(240,240,240)',
+                    primary: 'rgb(255, 0, 140)',
+                    primary25: 'rgb(255, 0, 140)',
+                    primary50: 'rgb(24,24,24)'
+                  }
+                }) : (theme) => ({
                   ...theme,
                   colors: {
                     ...theme.colors,
                     primary: 'rgb(255, 0, 140)',
-                    primary25: 'rgb(250, 203, 229)',
-                  },
+                    primary25: 'rgb(250, 67, 168)',
+                    primary50: 'rgb(250, 89, 177)',
+                    primary75: 'rgb(253, 159, 211)'
+                  }
                 })}
                 styles={{
                   option: (styles) => ({
@@ -174,20 +191,35 @@ function AddToCart({
                 blurInputOnSelect
                 onChange={handleSizeSelect}
                 value={[{ value: size !== '' ? size : 'SELECT SIZE', label: size !== '' ? size : 'SELECT SIZE' }]}
-                disabled={outOfStock}
+                disabled={outOfStock ? true : false}
                 options={sizeOptions}
                 placeholder={outOfStock ? 'OUT OF STOCK' : 'SELECT SIZE'}
                 menuIsOpen={sizeMenuOpen}
                 isSearchable={false}
               />
               <Select
-                theme={(theme) => ({
+                theme={darkMode ? (theme) => ({
+                  ...theme,
+                  colors: {
+                    ...theme.colors,
+                    neutral0: 'rgb(72,72,72)',
+                    neutral10: 'rgb(240,240,240)',
+                    neutral20: 'rgb(24,24,24)',
+                    neutral30: 'rgb(24,24,24)',
+                    neutral80: 'rgb(240,240,240)',
+                    primary: 'rgb(255, 0, 140)',
+                    primary25: 'rgb(255, 0, 140)',
+                    primary50: 'rgb(24,24,24)'
+                  }
+                }) : (theme) => ({
                   ...theme,
                   colors: {
                     ...theme.colors,
                     primary: 'rgb(255, 0, 140)',
-                    primary25: 'rgb(250, 203, 229)',
-                  },
+                    primary25: 'rgb(250, 67, 168)',
+                    primary50: 'rgb(250, 89, 177)',
+                    primary75: 'rgb(253, 159, 211)'
+                  }
                 })}
                 styles={{
                   option: (styles) => ({
@@ -204,10 +236,9 @@ function AddToCart({
                 onFocus={() => toggleQtyMenu(true)}
                 blurInputOnSelect
                 onChange={handleQtySelect}
-                value={[{ value: qty, label: qty }]}
-                disabled={size === ''}
+                value={[{ value: size !== '' ? qty : '-', label: size !== '' ? qty : '-' }]}
+                disabled={size === '' ? true : false}
                 options={qtyOptions}
-                placeholder={size === '' ? '-' : 1}
               />
             </div>
             <div className="selector-container">
@@ -215,7 +246,7 @@ function AddToCart({
               {outOfStock ? null : (
                 <button
                   type="button"
-                  className="add-to-cart-button"
+                  className={darkMode ? "add-to-cart-dark" : "add-to-cart-button"}
                   onClick={() => add()}
                 >
                   <span>ADD TO BAG</span>
@@ -225,7 +256,7 @@ function AddToCart({
               {/* useless */}
               <button
                 type="button"
-                className="favorite-button"
+                className={darkMode ? "favorite-dark" :"favorite-button"}
                 onClick={() => alert(`FAVORITED ${product.name} !`)}
               >
                 ☆

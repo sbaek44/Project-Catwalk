@@ -11,6 +11,7 @@ import Banner from './Banner.jsx';
 function Overview({
   product,
   avgRating,
+  darkMode
 }) {
   const [selectedStyle, selectStyle] = useState(0);
   const [price, updatePrice] = useState(0);
@@ -41,6 +42,7 @@ function Overview({
                 updateSale={updateSale}
                 selectPhoto={selectPhoto}
                 updatePhotos={updatePhotos}
+                darkMode={darkMode}
               />
             </div>
           </div>
