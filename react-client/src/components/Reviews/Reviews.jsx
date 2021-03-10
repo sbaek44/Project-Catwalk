@@ -19,6 +19,9 @@ const Reviews = (props) => {
   const [selectedParameter, updateParam] = useState('relevance');
   const [isPosting, togglePosting] = useState(false);
   const [isDisplayingMoreReviewsButton, setIsdisplayingMoreReviewsButton] = useState(false);
+
+
+
   useEffect(() => {
     if (props.currentProduct) {
       getReviews();
@@ -181,7 +184,7 @@ const Reviews = (props) => {
   }
 
   return (
-    <div className="ratings-reviews">
+    <div widget={props.widget} className="ratings-reviews">
       {postForm}
           <Ratings
             characteristicsArr={characteristicsArr}
