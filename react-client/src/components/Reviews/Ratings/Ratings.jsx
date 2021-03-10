@@ -52,18 +52,18 @@ const Ratings = (props) => {
   };
 
   return (
-    <div className="ratings">
-      <div className="ratings-breakdown">
+    <div widgetname="reviews" className="ratings">
+      <div widgetname="reviews" className="ratings-breakdown">
         RATINGS
         & REVIEWS
       </div>
-      <div className="ratings-breakdown" style={{display: 'flex', flexDirection: 'rows'}} >
-       <div id="average-rating-in-ratings" > {props.avgRating.toFixed(1)} </div>
-       <div style={{marginLeft: '3%'}} >
+      <div widgetname="reviews" className="ratings-breakdown" style={{display: 'flex', flexDirection: 'rows'}} >
+       <div widgetname="reviews" id="average-rating-in-ratings" > {props.avgRating.toFixed(1)} </div>
+       <div widgetname="reviews" style={{marginLeft: '3%'}} >
           <Stars avgRating={props.avgRating} />
        </div>
       </div>
-      <div id="recommended" className="ratings-breakdown">
+      <div widgetname="reviews" id="recommended" className="ratings-breakdown">
         {recommendedPercent}
         % of reviews recommend this product
       </div>
