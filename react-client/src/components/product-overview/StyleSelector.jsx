@@ -81,22 +81,23 @@ function StyleSelector({
   };
 
   return (
-    <div>
+    <div widgetname="overview">
       {styles.length
         ? (
-          <div className="style-selector">
-            <div className="selected-style-label">
-              <span style={{ fontWeight: 'bold' }}>STYLE </span>
-              <span>{getNameOfSelectedStyle('uppercase')}</span>
+          <div widgetname="overview" className="style-selector">
+            <div widgetname="overview" className="selected-style-label">
+              <span widgetname="overview" style={{ fontWeight: 'bold' }}>STYLE </span>
+              <span widgetname="overview">{getNameOfSelectedStyle('uppercase')}</span>
             </div>
-            <div className="style-options-container">
-              <div className="style-options-grid">
+            <div widgetname="overview" className="style-options-container">
+              <div widgetname="overview" className="style-options-grid">
                 {styles.map((option, index) => (
-                  <div key={index}>
-                    <div className={darkMode ? "checkmark-dark" : "checkmark"} id={selectedStyle === option.style_id ? 'checkmark-on' : 'checkmark-off'}>
+                  <div widgetname="overview" key={index}>
+                    <div widgetname="overview" className={darkMode ? "checkmark-dark" : "checkmark"} id={selectedStyle === option.style_id ? 'checkmark-on' : 'checkmark-off'}>
                       <i className="fa fa-check" style={{ fontSize: '0.8rem' }} aria-hidden="true" />
                     </div>
                     <button
+                      widgetname="overview"
                       type="button"
                       className="style-option-button"
                       style={styleButtonCSS(option.photos[0].thumbnail_url)}

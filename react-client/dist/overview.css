@@ -68,12 +68,6 @@
   height: 100%;
 }
 
-.image-gallery-main-image img {
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center
-}
-
 .gallery-thumbnails-container {
   z-index: 6;
   width: 10%;

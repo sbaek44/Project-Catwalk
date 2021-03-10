@@ -17,13 +17,13 @@ function ProductInformation({
   const renderPrice = () => {
     if (sale) {
       return (
-        <span>
-          <span className="price" style={{ color: 'rgb(255, 0, 140)' }}>
+        <span widgetname="overview">
+          <span widgetname="overview" className="price" style={{ color: 'rgb(255, 0, 140)' }}>
             $
             {sale}
             {' '}
           </span>
-          <span className="price" style={{ textDecoration: 'line-through' }}>
+          <span widgetname="overview" className="price" style={{ textDecoration: 'line-through' }}>
             {price}
           </span>
         </span>
@@ -38,10 +38,10 @@ function ProductInformation({
   };
 
   const renderSocialMediaIcons = () => (
-    <div className="social-media-links">
-      <SocialIcon style={{ marginRight: 2, height: '2rem', width: '2rem' }} url="http://facebook.com" />
-      <SocialIcon style={{ marginRight: 2, height: '2rem', width: '2rem' }} url="http://twitter.com" />
-      <SocialIcon style={{ marginRight: 2, height: '2rem', width: '2rem' }} url="http://pinterest.com" />
+    <div widgetname="overview" className="social-media-links">
+      <SocialIcon widgetname="overview" style={{ marginRight: 2, height: '2rem', width: '2rem' }} url="http://facebook.com" />
+      <SocialIcon widgetname="overview" style={{ marginRight: 2, height: '2rem', width: '2rem' }} url="http://twitter.com" />
+      <SocialIcon widgetname="overview" style={{ marginRight: 2, height: '2rem', width: '2rem' }} url="http://pinterest.com" />
     </div>
   );
 
@@ -54,21 +54,21 @@ function ProductInformation({
   const uppercase = (str = '') => (str.toUpperCase());
 
   return (
-    <div>
+    <div widgetname="overview">
       {product.hasOwnProperty('id')
         ? (
-          <div className="product-info-side">
-            <div className="product-rating">
+          <div widgetname="overview" className="product-info-side">
+            <div widgetname="overview" className="product-rating">
               <Stars avgRating={avgRating} />
-              <span id="reviews-link" onClick={() => scrollToReviews()}>Read all reviews</span>
+              <span widgetname="overview" id="reviews-link" onClick={() => scrollToReviews()}>Read all reviews</span>
             </div>
-            <div className="product-category">
+            <div widgetname="overview" className="product-category">
               {uppercase(product.category)}
             </div>
-            <div className="product-name">
+            <div widgetname="overview" className="product-name">
               {product.name}
             </div>
-            <div className="product-price">{renderPrice()}</div>
+            <div widgetname="overview" className="product-price">{renderPrice()}</div>
             {renderSocialMediaIcons()}
           </div>
         )
