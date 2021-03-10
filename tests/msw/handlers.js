@@ -84,7 +84,7 @@ const testMetadata = {
 
 const handlers = [
   // eslint-disable-next-line arrow-body-style
-  rest.get('http://127.0.0.1:300/api/shared/products/16060', (req, res, ctx) => {
+  rest.get('/api/shared/products/', (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json(testProduct),

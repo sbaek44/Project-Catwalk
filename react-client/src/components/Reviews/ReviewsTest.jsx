@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const Reviews = (props) => {
+const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
-    if (props.currentProduct) {
       getReviews();
-    }
   }, []);
 
+  let reviewBody;
+  if (reviews.length > 0) {
+    reviewBody = reviews[0].body
+  } else {
+    reviewBody = '';
+  }
+
   const getReviews = () => {
-    let id = props.currentProduct;
-    axios.get(`http://127.0.0.1:3000/api/reviews/?product_id=${id}&count=100&sort=${selectedParameter}`)
+    axios.get(`/api/reviews/`)
       .then((data) => {
-        setReviews(data.data.results);
+        setReviews(data.data);
       })
       .catch((err) => console.log(err));
   };
 
   return (
     <div>
-      {ratings[0].body}
+      {reviewBody}
     </div>
   );
 };
