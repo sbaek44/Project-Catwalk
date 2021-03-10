@@ -21,6 +21,4 @@ test('it should render a review body', async () => {
   await waitFor(() => {
     expect(getByText('Comfortable and practical.')).toBeInTheDocument()
   })
-
-
 })
