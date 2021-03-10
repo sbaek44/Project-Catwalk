@@ -19,3 +19,9 @@ button:hover {
 .ReactModal__Overlay {
   z-index: 20;
 }
+
+.switch-container {
+  position: absolute;
+  top: 2.5%;
+  right: 0.5%;
+}

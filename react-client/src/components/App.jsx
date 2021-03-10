@@ -87,7 +87,12 @@ function App() {
     <ThemeProvider theme={theme}>
       <Paper>
         <div>
-          <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
+          <div className='switch-container'>
+            <Switch
+              checked={darkMode}
+              onChange={() => setDarkMode(!darkMode)}
+            />
+          </div>
           <ClickTracker render={(clickTracker) => (
             <>
               <Overview
