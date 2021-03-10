@@ -99,6 +99,7 @@ function App() {
                 clickTracker={clickTracker}
                 product={selectedProduct}
                 avgRating={avgRatings}
+                darkMode={darkMode}
               />
               {/* <RelatedItemsList
                 clickTracker={clickTracker}

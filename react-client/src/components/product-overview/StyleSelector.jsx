@@ -18,6 +18,7 @@ function StyleSelector({
   updateSale,
   updatePhotos,
   selectPhoto,
+  darkMode,
 }) {
   const [styles, updateStyles] = useState([]);
 
@@ -92,7 +93,7 @@ function StyleSelector({
               <div className="style-options-grid">
                 {styles.map((option, index) => (
                   <div key={index}>
-                    <div className="checkmark" id={selectedStyle === option.style_id ? 'on' : 'off'}>
+                    <div className={darkMode ? "checkmark-dark" : "checkmark"} id={selectedStyle === option.style_id ? 'checkmark-on' : 'checkmark-off'}>
                       <i className="fa fa-check" style={{ fontSize: '0.8rem' }} aria-hidden="true" />
                     </div>
                     <button
@@ -120,6 +121,7 @@ function StyleSelector({
               selectedStyle={selectedStyle}
               styleOptions={styles}
               getStyleName={getNameOfSelectedStyle}
+              darkMode={darkMode}
             />
           </div>
         )

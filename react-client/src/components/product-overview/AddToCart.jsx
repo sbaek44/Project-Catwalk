@@ -13,6 +13,7 @@ function AddToCart({
   selectedStyle,
   styleOptions,
   getStyleName,
+  darkMode,
 }) {
   const [size, selectSize] = useState('');
   const [sizeOptions, setSizeOptions] = useState([]);
@@ -106,7 +107,7 @@ function AddToCart({
         .catch((err) => {
           console.error(err);
         });
-      alert(`Added (${qty}) size ${size} ${product.name} in ${getStyleName()} to cart!`);
+      alert(`Added ${qty}${qty > 1 ? 'x' : '' } size ${size} ${product.name} in ${getStyleName()} to cart!`);
     }
   };
 
@@ -151,7 +152,20 @@ function AddToCart({
             <div className="selector-container">
               {/* size dropdown becomes inactive and reads OUT OF STOCK when there's no stock */}
               <Select
-                theme={(theme) => ({
+                theme={darkMode ? (theme) => ({
+                  ...theme,
+                  colors: {
+                    ...theme.colors,
+                    neutral0: 'rgb(72,72,72)',
+                    neutral10: 'rgb(240,240,240)',
+                    neutral20: 'rgb(24,24,24)',
+                    neutral30: 'rgb(24,24,24)',
+                    neutral80: 'rgb(240,240,240)',
+                    primary: 'rgb(255, 0, 140)',
+                    primary25: 'rgb(255, 0, 140)',
+                    primary50: 'rgb(24,24,24)'
+                  }
+                }) : (theme) => ({
                   ...theme,
                   colors: {
                     ...theme.colors,
@@ -184,7 +198,20 @@ function AddToCart({
                 isSearchable={false}
               />
               <Select
-                theme={(theme) => ({
+                theme={darkMode ? (theme) => ({
+                  ...theme,
+                  colors: {
+                    ...theme.colors,
+                    neutral0: 'rgb(72,72,72)',
+                    neutral10: 'rgb(240,240,240)',
+                    neutral20: 'rgb(24,24,24)',
+                    neutral30: 'rgb(24,24,24)',
+                    neutral80: 'rgb(240,240,240)',
+                    primary: 'rgb(255, 0, 140)',
+                    primary25: 'rgb(255, 0, 140)',
+                    primary50: 'rgb(24,24,24)'
+                  }
+                }) : (theme) => ({
                   ...theme,
                   colors: {
                     ...theme.colors,
@@ -219,7 +246,7 @@ function AddToCart({
               {outOfStock ? null : (
                 <button
                   type="button"
-                  className="add-to-cart-button"
+                  className={darkMode ? "add-to-cart-dark" : "add-to-cart-button"}
                   onClick={() => add()}
                 >
                   <span>ADD TO BAG</span>
@@ -229,7 +256,7 @@ function AddToCart({
               {/* useless */}
               <button
                 type="button"
-                className="favorite-button"
+                className={darkMode ? "favorite-dark" :"favorite-button"}
                 onClick={() => alert(`FAVORITED ${product.name} !`)}
               >
                 ☆
