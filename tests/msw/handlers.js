@@ -82,6 +82,14 @@ const testMetadata = {
   },
 };
 
+const testStyles = {
+  style_id: 1,
+  name: 'Forest Green & Black',
+  original_price: 140,
+  sale_price: 0,
+  default: true
+}
+
 const handlers = [
   // eslint-disable-next-line arrow-body-style
   rest.get('/api/shared/products/', (req, res, ctx) => {
@@ -106,6 +114,14 @@ const handlers = [
       ctx.json(testReviews),
     );
   }),
+  rest.get('/api/products/16060/styles', (req, res, ctx) => {
+    const query = req.url.searchParams;
+    const product_id = query.get('product_id');
+    return res(
+      ctx.status(200),
+      ctx.json(testStyles),
+    );
+  })
 ];
 
 export default handlers;
