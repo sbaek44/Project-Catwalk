@@ -87,7 +87,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Paper>
         <div>
-          <div className='switch-container'>
+          <div className="switch-container" widgetname="overview">
             <Switch
               checked={darkMode}
               onChange={() => setDarkMode(!darkMode)}

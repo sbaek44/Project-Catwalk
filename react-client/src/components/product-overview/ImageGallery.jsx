@@ -69,9 +69,10 @@ function ImageGallery({
   const renderThumbnails = () => {
     if (photos.length < 7) {
       return (
-        <div className="gallery-thumbnails-container">
+        <div widgetname="overview" className="gallery-thumbnails-container">
           {photos.map((photo, i) => (
             <img
+              widgetname="overview"
               className="image-thumbnail"
               alt=""
               key={i}
@@ -86,17 +87,19 @@ function ImageGallery({
       );
     }
     return (
-      <div className="gallery-thumbnails-container">
+      <div widgetname="overview" className="gallery-thumbnails-container">
         <button
+          widgetname="overview"
           type="button"
           id={selectedPhotoIndex === 0 ? 'hidden' : null}
           className="vertical-arrow"
           onClick={(event) => { scrollBack(event); }}
         >
-          <i className="fas fa-chevron-up" />
+          <i widgetname="overview" className="fas fa-chevron-up" />
         </button>
         {photos.map((photo, i) => (
           <div
+            widgetname="overview"
             className={shouldShowThumbnail(i) ? 'image-thumbnail' : 'image-thumbnail-hidden'}
             id={i === selectedPhotoIndex ? 'selected' : null}
             style={{
@@ -112,12 +115,13 @@ function ImageGallery({
           />
         ))}
         <button
+          widgetname="overview"
           type="button"
           id={selectedPhotoIndex === photos.length - 1 ? 'hidden' : null}
           className="vertical-arrow"
           onClick={(event) => { scrollForward(event); }}
         >
-          <i className="fas fa-chevron-down" />
+          <i widgetname="overview" className="fas fa-chevron-down" />
         </button>
       </div>
     );
@@ -131,17 +135,18 @@ function ImageGallery({
   });
 
   return (
-    <div className="image-gallery-outer">
+    <div widgetname="overview" className="image-gallery-outer">
       {photos.length
         ? (
           <div
+            widgetname="overview"
             className="image-gallery-main-image"
             style={mainImageCSS(photos[selectedPhotoIndex].url)}
             onClick={() => (expandedGalleryView ? null : toggleGalleryView(true))}
           >
             {renderThumbnails()}
             {/* EXPANDED VIEW */}
-            <Modal id="expanded-gallery-modal" isOpen={expandedGalleryView} style={modalStyle} ariaHideApp={false}>
+            <Modal widgetname="overview" id="expanded-gallery-modal" isOpen={expandedGalleryView} style={modalStyle} ariaHideApp={false}>
               <ExpandedView
                 close={() => toggleGalleryView(false)}
                 photos={photos}
@@ -152,12 +157,12 @@ function ImageGallery({
                 forward={scrollForward}
               />
             </Modal>
-            <div className="horizontal-arrow-container">
-              <button type="button" className="horizontal-arrow" id={selectedPhotoIndex > 0 ? null : 'hidden'} onClick={(event) => { scrollBack(event); }}>
-                <i className="fas fa-chevron-left" />
+            <div widgetname="overview" className="horizontal-arrow-container">
+              <button widgetname="overview" type="button" className="horizontal-arrow" id={selectedPhotoIndex > 0 ? null : 'hidden'} onClick={(event) => { scrollBack(event); }}>
+                <i widgetname="overview" className="fas fa-chevron-left" />
               </button>
-              <button type="button" className="horizontal-arrow" id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'} onClick={(event) => { scrollForward(event); }}>
-                <i className="fas fa-chevron-right" />
+              <button widgetname="overview" type="button" className="horizontal-arrow" id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'} onClick={(event) => { scrollForward(event); }}>
+                <i widgetname="overview" className="fas fa-chevron-right" />
               </button>
             </div>
           </div>

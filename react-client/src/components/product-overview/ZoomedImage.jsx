@@ -24,6 +24,7 @@ function ZoomedImage({
 
   return (
     <figure
+      widgetname="overview"
       onMouseMove={(e) => handleMouseMove(e)}
       style={{ backgroundImage, backgroundPosition }}
       onClick={() => zoom()}

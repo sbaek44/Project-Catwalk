@@ -20,13 +20,13 @@ function Overview({
   const [selectedPhoto, selectPhoto] = useState('');
 
   return (
-    <div>
-      <Banner />
+    <div widgetname="overview">
+      <Banner/>
       {product
         ? (
-          <div className="overview">
+          <div className="overview" widgetname="overview">
             <ImageGallery selectedPhoto={selectedPhoto} selectPhoto={selectPhoto} photos={photos} />
-            <div className="right-side">
+            <div className="right-side" widgetname="overview">
               <ProductInformation
                 product={product}
                 selectedStyle={selectedStyle}

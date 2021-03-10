@@ -144,12 +144,12 @@ function AddToCart({
   };
 
   return (
-    <div className="add-to-cart" onBlur={() => closeMenus()}>
+    <div widgetname="overview" className="add-to-cart" onBlur={() => closeMenus()}>
       {styleOptions.length && selectedStyle !== 0 && product.hasOwnProperty('id')
         ? (
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span className="add-to-cart-message">{message}</span>
-            <div className="selector-container">
+          <div widgetname="overview" style={{ display: 'flex', flexDirection: 'column' }}>
+            <span widgetname="overview" className="add-to-cart-message">{message}</span>
+            <div widgetname="overview" className="selector-container">
               {/* size dropdown becomes inactive and reads OUT OF STOCK when there's no stock */}
               <Select
                 theme={darkMode ? (theme) => ({
@@ -187,6 +187,7 @@ function AddToCart({
                 }}
                 id="size"
                 className="dropdown"
+                widgetname="overview"
                 onFocus={() => toggleSizeMenu(true)}
                 blurInputOnSelect
                 onChange={handleSizeSelect}
@@ -233,6 +234,7 @@ function AddToCart({
                 }}
                 id="qty"
                 className="dropdown"
+                widgetname="overview"
                 onFocus={() => toggleQtyMenu(true)}
                 blurInputOnSelect
                 onChange={handleQtySelect}
@@ -241,10 +243,11 @@ function AddToCart({
                 options={qtyOptions}
               />
             </div>
-            <div className="selector-container">
+            <div widgetname="overview" className="selector-container">
               {/* add to cart button is hidden when there's no stock */}
               {outOfStock ? null : (
                 <button
+                  widgetname="overview"
                   type="button"
                   className={darkMode ? "add-to-cart-dark" : "add-to-cart-button"}
                   onClick={() => add()}
@@ -255,6 +258,7 @@ function AddToCart({
               )}
               {/* useless */}
               <button
+                widgetname="overview"
                 type="button"
                 className={darkMode ? "favorite-dark" :"favorite-button"}
                 onClick={() => alert(`FAVORITED ${product.name} !`)}
