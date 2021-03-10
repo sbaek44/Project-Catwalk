@@ -7,6 +7,7 @@ import {
 import '@testing-library/jest-dom/extend-expect';
 import App from '../react-client/src/components/App';
 import handlers from './msw/handlers.js';
+import ProductInformation from '../react-client/src/components/product-overview/ProductInformation.jsx';
 
 const server = setupServer(...handlers);
 

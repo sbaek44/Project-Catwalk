@@ -1,8 +1,6 @@
 const axios = require('axios');
 const token = require('../../config.js')
 
-
-
 const sharedController = (req, res) => {
   let method = req.method;
   let url = req.url;
