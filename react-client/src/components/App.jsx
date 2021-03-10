@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
-import Overview from './product-overview/Overview.jsx';
+import Overview from './product-overview/Overview.jsx'
 import RelatedItemsList from './related items/RelatedItemsList.jsx';
-import YourOutfitList from './related items/YourOutfitList.jsx';
+import YourOutfitList from './related items/YourOutfitList.jsx'
 import Reviews from './Reviews/Reviews.jsx';
-import QA from './Questions-Answers/QA.jsx';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { Switch, Grid, Typography, Button, Paper } from '@material-ui/core';
+import QA from './Questions-Answers/QA.jsx'
 
-function App() {
-  const [selectedProduct, updateSelectedProduct] = useState([]);
-  const [metadata, updateMetadata] = useState('');
-  const [avgRatings, updateAvgRatings] = useState(0);
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    getProducts()
-  }, [])
-
-  useEffect(() => {
-    if (metadata.ratings) {
-      findAvgRating()
+export default class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      selectedProduct: [],
+      metadata: '',
+      avgRating: 0
     }
-  }, [metadata])
+    this.getProducts = this.getProducts.bind(this);
+    this.selectProduct = this.selectProduct.bind(this);
+    this.findAvgRating = this.findAvgRating.bind(this);
+    this.getRatings = this.getRatings.bind(this);
+  }
 
-  const findAvgRating = () => {
-    const ratingsData = metadata.ratings
+  componentDidMount() {
+    this.getProducts();
+  }
+
+  findAvgRating() {
+    const ratingsData = this.state.metadata.ratings
     if (Object.keys(ratingsData).length === 0) {
       return '';
     }
@@ -40,72 +40,68 @@ function App() {
 
     let averageScore = totalScore / amountOfRatings;
     let rounded = Math.round(averageScore * 4) / 4;
-    updateAvgRatings(rounded)
+    this.setState({
+      avgRating: rounded
+    })
   }
 
-  const selectProduct = (id) => {
+  selectProduct(id) {
     axios.get(`http://127.0.0.1:3000/api/shared/products/${id}`)
       .then((results) => {
-        updateSelectedProduct(results.data)
+        this.setState({
+          selectedProduct: results.data
+        })
       })
       .catch(err => (console.log(err)))
   }
 
-  const getProducts = () => {
+  getProducts() {
     let id = 16060;
     axios.get(`http://127.0.0.1:3000/api/shared/products/${id}`)
       .then((data) => {
-        updateSelectedProduct(data.data)
+        this.setState({
+          selectedProduct: data.data
+        }, () => this.getRatings())
       })
-      .then(() => (getRatings()))
       .catch((err) => {
         console.log(err);
       });
   }
 
-  const getRatings = () => {
-    let id = selectedProduct.id;
+  getRatings() {
+    let id = this.state.selectedProduct.id;
     axios.get(`http://127.0.0.1:3000/api/reviews/meta?product_id=${id}`)
       .then((result) => {
-        updateMetadata(result.data)
+        this.setState({
+          metadata: result.data
+        }, () => this.findAvgRating());
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  const theme = createMuiTheme({
-    palette: {
-      type: darkMode ? "dark" : "light"
-    }
-  })
-
-  return (
-    <ThemeProvider theme={theme}>
-      <Paper>
+  render() {
+    return (
       <div>
-        <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)}/>
         <Overview
-          product={selectedProduct}
-          avgRating={avgRatings} />
+          product={this.state.selectedProduct}
+          avgRating={this.state.avgRating} />
         <RelatedItemsList
-          selectProduct={selectProduct}
-          avgRating={avgRatings}
-          currentProduct={selectedProduct} />
+          selectProduct={this.selectProduct}
+          avgRating={this.state.avgRating}
+          currentProduct={this.state.selectedProduct} />
         <YourOutfitList
-          avgRating={avgRatings}
-          currentProduct={selectedProduct} />
+          avgRating={this.state.avgRating}
+          currentProduct={this.state.selectedProduct} />
         <QA
-          currentProduct={selectedProduct} />
+          currentProduct={this.state.selectedProduct} />
         <Reviews
-          avgRating={avgRatings}
-          metadata={metadata}
-          getRatings={getRatings}
-          currentProduct={selectedProduct.id} />
+          avgRating={this.state.avgRating}
+          metadata={this.state.metadata}
+          getRatings={this.getRatings}
+          currentProduct={this.state.selectedProduct.id} />
       </div>
-      </Paper>
-    </ThemeProvider>
-  )
+    )
+  }
 }
-
-export default App
