@@ -85,7 +85,7 @@ function App() {
       <Paper>
       <div>
         <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)}/>
-        <Overview
+        {/* <Overview
           product={selectedProduct}
           avgRating={avgRatings} />
         <RelatedItemsList
@@ -94,14 +94,14 @@ function App() {
           currentProduct={selectedProduct} />
         <YourOutfitList
           avgRating={avgRatings}
-          currentProduct={selectedProduct} />
+          currentProduct={selectedProduct} /> */}
         <QA
           currentProduct={selectedProduct} />
-        <Reviews
+        {/* <Reviews
           avgRating={avgRatings}
           metadata={metadata}
           getRatings={getRatings}
-          currentProduct={selectedProduct.id} />
+          currentProduct={selectedProduct.id} /> */}
       </div>
       </Paper>
     </ThemeProvider>
