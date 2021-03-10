@@ -38,6 +38,7 @@
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
+  transition-duration: 0.25s;
 }
 
 /* ImageGallery.jsx */
@@ -408,7 +409,7 @@
   justify-content: space-between;
   align-items: center;
   border: 1px solid rgb(160,160,160);
-  box-shadow: 2px 2px 2px rgb(72,72,72);
+  box-shadow: 1px 1px 1px rgb(72,72,72);
   border-radius: 0.25rem;
   background-color: rgb(240,240,240);
   color: rgb(72,72,72);
@@ -422,7 +423,7 @@
 .add-to-cart-button:hover {
   background-color: rgb(255, 0, 140);
   border: 1px solid rgb(72,72,72);
-  box-shadow: 2px 2px 2px rgb(72,72,72);
+  box-shadow: 1px 1px 1px rgb(72,72,72);
   color: rgb(240,240,240);
 }
 
@@ -432,7 +433,7 @@
   width: 40px;
   height: 40px;
   border: 1px solid rgb(160,160,160);
-  box-shadow: 2px 2px 2px rgb(72,72,72);
+  box-shadow: 1px 1px 1px rgb(72,72,72);
   border-radius: 0.25rem;
   background-color: rgb(240,240,240);
   color: rgb(72,72,72);
@@ -442,7 +443,7 @@
 .favorite-button:hover {
   background-color: rgb(255, 0, 140);
   border: 1px solid rgb(72,72,72);
-  box-shadow: 2px 2px 2px rgb(72,72,72);
+  box-shadow: 1px 1px 1px rgb(72,72,72);
   color: rgb(240,240,240);
 }
 
@@ -473,6 +474,7 @@
   margin-top: 1%;
   flex-direction: row;
   justify-content: space-between;
+  transition-duration: 0.25s;
 }
 
 .slogan-description-container {
