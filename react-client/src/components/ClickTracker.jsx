@@ -9,7 +9,7 @@ export default class ClickTracker extends React.Component {
   handleClick(event) {
     const interaction = {
       element: event.target.nodeName,
-      widget: 'reviews',
+      widget: event.target.getAttribute('widgetname'),
       time: new Date(),
     };
     axios.post('/api/interactions', interaction).then((data) => console.log(data))

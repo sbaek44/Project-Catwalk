@@ -6,7 +6,7 @@ const ReviewsList = (props) => {
     return <div></div>
   }
   return (
-    <div className="reviews-list">
+    <div widgetname="reviews" className="reviews-list">
       { props.reviews.slice(0, props.amountOfReviews).map((review, index) => {
         return (
           <ReviewTile characteristicsArr={props.characteristicsArr}
