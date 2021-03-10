@@ -96,12 +96,13 @@ function AddToCart({
         sku_id: Number(getQtyOrEntireSKU('sku')),
       };
       axios.post('http://127.0.0.1:3000/api/cart', cart)
-        .then(() => {
-          axios.get('http://127.0.0.1:3000/api/cart', cart)
-            .then((result) => {
-              console.log('cart:', result.data);
-            });
-        })
+        // unneccessary get request, just confirms that it did get posted to cart api
+        // .then(() => {
+        //   axios.get('http://127.0.0.1:3000/api/cart', cart)
+        //     .then((result) => {
+        //       console.log('cart:', result.data);
+        //     });
+        // })
         .catch((err) => {
           console.error(err);
         });
@@ -117,6 +118,7 @@ function AddToCart({
 
   useEffect(() => {
     getQtyOptions();
+    selectQty(1);
   }, [size]);
 
   useEffect(() => {
@@ -124,7 +126,6 @@ function AddToCart({
     selectSize('');
     getSizeOptions();
     toggleQtyMenu(false);
-    selectQty(1);
   }, [product, selectedStyle]);
 
   const handleQtySelect = (qtyOption) => {
@@ -155,8 +156,10 @@ function AddToCart({
                   colors: {
                     ...theme.colors,
                     primary: 'rgb(255, 0, 140)',
-                    primary25: 'rgb(250, 203, 229)',
-                  },
+                    primary25: 'rgb(250, 67, 168)',
+                    primary50: 'rgb(250, 89, 177)',
+                    primary75: 'rgb(253, 159, 211)'
+                  }
                 })}
                 styles={{
                   option: (styles) => ({
@@ -174,7 +177,7 @@ function AddToCart({
                 blurInputOnSelect
                 onChange={handleSizeSelect}
                 value={[{ value: size !== '' ? size : 'SELECT SIZE', label: size !== '' ? size : 'SELECT SIZE' }]}
-                disabled={outOfStock}
+                disabled={outOfStock ? true : false}
                 options={sizeOptions}
                 placeholder={outOfStock ? 'OUT OF STOCK' : 'SELECT SIZE'}
                 menuIsOpen={sizeMenuOpen}
@@ -186,8 +189,10 @@ function AddToCart({
                   colors: {
                     ...theme.colors,
                     primary: 'rgb(255, 0, 140)',
-                    primary25: 'rgb(250, 203, 229)',
-                  },
+                    primary25: 'rgb(250, 67, 168)',
+                    primary50: 'rgb(250, 89, 177)',
+                    primary75: 'rgb(253, 159, 211)'
+                  }
                 })}
                 styles={{
                   option: (styles) => ({
@@ -204,10 +209,9 @@ function AddToCart({
                 onFocus={() => toggleQtyMenu(true)}
                 blurInputOnSelect
                 onChange={handleQtySelect}
-                value={[{ value: qty, label: qty }]}
-                disabled={size === ''}
+                value={[{ value: size !== '' ? qty : '-', label: size !== '' ? qty : '-' }]}
+                disabled={size === '' ? true : false}
                 options={qtyOptions}
-                placeholder={size === '' ? '-' : 1}
               />
             </div>
             <div className="selector-container">

@@ -95,7 +95,7 @@ function App() {
                 product={selectedProduct}
                 avgRating={avgRatings}
               />
-              <RelatedItemsList
+              {/* <RelatedItemsList
                 clickTracker={clickTracker}
                 selectProduct={selectProduct}
                 avgRating={avgRatings}
@@ -116,7 +116,7 @@ function App() {
                 metadata={metadata}
                 getRatings={getRatings}
                 currentProduct={selectedProduct.id}
-              />
+              /> */}
             </>
           )}
           />
