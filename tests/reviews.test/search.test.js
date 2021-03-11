@@ -12,7 +12,7 @@ const mockSetSearchQuery = jest.fn()
 test('it should respond to the user typing and update the searchQuery based off of that', async () => {
   const { container, getByText } = render(<Search setSearchQuery={mockSetSearchQuery} />)
 
-  let input = screen.getByPlaceholderText('search..');
+  const input = screen.getByPlaceholderText('search..');
 
   userEvent.type(input, 'GOOD')
   expect(screen.getByDisplayValue(/good/i)).toBeInTheDocument();
