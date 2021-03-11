@@ -14,7 +14,7 @@
     "@testing-library/dom": "^7.30.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.8.1",
+    "@testing-library/user-event": "^12.8.3",
     "babel-core": "^7.0.0-bridge.0",
     "babel-loader": "^6.3.2",
     "babel-preset-env": "^1.7.0",
@@ -52,7 +52,7 @@
     "react-fontawesome": "^1.7.1",
     "react-highlight-words": "^0.17.0",
     "react-modal": "^3.12.1",
-    "react-select": "^4.1.0",
+    "react-select": "^4.2.1",
     "react-social-icons": "^4.1.0",
     "styled-components": "^5.2.1"
   }
