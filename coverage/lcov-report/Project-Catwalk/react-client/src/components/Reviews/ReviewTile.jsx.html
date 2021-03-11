@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">2.56% </span>
+                <span class="strong">2.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/39</span>
+                <span class='fraction'>1/40</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">2.56% </span>
+                <span class="strong">2.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/39</span>
+                <span class='fraction'>1/40</span>
             </div>
         
             
@@ -194,8 +194,12 @@
 <a name='L135'></a><a href='#L135'>135</a>
 <a name='L136'></a><a href='#L136'>136</a>
 <a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -313,6 +317,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -338,7 +348,6 @@ import Stars from './Ratings/Stars.jsx';
 import axios from 'axios';
 import Highlighter from "react-highlight-words";
 &nbsp;
-&nbsp;
 const ReviewTile = <span class="fstat-no" title="function not covered" >({</span> searchQuery, characteristicsArr, metadata, review, avgRating, getReviews }) =&gt; {
   const date = <span class="cstat-no" title="statement not covered" >new Date(review.date).toUTCString().slice(4, -12);</span>
   const [hasMarked, setHasMarked] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
@@ -363,9 +372,9 @@ const ReviewTile = <span class="fstat-no" title="function not covered" >({</span
 <span class="cstat-no" title="statement not covered" >    reviewText = &lt;div&gt; {review.body} &lt;/div&gt;;</span>
   } else {
 <span class="cstat-no" title="statement not covered" >    reviewText = (</span>
-      &lt;div&gt;
+      &lt;div widgetname="reviews"&gt;
         {review.body.slice(0, 250)}
-          &lt;div style={{fontSize: '14px', fontWeight: 'bold'}}  className="text"  onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setLongerThan250(false)}</span> &gt;
+          &lt;div widgetname="reviews" style={{fontSize: '14px', fontWeight: 'bold'}}  className="text"  onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setLongerThan250(false)}</span> &gt;
             show more..
           &lt;/div&gt;
       &lt;/div&gt;
@@ -380,16 +389,16 @@ const ReviewTile = <span class="fstat-no" title="function not covered" >({</span
 <span class="cstat-no" title="statement not covered" >  if (!review.recommend) {</span>
 <span class="cstat-no" title="statement not covered" >    form = '';</span>
   } else {
-<span class="cstat-no" title="statement not covered" >    form = &lt;div className="reviewGuts" style={{fontWeight: 'bold'}}&gt;✔ I recommend this product&lt;/div&gt;;</span>
+<span class="cstat-no" title="statement not covered" >    form = &lt;div widgetname="reviews" className="reviewGuts" style={{fontWeight: 'bold'}}&gt;✔ I recommend this product&lt;/div&gt;;</span>
   }
   let response;
 <span class="cstat-no" title="statement not covered" >  if (review.response) {</span>
 <span class="cstat-no" title="statement not covered" >    response = (</span>
     &lt;div id="response-container" &gt;
-      &lt;div id="response"&gt;
+      &lt;div widgetname="reviews" id="response"&gt;
         Response from seller:
       &lt;/div&gt;
-      &lt;div id="response-text"&gt;
+      &lt;div widgetname="reviews" id="response-text"&gt;
         {review.response}
       &lt;/div&gt;
     &lt;/div&gt;
@@ -431,38 +440,44 @@ const ReviewTile = <span class="fstat-no" title="function not covered" >({</span
   };
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;div className="reviewTile"&gt;
-      &lt;div id="stars-user" style={{display: 'flex', flexDirection: 'row'}} &gt;
-      &lt;div className="stars"&gt; &lt;Stars avgRating={review.rating} /&gt;&lt;/div&gt;
-      &lt;div className="userName"&gt;
+    &lt;div widgetname="reviews" className="reviewTile"&gt;
+      &lt;div widgetname="reviews" id="stars-user" style={{display: 'flex', flexDirection: 'row'}} &gt;
+      &lt;div widgetname="reviews" className="stars"&gt; &lt;Stars avgRating={review.rating} /&gt;&lt;/div&gt;
+      &lt;div widgetname="reviews" className="userName"&gt;
         {dateAndUser}
       &lt;/div&gt;
       &lt;/div&gt;
-&nbsp;
-&nbsp;
-      &lt;div className="reviewSummary"&gt; {review.summary} &lt;/div&gt;
-      &lt;div className="reviewGuts" &gt; {reviewText}  &lt;/div&gt;
-      &lt;ReviewPhotos photos={review.photos} /&gt;
-      {form}
-      &lt;div className="reviewGuts"&gt;{response}  &lt;/div&gt;
-        &lt;div className="reviewGuts" style={{display: 'flex', flexDirection: 'row'}}&gt;
-          Helpful?
-            &lt;div  id="yes"  className="text" onClick={markAsHelpful}&gt;Yes&lt;/div&gt;
-            {`(${review.helpfulness})`}
-            &lt;div id="yes" className="text" onClick={markAsHelpful} &gt;No&lt;/div&gt;
-            {`(${review.helpfulness})`}
-          &lt;div id="yes"&gt;|&lt;/div&gt;
-        &lt;div id="yes" className="text" onClick={reportReview}&gt;report&lt;/div&gt;
-      &lt;/div&gt;
+      &lt;div widgetname="reviews" className="reviewSummary"&gt; {review.summary} &lt;/div&gt;
+      &lt;div widgetname="reviews" className="reviewGuts" &gt;
       {isHighlighting
-      ?     &lt;Highlighter
+      ?  &lt;Highlighter
       highlightClassName="found"
       searchWords={[searchQuery]}
       autoEscape={true}
       textToHighlight={review.body}
     /&gt;
-    : ''
-      }
+    : longerThan250
+      ? &lt;div widgetname="reviews"&gt;
+          {review.body.slice(0, 250)}
+            &lt;div widgetname="reviews" style={{fontSize: '14px', fontWeight: 'bold'}}  className="text"  onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setLongerThan250(false)}</span> &gt;
+              show more..
+            &lt;/div&gt;
+        &lt;/div&gt;
+    : &lt;div&gt; {review.body} &lt;/div&gt;
+    }
+      &lt;/div&gt;
+      &lt;ReviewPhotos photos={review.photos} /&gt;
+      {form}
+      &lt;div widgetname="reviews" className="reviewGuts"&gt;{response}  &lt;/div&gt;
+        &lt;div widgetname="reviews" className="reviewGuts" style={{display: 'flex', flexDirection: 'row'}}&gt;
+          Helpful?
+            &lt;div widgetname="reviews"  id="yes"  className="text" onClick={markAsHelpful}&gt;Yes&lt;/div&gt;
+            {`(${review.helpfulness})`}
+            &lt;div widgetname="reviews" id="yes" className="text" onClick={markAsHelpful} &gt;No&lt;/div&gt;
+            {`(${review.helpfulness})`}
+          &lt;div widgetname="reviews" id="yes"&gt;|&lt;/div&gt;
+        &lt;div widgetname="reviews" id="yes" className="text" onClick={reportReview}&gt;report&lt;/div&gt;
+      &lt;/div&gt;
     &lt;/div&gt;
   );
 };
@@ -475,7 +490,7 @@ export default ReviewTile;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Mar 08 2021 16:19:46 GMT-0800 (Pacific Standard Time)
+                at Wed Mar 10 2021 15:39:28 GMT-0800 (Pacific Standard Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>
