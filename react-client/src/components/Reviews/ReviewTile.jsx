@@ -5,7 +5,7 @@ import Stars from './Ratings/Stars.jsx';
 import axios from 'axios';
 import Highlighter from "react-highlight-words";
 
-const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRating, getReviews }) => {
+const ReviewTile = ({ searchQuery, metadata, review, avgRating, getReviews }) => {
   const date = new Date(review.date).toUTCString().slice(4, -12);
   const [hasMarked, setHasMarked] = useState(false);
   const [longerThan250, setLongerThan250] = useState(false);
@@ -64,22 +64,9 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
     response = '';
   }
 
-  let reviewBody = {
-    body: review.body,
-    date: review.date,
-    helpfulness: review.helpfulness,
-    photos: review.photos,
-    recommend: review.recommend,
-    response: review.response,
-    review_className: review.review_className,
-    reviewer_name: review.reviewer_name,
-    summary: review.summary,
-  };
-
   const markAsHelpful = () => {
     if (!hasMarked) {
-      reviewBody.helpfulness += 1;
-      axios.put(`http://127.0.0.1:3000/api/reviews/${review.review_id}/helpful`, reviewBody)
+      axios.put(`http://127.0.0.1:3000/api/reviews/${review.review_id}/helpful`, null)
         .then(() => {
           getReviews();
         })
@@ -89,7 +76,7 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
   };
 
   const reportReview = () => {
-    axios.put(`http://127.0.0.1:3000/api/reviews/${review.review_id}/report`, reviewBody)
+    axios.put(`http://127.0.0.1:3000/api/reviews/${review.review_id}/report`, null)
       .then(() => {
         getReviews();
       })
