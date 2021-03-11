@@ -259,7 +259,8 @@
 }
 
 .expanded-view-image:hover {
-  cursor: crosshair;
+  /* cursor: crosshair; */
+  cursor: url(icons/plus-icon.svg), auto
 }
 
 .right-side {
@@ -423,7 +424,7 @@
   border-radius: 0.25rem;
   background-color: rgb(240,240,240);
   color: rgb(72,72,72);
-  width: 84%;
+  width: 87%;
   height: 40px;
   font-size: 1rem;
   margin-right: 0.25rem;
@@ -439,7 +440,7 @@
   border-radius: 0.25rem;
   background-color: rgb(72,72,72);
   color: rgb(240,240,240);
-  width: 84%;
+  width: 87%;
   height: 40px;
   font-size: 1rem;
   margin-right: 0.25rem;
@@ -581,6 +582,6 @@ figure {
 }
 
 figure:hover {
-  cursor: all-scroll /* should be minus */
+  cursor: url(icons/minus-icon.svg), auto
 }
 

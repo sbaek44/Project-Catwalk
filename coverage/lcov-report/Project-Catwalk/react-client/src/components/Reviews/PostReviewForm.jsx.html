@@ -694,13 +694,13 @@ const PostReviewForm = <span class="fstat-no" title="function not covered" >(p</
 <span class="cstat-no" title="statement not covered" >  if (body.length &lt; 50) {</span>
     const amountLeft = <span class="cstat-no" title="statement not covered" >50 - body.length;</span>
 <span class="cstat-no" title="statement not covered" >    belowBody = (</span>
-      &lt;div style={{ margin: '1%' }}&gt;
+      &lt;div widgetname="reviews" style={{ margin: '1%' }}&gt;
         Minimum required characters left:
         {amountLeft}
       &lt;/div&gt;
     );
   } else {
-<span class="cstat-no" title="statement not covered" >    belowBody = &lt;div&gt;Minimum reached&lt;/div&gt;;</span>
+<span class="cstat-no" title="statement not covered" >    belowBody = &lt;div widgetname="reviews"&gt;Minimum reached&lt;/div&gt;;</span>
   }
 &nbsp;
   const reviewPost = <span class="cstat-no" title="statement not covered" >{</span>
@@ -812,111 +812,111 @@ const PostReviewForm = <span class="fstat-no" title="function not covered" >(p</
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Modal isOpen={postModalIsOpen}&gt;
       &lt;Modal isOpen={imageModalIsOpen}&gt;
-        &lt;div className="review-form-component"&gt;
-          &lt;label&gt;
+        &lt;div widgetname="reviews" className="review-form-component"&gt;
+          &lt;label widgetname="reviews"&gt;
             Image 1:
-            &lt;input style={{ margin: '1%' }} onChange={setImages} name="0" type="text" /&gt;
+            &lt;input widgetname="reviews" style={{ margin: '1%' }} onChange={setImages} name="0" type="text" /&gt;
           &lt;/label&gt;
         &lt;/div&gt;
-        &lt;div className="review-form-component"&gt;
-          &lt;label&gt;
+        &lt;div widgetname="reviews" className="review-form-component"&gt;
+          &lt;label widgetname="reviews"&gt;
             Image 2:
-            &lt;input style={{ margin: '1%' }} onChange={setImages} name="1" type="text" /&gt;
+            &lt;input widgetname="reviews" style={{ margin: '1%' }} onChange={setImages} name="1" type="text" /&gt;
           &lt;/label&gt;
         &lt;/div&gt;
-        &lt;div className="review-form-component"&gt;
-          &lt;label&gt;
+        &lt;div widgetname="reviews" className="review-form-component"&gt;
+          &lt;label widgetname="reviews"&gt;
             Image 3:
-            &lt;input style={{ margin: '1%' }} onChange={setImages} name="2" type="text" /&gt;
+            &lt;input widgetname="reviews" style={{ margin: '1%' }} onChange={setImages} name="2" type="text" /&gt;
           &lt;/label&gt;
         &lt;/div&gt;
-        &lt;div className="review-form-component"&gt;
-          &lt;label&gt;
+        &lt;div widgetname="reviews" className="review-form-component"&gt;
+          &lt;label widgetname="reviews"&gt;
             Image 4:
-            &lt;input style={{ margin: '1%' }} onChange={setImages} name="3" type="text" /&gt;
+            &lt;input widgetname="reviews" style={{ margin: '1%' }} onChange={setImages} name="3" type="text" /&gt;
           &lt;/label&gt;
         &lt;/div&gt;
-        &lt;div className="review-form-component"&gt;
-          &lt;label&gt;
+        &lt;div widgetname="reviews" className="review-form-component"&gt;
+          &lt;label widgetname="reviews"&gt;
             Image 5:
-            &lt;input style={{ margin: '1%' }} onChange={setImages} name="4" type="text" /&gt;
+            &lt;input widgetname="reviews" style={{ margin: '1%' }} onChange={setImages} name="4" type="text" /&gt;
           &lt;/label&gt;
         &lt;/div&gt;
-        &lt;button className="review-buttons" onClick={updateImages}&gt;Submit&lt;/button&gt;
-        &lt;button className="review-buttons" onClick={toggleModal}&gt;Cancel&lt;/button&gt;
+        &lt;button widgetname="reviews" className="review-buttons" onClick={updateImages}&gt;Submit&lt;/button&gt;
+        &lt;button widgetname="reviews" className="review-buttons" onClick={toggleModal}&gt;Cancel&lt;/button&gt;
       &lt;/Modal&gt;
-      &lt;div style={{ display: 'flex', flexDirection: 'row' }}&gt;
-        &lt;form className="addReviewForm"&gt;
-          &lt;div className="review-form-component"&gt;
-            &lt;label&gt;
+      &lt;div widgetname="reviews" style={{ display: 'flex', flexDirection: 'row' }}&gt;
+        &lt;form widgetname="reviews" className="addReviewForm"&gt;
+          &lt;div widgetname="reviews" className="review-form-component"&gt;
+            &lt;label widgetname="reviews"&gt;
               Overall rating
-              &lt;select style={{ margin: '1%' }} onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setRating(Number(e.target.value))}</span>&gt;
+              &lt;select widgetname="reviews" style={{ margin: '1%' }} onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setRating(Number(e.target.value))}</span>&gt;
                 {options.map(<span class="fstat-no" title="function not covered" >(o</span>ption, i) =&gt; (
-<span class="cstat-no" title="statement not covered" >                  &lt;option value={i} key={i}&gt;{option}&lt;/option&gt;</span>
+<span class="cstat-no" title="statement not covered" >                  &lt;option widgetname="reviews" value={i} key={i}&gt;{option}&lt;/option&gt;</span>
                 ))}
               &lt;/select&gt;
             &lt;/label&gt;
           &lt;/div&gt;
-          &lt;div className="review-form-component"&gt;
-            &lt;label&gt;
+          &lt;div widgetname="reviews" className="review-form-component"&gt;
+            &lt;label widgetname="reviews"&gt;
               Do you recommend this product?
-              &lt;select style={{ margin: '1%' }} onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setBool(e.target.value)}</span>&gt;
-                &lt;option&gt;Select&lt;/option&gt;
-                &lt;option value="true"&gt;Yes&lt;/option&gt;
-                &lt;option value="false"&gt;No&lt;/option&gt;
+              &lt;select widgetname="reviews" style={{ margin: '1%' }} onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setBool(e.target.value)}</span>&gt;
+                &lt;option widgetname="reviews"&gt;Select&lt;/option&gt;
+                &lt;option widgetname="reviews" value="true"&gt;Yes&lt;/option&gt;
+                &lt;option widgetname="reviews" value="false"&gt;No&lt;/option&gt;
               &lt;/select&gt;
             &lt;/label&gt;
           &lt;/div&gt;
-          &lt;div className="review-form-component" style={{ display: 'flex', flexDirection: 'row' }}&gt;
-            &lt;label&gt;
+          &lt;div widgetname="reviews" className="review-form-component" style={{ display: 'flex', flexDirection: 'row' }}&gt;
+            &lt;label widgetname="reviews"&gt;
               Characteristics:
               {arrOfCharacteristicChoices.map(<span class="fstat-no" title="function not covered" >(c</span>hoiceArray, idx) =&gt; (
 <span class="cstat-no" title="statement not covered" >                &lt;select key={idx} name={choiceArray[0]} onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setCharacteristic(e.target.name, e.target.value)}</span>&gt;</span>
                   {choiceArray.slice(1, 7).map(<span class="fstat-no" title="function not covered" >(c</span>hoiceE, i) =&gt; (
-<span class="cstat-no" title="statement not covered" >                    &lt;option key={i} value={i}&gt;{choiceE}&lt;/option&gt;</span>
+<span class="cstat-no" title="statement not covered" >                    &lt;option widgetname="reviews" key={i} value={i}&gt;{choiceE}&lt;/option&gt;</span>
                   ))}
                 &lt;/select&gt;
               ))}
             &lt;/label&gt;
           &lt;/div&gt;
-          &lt;div className="review-form-component"&gt;
-            &lt;label&gt;
+          &lt;div widgetname="reviews" className="review-form-component"&gt;
+            &lt;label widgetname="reviews"&gt;
               Review summary:
-              &lt;input style={{ margin: '1%', width: '50%' }} placeholder="Example: Best purchase ever!" onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setSummary(e.target.value)}</span> type="text" name="" /&gt;
+              &lt;input widgetname="reviews" style={{ margin: '1%', width: '50%' }} placeholder="Example: Best purchase ever!" onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setSummary(e.target.value)}</span> type="text" name="" /&gt;
             &lt;/label&gt;
           &lt;/div&gt;
-          &lt;div className="review-form-component"&gt;
-            &lt;label&gt;
+          &lt;div widgetname="reviews" className="review-form-component"&gt;
+            &lt;label widgetname="reviews"&gt;
               Review body:
-              &lt;input style={{ margin: '1%', width: '100%' }} placeholder="Why did you like the product or not?" onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setBody(e.target.value)}</span> type="text" name="" /&gt;
+              &lt;input widgetname="reviews" style={{ margin: '1%', width: '100%' }} placeholder="Why did you like the product or not?" onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setBody(e.target.value)}</span> type="text" name="" /&gt;
               {belowBody}
             &lt;/label&gt;
           &lt;/div&gt;
-          &lt;div className="review-form-component"&gt;
-            &lt;label&gt;
+          &lt;div widgetname="reviews" className="review-form-component"&gt;
+            &lt;label widgetname="reviews"&gt;
               Upload your photos:
               &lt;button onClick={toggleModal}&gt;Upload photos&lt;/button&gt;
             &lt;/label&gt;
           &lt;/div&gt;
-          &lt;div className="review-form-component"&gt;
-            &lt;label&gt;
+          &lt;div widgetname="reviews" className="review-form-component"&gt;
+            &lt;label widgetname="reviews"&gt;
               What is your nickname?:
-              &lt;input style={{ margin: '1%' }} placeholder="Example: jackson11!" onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setName(e.target.value)}</span> type="text" name="" /&gt;
-              &lt;div&gt;
+              &lt;input widgetname="reviews" style={{ margin: '1%' }} placeholder="Example: jackson11!" onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setName(e.target.value)}</span> type="text" name="" /&gt;
+              &lt;div widgetname="reviews"&gt;
                 For privacy reasons, do not use your full name or email address
               &lt;/div&gt;
             &lt;/label&gt;
           &lt;/div&gt;
-          &lt;div id="text-under-form" className="review-form-component"&gt;
-            &lt;label&gt;
+          &lt;div widgetname="reviews" id="text-under-form" className="review-form-component"&gt;
+            &lt;label widgetname="reviews"&gt;
               Your email:
-              &lt;input style={{ margin: '1%' }} placeholder="Example: jackson11@email.com" onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setEmail(e.target.value)}</span> type="email" name="" /&gt;
-              &lt;div&gt;
+              &lt;input widgetname="reviews" style={{ margin: '1%' }} placeholder="Example: jackson11@email.com" onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setEmail(e.target.value)}</span> type="email" name="" /&gt;
+              &lt;div widgetname="reviews"&gt;
                 For authentication reasons, you will not be emailed
               &lt;/div&gt;
             &lt;/label&gt;
           &lt;/div&gt;
-          &lt;button
+          &lt;button widgetname="reviews"
             className="review-buttons"
             onClick={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; {
 <span class="cstat-no" title="statement not covered" >              e.preventDefault();</span>
@@ -949,7 +949,7 @@ export default PostReviewForm;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Mar 08 2021 16:19:46 GMT-0800 (Pacific Standard Time)
+                at Wed Mar 10 2021 15:39:28 GMT-0800 (Pacific Standard Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

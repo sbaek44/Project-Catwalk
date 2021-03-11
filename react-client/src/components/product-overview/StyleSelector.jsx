@@ -42,15 +42,34 @@ function StyleSelector({
     }
   };
 
+  // remove random 'u' from beginning of certain photo strings
+  const fixTypo = (str) => {
+    let beginning = str.slice(0, 1);
+    let end = str.slice(2);
+    if (beginning !== "h") {
+			return `h${end}`
+    } else {
+   		 return str
+    }
+  }
+
   const getStyles = (id) => {
     axios.get(`http://127.0.0.1:3000/api/shared/products/${id}/styles`)
       .then((res) => {
         updateStyles(res.data.results);
-        updatePhotos(res.data.results[0].photos);
+        const correctedUrls = [];
+        for (let each of res.data.results[0].photos) {
+          const obj = {
+            url: fixTypo(each.url),
+            thumbnail_url: fixTypo(each.thumbnail_url)
+          }
+          correctedUrls.push(obj)
+        }
+        updatePhotos(correctedUrls);
 
         // By default, the style selected will be the first in the list
         const def = res.data.results[0];
-        handleSelect(def.style_id, def.original_price, def.sale_price, def.photos[0].url);
+        handleSelect(def.style_id, def.original_price, def.sale_price, fixTypo(def.photos[0].url));
       })
       .catch((err) => {
         console.error(err);
