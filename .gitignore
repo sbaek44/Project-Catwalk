@@ -3,7 +3,8 @@ node_modules
 
 config.js
 
-
 bundle.js
 
 firebase.js
+
+forever32.pem
