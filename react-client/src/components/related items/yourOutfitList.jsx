@@ -2,34 +2,36 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Stars from '../Reviews/Ratings/Stars.jsx';
 import Carousel from 'react-elastic-carousel';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 function YourOutfitList(props) {
   const [yourOutfit, updateYourOutfit] = useState([]);
   const [tempPhotoData, updateTempPhotoData] = useState([]);
   const [yourOutfitPhoto, updateYourOutfitPhoto] = useState([]);
+  const [yourOutfitRatings, updateYourOutfitRatings] = useState(0);
 
   useEffect(() => {
+    updateYourOutfitRatings(props.avgRating)
     let currentProductId = props.currentProduct.id
     axios.get(`http://127.0.0.1:3000/api/shared/products/${currentProductId}/styles`)
       .then((results) => (updateTempPhotoData(results.data)))
+      // .then(() => (console.log('from 7')))
       .catch((err) => (console.log(err)))
   }, [props.currentProduct])
 
   useEffect(() => {
-    const storedOutfits = localStorage.getItem('outfits')
-    const storedPhotos = localStorage.getItem('photos')
-    if (storedOutfits) {
-      updateYourOutfit(JSON.parse(storedOutfits))
-    }
-    if (storedPhotos) {
-      updateYourOutfitPhoto(JSON.parse(storedPhotos))
-    }
+    const storedOutfits = localStorage.getItem('outfits');
+    const storedPhotos = localStorage.getItem('photos');
+    const storedRatings = localStorage.getItem('ratings');
+    storedOutfits ? updateYourOutfit(JSON.parse(storedOutfits)) : null
+    storedPhotos ? updateYourOutfitPhoto(JSON.parse(storedPhotos)) : null
+    storedRatings ? updateYourOutfitRatings(JSON.parse(storedRatings)) : null
   }, [])
 
   useEffect(() => {
     localStorage.setItem('outfits', JSON.stringify(yourOutfit))
     localStorage.setItem('photos', JSON.stringify(yourOutfitPhoto))
+    localStorage.setItem('ratings', JSON.stringify(yourOutfitRatings))
   }, [yourOutfit, yourOutfitPhoto])
 
   let addToYourOutfit = () => {
@@ -51,6 +53,10 @@ function YourOutfitList(props) {
         return yourOutfitPhoto[i][1]
       }
     }
+  }
+
+  let getRatings = (id) => {
+    console.log(yourOutfit)
   }
 
   if (yourOutfit.length === 0) {
@@ -80,7 +86,7 @@ function YourOutfitList(props) {
               <div id="yourOutfitCategory">{outfit.category}</div>
               <div id="yourOutfitName">{outfit.name}</div>
               <div id="yourOutfitPrice">{outfit.sale_price ? outfit.sale_price : outfit.default_price}</div>
-              <Stars id="cardStars" avgRating={props.avgRating} />
+              <Stars id="cardStars" avgRating={yourOutfitRatings} />
             </div>
           </div>
         ))}

@@ -4,7 +4,7 @@ import axios from 'axios';
 import header from '../../../../config.js';
 import Stars from '../Reviews/Ratings/Stars.jsx';
 import Carousel from 'react-elastic-carousel';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const customStyles = {
   content : {
@@ -44,6 +44,14 @@ function RelatedItemCard(props) {
     }
   }
 
+  let getRating = (id) => {
+    for (let i = 0; i < props.relatedRatings.length; i++) {
+      if (id === Number(props.relatedRatings[i].id)) {
+        return props.relatedRatings[i].rating
+      }
+    }
+  }
+
   let modalState = (e) => {
     let compFeat = []
     updateModalIsOpen(true)
@@ -60,36 +68,36 @@ function RelatedItemCard(props) {
     return null
   } else {
     return (
-      <div style={{display: 'flex', flexDirection: 'row'}}>
-      <Carousel itemsToShow={4}>
+      <div widgetname="related-products" style={{display: 'flex', flexDirection: 'row'}}>
+      <Carousel widgetname="related-products" itemsToShow={4}>
       {props.dataArr.map((item, i) => (
-        <div id="relatedItemCard" key={i}>
-          <img id="related-img" onClick={() => (props.selectProduct(item.id))} src={getThumbnail(item.id)} />
-          <button id="star-button" name={item.name} value={item.id} onClick={modalState}>&#9734;</button>
-          <div id="related-desc">
-            <div id="cardCategory">{item.category}</div>
-            <div id="cardName">{item.name}</div>
-            <div id="cardPrice">${item.sale_price ? item.sale_price : item.default_price}</div>
-            <Stars id="cardStars" avgRating={props.avgRating} />
+        <div widgetname="related-products" id="relatedItemCard" key={i}>
+          <img widgetname="related-products" id="related-img" onClick={() => (props.selectProduct(item.id))} src={getThumbnail(item.id)} />
+          <button widgetname="related-products" id="star-button" name={item.name} value={item.id} onClick={modalState}>&#9734;</button>
+          <div widgetname="related-products" id="related-desc">
+            <div widgetname="related-products" id="cardCategory">{item.category}</div>
+            <div widgetname="related-products" id="cardName">{item.name}</div>
+            <div widgetname="related-products" id="cardPrice">${item.sale_price ? item.sale_price : item.default_price}</div>
+            <Stars id="cardStars" avgRating={getRating(item.id)} />
           </div>
         </div>
       ))}
       </Carousel>
-      <Modal
+      <Modal widgetname="related-products"
         ariaHideApp={false}
         isOpen={modalIsOpen}
         style={customStyles}
         onRequestClose={() => updateModalIsOpen(false)}>
-        <h3 id="comparing">Comparing</h3>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>{props.currentProductFeatures.name}</th>
-              <th></th>
-              <th>{compareName}</th>
+        <h3 widgetname="related-products" id="comparing">Comparing</h3>
+        <table widgetname="related-products" className="table">
+          <thead widgetname="related-products">
+            <tr widgetname="related-products">
+              <th widgetname="related-products">{props.currentProductFeatures.name}</th>
+              <th widgetname="related-products"></th>
+              <th widgetname="related-products">{compareName}</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody widgetname="related-products">
                 {
                   currentFeaturesArr[0].features.map((feature, i) => (
                     <tr id="modal-features" key={i}>
@@ -102,7 +110,7 @@ function RelatedItemCard(props) {
                 {
                 compareFeatures.length ?
                 compareFeatures[0].features.map((feature, i) => (
-                  <tr id="modal-features" key={i} >
+                  <tr widgetname="related-products" id="modal-features" key={i} >
                     <td></td>
                       <td>{feature.value ? feature.value : null} {feature.feature}</td>
                       <td id="right-checkmark">&#10004;</td>
@@ -112,7 +120,7 @@ function RelatedItemCard(props) {
                 }
           </tbody>
         </table>
-        <button style={{textAlign: 'center'}} onClick={() => updateModalIsOpen(false)}>Close</button>
+        <button widgetname="related-products" style={{textAlign: 'center'}} onClick={() => updateModalIsOpen(false)}>Close</button>
       </Modal>
       </div>
     )

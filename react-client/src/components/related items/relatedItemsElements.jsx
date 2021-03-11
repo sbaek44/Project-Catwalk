@@ -5,12 +5,14 @@ import RelatedItemCard from './RelatedItemCard.jsx';
 // need a function to clear out or reset dataArr when a new product is clicked
 
 function RelatedItemsElements(props) {
-  const [dataArr, updateDataArr] = useState([])
-  const [stylesData, updateStylesData] = useState([])
+  const [dataArr, updateDataArr] = useState([]);
+  const [stylesData, updateStylesData] = useState([]);
+  const [relatedRatings, updateRelatedRatings] = useState([]);
 
   useEffect(() => {
     getRelatedData()
     getRelatedPhotos()
+    getRelatedRatings()
   }, [props.currentProductFeatures])
 
   let getRelatedData = () => {
@@ -19,6 +21,7 @@ function RelatedItemsElements(props) {
       axios.get(`http://127.0.0.1:3000/api/shared/products/${item}`)
         .then((results) => (uniqueItems.push(results.data)))
         .then(() => (updateDataArr(uniqueItems)))
+        // .then(() => console.log('from 3'))
         .catch((err) => (console.log(err)))
     })
   }
@@ -27,19 +30,48 @@ function RelatedItemsElements(props) {
     props.relatedItemsIds.map(item => {
       axios.get(`http://127.0.0.1:3000/api/shared/products/${item}/styles`)
         .then((results) => (updateStylesData(stylesData => ([...stylesData, results.data]))))
+        // .then(() => console.log('from 4'))
         .catch((err) => (console.log(err)))
     })
   }
 
+  let getRelatedRatings = () => {
+    let allMetaData = []
+    props.relatedItemsIds.map(item => {
+      axios.get(`http://127.0.0.1:3000/api/reviews/meta?product_id=${item}`)
+      .then((results) => (allMetaData.push({id: results.data.product_id, ratings: results.data.ratings})))
+      .then(() => updateRelatedRatings(allMetaData.map(item => ({id: item.id, rating: findAvgRating(item.ratings)}))))
+      // .then(() => console.log('from 5'))
+      .catch((err) => (console.log(err)))
+    })
+  }
+
+  const findAvgRating = (ratings) => {
+    if (Object.keys(ratings).length === 0) {
+      return '';
+    }
+    let totalScore = 0;
+    let amountOfRatings = 0;
+    for (const key in ratings) {
+      const value = Number(ratings[key]);
+      const actualValue = key * value;
+      totalScore += actualValue;
+      amountOfRatings += value;
+    }
+    const averageScore = totalScore / amountOfRatings;
+    const rounded = Math.round(averageScore * 4) / 4;
+    return rounded;
+  };
+
   return (
     <div>
       <RelatedItemCard
-        stylesData={stylesData}
         dataArr={dataArr}
+        stylesData={stylesData}
+        relatedRatings={relatedRatings}
         currentProduct={props.currentProduct}
         currentProductFeatures={props.currentProductFeatures}
         relatedItemsIds={props.relatedItemsIds}
-        avgRating={props.avgRating}
         selectProduct={props.selectProduct} />
     </div>
   )

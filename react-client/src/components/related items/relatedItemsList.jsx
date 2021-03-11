@@ -16,12 +16,14 @@ function RelatedItemsList(props) {
   let getCurrentFeatures = () => {
     axios.get(`http://127.0.0.1:3000/api/shared/products/${currentProductId}`)
       .then((results) => (updateCurrentProductFeatures(results.data)))
+      // .then(() => console.log('from 1'))
       .catch((err) => (console.log))
   }
 
   let getRelatedIds = () => {
     axios.get(`http://127.0.0.1:3000/api/shared/products/${currentProductId}/related`)
       .then((results) => (updateRelatedItems(results.data.filter(item => (item !== 16057)))))
+      // .then(() => console.log('from 2'))
       .catch((err) => console.log(err))
   }
 
@@ -30,10 +32,9 @@ function RelatedItemsList(props) {
       <h3 id="related-title">RELATED PRODUCTS</h3>
       <RelatedItemsElements
         currentProductFeatures={currentProductFeatures}
-        relatedItemsIds={[...new Set(relatedItemsIds)]}
-        avgRating={props.avgRating}
         selectProduct={props.selectProduct}
-        currentProduct={props.currentProduct} />
+        currentProduct={props.currentProduct}
+        relatedItemsIds={relatedItemsIds} />
     </div>
   )
 }

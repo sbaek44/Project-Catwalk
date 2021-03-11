@@ -87,24 +87,30 @@ function App() {
     <ThemeProvider theme={theme}>
       <Paper>
         <div>
-          <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
+          <div className="switch-container" widgetname="overview">
+            <Switch
+              checked={darkMode}
+              onChange={() => setDarkMode(!darkMode)}
+            />
+          </div>
           <ClickTracker render={(clickTracker) => (
             <>
               <Overview
                 clickTracker={clickTracker}
                 product={selectedProduct}
                 avgRating={avgRatings}
+                darkMode={darkMode}
               />
               <RelatedItemsList
                 clickTracker={clickTracker}
                 selectProduct={selectProduct}
-                avgRating={avgRatings}
                 currentProduct={selectedProduct}
               />
               <YourOutfitList
                 clickTracker={clickTracker}
                 avgRating={avgRatings}
                 currentProduct={selectedProduct}
+                findAvgRating={findAvgRating}
               />
               <QA
                 clickTracker={clickTracker}
