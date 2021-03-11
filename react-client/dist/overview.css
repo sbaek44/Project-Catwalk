@@ -447,6 +447,22 @@
   transition-duration: 0.25s;
 }
 
+.add-to-cart-dark {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgb(24,24,24);
+  box-shadow: 1px 1px 1px rgb(20,20,20);
+  border-radius: 0.25rem;
+  background-color: rgb(72,72,72);
+  color: rgb(240,240,240);
+  width: 84%;
+  height: 40px;
+  font-size: 1rem;
+  margin-right: 0.25rem;
+  transition-duration: 0.25s;
+}
+
 .add-to-cart-button:hover {
   background-color: rgb(255, 0, 140);
   border: 1px solid rgb(72,72,72);

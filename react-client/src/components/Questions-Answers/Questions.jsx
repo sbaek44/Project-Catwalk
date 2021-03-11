@@ -17,6 +17,8 @@ const Questions = (props) => {
   const [helpfulClicked, setHelpfulClicked] = useState([]);
   const [searchValue, setSearchValue] = useState([]);
   const [search, setSearch] = useState('');
+  const [report, setReport] = useState([])
+
 
   useEffect(() => {
     getQuestions();
@@ -42,31 +44,32 @@ const Questions = (props) => {
 
   const reportQuestion = (question) => {
     const id = question.question_id;
+    setReport(prevArray=> [...prevArray, id]);
     axios.put(`http://127.0.0.1:3000/api/qa/questions/${id}/report`, null)
-      .then(() => { getQuestions(); })
+      .then(() => { console.log('success') })
       .catch((err) => { console.log(err); });
   };
 
   const insertQuestion = (question, index) => {
     const date = new Date(question.question_date);
     return (
-      <div className="Question" key={index}>
-        <div className="question_body">
-          <p className="Qprompt">Q:</p>
-          <p className="QuestionPrompt">{search.length > 2 ? <Highlighter searchWords={[search]} textToHighlight={question.question_body} /> : question.question_body}</p>
+      <div widgetName="QA" className="Question" key={index}>
+        <div widgetName="QA" className="question_body">
+          <p widgetName="QA" className="Qprompt">Q:</p>
+          <p widgetName="QA" className="QuestionPrompt">{search.length > 2 ? <Highlighter searchWords={[search]} textToHighlight={question.question_body} /> : question.question_body}</p>
           {helpfulClicked.indexOf(question.question_id) < 0
             ? (
-              <div className="Qhelpful" onClick={() => { increaseHelpfulness(question); }}>
-                <p>
+              <div widgetName="QA" className="Qhelpful" onClick={() => { increaseHelpfulness(question); }}>
+                <p widgetName="QA">
                   Helpful ?
-                  <span className="underline"> Yes </span>
+                  <span widgetName="QA" className="underline"> Yes </span>
                   {question.question_helpfulness}
                 </p>
               </div>
             )
             : (
-              <div className="Qhelpful">
-                <p>
+              <div widgetName="QA" className="Qhelpful">
+                <p widgetName="QA">
                   Helpful? Yes
                   {' '}
                   {question.question_helpfulness}
@@ -76,14 +79,14 @@ const Questions = (props) => {
           {<AnswerModals question={question} product={props.currentProduct} getQuestions={getQuestions} />}
         </div>
         <Answers key={index} id={question.question_id} questionInfo={question} product={props.currentProduct} />
-        <div className="nameNHelpfulness">
-          by
+        <div widgetName="QA" className="nameNHelpfulness">
+          by {" "}
           {question.asker_name}
-          ,
+          ,{' '}
           {date.toDateString().substring(4)}
           {' '}
           |
-          <span onClick={() => { reportQuestion(question); }} className="underline"> Report</span>
+          {report.indexOf(question.question_id) === -1 ? <span widgetName="QA" onClick={() => { reportQuestion(question); }} className="underline"> Report</span>: <span widgetName="QA"> Reported</span>}
         </div>
       </div>
     );
@@ -104,14 +107,14 @@ const Questions = (props) => {
   const insertAllQuestion = () => {
     if (search.length >= 3) {
       return (
-        <div onScroll={loadMoreQ} className={currentQuestion > 2 ? 'Questions' : 'Questions2'}>
+        <div widgetName="QA" onScroll={loadMoreQ} className={currentQuestion > 2 ? 'Questions' : 'Questions2'}>
           <div>
 
             {searchValue.slice(0, currentQuestion).map((q, index) => (insertQuestion(q, index)))}
             {!addQuestions
               ? (
-                <div>
-                  <button type="button" className="moreadd" onClick={() => { clickStuff(); }}>MORE ANSWERED QUESTIONS</button>
+                <div widgetName="QA">
+                  <button widgetName="QA" type="button" className="moreadd" onClick={() => { clickStuff(); }}>MORE ANSWERED QUESTIONS</button>
                   <QuestionModals product={props.currentProduct} getQuestions={getQuestions} />
                 </div>
               ) : <QuestionModals product={props.currentProduct} getQuestions={getQuestions} />}
@@ -120,12 +123,12 @@ const Questions = (props) => {
       );
     }
     return (
-      <div onScroll={loadMoreQ} className={currentQuestion > 2 ? 'Questions' : 'Questions2'}>
+      <div widgetName="QA" onScroll={loadMoreQ} className={currentQuestion > 2 ? 'Questions' : 'Questions2'}>
         {questions.slice(0, currentQuestion).map((q, index) => (insertQuestion(q, index)))}
         {!addQuestions
           ? (
-            <div className="questionAdd">
-              <button type="button" className="moreadd" onClick={() => { clickStuff(); }}>MORE ANSWERED QUESTIONS</button>
+            <div widgetName="QA" className="questionAdd">
+              <button widgetName="QA" type="button" className="moreadd" onClick={() => { clickStuff(); }}>MORE ANSWERED QUESTIONS</button>
               <QuestionModals product={props.currentProduct} getQuestions={getQuestions} />
             </div>
           ) : <QuestionModals product={props.currentProduct} getQuestions={getQuestions} />}
@@ -136,9 +139,9 @@ const Questions = (props) => {
     <div>
       {questions.length > 0
         ? (
-          <div>
-            <h1 className="QATitle">QUESTIONS & ANSWERS</h1>
-            <div className="SearchBar">
+          <div widgetName="QA" >
+            <h1 widgetName="QA" className="QATitle">QUESTIONS & ANSWERS</h1>
+            <div widgetName="QA" className="SearchBar">
               <SearchBar questions={questions} setSearchValue={setSearchValue} searchValue={searchValue} setSearch={setSearch} search={search} insertAllQuestion={insertAllQuestion} />
             </div>
             {insertAllQuestion()}
