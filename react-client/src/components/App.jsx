@@ -95,12 +95,12 @@ function App() {
           </div>
           <ClickTracker render={(clickTracker) => (
             <>
-              <Overview
+              {/* <Overview
                 clickTracker={clickTracker}
                 product={selectedProduct}
                 avgRating={avgRatings}
                 darkMode={darkMode}
-              />
+              /> */}
               <RelatedItemsList
                 clickTracker={clickTracker}
                 selectProduct={selectProduct}
