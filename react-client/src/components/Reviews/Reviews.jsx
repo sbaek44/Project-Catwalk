@@ -20,8 +20,6 @@ const Reviews = (props) => {
   const [isPosting, togglePosting] = useState(false);
   const [isDisplayingMoreReviewsButton, setIsdisplayingMoreReviewsButton] = useState(false);
 
-
-
   useEffect(() => {
     if (props.currentProduct) {
       getReviews();
@@ -92,7 +90,7 @@ const Reviews = (props) => {
 
   const getReviews = () => {
     let id = props.currentProduct;
-    axios.get(`http://127.0.0.1:3000/api/reviews/?product_id=${id}&count=100&sort=${selectedParameter}`)
+    axios.get(`/api/reviews/?product_id=${id}&count=100&sort=${selectedParameter}`)
       .then((data) => {
         setReviews(data.data.results);
         updateMoreReviewsButton(data.data.results);
@@ -135,14 +133,14 @@ const Reviews = (props) => {
   let addReviewsButton;
   let moreReviewsButton;
   if (!isDisplayingMoreReviewsButton) {
-    addReviewsButton = <div  ><button style={{marginLeft: '2%'}} id="addMore" onClick={(e) => {
+    addReviewsButton = <div widgetname="reviews" ><button widgetname="reviews" style={{marginLeft: '2%'}} id="addMore" onClick={(e) => {
       e.preventDefault()
       togglePostForm()
     }} >ADD A REVIEW +</button></div>
     moreReviewsButton = '';
   } else {
     addReviewsButton = '';
-    moreReviewsButton = <div><button className="review-buttons" onClick={addMoreReviews} >MORE REVIEWS</button><button className="review-buttons" onClick={(e) => {
+    moreReviewsButton = <div widgetname="reviews" ><button widgetname="reviews" className="review-buttons" onClick={addMoreReviews} >MORE REVIEWS</button><button widgetname="reviews" className="review-buttons" onClick={(e) => {
       e.preventDefault()
       togglePostForm()
     }} >ADD A REVIEW +</button></div>
@@ -175,8 +173,8 @@ const Reviews = (props) => {
     filterString = filterString.slice(0, -1);
     filterString += ' ratings.';
     filterDisplay = (
-      <div id="filter-display" ><div style={{marginTop: '2%'}}>{filterString}</div>
-        <button id="addMore"  onClick={() => { setFilters([]) }} >Remove all rating filters</button>
+      <div widgetname="reviews" id="filter-display" ><div widgetname="reviews" style={{marginTop: '2%'}}>{filterString}</div>
+        <button widgetname="reviews" id="addMore"  onClick={() => { setFilters([]) }} >Remove all rating filters</button>
       </div>
     );
   } else {
@@ -184,15 +182,15 @@ const Reviews = (props) => {
   }
 
   return (
-    <div widget={props.widget} className="ratings-reviews">
+    <div widgetname="reviews" className="ratings-reviews">
       {postForm}
           <Ratings
             characteristicsArr={characteristicsArr}
             manipulateFilters={manipulateFilters}
             avgRating={props.avgRating}
             metadata={props.metadata}/>
-        <div className="reviews" >
-          <div className="sort-bar">
+        <div widgetname="reviews" className="reviews" >
+          <div widgetname="reviews" className="sort-bar">
             {`${lengthOfReviews} reviews, sorted by`}
             <SortForm updateParamFunc={updateParamFunc} sortParameters={sortParameters} />
             {addReviewsButton}
@@ -219,7 +217,7 @@ const Reviews = (props) => {
                 characteristicsArr={characteristicsArr}
                 searchQuery={searchQuery}
                 />}
-          <div className="more-reviews-bar">
+          <div widgetname="reviews" className="more-reviews-bar">
             {moreReviewsButton}
           </div>
         </div>

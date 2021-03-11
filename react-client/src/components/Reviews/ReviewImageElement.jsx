@@ -7,12 +7,12 @@ const ReviewImageElement = ({ url }) => {
     setModalIsOpen(!modalIsOpen);
   }
   return (
-    <div onClick={toggleModal}>
+    <div widgetname="reviews" onClick={toggleModal}>
       <Modal isOpen={modalIsOpen} >
-        <span className="close" onClick={toggleModal} >Close</span>
-      <img src={url}/>
+        <span widgetname="reviews" className="close" onClick={toggleModal} >Close</span>
+      <img widgetname="reviews" src={url}/>
       </Modal>
-      <img className="reviewThumb" src={url}/>
+      <img widgetname="reviews" className="reviewThumb" src={url}/>
     </div>
   );
 };

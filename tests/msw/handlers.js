@@ -121,11 +121,7 @@ const handlers = [
       ctx.status(200),
       ctx.json(testStyles),
     );
-  }),
-  rest.get('api/qa/'),(req, res, ctc) => {
-    const query = req.url.searchParams;
-    const product_id = query.get('product_id')
-  }
+  })
 ];
 
 export default handlers;

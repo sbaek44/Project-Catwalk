@@ -5,8 +5,7 @@ import Stars from './Ratings/Stars.jsx';
 import axios from 'axios';
 import Highlighter from "react-highlight-words";
 
-
-const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRating, getReviews }) => {
+const ReviewTile = ({ searchQuery, metadata, review, avgRating, getReviews }) => {
   const date = new Date(review.date).toUTCString().slice(4, -12);
   const [hasMarked, setHasMarked] = useState(false);
   const [longerThan250, setLongerThan250] = useState(false);
@@ -30,9 +29,9 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
     reviewText = <div> {review.body} </div>;
   } else {
     reviewText = (
-      <div>
+      <div widgetname="reviews">
         {review.body.slice(0, 250)}
-          <div style={{fontSize: '14px', fontWeight: 'bold'}}  className="text"  onClick={() => setLongerThan250(false)} >
+          <div widgetname="reviews" style={{fontSize: '14px', fontWeight: 'bold'}}  className="text"  onClick={() => setLongerThan250(false)} >
             show more..
           </div>
       </div>
@@ -47,16 +46,16 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
   if (!review.recommend) {
     form = '';
   } else {
-    form = <div className="reviewGuts" style={{fontWeight: 'bold'}}>✔ I recommend this product</div>;
+    form = <div widgetname="reviews" className="reviewGuts" style={{fontWeight: 'bold'}}>✔ I recommend this product</div>;
   }
   let response;
   if (review.response) {
     response = (
     <div id="response-container" >
-      <div id="response">
+      <div widgetname="reviews" id="response">
         Response from seller:
       </div>
-      <div id="response-text">
+      <div widgetname="reviews" id="response-text">
         {review.response}
       </div>
     </div>
@@ -65,22 +64,9 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
     response = '';
   }
 
-  let reviewBody = {
-    body: review.body,
-    date: review.date,
-    helpfulness: review.helpfulness,
-    photos: review.photos,
-    recommend: review.recommend,
-    response: review.response,
-    review_className: review.review_className,
-    reviewer_name: review.reviewer_name,
-    summary: review.summary,
-  };
-
   const markAsHelpful = () => {
     if (!hasMarked) {
-      reviewBody.helpfulness += 1;
-      axios.put(`http://127.0.0.1:3000/api/reviews/${review.review_id}/helpful`, reviewBody)
+      axios.put(`http://127.0.0.1:3000/api/reviews/${review.review_id}/helpful`, null)
         .then(() => {
           getReviews();
         })
@@ -90,7 +76,7 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
   };
 
   const reportReview = () => {
-    axios.put(`http://127.0.0.1:3000/api/reviews/${review.review_id}/report`, reviewBody)
+    axios.put(`http://127.0.0.1:3000/api/reviews/${review.review_id}/report`, null)
       .then(() => {
         getReviews();
       })
@@ -98,17 +84,15 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
   };
 
   return (
-    <div className="reviewTile">
-      <div id="stars-user" style={{display: 'flex', flexDirection: 'row'}} >
-      <div className="stars"> <Stars avgRating={review.rating} /></div>
-      <div className="userName">
+    <div widgetname="reviews" className="reviewTile">
+      <div widgetname="reviews" id="stars-user" style={{display: 'flex', flexDirection: 'row'}} >
+      <div widgetname="reviews" className="stars"> <Stars avgRating={review.rating} /></div>
+      <div widgetname="reviews" className="userName">
         {dateAndUser}
       </div>
       </div>
-
-
-      <div className="reviewSummary"> {review.summary} </div>
-      <div className="reviewGuts" >
+      <div widgetname="reviews" className="reviewSummary"> {review.summary} </div>
+      <div widgetname="reviews" className="reviewGuts" >
       {isHighlighting
       ?  <Highlighter
       highlightClassName="found"
@@ -117,9 +101,9 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
       textToHighlight={review.body}
     />
     : longerThan250
-      ? <div>
+      ? <div widgetname="reviews">
           {review.body.slice(0, 250)}
-            <div style={{fontSize: '14px', fontWeight: 'bold'}}  className="text"  onClick={() => setLongerThan250(false)} >
+            <div widgetname="reviews" style={{fontSize: '14px', fontWeight: 'bold'}}  className="text"  onClick={() => setLongerThan250(false)} >
               show more..
             </div>
         </div>
@@ -128,15 +112,15 @@ const ReviewTile = ({ searchQuery, characteristicsArr, metadata, review, avgRati
       </div>
       <ReviewPhotos photos={review.photos} />
       {form}
-      <div className="reviewGuts">{response}  </div>
-        <div className="reviewGuts" style={{display: 'flex', flexDirection: 'row'}}>
+      <div widgetname="reviews" className="reviewGuts">{response}  </div>
+        <div widgetname="reviews" className="reviewGuts" style={{display: 'flex', flexDirection: 'row'}}>
           Helpful?
-            <div  id="yes"  className="text" onClick={markAsHelpful}>Yes</div>
+            <div widgetname="reviews"  id="yes"  className="text" onClick={markAsHelpful}>Yes</div>
             {`(${review.helpfulness})`}
-            <div id="yes" className="text" onClick={markAsHelpful} >No</div>
+            <div widgetname="reviews" id="yes" className="text" onClick={markAsHelpful} >No</div>
             {`(${review.helpfulness})`}
-          <div id="yes">|</div>
-        <div id="yes" className="text" onClick={reportReview}>report</div>
+          <div widgetname="reviews" id="yes">|</div>
+        <div widgetname="reviews" id="yes" className="text" onClick={reportReview}>report</div>
       </div>
     </div>
   );

@@ -6,10 +6,10 @@ const Search = ({ searchReviews, searchQuery, setSearchQuery }) => {
   };
 
   return (
-    <div className="search-reviews" >
-      <form>
-        <span>
-          <input onChange={updateSearchQuery} type="search" name="inputText" placeholder="search.." />
+    <div widgetname="reviews" className="search-reviews" >
+      <form widgetname="reviews">
+        <span widgetname="reviews">
+          <input widgetname="reviews" onChange={updateSearchQuery} type="search" name="inputText" placeholder="search.." />
         </span>
       </form>
     </div>

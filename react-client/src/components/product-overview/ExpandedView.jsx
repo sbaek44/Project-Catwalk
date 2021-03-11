@@ -20,9 +20,10 @@ function ExpandedView({
   const [isZoomed, toggleZoom] = useState(false);
 
   const renderExpandedViewIcons = () => (
-    <div className="expanded-view-icons-row">
+    <div widgetname="overview" className="expanded-view-icons-row">
       {photos.map((photo, i) => (
         <div
+          widgetname="overview"
           className="expanded-view-icon"
           key={i}
           onClick={(e) => handleIconClick(e, photo.url, i)}
@@ -37,36 +38,42 @@ function ExpandedView({
   };
 
   return (
-    <div className="expanded-gallery-modal-inner">
+    <div widgetname="overview" className="expanded-gallery-modal-inner">
       <button
+        widgetname="overview"
         type="button"
         onClick={() => close()}
         id="modal-x-button"
       >
-        <i className="fas fa-times" />
+        <i widgetname="overview" className="fas fa-times" />
       </button>
       {isZoomed
         ? <ZoomedImage url={url} zoom={zoom} />
-        : <img className="expanded-view-image" alt="" onClick={() => zoom()} src={url} />}
-      <div className={isZoomed ? 'expanded-arrow-and-icon-container-fadeout' : 'expanded-arrow-and-icon-container-fadein'}>
+        : <img widgetname="overview" className="expanded-view-image" alt="" onClick={() => zoom()} src={url} />}
+      <div
+        widgetname="overview"
+        className={isZoomed ? 'expanded-arrow-and-icon-container-fadeout' : 'expanded-arrow-and-icon-container-fadein'}
+      >
         {isZoomed ? null : (
-          <div className="expanded-arrow-and-icon-container">
+          <div widgetname="overview" className="expanded-arrow-and-icon-container">
             <button
+              widgetname="overview"
               type="button"
               id={selectedPhotoIndex > 0 ? null : 'hidden'}
               className="horizontal-arrow"
               onClick={(e) => { back(e); }}
             >
-              <i className="fas fa-chevron-left" />
+              <i widgetname="overview" className="fas fa-chevron-left" />
             </button>
             {renderExpandedViewIcons()}
             <button
+              widgetname="overview"
               type="button"
               id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'}
               className="horizontal-arrow"
               onClick={(e) => { forward(e); }}
             >
-              <i className="fas fa-chevron-right" />
+              <i widgetname="overview" className="fas fa-chevron-right" />
             </button>
           </div>
         )}

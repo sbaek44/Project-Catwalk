@@ -42,15 +42,34 @@ function StyleSelector({
     }
   };
 
+  // remove random 'u' from beginning of certain photo strings
+  const fixTypo = (str) => {
+    let beginning = str.slice(0, 1);
+    let end = str.slice(2);
+    if (beginning !== "h") {
+			return `h${end}`
+    } else {
+   		 return str
+    }
+  }
+
   const getStyles = (id) => {
     axios.get(`http://127.0.0.1:3000/api/shared/products/${id}/styles`)
       .then((res) => {
         updateStyles(res.data.results);
-        updatePhotos(res.data.results[0].photos);
+        const correctedUrls = [];
+        for (let each of res.data.results[0].photos) {
+          const obj = {
+            url: fixTypo(each.url),
+            thumbnail_url: fixTypo(each.thumbnail_url)
+          }
+          correctedUrls.push(obj)
+        }
+        updatePhotos(correctedUrls);
 
         // By default, the style selected will be the first in the list
         const def = res.data.results[0];
-        handleSelect(def.style_id, def.original_price, def.sale_price, def.photos[0].url);
+        handleSelect(def.style_id, def.original_price, def.sale_price, fixTypo(def.photos[0].url));
       })
       .catch((err) => {
         console.error(err);
@@ -81,22 +100,23 @@ function StyleSelector({
   };
 
   return (
-    <div>
+    <div widgetname="overview">
       {styles.length
         ? (
-          <div className="style-selector">
-            <div className="selected-style-label">
-              <span style={{ fontWeight: 'bold' }}>STYLE </span>
-              <span>{getNameOfSelectedStyle('uppercase')}</span>
+          <div widgetname="overview" className="style-selector">
+            <div widgetname="overview" className="selected-style-label">
+              <span widgetname="overview" style={{ fontWeight: 'bold' }}>STYLE </span>
+              <span widgetname="overview">{getNameOfSelectedStyle('uppercase')}</span>
             </div>
-            <div className="style-options-container">
-              <div className="style-options-grid">
+            <div widgetname="overview" className="style-options-container">
+              <div widgetname="overview" className="style-options-grid">
                 {styles.map((option, index) => (
-                  <div key={index}>
-                    <div className={darkMode ? "checkmark-dark" : "checkmark"} id={selectedStyle === option.style_id ? 'checkmark-on' : 'checkmark-off'}>
+                  <div widgetname="overview" key={index}>
+                    <div widgetname="overview" className={darkMode ? "checkmark-dark" : "checkmark"} id={selectedStyle === option.style_id ? 'checkmark-on' : 'checkmark-off'}>
                       <i className="fa fa-check" style={{ fontSize: '0.8rem' }} aria-hidden="true" />
                     </div>
                     <button
+                      widgetname="overview"
                       type="button"
                       className="style-option-button"
                       style={styleButtonCSS(option.photos[0].thumbnail_url)}

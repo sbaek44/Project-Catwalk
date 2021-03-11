@@ -45,13 +45,13 @@ const PostReviewForm = (props) => {
   if (body.length < 50) {
     const amountLeft = 50 - body.length;
     belowBody = (
-      <div style={{ margin: '1%' }}>
+      <div widgetname="reviews" style={{ margin: '1%' }}>
         Minimum required characters left:
         {amountLeft}
       </div>
     );
   } else {
-    belowBody = <div>Minimum reached</div>;
+    belowBody = <div widgetname="reviews">Minimum reached</div>;
   }
 
   const reviewPost = {
@@ -163,111 +163,111 @@ const PostReviewForm = (props) => {
   return (
     <Modal isOpen={postModalIsOpen}>
       <Modal isOpen={imageModalIsOpen}>
-        <div className="review-form-component">
-          <label>
+        <div widgetname="reviews" className="review-form-component">
+          <label widgetname="reviews">
             Image 1:
-            <input style={{ margin: '1%' }} onChange={setImages} name="0" type="text" />
+            <input widgetname="reviews" style={{ margin: '1%' }} onChange={setImages} name="0" type="text" />
           </label>
         </div>
-        <div className="review-form-component">
-          <label>
+        <div widgetname="reviews" className="review-form-component">
+          <label widgetname="reviews">
             Image 2:
-            <input style={{ margin: '1%' }} onChange={setImages} name="1" type="text" />
+            <input widgetname="reviews" style={{ margin: '1%' }} onChange={setImages} name="1" type="text" />
           </label>
         </div>
-        <div className="review-form-component">
-          <label>
+        <div widgetname="reviews" className="review-form-component">
+          <label widgetname="reviews">
             Image 3:
-            <input style={{ margin: '1%' }} onChange={setImages} name="2" type="text" />
+            <input widgetname="reviews" style={{ margin: '1%' }} onChange={setImages} name="2" type="text" />
           </label>
         </div>
-        <div className="review-form-component">
-          <label>
+        <div widgetname="reviews" className="review-form-component">
+          <label widgetname="reviews">
             Image 4:
-            <input style={{ margin: '1%' }} onChange={setImages} name="3" type="text" />
+            <input widgetname="reviews" style={{ margin: '1%' }} onChange={setImages} name="3" type="text" />
           </label>
         </div>
-        <div className="review-form-component">
-          <label>
+        <div widgetname="reviews" className="review-form-component">
+          <label widgetname="reviews">
             Image 5:
-            <input style={{ margin: '1%' }} onChange={setImages} name="4" type="text" />
+            <input widgetname="reviews" style={{ margin: '1%' }} onChange={setImages} name="4" type="text" />
           </label>
         </div>
-        <button className="review-buttons" onClick={updateImages}>Submit</button>
-        <button className="review-buttons" onClick={toggleModal}>Cancel</button>
+        <button widgetname="reviews" className="review-buttons" onClick={updateImages}>Submit</button>
+        <button widgetname="reviews" className="review-buttons" onClick={toggleModal}>Cancel</button>
       </Modal>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        <form className="addReviewForm">
-          <div className="review-form-component">
-            <label>
+      <div widgetname="reviews" style={{ display: 'flex', flexDirection: 'row' }}>
+        <form widgetname="reviews" className="addReviewForm">
+          <div widgetname="reviews" className="review-form-component">
+            <label widgetname="reviews">
               Overall rating
-              <select style={{ margin: '1%' }} onChange={(e) => setRating(Number(e.target.value))}>
+              <select widgetname="reviews" style={{ margin: '1%' }} onChange={(e) => setRating(Number(e.target.value))}>
                 {options.map((option, i) => (
-                  <option value={i} key={i}>{option}</option>
+                  <option widgetname="reviews" value={i} key={i}>{option}</option>
                 ))}
               </select>
             </label>
           </div>
-          <div className="review-form-component">
-            <label>
+          <div widgetname="reviews" className="review-form-component">
+            <label widgetname="reviews">
               Do you recommend this product?
-              <select style={{ margin: '1%' }} onChange={(e) => setBool(e.target.value)}>
-                <option>Select</option>
-                <option value="true">Yes</option>
-                <option value="false">No</option>
+              <select widgetname="reviews" style={{ margin: '1%' }} onChange={(e) => setBool(e.target.value)}>
+                <option widgetname="reviews">Select</option>
+                <option widgetname="reviews" value="true">Yes</option>
+                <option widgetname="reviews" value="false">No</option>
               </select>
             </label>
           </div>
-          <div className="review-form-component" style={{ display: 'flex', flexDirection: 'row' }}>
-            <label>
+          <div widgetname="reviews" className="review-form-component" style={{ display: 'flex', flexDirection: 'row' }}>
+            <label widgetname="reviews">
               Characteristics:
               {arrOfCharacteristicChoices.map((choiceArray, idx) => (
                 <select key={idx} name={choiceArray[0]} onChange={(e) => setCharacteristic(e.target.name, e.target.value)}>
                   {choiceArray.slice(1, 7).map((choiceE, i) => (
-                    <option key={i} value={i}>{choiceE}</option>
+                    <option widgetname="reviews" key={i} value={i}>{choiceE}</option>
                   ))}
                 </select>
               ))}
             </label>
           </div>
-          <div className="review-form-component">
-            <label>
+          <div widgetname="reviews" className="review-form-component">
+            <label widgetname="reviews">
               Review summary:
-              <input style={{ margin: '1%', width: '50%' }} placeholder="Example: Best purchase ever!" onChange={(e) => setSummary(e.target.value)} type="text" name="" />
+              <input widgetname="reviews" style={{ margin: '1%', width: '50%' }} placeholder="Example: Best purchase ever!" onChange={(e) => setSummary(e.target.value)} type="text" name="" />
             </label>
           </div>
-          <div className="review-form-component">
-            <label>
+          <div widgetname="reviews" className="review-form-component">
+            <label widgetname="reviews">
               Review body:
-              <input style={{ margin: '1%', width: '100%' }} placeholder="Why did you like the product or not?" onChange={(e) => setBody(e.target.value)} type="text" name="" />
+              <input widgetname="reviews" style={{ margin: '1%', width: '100%' }} placeholder="Why did you like the product or not?" onChange={(e) => setBody(e.target.value)} type="text" name="" />
               {belowBody}
             </label>
           </div>
-          <div className="review-form-component">
-            <label>
+          <div widgetname="reviews" className="review-form-component">
+            <label widgetname="reviews">
               Upload your photos:
               <button onClick={toggleModal}>Upload photos</button>
             </label>
           </div>
-          <div className="review-form-component">
-            <label>
+          <div widgetname="reviews" className="review-form-component">
+            <label widgetname="reviews">
               What is your nickname?:
-              <input style={{ margin: '1%' }} placeholder="Example: jackson11!" onChange={(e) => setName(e.target.value)} type="text" name="" />
-              <div>
+              <input widgetname="reviews" style={{ margin: '1%' }} placeholder="Example: jackson11!" onChange={(e) => setName(e.target.value)} type="text" name="" />
+              <div widgetname="reviews">
                 For privacy reasons, do not use your full name or email address
               </div>
             </label>
           </div>
-          <div id="text-under-form" className="review-form-component">
-            <label>
+          <div widgetname="reviews" id="text-under-form" className="review-form-component">
+            <label widgetname="reviews">
               Your email:
-              <input style={{ margin: '1%' }} placeholder="Example: jackson11@email.com" onChange={(e) => setEmail(e.target.value)} type="email" name="" />
-              <div>
+              <input widgetname="reviews" style={{ margin: '1%' }} placeholder="Example: jackson11@email.com" onChange={(e) => setEmail(e.target.value)} type="email" name="" />
+              <div widgetname="reviews">
                 For authentication reasons, you will not be emailed
               </div>
             </label>
           </div>
-          <button
+          <button widgetname="reviews"
             className="review-buttons"
             onClick={(e) => {
               e.preventDefault();

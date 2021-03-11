@@ -17,20 +17,20 @@ const CharacteristicsElement = ({ characteristic }) => {
   }
 
   return (
-    <div>
-      <div id="characteristic">
+    <div widgetname="reviews">
+      <div widgetname="reviews" id="characteristic">
         {characteristic[0]}
       </div>
-      <div className="container">
-        <div className="characteristicsTriple"></div>
-        <div className="characteristicsTriple"></div>
-        <div className="characteristicsTriple"></div>
-        <div style={{left: `${percent}%`}} className="selector"></div>
+      <div widgetname="reviews" className="container">
+        <div widgetname="reviews" className="characteristicsTriple"></div>
+        <div widgetname="reviews" className="characteristicsTriple"></div>
+        <div widgetname="reviews" className="characteristicsTriple"></div>
+        <div widgetname="reviews" style={{left: `${percent}%`}} className="selector"></div>
       </div>
-      <div className="container" style={{display: 'flex', flexDirection: 'row'}}>
-        <div className="triple-text"><div className="text-under-bar" >{first}</div></div>
-        <div className="triple-text"><div className="text-under-bar" >{second}</div></div>
-        <div className="triple-text"><div className="text-under-bar" >{third}</div></div>
+      <div widgetname="reviews" className="container" style={{display: 'flex', flexDirection: 'row'}}>
+        <div widgetname="reviews" className="triple-text"><div className="text-under-bar" >{first}</div></div>
+        <div widgetname="reviews" className="triple-text"><div className="text-under-bar" >{second}</div></div>
+        <div widgetname="reviews" className="triple-text"><div className="text-under-bar" >{third}</div></div>
       </div>
     </div>
   );

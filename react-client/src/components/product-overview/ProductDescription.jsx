@@ -40,10 +40,10 @@ function ProductDescription({ product }) {
         valueWithoutQuotes = feature.value.replace(/^"|"$/g, ''); // remove quotation marks from values (not all features have a value prop)
       }
       return (
-        <li key={i} style={{ display: 'flex', flexFlow: 'row nowrap' }}>
-          <span style={{ marginRight: 5 }}>✔ </span>
-          <span style={{ marginRight: 5 }}>{`${feature.feature}`}</span>
-          <span style={{ color: 'gray' }}>{valueWithoutQuotes}</span>
+        <li widgetname="overview" key={i} style={{ display: 'flex', flexFlow: 'row nowrap' }}>
+          <span widgetname="overview" style={{ marginRight: 5 }}>✔ </span>
+          <span widgetname="overview" style={{ marginRight: 5 }}>{`${feature.feature}`}</span>
+          <span widgetname="overview" style={{ color: 'gray' }}>{valueWithoutQuotes}</span>
         </li>
       );
     });
@@ -60,23 +60,23 @@ function ProductDescription({ product }) {
   };
 
   return (
-    <div>
+    <div widgetname="overview">
       {product !== null
         ? (
-          <div className="product-info-bottom">
-            <div className="slogan-description-container">
-              <div className="product-slogan">
+          <div widgetname="overview" className="product-info-bottom">
+            <div widgetname="overview" className="slogan-description-container">
+              <div widgetname="overview" className="product-slogan">
                 {product.slogan}
                 {addPeriodIfMissing(product.slogan)}
               </div>
-              <div className="product-description">
+              <div widgetname="overview" className="product-description">
                 {product.description}
                 {addPeriodIfMissing(product.description)}
               </div>
             </div>
             {features.length
               ? (
-                <ul className="feature-list">
+                <ul widgetname="overview" className="feature-list">
                   {renderFeatures()}
                 </ul>
               )

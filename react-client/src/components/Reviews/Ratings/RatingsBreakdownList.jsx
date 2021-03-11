@@ -2,7 +2,7 @@ import React from 'react';
 import RatingsBreakdownElement from './RatingsBreakdownElement.jsx';
 
 const RatingsBreakdownList = ({ percentagePerRating, manipulateFilters }) => (
-    <div>
+    <div widgetname="reviews">
       { percentagePerRating.map((percentage, i) => {
         if (i > 0) {
           return (
