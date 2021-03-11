@@ -22,7 +22,6 @@ const QuestionModals = (props) => {
       product_id: props.product.id,
     })
       .then(() => { props.getQuestions(); })
-      .then(() => { console.log('success'); })
       .catch((err) => { console.error(err); });
   };
 

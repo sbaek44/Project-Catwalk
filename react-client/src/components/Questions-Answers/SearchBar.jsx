@@ -21,8 +21,9 @@ const SearchBar = (props) => {
   };
 
   return (
-    <div className="form-group fg--search">
+    <div widgetName="QA" className="form-group fg--search">
       <input
+        widgetName="QA"
         className="search"
         type="text"
         placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..."
@@ -30,7 +31,7 @@ const SearchBar = (props) => {
         results="0"
         onChange={filterQuestions}
       />
-      <button type="submit"><i className="fa fa-search" /></button>
+      <button widgetName="QA" type="submit"><i className="fa fa-search" /></button>
     </div>
   );
 };
