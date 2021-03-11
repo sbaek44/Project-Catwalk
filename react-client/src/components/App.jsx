@@ -127,7 +127,6 @@ function App() {
           )}
           />
         </div>
->>>>>>> 299a55ea1cb32d5cbeee77e4a23dbd7c403ce42a
       </Paper>
     </ThemeProvider>
   );
