@@ -110,7 +110,7 @@ const PostReviewForm = (props) => {
       alert('You must enter the following: Email');
     } else {
       setPostModalIsOpen(!postModalIsOpen);
-      axios.post('http://127.0.0.1:3000/api/reviews/', reviewPost)
+      axios.post('/api/reviews/', reviewPost)
         .then((data) => {
           alert('submitted a new review');
           props.getReviews();
