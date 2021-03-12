@@ -201,7 +201,7 @@ const PostReviewForm = (props) => {
           <div widgetname="reviews" className="review-form-component">
             <label widgetname="reviews">
               Overall rating
-              <select widgetname="reviews" style={{ margin: '1%' }} onChange={(e) => setRating(Number(e.target.value))}>
+              <select data-testid="ratings" widgetname="reviews" style={{ margin: '1%' }} onChange={(e) => setRating(Number(e.target.value))}>
                 {options.map((option, i) => (
                   <option widgetname="reviews" value={i} key={i}>{option}</option>
                 ))}
@@ -211,7 +211,7 @@ const PostReviewForm = (props) => {
           <div widgetname="reviews" className="review-form-component">
             <label widgetname="reviews">
               Do you recommend this product?
-              <select widgetname="reviews" style={{ margin: '1%' }} onChange={(e) => setBool(e.target.value)}>
+              <select data-testid="recommend" widgetname="reviews" style={{ margin: '1%' }} onChange={(e) => setBool(e.target.value)}>
                 <option widgetname="reviews">Select</option>
                 <option widgetname="reviews" value="true">Yes</option>
                 <option widgetname="reviews" value="false">No</option>
