@@ -15,7 +15,7 @@ const QuestionModals = (props) => {
   }, []);
   const addQuestions = () => {
     addClicked(!addClick);
-    axios.post('http://127.0.0.1:3000/api/qa/questions', {
+    axios.post('/api/qa/questions', {
       body: question,
       name: nickname,
       email,

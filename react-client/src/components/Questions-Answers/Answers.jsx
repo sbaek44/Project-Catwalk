@@ -16,7 +16,7 @@ const Answers = (props) => {
   }, [helpfulClicked, props.questionInfo]);
   let getAnswers = () => {
     const { id } = props;
-    axios.get(`http://127.0.0.1:3000/api/qa/questions/${id}/answers`)
+    axios.get(`/api/qa/questions/${id}/answers`)
       .then((answersList) => {
         setAnswers(answersList.data.results);
       })
@@ -25,7 +25,7 @@ const Answers = (props) => {
   const increaseHelpfulness = (answer) => {
     const id = answer.answer_id || 11111;
     setHelpfulClicked((prevArray) => [...prevArray, id]);
-    axios.put(`http://127.0.0.1:3000/api/qa/answers/${id}/helpful`, null)
+    axios.put(`/api/qa/answers/${id}/helpful`, null)
       .then(() => { getAnswers(); })
       .catch((err) => { console.log(err); });
   };
@@ -33,7 +33,7 @@ const Answers = (props) => {
   const reportAnswer = (answer) => {
     const id = answer.answer_id;
     setReport((prevArray) => [...prevArray, id])
-    axios.put(`http://127.0.0.1:3000/api/qa/answers/${id}/report`, null)
+    axios.put(`/api/qa/answers/${id}/report`, null)
       .catch((err) => { console.log(err); });
   };
 

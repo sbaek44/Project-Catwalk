@@ -96,10 +96,10 @@ function AddToCart({
       const cart = {
         sku_id: Number(getQtyOrEntireSKU('sku')),
       };
-      axios.post('http://127.0.0.1:3000/api/cart', cart)
+      axios.post('/api/cart', cart)
         // unneccessary get request, just confirms that it did get posted to cart api
         // .then(() => {
-        //   axios.get('http://127.0.0.1:3000/api/cart', cart)
+        //   axios.get('/api/cart', cart)
         //     .then((result) => {
         //       console.log('cart:', result.data);
         //     });
