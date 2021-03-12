@@ -34,11 +34,16 @@ function YourOutfitList(props) {
   }, [yourOutfit, yourOutfitPhoto, yourOutfitRatings])
 
   let addToYourOutfit = () => {
-    if (!yourOutfit.includes(props.currentProduct)) {
+    let exists = JSON.parse(localStorage.outfits).find(outfit => outfit.id === props.currentProduct.id)
+    if (exists) {
+      return null;
+    } else {
       updateYourOutfit((yourOutfit) => ([props.currentProduct, ...yourOutfit]))
       updateYourOutfitPhoto((yourOutfitPhoto) => ([...yourOutfitPhoto, [Number(tempPhotoData.product_id), tempPhotoData.results[0].photos[0].thumbnail_url]]))
       updateYourOutfitRatings((yourOutfitRatings) => ([...yourOutfitRatings, [props.currentProduct.id, props.avgRating]]))
     }
+  }
+
 
   let removeFromYourOutfit = (e) => {
     let id = Number(e.target.value)
