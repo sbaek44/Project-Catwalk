@@ -127,10 +127,20 @@
   font-size: 2.5em;
 }
 
-.lgksPe:hover:enabled, .lgksPe:focus:enabled {
-  background: none;
+.rec.rec-arrow:hover:enabled {
+  border-radius: 0;
   box-shadow: none;
+  background: none;
   color: black;
+  font-size: 2.5em;
+}
+
+.rec.rec-arrow:hover:enabled, .rec.rec-arrow:focus:enabled {
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+  color: black;
+  font-size: 2.5em;
 }
 
 .rec.rec-arrow.rec-arrow-right:hover {
