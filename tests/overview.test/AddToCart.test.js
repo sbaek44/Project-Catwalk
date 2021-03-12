@@ -9,7 +9,7 @@ import axios from 'axios';
 import userEvent from '@testing-library/user-event';
 import handlers from '../msw/handlers.js';
 import AddToCart from '../../react-client/src/components/product-overview/AddToCart.jsx';
-
+import TestAddToCart from './TestAddToCart.jsx';
 import selectEvent from 'react-select-event'
 
 
@@ -37,11 +37,20 @@ const productWithoutStock = [{
 describe('add to cart module', () => {
   describe('dropdown behavior', () => {
     test('if there is no stock, the size dropdown should be disabled and read OUT OF STOCK', async () => {
+      // const { getByRole, getByLabelText } = render(
+      //   <form role="form">
+      //     <label htmlFor="food">Food</label>
+      //     <Select options={OPTIONS} name="food" inputId="food" isMulti />
+      //   </form>
+      // );
+      // expect(getByRole("form")).toHaveFormValues({ food: "" });
 
-      render(<AddToCart product={productWithoutStock[0]} styleOptions={productWithoutStock} selectedStyle={1} />);
+      // await selectEvent.select(getByLabelText("Food"), ["Strawberry", "Mango"]);
+      // expect(getByRole("form")).toHaveFormValues({ food: ["strawberry", "mango"] });
 
-      const warning = screen.queryAllByText("OUT OF STOCK");
-      expect(warning[0]).toBeInTheDocument()
+      render(<TestAddToCart product={productWithoutStock[0]} styleOptions={productWithoutStock} selectedStyle={1} />);
+
+      screen.debug();
       // expect size dropdown to be disabled
 
 
@@ -64,8 +73,10 @@ describe('add to cart module', () => {
 
     });
     xtest('on click, if no size is selected, the size dropdown should open automatically and a message should appear', async () => {
+
     });
     xtest('on click, if a valid size and qty are selected, a post request should be sent to the cart API and an alert should appear', async () => {
+
     });
   });
 });

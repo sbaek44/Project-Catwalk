@@ -101,7 +101,7 @@ function App() {
                 avgRating={avgRatings}
                 darkMode={darkMode}
               />
-              {/* <RelatedItemsList
+              <RelatedItemsList
                 clickTracker={clickTracker}
                 selectProduct={selectProduct}
                 currentProduct={selectedProduct}
@@ -122,7 +122,7 @@ function App() {
                 metadata={metadata}
                 getRatings={getRatings}
                 currentProduct={selectedProduct.id}
-              /> */}
+              />
             </>
           )}
           />
