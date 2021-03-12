@@ -11,7 +11,7 @@ function YourOutfitList(props) {
   const [yourOutfitRatings, updateYourOutfitRatings] = useState(0);
 
   useEffect(() => {
-    let currentProductId = props.currentProduct.id
+    let currentProductId = props.currentProduct.id;
     axios.get(`/api/shared/products/${currentProductId}/styles`)
       .then((results) => (updateTempPhotoData(results.data)))
       // .then(() => (console.log('from 7')))
@@ -28,13 +28,13 @@ function YourOutfitList(props) {
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('outfits', JSON.stringify(yourOutfit))
-    localStorage.setItem('photos', JSON.stringify(yourOutfitPhoto))
-    localStorage.setItem('ratings', JSON.stringify(yourOutfitRatings))
+    localStorage.setItem('outfits', JSON.stringify(yourOutfit));
+    localStorage.setItem('photos', JSON.stringify(yourOutfitPhoto));
+    localStorage.setItem('ratings', JSON.stringify(yourOutfitRatings));
   }, [yourOutfit, yourOutfitPhoto, yourOutfitRatings])
 
   let addToYourOutfit = () => {
-    let exists = JSON.parse(localStorage.outfits).find(outfit => outfit.id === props.currentProduct.id)
+    let exists = JSON.parse(localStorage.outfits).find(outfit => outfit.id === props.currentProduct.id);
     if (exists) {
       return null;
     } else {
@@ -42,35 +42,30 @@ function YourOutfitList(props) {
       updateYourOutfitPhoto((yourOutfitPhoto) => ([...yourOutfitPhoto, [Number(tempPhotoData.product_id), tempPhotoData.results[0].photos[0].thumbnail_url]]))
       updateYourOutfitRatings((yourOutfitRatings) => ([...yourOutfitRatings, [props.currentProduct.id, props.avgRating]]))
     }
-  }
-
+  };
 
   let removeFromYourOutfit = (e) => {
-    let id = Number(e.target.value)
-    updateYourOutfit(yourOutfit.filter((outfit) => (outfit.id !== id)))
-    updateYourOutfitPhoto(yourOutfitPhoto.filter((photo) => (photo[0] !== id)))
-    updateYourOutfitRatings(yourOutfitRatings.filter((rating) => (rating[0] !==id)))
-  }
+    let id = Number(e.target.value);
+    updateYourOutfit(yourOutfit.filter((outfit) => (outfit.id !== id)));
+    updateYourOutfitPhoto(yourOutfitPhoto.filter((photo) => (photo[0] !== id)));
+    updateYourOutfitRatings(yourOutfitRatings.filter((rating) => (rating[0] !==id)));
+  };
 
   let getImgSrc = (id) => {
     for (let i = 0; i < yourOutfitPhoto.length; i++) {
       if (yourOutfitPhoto[i][0] === id) {
-        return yourOutfitPhoto[i][1]
+        return yourOutfitPhoto[i][1];
       }
     }
-  }
+  };
 
   let getRatings = (id) => {
     for (let i = 0; i < yourOutfitRatings.length; i++) {
       if (yourOutfitRatings[i][0] === id) {
-        return Number(yourOutfitRatings[i][1])
+        return Number(yourOutfitRatings[i][1]);
       }
     }
-  }
-
-  console.log('outfit', yourOutfit)
-  console.log('photo', yourOutfitPhoto)
-  console.log('rating', yourOutfitRatings)
+  };
 
   if (yourOutfit.length === 0) {
     return (
@@ -109,4 +104,4 @@ function YourOutfitList(props) {
   }
 }
 
-export default YourOutfitList
+export default YourOutfitList;

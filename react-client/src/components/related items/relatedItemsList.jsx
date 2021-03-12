@@ -9,23 +9,21 @@ function RelatedItemsList(props) {
   let currentProductId = props.currentProduct.id || 16060;
 
   useEffect(() => {
-    getCurrentFeatures()
-    getRelatedIds()
+    getCurrentFeatures();
+    getRelatedIds();
   },  [props.currentProduct])
 
   let getCurrentFeatures = () => {
     axios.get(`/api/shared/products/${currentProductId}`)
       .then((results) => (updateCurrentProductFeatures(results.data)))
-      // .then(() => console.log('from 1'))
       .catch((err) => (console.log))
-  }
+  };
 
   let getRelatedIds = () => {
     axios.get(`/api/shared/products/${currentProductId}/related`)
       .then((results) => (updateRelatedItems(results.data.filter(item => (item !== 16057)))))
-      // .then(() => console.log('from 2'))
       .catch((err) => console.log(err))
-  }
+  };
 
   return (
     <div>
@@ -39,4 +37,4 @@ function RelatedItemsList(props) {
   )
 }
 
-export default RelatedItemsList
+export default RelatedItemsList;

@@ -10,9 +10,9 @@ function RelatedItemsElements(props) {
   const [relatedRatings, updateRelatedRatings] = useState([]);
 
   useEffect(() => {
-    getRelatedData()
-    getRelatedPhotos()
-    getRelatedRatings()
+    getRelatedData();
+    getRelatedPhotos();
+    getRelatedRatings();
   }, [props.currentProductFeatures])
 
   let getRelatedData = () => {
@@ -23,28 +23,26 @@ function RelatedItemsElements(props) {
         .then(() => (updateDataArr(uniqueItems)))
         // .then(() => console.log('from 3'))
         .catch((err) => (console.log(err)))
-    })
-  }
+    });
+  };
 
   let getRelatedPhotos = () => {
     props.relatedItemsIds.map(item => {
       axios.get(`/api/shared/products/${item}/styles`)
         .then((results) => (updateStylesData(stylesData => ([...stylesData, results.data]))))
-        // .then(() => console.log('from 4'))
         .catch((err) => (console.log(err)))
-    })
-  }
+    });
+  };
 
   let getRelatedRatings = () => {
-    let allMetaData = []
+    let allMetaData = [];
     props.relatedItemsIds.map(item => {
       axios.get(`/api/reviews/meta?product_id=${item}`)
       .then((results) => (allMetaData.push({id: results.data.product_id, ratings: results.data.ratings})))
       .then(() => updateRelatedRatings(allMetaData.map(item => ({id: item.id, rating: findAvgRating(item.ratings)}))))
-      // .then(() => console.log('from 5'))
       .catch((err) => (console.log(err)))
-    })
-  }
+    });
+  };
 
   const findAvgRating = (ratings) => {
     if (Object.keys(ratings).length === 0) {
@@ -77,4 +75,4 @@ function RelatedItemsElements(props) {
   )
 }
 
-export default RelatedItemsElements
+export default RelatedItemsElements;
