@@ -39,7 +39,6 @@ function YourOutfitList(props) {
       updateYourOutfitPhoto((yourOutfitPhoto) => ([...yourOutfitPhoto, [Number(tempPhotoData.product_id), tempPhotoData.results[0].photos[0].thumbnail_url]]))
       updateYourOutfitRatings((yourOutfitRatings) => ([...yourOutfitRatings, [props.currentProduct.id, props.avgRating]]))
     }
-  }
 
   let removeFromYourOutfit = (e) => {
     let id = Number(e.target.value)
@@ -93,7 +92,7 @@ function YourOutfitList(props) {
             <div id="outfit-desc">
               <div id="yourOutfitCategory">{outfit.category}</div>
               <div id="yourOutfitName">{outfit.name}</div>
-              <div id="yourOutfitPrice">{outfit.sale_price ? outfit.sale_price : outfit.default_price}</div>
+              <div id="yourOutfitPrice">${outfit.sale_price ? outfit.sale_price : outfit.default_price}</div>
               <Stars id="cardStars" avgRating={getRatings(outfit.id)} />
             </div>
           </div>
