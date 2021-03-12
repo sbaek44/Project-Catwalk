@@ -27,7 +27,7 @@ const Questions = (props) => {
   let getQuestions = () => {
     if (props.currentProduct.id) {
       const id = props.currentProduct.id
-      axios.get(`http://127.0.0.1:3000/api/qa/questions?product_id=${id}&count=100`)
+      axios.get(`/api/qa/questions?product_id=${id}&count=100`)
         .then((question) => {
           setQuestions(question.data.results);
         });
@@ -37,7 +37,7 @@ const Questions = (props) => {
   const increaseHelpfulness = (question) => {
     const id = question.question_id;
     setHelpfulClicked(prevArray=> [...prevArray, id]);
-    axios.put(`http://127.0.0.1:3000/api/qa/questions/${id}/helpful`, null)
+    axios.put(`/api/qa/questions/${id}/helpful`, null)
       .then(() => { getQuestions(); })
       .catch((err) => { console.log(err); });
   };
@@ -45,7 +45,7 @@ const Questions = (props) => {
   const reportQuestion = (question) => {
     const id = question.question_id;
     setReport(prevArray=> [...prevArray, id]);
-    axios.put(`http://127.0.0.1:3000/api/qa/questions/${id}/report`, null)
+    axios.put(`/api/qa/questions/${id}/report`, null)
       .then(() => { console.log('success') })
       .catch((err) => { console.log(err); });
   };

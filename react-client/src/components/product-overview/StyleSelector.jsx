@@ -54,7 +54,7 @@ function StyleSelector({
   }
 
   const getStyles = (id) => {
-    axios.get(`http://127.0.0.1:3000/api/shared/products/${id}/styles`)
+    axios.get(`/api/shared/products/${id}/styles`)
       .then((res) => {
         updateStyles(res.data.results);
         const correctedUrls = [];
