@@ -87,7 +87,14 @@ const testStyles = {
   name: 'Forest Green & Black',
   original_price: 140,
   sale_price: 0,
-  default: true
+  default: true,
+  photos: [
+    {
+      thumbnail_url: "https://images.unsplash.com/photo-1544441892-794166f1e3be?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+      url: "https://images.unsplash.com/photo-1544441892-794166f1e3be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80"
+    },
+  ]
+
 }
 
 const handlers = [
