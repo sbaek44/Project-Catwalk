@@ -2,7 +2,7 @@ import React from 'react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import {
-  render, getByPlaceholderText, waitFor, screen, getByText, getByRole
+  render, getByPlaceholderText, waitFor, screen, getByText, getByRole, getByLabelText, getByTestId
 } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import axios from 'axios';
@@ -36,26 +36,15 @@ const productWithoutStock = [{
 
 describe('add to cart module', () => {
   describe('dropdown behavior', () => {
-    test('if there is no stock, the size dropdown should be disabled and read OUT OF STOCK', async () => {
-      // const { getByRole, getByLabelText } = render(
-      //   <form role="form">
-      //     <label htmlFor="food">Food</label>
-      //     <Select options={OPTIONS} name="food" inputId="food" isMulti />
-      //   </form>
-      // );
-      // expect(getByRole("form")).toHaveFormValues({ food: "" });
+    test('if there is no stock, the size dropdown should be disabled', async () => {
 
-      // await selectEvent.select(getByLabelText("Food"), ["Strawberry", "Mango"]);
-      // expect(getByRole("form")).toHaveFormValues({ food: ["strawberry", "mango"] });
+      const { getByRole  } = render(<TestAddToCart outOfStock={true} />);
 
-      render(<TestAddToCart product={productWithoutStock[0]} styleOptions={productWithoutStock} selectedStyle={1} />);
-
-      screen.debug();
-      // expect size dropdown to be disabled
+      expect(getByRole("form").children[1].children[1].children[0].children[1]).toBeDisabled();
 
 
     });
-    xtest('if there is no size selected, the qty dropdown should be disabled and read -', async () => {
+    test('if there is no size selected, the qty dropdown should be disabled', async () => {
 
     });
     xtest('whenever a size is selected, the qty dropdown should default/reset to 1', async () => {

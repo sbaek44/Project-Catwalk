@@ -11,6 +11,8 @@ function TestAddToCart({
   product,
   selectedStyle,
   styleOptions,
+  selectedSize,
+  outOfStock
 }) {
   const [size, selectSize] = useState('');
   const [sizeOptions, setSizeOptions] = useState(['S', 'M', 'L']);
@@ -18,7 +20,6 @@ function TestAddToCart({
   const [qtyOptions, setQtyOptions] = useState([1, 2, 3]);
   const [sizeMenuOpen, toggleSizeMenu] = useState(false);
   const [qtyMenuOpen, toggleQtyMenu] = useState(false);
-  const [outOfStock, warning] = useState(false);
   const [message, changeMessage] = useState('');
 
   const handleSizeSelect = (sizeOption) => {
@@ -54,9 +55,11 @@ function TestAddToCart({
   return (
     <div>
       <span>{message}</span>
-      <form data-testid="size-dropdown">
+      <form role="form">
+        <label htmlFor="size">Size</label>
         <Select
-          role="size-select"
+          name="size-select"
+          inputId="size-select"
           id="size"
           className="dropdown"
           widgetname="overview"
@@ -69,9 +72,7 @@ function TestAddToCart({
           menuIsOpen={sizeMenuOpen}
           isSearchable={false}
         />
-      </form>
-      <form data-testid="qty-dropdown">
-        <Select
+         <Select
           id="qty"
           className="dropdown"
           widgetname="overview"
@@ -79,7 +80,7 @@ function TestAddToCart({
           blurInputOnSelect
           onChange={handleQtySelect}
           value={[{ value: size !== '' ? qty : '-', label: size !== '' ? qty : '-' }]}
-          isDisabled={size === '' ? true : false}
+          isDisabled={!selectedSize ? true : false}
           options={qtyOptions}
         />
       </form>
