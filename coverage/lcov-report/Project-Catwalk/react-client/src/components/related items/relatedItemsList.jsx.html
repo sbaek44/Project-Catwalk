@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for Project-Catwalk/react-client/src/components/related items/relatedItemsList.jsx</title>
+    <title>Code coverage report for Project-Catwalk/react-client/src/components/related items/RelatedItemsList.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">Project-Catwalk/react-client/src/components/related items</a> relatedItemsList.jsx</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">Project-Catwalk/react-client/src/components/related items</a> RelatedItemsList.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.75% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/16</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.44% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/9</span>
+                <span class='fraction'>0/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.33% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/15</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -96,36 +96,34 @@
 <a name='L37'></a><a href='#L37'>37</a>
 <a name='L38'></a><a href='#L38'>38</a>
 <a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,49 +140,48 @@ import axios from 'axios';
 import RelatedItemsElements from './RelatedItemsElements.jsx';
 import YourOutfitList from './YourOutfitList.jsx';
 &nbsp;
-function RelatedItemsList(props) {
-  const [currentProductFeatures, updateCurrentProductFeatures] = useState([]);
-  const [relatedItemsIds, updateRelatedItems] = useState([]);
-  let currentProductId = props.currentProduct.id || 16060;
+function <span class="fstat-no" title="function not covered" >RelatedItemsList(</span>props) {
+  const [currentProductFeatures, updateCurrentProductFeatures] = <span class="cstat-no" title="statement not covered" >useState([]);</span>
+  const [relatedItemsIds, updateRelatedItems] = <span class="cstat-no" title="statement not covered" >useState([]);</span>
+  let currentProductId = <span class="cstat-no" title="statement not covered" >props.currentProduct.id || 16060;</span>
 &nbsp;
-  useEffect(() =&gt; {
-    getCurrentFeatures()
-    getRelatedIds()
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    getCurrentFeatures();</span>
+<span class="cstat-no" title="statement not covered" >    getRelatedIds();</span>
   },  [props.currentProduct])
 &nbsp;
-  let getCurrentFeatures = () =&gt; {
-    axios.get(`http://127.0.0.1:3000/api/shared/products/${currentProductId}`)
+  let getCurrentFeatures = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    axios.get(`/api/shared/products/${currentProductId}`)</span>
       .then(<span class="fstat-no" title="function not covered" >(r</span>esults) =&gt; (<span class="cstat-no" title="statement not covered" >updateCurrentProductFeatures(results.data))</span>)
       .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; (<span class="cstat-no" title="statement not covered" >console.log)</span>)
-  }
+  };
 &nbsp;
-  let getRelatedIds = () =&gt; {
-    axios.get(`http://127.0.0.1:3000/api/shared/products/${currentProductId}/related`)
+  let getRelatedIds = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    axios.get(`/api/shared/products/${currentProductId}/related`)</span>
       .then(<span class="fstat-no" title="function not covered" >(r</span>esults) =&gt; (<span class="cstat-no" title="statement not covered" >updateRelatedItems(results.data.filter(<span class="fstat-no" title="function not covered" >it</span>em =&gt; (<span class="cstat-no" title="statement not covered" >item !== 16057)</span>)))</span>)
       .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; <span class="cstat-no" title="statement not covered" >console.log(err))</span>
-  }
+  };
 &nbsp;
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;div&gt;
       &lt;h3 id="related-title"&gt;RELATED PRODUCTS&lt;/h3&gt;
       &lt;RelatedItemsElements
         currentProductFeatures={currentProductFeatures}
-        relatedItemsIds={[...new Set(relatedItemsIds)]}
-        avgRating={props.avgRating}
         selectProduct={props.selectProduct}
-        currentProduct={props.currentProduct} /&gt;
+        currentProduct={props.currentProduct}
+        relatedItemsIds={relatedItemsIds} /&gt;
     &lt;/div&gt;
   )
 }
 &nbsp;
-export default RelatedItemsList</pre></td></tr></table></pre>
+export default RelatedItemsList;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Mar 10 2021 15:39:28 GMT-0800 (Pacific Standard Time)
+                at Fri Mar 12 2021 10:46:58 GMT-0800 (Pacific Standard Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

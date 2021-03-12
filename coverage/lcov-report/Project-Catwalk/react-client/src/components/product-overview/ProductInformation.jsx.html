@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">78.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/14</span>
+                <span class='fraction'>11/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/5</span>
+                <span class='fraction'>3/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.67% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/6</span>
+                <span class='fraction'>4/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.85% </span>
+                <span class="strong">76.92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/13</span>
+                <span class='fraction'>10/13</span>
             </div>
         
             
@@ -168,21 +168,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,7 +183,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -261,8 +261,8 @@ function ProductInformation({
   sale,
   avgRating,
 }) {
-  const renderPrice = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (sale) {</span>
+  const renderPrice = () =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (sale) {
 <span class="cstat-no" title="statement not covered" >      return (</span>
         &lt;span widgetname="overview"&gt;
           &lt;span widgetname="overview" className="price" style={{ color: 'rgb(255, 0, 140)' }}&gt;
@@ -276,7 +276,7 @@ function ProductInformation({
         &lt;/span&gt;
       );
     }
-<span class="cstat-no" title="statement not covered" >    return (</span>
+    return (
       &lt;span className="price"&gt;
         $
         {price}
@@ -284,8 +284,8 @@ function ProductInformation({
     );
   };
 &nbsp;
-  const renderSocialMediaIcons = <span class="fstat-no" title="function not covered" >()</span> =&gt; (
-<span class="cstat-no" title="statement not covered" >    &lt;div widgetname="overview" className="social-media-links"&gt;</span>
+  const renderSocialMediaIcons = () =&gt; (
+    &lt;div widgetname="overview" className="social-media-links"&gt;
       &lt;SocialIcon widgetname="overview" style={{ marginRight: 2, height: '2rem', width: '2rem' }} url="http://facebook.com" /&gt;
       &lt;SocialIcon widgetname="overview" style={{ marginRight: 2, height: '2rem', width: '2rem' }} url="http://twitter.com" /&gt;
       &lt;SocialIcon widgetname="overview" style={{ marginRight: 2, height: '2rem', width: '2rem' }} url="http://pinterest.com" /&gt;
@@ -298,13 +298,13 @@ function ProductInformation({
     });
   };
 &nbsp;
-  const uppercase = <span class="fstat-no" title="function not covered" >(s</span>tr = <span class="branch-0 cbranch-no" title="branch not covered" >'')</span> =&gt; (<span class="cstat-no" title="statement not covered" >str.toUpperCase())</span>;
+  const uppercase = (str = '') =&gt; (str.toUpperCase());
 &nbsp;
   return (
     &lt;div widgetname="overview"&gt;
       {product.hasOwnProperty('id')
         ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;div widgetname="overview" className="product-info-side"&gt;</span>
+          &lt;div widgetname="overview" className="product-info-side"&gt;
             &lt;div widgetname="overview" className="product-rating"&gt;
               &lt;Stars avgRating={avgRating} /&gt;
               &lt;span widgetname="overview" id="reviews-link" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >scrollToReviews()}</span>&gt;Read all reviews&lt;/span&gt;
@@ -319,7 +319,7 @@ function ProductInformation({
             {renderSocialMediaIcons()}
           &lt;/div&gt;
         )
-        : null}
+        : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
     &lt;/div&gt;
   );
 }
@@ -346,7 +346,7 @@ export default ProductInformation;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Mar 10 2021 15:39:28 GMT-0800 (Pacific Standard Time)
+                at Fri Mar 12 2021 10:46:58 GMT-0800 (Pacific Standard Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -242,7 +242,11 @@
 <a name='L183'></a><a href='#L183'>183</a>
 <a name='L184'></a><a href='#L184'>184</a>
 <a name='L185'></a><a href='#L185'>185</a>
-<a name='L186'></a><a href='#L186'>186</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -337,16 +341,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -355,6 +361,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -393,6 +400,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -502,8 +510,8 @@ function ImageGallery({
           {photos.map(<span class="fstat-no" title="function not covered" >(p</span>hoto, i) =&gt; (
 <span class="cstat-no" title="statement not covered" >            &lt;img</span>
               widgetname="overview"
+              alt="thumbnail"
               className="image-thumbnail"
-              alt=""
               key={i}
               src={photo.thumbnail_url}
               onClick={<span class="fstat-no" title="function not covered" >(e</span>vent) =&gt; {
@@ -522,6 +530,7 @@ function ImageGallery({
           type="button"
           id={selectedPhotoIndex === 0 ? 'hidden' : null}
           className="vertical-arrow"
+          role="button"
           onClick={<span class="fstat-no" title="function not covered" >(e</span>vent) =&gt; { <span class="cstat-no" title="statement not covered" >scrollBack(event); </span>}}
         &gt;
           &lt;i widgetname="overview" className="fas fa-chevron-up" /&gt;
@@ -529,6 +538,7 @@ function ImageGallery({
         {photos.map(<span class="fstat-no" title="function not covered" >(p</span>hoto, i) =&gt; (
 <span class="cstat-no" title="statement not covered" >          &lt;div</span>
             widgetname="overview"
+            alt="thumbnail"
             className={shouldShowThumbnail(i) ? 'image-thumbnail' : 'image-thumbnail-hidden'}
             id={i === selectedPhotoIndex ? 'selected' : null}
             style={{
@@ -548,6 +558,7 @@ function ImageGallery({
           type="button"
           id={selectedPhotoIndex === photos.length - 1 ? 'hidden' : null}
           className="vertical-arrow"
+          role="button"
           onClick={<span class="fstat-no" title="function not covered" >(e</span>vent) =&gt; { <span class="cstat-no" title="statement not covered" >scrollForward(event); </span>}}
         &gt;
           &lt;i widgetname="overview" className="fas fa-chevron-down" /&gt;
@@ -587,10 +598,11 @@ function ImageGallery({
               /&gt;
             &lt;/Modal&gt;
             &lt;div widgetname="overview" className="horizontal-arrow-container"&gt;
-              &lt;button widgetname="overview" type="button" className="horizontal-arrow" id={selectedPhotoIndex &gt; 0 ? null : 'hidden'} onClick={<span class="fstat-no" title="function not covered" >(e</span>vent) =&gt; { <span class="cstat-no" title="statement not covered" >scrollBack(event); </span>}}&gt;
+              &lt;button widgetname="overview" role="button"
+               className="horizontal-arrow" id={selectedPhotoIndex &gt; 0 ? null : 'hidden'} onClick={<span class="fstat-no" title="function not covered" >(e</span>vent) =&gt; { <span class="cstat-no" title="statement not covered" >scrollBack(event); </span>}}&gt;
                 &lt;i widgetname="overview" className="fas fa-chevron-left" /&gt;
               &lt;/button&gt;
-              &lt;button widgetname="overview" type="button" className="horizontal-arrow" id={selectedPhotoIndex &lt; photos.length - 1 ? null : 'hidden'} onClick={<span class="fstat-no" title="function not covered" >(e</span>vent) =&gt; { <span class="cstat-no" title="statement not covered" >scrollForward(event); </span>}}&gt;
+              &lt;button widgetname="overview" role="button" className="horizontal-arrow" id={selectedPhotoIndex &lt; photos.length - 1 ? null : 'hidden'} onClick={<span class="fstat-no" title="function not covered" >(e</span>vent) =&gt; { <span class="cstat-no" title="statement not covered" >scrollForward(event); </span>}}&gt;
                 &lt;i widgetname="overview" className="fas fa-chevron-right" /&gt;
               &lt;/button&gt;
             &lt;/div&gt;
@@ -619,7 +631,7 @@ export default ImageGallery;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Mar 10 2021 15:39:28 GMT-0800 (Pacific Standard Time)
+                at Fri Mar 12 2021 10:46:58 GMT-0800 (Pacific Standard Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

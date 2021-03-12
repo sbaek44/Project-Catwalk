@@ -470,7 +470,7 @@ const AnswerModals = <span class="fstat-no" title="function not covered" >(p</sp
 <span class="cstat-no" title="statement not covered" >        uploadImageAsPromise(imageFile);</span>
       }
     } else {
-<span class="cstat-no" title="statement not covered" >      axios.post(`http://127.0.0.1:3000/api/qa/questions/${id}/answers`, {</span>
+<span class="cstat-no" title="statement not covered" >      axios.post(`/api/qa/questions/${id}/answers`, {</span>
         body: answer,
         name: nickname,
         email,
@@ -515,7 +515,7 @@ const AnswerModals = <span class="fstat-no" title="function not covered" >(p</sp
 <span class="cstat-no" title="statement not covered" >              empty.push(downloadURL)</span>
 <span class="cstat-no" title="statement not covered" >              console.log('File available at', downloadURL);</span>
 <span class="cstat-no" title="statement not covered" >                if(empty.length === photos.length) {</span>
-<span class="cstat-no" title="statement not covered" >                axios.post(`http://127.0.0.1:3000/api/qa/questions/${props.question.question_id}/answers`,{</span>
+<span class="cstat-no" title="statement not covered" >                axios.post(`/api/qa/questions/${props.question.question_id}/answers`,{</span>
                   body: answer,
                   name: nickname,
                   email: email,
@@ -590,8 +590,8 @@ const AnswerModals = <span class="fstat-no" title="function not covered" >(p</sp
       &gt;
         &lt;div className="AnswerModal"&gt;
           &lt;div className="ModalHeader"&gt;
-            &lt;h1 style={{ paddingTop: '5%' }}&gt;Submit your answer&lt;/h1&gt;
-            &lt;h3&gt;
+            &lt;h1 widgetName="QA" style={{ paddingTop: '5%' }}&gt;Submit your answer&lt;/h1&gt;
+            &lt;h3 widgetName="QA"&gt;
               {props.question.question_body}
               :
               {props.product.name}
@@ -599,33 +599,33 @@ const AnswerModals = <span class="fstat-no" title="function not covered" >(p</sp
           &lt;/div&gt;
           &lt;form onSubmit={submitHandler}&gt;
             &lt;div className="modalTitle"&gt;
-              &lt;p&gt;
+              &lt;p widgetName="QA"&gt;
                 Your Answer
                 &lt;span style={{color: 'red'}}&gt; *&lt;/span&gt;
               &lt;/p&gt;
               &lt;label&gt;
-                &lt;textarea onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setAnswer(e.target.value)}</span> style={{ width: '100%', height: '75px' }} maxLength="1000" value={answer} /&gt;
+                &lt;textarea widgetName="QA" onChange={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setAnswer(e.target.value)}</span> style={{ width: '100%', height: '75px' }} maxLength="1000" value={answer} /&gt;
               &lt;/label&gt;
             &lt;/div&gt;
             &lt;div&gt;
               &lt;label&gt;
                 What is your nickname?
                 &lt;span style={{ color: 'red' }}&gt; *&lt;/span&gt;
-                &lt;input type="text" style={{ width: '80%' }} placeholder="Example: jack543!" onChange={<span class="fstat-no" title="function not covered" >(e</span>)=&gt; <span class="cstat-no" title="statement not covered" >setNickname(e.target.value)}</span> value={nickname} /&gt;
+                &lt;input widgetName="QA" type="text" style={{ width: '80%' }} placeholder="Example: jack543!" onChange={<span class="fstat-no" title="function not covered" >(e</span>)=&gt; <span class="cstat-no" title="statement not covered" >setNickname(e.target.value)}</span> value={nickname} /&gt;
               &lt;/label&gt;
-              &lt;p style={{ fontStyle: 'italic' }}&gt;For privacy reasons, do not use your full name or email address&lt;/p&gt;
+              &lt;p widgetName="QA" style={{ fontStyle: 'italic' }}&gt;For privacy reasons, do not use your full name or email address&lt;/p&gt;
             &lt;/div&gt;
             &lt;div&gt;
-              &lt;p&gt;
+              &lt;p widgetName="QA"&gt;
                 Your Email
                 &lt;span style={{ color: 'red' }}&gt; *&lt;/span&gt;
               &lt;/p&gt;
               &lt;label&gt;
-                &lt;input type="text" style={{ width: '80%' }} placeholder="Example: jack@email.com" onChange={<span class="fstat-no" title="function not covered" >(e</span>)=&gt; <span class="cstat-no" title="statement not covered" >setEmail(e.target.value)}</span> value={email} /&gt;
+                &lt;input widgetName="QA" type="text" style={{ width: '80%' }} placeholder="Example: jack@email.com" onChange={<span class="fstat-no" title="function not covered" >(e</span>)=&gt; <span class="cstat-no" title="statement not covered" >setEmail(e.target.value)}</span> value={email} /&gt;
               &lt;/label&gt;
-              &lt;p style={{ fontStyle: 'italic' }}&gt;For authentication reasons, you will not be emailed&lt;/p&gt;
+              &lt;p widgetName="QA" style={{ fontStyle: 'italic' }}&gt;For authentication reasons, you will not be emailed&lt;/p&gt;
             &lt;/div&gt;
-            &lt;input style={{ borderRadius: '5px', height: '50px', width: '100px', float: 'right' }}type="submit" value="Submit" /&gt;
+            &lt;input widgetName="QA" style={{ borderRadius: '5px', height: '50px', width: '100px', float: 'right' }}type="submit" value="Submit" /&gt;
             {imageDisplay()}
           &lt;/form&gt;
         &lt;/div&gt;
@@ -643,7 +643,7 @@ export default AnswerModals;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Mar 10 2021 15:39:28 GMT-0800 (Pacific Standard Time)
+                at Fri Mar 12 2021 10:46:58 GMT-0800 (Pacific Standard Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>
