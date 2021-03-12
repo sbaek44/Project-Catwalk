@@ -66,7 +66,7 @@ function YourOutfitList(props) {
       }
     }
   };
-console.log('from yourOutfitList')
+
   if (yourOutfit.length === 0) {
     return (
       <div id="addOutfit">
