@@ -89,11 +89,10 @@ const ReviewsTest = (props) => {
   };
 
   const getReviews = () => {
-    let id = props.currentProduct;
-    axios.get(`/api/reviews/?product_id=${id}&count=100&sort=${selectedParameter}`)
+    axios.get(`/api/reviews`)
       .then((data) => {
-        setReviews(data.data.results);
-        updateMoreReviewsButton(data.data.results);
+        setReviews(data.data);
+        updateMoreReviewsButton(data.data);
         props.getRatings();
       })
       .catch((err) => console.log(err));
@@ -163,7 +162,7 @@ const ReviewsTest = (props) => {
   if (!isPosting) {
     postForm = '';
   } else {
-    postForm = <PostReviewForm togglePostForm={togglePostForm} characteristicsArr={characteristicsArr} getReviews={getReviews} review_id={props.currentProduct} />;
+    postForm = <PostReviewForm togglePostForm={togglePostForm} characteristicsArr={characteristicsArr} getReviews={getReviews} review_id={78} />;
   }
 
   let filterDisplay;
