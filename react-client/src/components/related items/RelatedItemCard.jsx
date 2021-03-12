@@ -45,12 +45,14 @@ function RelatedItemCard(props) {
   };
 
   let getRating = (id) => {
-    if (props.relatedRatings.length) {
+    if (props.relatedRatings.length > 0) {
       for (let i = 0; i < props.relatedRatings.length; i++) {
         if (id === Number(props.relatedRatings[i].id)) {
           return props.relatedRatings[i].rating
         }
       }
+    } else {
+      return 0;
     }
   };
 
