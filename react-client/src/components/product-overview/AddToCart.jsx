@@ -152,6 +152,7 @@ function AddToCart({
             <div widgetname="overview" className="selector-container">
               {/* size dropdown becomes inactive and reads OUT OF STOCK when there's no stock */}
               <Select
+                role="size-select"
                 theme={darkMode ? (theme) => ({
                   ...theme,
                   colors: {
@@ -197,6 +198,7 @@ function AddToCart({
                 menuIsOpen={sizeMenuOpen}
                 isSearchable={false}
               />
+
               <Select
                 theme={darkMode ? (theme) => ({
                   ...theme,
