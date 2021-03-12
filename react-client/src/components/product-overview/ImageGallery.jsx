@@ -73,8 +73,8 @@ function ImageGallery({
           {photos.map((photo, i) => (
             <img
               widgetname="overview"
+              alt="thumbnail"
               className="image-thumbnail"
-              alt=""
               key={i}
               src={photo.thumbnail_url}
               onClick={(event) => {
@@ -93,6 +93,7 @@ function ImageGallery({
           type="button"
           id={selectedPhotoIndex === 0 ? 'hidden' : null}
           className="vertical-arrow"
+          role="button"
           onClick={(event) => { scrollBack(event); }}
         >
           <i widgetname="overview" className="fas fa-chevron-up" />
@@ -100,6 +101,7 @@ function ImageGallery({
         {photos.map((photo, i) => (
           <div
             widgetname="overview"
+            alt="thumbnail"
             className={shouldShowThumbnail(i) ? 'image-thumbnail' : 'image-thumbnail-hidden'}
             id={i === selectedPhotoIndex ? 'selected' : null}
             style={{
@@ -119,6 +121,7 @@ function ImageGallery({
           type="button"
           id={selectedPhotoIndex === photos.length - 1 ? 'hidden' : null}
           className="vertical-arrow"
+          role="button"
           onClick={(event) => { scrollForward(event); }}
         >
           <i widgetname="overview" className="fas fa-chevron-down" />
@@ -158,10 +161,11 @@ function ImageGallery({
               />
             </Modal>
             <div widgetname="overview" className="horizontal-arrow-container">
-              <button widgetname="overview" type="button" className="horizontal-arrow" id={selectedPhotoIndex > 0 ? null : 'hidden'} onClick={(event) => { scrollBack(event); }}>
+              <button widgetname="overview" role="button"
+               className="horizontal-arrow" id={selectedPhotoIndex > 0 ? null : 'hidden'} onClick={(event) => { scrollBack(event); }}>
                 <i widgetname="overview" className="fas fa-chevron-left" />
               </button>
-              <button widgetname="overview" type="button" className="horizontal-arrow" id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'} onClick={(event) => { scrollForward(event); }}>
+              <button widgetname="overview" role="button" className="horizontal-arrow" id={selectedPhotoIndex < photos.length - 1 ? null : 'hidden'} onClick={(event) => { scrollForward(event); }}>
                 <i widgetname="overview" className="fas fa-chevron-right" />
               </button>
             </div>
