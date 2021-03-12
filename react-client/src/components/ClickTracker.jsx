@@ -12,9 +12,10 @@ export default class ClickTracker extends React.Component {
       widget: event.target.getAttribute('widgetname'),
       time: new Date(),
     };
-    axios.post('/api/interactions', interaction).then((data) => console.log(data))
+    axios.post('/api/interactions', interaction)
+    // .then((data) => (console.log(data)))
     .catch((err) => console.log(err))
-    console.log(interaction);
+    // console.log(interaction);
   }
 
   render() {
