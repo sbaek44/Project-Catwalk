@@ -29,12 +29,12 @@ function RelatedItemCard(props) {
     for (let i = 0; i < props.stylesData.length; i++) {
       thumbnailsArr.push([Number(props.stylesData[i].product_id), props.stylesData[i].results[0].photos[0].thumbnail_url])
     }
-    updateThumbnails(thumbnailsArr)
+    updateThumbnails(thumbnailsArr);
   }, [props.stylesData])
 
-  let relatedFeaturesArr = props.dataArr.map(({id, name, features}) => ({id, name, features}))
-  let currentFeaturesArr = [{id: props.currentProductFeatures.id, name: props.currentProductFeatures.name, features: props.currentProductFeatures.features}]
-  let allFeatures = currentFeaturesArr.concat(relatedFeaturesArr)
+  let relatedFeaturesArr = props.dataArr.map(({id, name, features}) => ({id, name, features}));
+  let currentFeaturesArr = [{id: props.currentProductFeatures.id, name: props.currentProductFeatures.name, features: props.currentProductFeatures.features}];
+  let allFeatures = currentFeaturesArr.concat(relatedFeaturesArr);
 
   let getThumbnail = (id) => {
     for (let i = 0; i < thumbnails.length; i++) {
@@ -42,7 +42,7 @@ function RelatedItemCard(props) {
         return thumbnails[i][1]
       }
     }
-  }
+  };
 
   let getRating = (id) => {
     for (let i = 0; i < props.relatedRatings.length; i++) {
@@ -50,19 +50,19 @@ function RelatedItemCard(props) {
         return props.relatedRatings[i].rating
       }
     }
-  }
+  };
 
   let modalState = (e) => {
-    let compFeat = []
-    updateModalIsOpen(true)
-    updateCompareName(e.target.name)
+    let compFeat = [];
+    updateModalIsOpen(true);
+    updateCompareName(e.target.name);
     for (let i = 0; i < allFeatures.length; i++) {
       if (allFeatures[i].id === Number(e.target.value)) {
         compFeat.push(allFeatures[i])
       }
     }
-    updateCompareFeatures(compFeat)
-  }
+    updateCompareFeatures(compFeat);
+  };
 
   if (props.stylesData.length === 0 || props.currentProductFeatures.length === 0) {
     return null
@@ -127,4 +127,4 @@ function RelatedItemCard(props) {
   }
 }
 
-export default RelatedItemCard
+export default RelatedItemCard;
