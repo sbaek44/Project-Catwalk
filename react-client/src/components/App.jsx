@@ -46,7 +46,7 @@ function App() {
   };
 
   const selectProduct = (id) => {
-    axios.get(`http://127.0.0.1:3000/api/shared/products/${id}`)
+    axios.get(`/api/shared/products/${id}`)
       .then((results) => {
         updateSelectedProduct(results.data);
       })
@@ -55,7 +55,7 @@ function App() {
 
   const getProducts = () => {
     const id = 16060;
-    axios.get(`http://127.0.0.1:3000/api/shared/products/${id}`)
+    axios.get(`/api/shared/products/${id}`)
       .then((data) => {
         updateSelectedProduct(data.data);
       })
@@ -67,7 +67,7 @@ function App() {
 
   const getRatings = () => {
     const { id } = selectedProduct;
-    axios.get(`http://127.0.0.1:3000/api/reviews/meta?product_id=${id}`)
+    axios.get(`/api/reviews/meta?product_id=${id}`)
       .then((result) => {
         updateMetadata(result.data);
       })

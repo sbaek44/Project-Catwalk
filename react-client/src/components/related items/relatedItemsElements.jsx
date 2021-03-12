@@ -18,7 +18,7 @@ function RelatedItemsElements(props) {
   let getRelatedData = () => {
     let uniqueItems = [];
     props.relatedItemsIds.map(item => {
-      axios.get(`http://127.0.0.1:3000/api/shared/products/${item}`)
+      axios.get(`/api/shared/products/${item}`)
         .then((results) => (uniqueItems.push(results.data)))
         .then(() => (updateDataArr(uniqueItems)))
         // .then(() => console.log('from 3'))
@@ -28,7 +28,7 @@ function RelatedItemsElements(props) {
 
   let getRelatedPhotos = () => {
     props.relatedItemsIds.map(item => {
-      axios.get(`http://127.0.0.1:3000/api/shared/products/${item}/styles`)
+      axios.get(`/api/shared/products/${item}/styles`)
         .then((results) => (updateStylesData(stylesData => ([...stylesData, results.data]))))
         // .then(() => console.log('from 4'))
         .catch((err) => (console.log(err)))
@@ -38,7 +38,7 @@ function RelatedItemsElements(props) {
   let getRelatedRatings = () => {
     let allMetaData = []
     props.relatedItemsIds.map(item => {
-      axios.get(`http://127.0.0.1:3000/api/reviews/meta?product_id=${item}`)
+      axios.get(`/api/reviews/meta?product_id=${item}`)
       .then((results) => (allMetaData.push({id: results.data.product_id, ratings: results.data.ratings})))
       .then(() => updateRelatedRatings(allMetaData.map(item => ({id: item.id, rating: findAvgRating(item.ratings)}))))
       // .then(() => console.log('from 5'))
