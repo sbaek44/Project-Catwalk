@@ -23,6 +23,7 @@ function RelatedItemCard(props) {
   const [modalIsOpen, updateModalIsOpen] = useState(false);
   const [compareName, updateCompareName] = useState('');
   const [compareFeatures, updateCompareFeatures] = useState([]);
+  const [modalFeatures, updateModalFeatures] = useState([]);
 
   useEffect(() => {
     let thumbnailsArr = [];
@@ -66,6 +67,7 @@ function RelatedItemCard(props) {
       }
     }
     updateCompareFeatures(compFeat);
+    console.log(compareFeatures)
   };
 
   if (props.stylesData.length === 0 || props.currentProductFeatures.length === 0) {

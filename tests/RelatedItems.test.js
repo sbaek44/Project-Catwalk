@@ -40,9 +40,14 @@ test('should render category', async() => {
   expect(styles[0].category).toEqual('kicks')
 })
 
-test('should render name and price', async() => {
+test('should render name', async() => {
   const styles = await fetch();
-  expect(styles[0].name).toEqual('')
+  expect(styles[0].name).toEqual('Forest Green & Black')
+})
+
+test('should render price', async() => {
+  const styles = await fetch();
+  expect(styles[0].original_price).toEqual(140)
 })
 
 test('should render a Compare button', async () => {
