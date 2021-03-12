@@ -22,7 +22,7 @@ describe('image gallery', () => {
 
     const mockSelectPhoto = jest.fn();
 
-    const photos = await axios.get('/api/products/16060/styles').then(data => data.data.photos);
+    const photos = await axios.get('/api/products/16060/styles').then(data => data.data[0].photos);
 
     render(<ImageGallery photos={photos} selectPhoto={mockSelectPhoto} />);
 
@@ -34,21 +34,21 @@ describe('image gallery', () => {
 
   });
   test('it should render only two arrow buttons when there are less than 7 photos', async () => {
-    render(
-      <ImageGallery photos={['1', '2']} >
-      </ImageGallery>
-    );
+
+    render(<ImageGallery photos={['1', '2']}/>    );
+
     const buttons = await screen.findAllByRole("button", {hidden: true});
+
     await waitFor(() => {
       expect(buttons.length).toBe(2);
     })
   });
   test('it should render two additional arrow buttons when there are 7 or more photos', async () => {
-    render(
-      <ImageGallery photos={['1', '2', '3', '4', '5', '6', '7']} >
-      </ImageGallery>
-    );
+
+    render(<ImageGallery photos={['1', '2', '3', '4', '5', '6', '7']}/>);
+
     const buttons = await screen.findAllByRole("button", {hidden: true});
+
     await waitFor(() => {
       expect(buttons.length).toBe(4);
     })

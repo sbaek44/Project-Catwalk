@@ -82,7 +82,7 @@ const testMetadata = {
   },
 };
 
-const testStyles = {
+const testStyles = [{
   style_id: 1,
   name: 'Forest Green & Black',
   original_price: 140,
@@ -93,9 +93,22 @@ const testStyles = {
       thumbnail_url: "https://images.unsplash.com/photo-1544441892-794166f1e3be?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
       url: "https://images.unsplash.com/photo-1544441892-794166f1e3be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80"
     },
-  ]
-
-}
+  ],
+  skus: {
+    111: {
+      quantity: 0,
+      size: 1
+    },
+    222: {
+      quantity: 12,
+      size: 2
+    },
+    333: {
+      quantity: 3,
+      size: 3
+    }
+  },
+}]
 
 const handlers = [
   // eslint-disable-next-line arrow-body-style
