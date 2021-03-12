@@ -16,10 +16,27 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
+const mockGetRatings = jest.fn();
 test('it should render a review after interacting with an api', async () => {
-  render(<ReviewsTest />)
+  const metadata = await axios.get('/api/reviews/meta').then(data => data.data);
+  const { getByText } = render(<ReviewsTest avgRating={3.75} metadata={metadata} getRatings={mockGetRatings} currentProduct={{id: 5}} />)
   await waitFor(() => {
-    expect(screen.findByText(/comfortable/i)).toBeInTheDocument();
-    screen.debug()
-  })
+    expect(getByText(/comfortable/i)).toBeInTheDocument();
+  });
 });
+
+test('it should only display items that are being searched', async () => {
+  const metadata = await axios.get('/api/reviews/meta').then(data => data.data);
+  const { getByText } = render(<ReviewsTest avgRating={3.75} metadata={metadata} getRatings={mockGetRatings} currentProduct={{id: 5}} />)
+  await waitFor(() => {
+    expect(getByText(/They are very dark. But that's good because I'm in very sunny spots/i)).toBeInTheDocument();
+    expect(getByText(/Comfortable and practical./i)).toBeInTheDocument();
+  });
+  const input = screen.getByPlaceholderText('search..');
+  userEvent.type(input, 'dark');
+  await waitFor(() => {
+    // screen.debug(null, 20000)
+    expect(screen.queryByText(/comfortable/i)).toBeNull();
+    expect(getByText(/dark/i)).toBeInTheDocument();
+  });
+})
