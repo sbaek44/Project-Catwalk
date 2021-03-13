@@ -14,7 +14,6 @@ function YourOutfitList(props) {
     let currentProductId = props.currentProduct.id;
     axios.get(`/api/shared/products/${currentProductId}/styles`)
       .then((results) => (updateTempPhotoData(results.data)))
-      // .then(() => (console.log('from 7')))
       .catch((err) => (console.log(err)))
   }, [props.currentProduct, props.avgRating])
 

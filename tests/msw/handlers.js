@@ -84,6 +84,7 @@ const testMetadata = {
 
 const testStyles = [{
   style_id: 1,
+  category: 'kicks',
   name: 'Forest Green & Black',
   original_price: 140,
   sale_price: 33,
