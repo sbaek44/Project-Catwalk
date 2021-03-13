@@ -150,7 +150,6 @@ function AddToCart({
           <div widgetname="overview" style={{ display: 'flex', flexDirection: 'column' }}>
             <span widgetname="overview" className="add-to-cart-message">{message}</span>
             <div widgetname="overview" className="selector-container">
-              {/* size dropdown becomes inactive and reads OUT OF STOCK when there's no stock */}
               <Select
                 role="size-select"
                 theme={darkMode ? (theme) => ({
@@ -245,7 +244,6 @@ function AddToCart({
               />
             </div>
             <div widgetname="overview" className="selector-container">
-              {/* add to cart button is hidden when there's no stock */}
               {outOfStock ? null : (
                 <button
                   widgetname="overview"
@@ -257,7 +255,6 @@ function AddToCart({
                   <span>+</span>
                 </button>
               )}
-              {/* useless */}
               <button
                 widgetname="overview"
                 type="button"
@@ -279,6 +276,7 @@ AddToCart.propTypes = {
   selectedStyle: PropTypes.number,
   styleOptions: PropTypes.array,
   getStyleName: PropTypes.func,
+  darkMode: PropTypes.bool,
 };
 
 AddToCart.defaultProps = {
@@ -286,6 +284,7 @@ AddToCart.defaultProps = {
   selectedStyle: null,
   styleOptions: null,
   getStyleName: null,
+  darkMode: false,
 };
 
 export default AddToCart;
