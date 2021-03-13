@@ -101,8 +101,7 @@
 <a name='L42'></a><a href='#L42'>42</a>
 <a name='L43'></a><a href='#L43'>43</a>
 <a name='L44'></a><a href='#L44'>44</a>
-<a name='L45'></a><a href='#L45'>45</a>
-<a name='L46'></a><a href='#L46'>46</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -120,22 +119,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -162,30 +160,29 @@ const AnswerPicture = <span class="fstat-no" title="function not covered" >(p</s
   const correct = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >currentPic.url;</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;div style={{ paddingLeft: '30px' }}&gt;
-      {props.answer.photos.length &gt; 0 ? &lt;div className="answerImages"&gt;
-    {props.answer.photos.map( <span class="fstat-no" title="function not covered" >(i</span>mage,index)=&gt;  {
-<span class="cstat-no" title="statement not covered" >      return (</span>
-        &lt;div key ={index}&gt;
-      &lt;Modal
-      ariaHideApp={false}
-      isOpen={photoClicked}
-      className ="ModalStyle"
-      overlayClassName = "ModalOverlay"
-      onRequestClose={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setClicked(!photoClicked)}</span>
-      contentLabel="Example Modal"&gt;
-        &lt;button className="buttonModal" onClick={<span class="fstat-no" title="function not covered" >()</span>=&gt;{<span class="cstat-no" title="statement not covered" >setClicked(!photoClicked)}</span>}&gt;X&lt;/button&gt;
-         &lt;img className='imgModal' src={correct(image)} alt="" key={index}/&gt;
+    &lt;div widgetName="QA" style={{ paddingLeft: '30px' }}&gt;
+      {props.answer.photos.length &gt; 0 ? (
+        &lt;div className="answerImages"&gt;
+          {props.answer.photos.map(<span class="fstat-no" title="function not covered" >(i</span>mage, index) =&gt; (
+<span class="cstat-no" title="statement not covered" >            &lt;div widgetName="QA" key={index}&gt;</span>
+              &lt;Modal
+                ariaHideApp={false}
+                isOpen={photoClicked}
+                className="ModalStyle"
+                overlayClassName="ModalOverlay"
+                onRequestClose={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setClicked(!photoClicked)}</span>
+                contentLabel="Example Modal"
+              &gt;
+                &lt;button widgetName="QA" className="buttonModal" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; { <span class="cstat-no" title="statement not covered" >setClicked(!photoClicked); </span>}}&gt;X&lt;/button&gt;
+                &lt;img widgetName="QA" className="imgModal" src={correct(image)} alt="" key={index} /&gt;
 &nbsp;
-&nbsp;
-      &lt;/Modal&gt;
-      &lt;img onClick={<span class="fstat-no" title="function not covered" >()</span>=&gt;{<span class="cstat-no" title="statement not covered" >selectedPhoto(image)}</span>} className='img' src={image.url} alt="" key={index}/&gt;
-      &lt;/div&gt;
+              &lt;/Modal&gt;
+              &lt;img widgetName="QA" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; { <span class="cstat-no" title="statement not covered" >selectedPhoto(image); </span>}} className="img" src={image.url} alt="" key={index} /&gt;
+            &lt;/div&gt;
+          ))}
+        &lt;/div&gt;
       )
-&nbsp;
-    })}
-  &lt;/div&gt;
-    :null}
+        : null}
     &lt;/div&gt;
 &nbsp;
   );
@@ -199,7 +196,7 @@ export default AnswerPicture;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Mar 10 2021 15:39:28 GMT-0800 (Pacific Standard Time)
+                at Fri Mar 12 2021 18:46:41 GMT-0800 (Pacific Standard Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

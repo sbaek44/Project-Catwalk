@@ -37,13 +37,20 @@ function ProductInformation({
     );
   };
 
-  const renderSocialMediaIcons = () => (
-    <div widgetname="overview" className="social-media-links">
-      <SocialIcon widgetname="overview" style={{ marginRight: 2, height: '2rem', width: '2rem' }} url="http://facebook.com" />
-      <SocialIcon widgetname="overview" style={{ marginRight: 2, height: '2rem', width: '2rem' }} url="http://twitter.com" />
-      <SocialIcon widgetname="overview" style={{ marginRight: 2, height: '2rem', width: '2rem' }} url="http://pinterest.com" />
+  const renderSocialMediaIcons = () => {
+    const socialIconStyle = { marginRight: '0.25rem', height: '2rem', width: '2rem' };
+    let socials = ["http://facebook.com", "http://twitter.com", "http://pinterest.com"]
+    return <div widgetname="overview" className="social-media-links">
+      {socials.map((site, i) => {
+        return <SocialIcon
+          key={i}
+          target="_blank"
+          widgetname="overview"
+          style={socialIconStyle}
+          url={site} />
+      })}
     </div>
-  );
+  };
 
   const scrollToReviews = () => {
     document.querySelector('.reviews-list').scrollIntoView({
@@ -79,8 +86,8 @@ function ProductInformation({
 
 ProductInformation.propTypes = {
   product: PropTypes.object,
-  price: PropTypes.number,
-  sale: PropTypes.number,
+  price: PropTypes.any,
+  sale: PropTypes.any,
   avgRating: PropTypes.number,
 };
 

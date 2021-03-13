@@ -86,7 +86,7 @@ const testStyles = [{
   style_id: 1,
   name: 'Forest Green & Black',
   original_price: 140,
-  sale_price: 0,
+  sale_price: 33,
   default: true,
   photos: [
     {

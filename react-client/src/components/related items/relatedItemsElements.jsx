@@ -45,7 +45,6 @@ function RelatedItemsElements(props) {
   };
 
   const findAvgRating = (ratings) => {
-    console.log(ratings);
     if (Object.keys(ratings).length === 0) {
       return '';
     }
