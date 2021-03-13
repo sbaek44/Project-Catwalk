@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">27.78% </span>
+                <span class="strong">23.91% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/36</span>
+                <span class='fraction'>11/46</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">10% </span>
+                <span class="strong">9.09% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/20</span>
+                <span class='fraction'>2/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">18.18% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/10</span>
+                <span class='fraction'>2/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">24.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/35</span>
+                <span class='fraction'>11/45</span>
             </div>
         
             
@@ -211,7 +211,26 @@
 <a name='L152'></a><a href='#L152'>152</a>
 <a name='L153'></a><a href='#L153'>153</a>
 <a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -255,10 +274,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -409,15 +447,34 @@ function StyleSelector({
     }
   };
 &nbsp;
+  // remove random 'u' from beginning of certain photo strings
+  const fixTypo = <span class="fstat-no" title="function not covered" >(s</span>tr) =&gt; {
+    let beginning = <span class="cstat-no" title="statement not covered" >str.slice(0, 1);</span>
+    let end = <span class="cstat-no" title="statement not covered" >str.slice(2);</span>
+<span class="cstat-no" title="statement not covered" >    if (beginning !== "h") {</span>
+<span class="cstat-no" title="statement not covered" >			return `h${end}`</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >   		 return str</span>
+    }
+  }
+&nbsp;
   const getStyles = <span class="fstat-no" title="function not covered" >(i</span>d) =&gt; {
-<span class="cstat-no" title="statement not covered" >    axios.get(`http://127.0.0.1:3000/api/shared/products/${id}/styles`)</span>
+<span class="cstat-no" title="statement not covered" >    axios.get(`/api/shared/products/${id}/styles`)</span>
       .then(<span class="fstat-no" title="function not covered" >(r</span>es) =&gt; {
 <span class="cstat-no" title="statement not covered" >        updateStyles(res.data.results);</span>
-<span class="cstat-no" title="statement not covered" >        updatePhotos(res.data.results[0].photos);</span>
+        const correctedUrls = <span class="cstat-no" title="statement not covered" >[];</span>
+<span class="cstat-no" title="statement not covered" >        for (let each of res.data.results[0].photos) {</span>
+          const obj = <span class="cstat-no" title="statement not covered" >{</span>
+            url: fixTypo(each.url),
+            thumbnail_url: fixTypo(each.thumbnail_url)
+          }
+<span class="cstat-no" title="statement not covered" >          correctedUrls.push(obj)</span>
+        }
+<span class="cstat-no" title="statement not covered" >        updatePhotos(correctedUrls);</span>
 &nbsp;
         // By default, the style selected will be the first in the list
         const def = <span class="cstat-no" title="statement not covered" >res.data.results[0];</span>
-<span class="cstat-no" title="statement not covered" >        handleSelect(def.style_id, def.original_price, def.sale_price, def.photos[0].url);</span>
+<span class="cstat-no" title="statement not covered" >        handleSelect(def.style_id, def.original_price, def.sale_price, fixTypo(def.photos[0].url));</span>
       })
       .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; {
 <span class="cstat-no" title="statement not covered" >        console.error(err);</span>
@@ -526,7 +583,7 @@ export default StyleSelector;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Mar 10 2021 15:39:28 GMT-0800 (Pacific Standard Time)
+                at Fri Mar 12 2021 20:57:59 GMT-0800 (Pacific Standard Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

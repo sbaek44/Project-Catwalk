@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/12</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>8/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/12</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -98,23 +98,23 @@
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -137,23 +137,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 &nbsp;
-const CharacteristicsElement = <span class="fstat-no" title="function not covered" >({</span> characteristic }) =&gt; {
-  let score = <span class="cstat-no" title="statement not covered" >characteristic[1].value || 0.2;</span>
-  let percent =  <span class="cstat-no" title="statement not covered" >score * 20;</span>
+const CharacteristicsElement = ({ characteristic }) =&gt; {
+  let score = characteristic[1].value || <span class="branch-1 cbranch-no" title="branch not covered" >0.2;</span>
+  let percent =  score * 20;
   let first;
   let second;
   let third;
-<span class="cstat-no" title="statement not covered" >  if (characteristic[0] === "Quality" || characteristic[0] === "Comfort") {</span>
-<span class="cstat-no" title="statement not covered" >    first = 'Poor';</span>
-<span class="cstat-no" title="statement not covered" >    second = '';</span>
-<span class="cstat-no" title="statement not covered" >    third = "Perfect"</span>
-  } else <span class="cstat-no" title="statement not covered" >if (characteristic[0] === 'Size' || characteristic[0] === 'Width' || characteristic[0] === 'Fit' || characteristic[0] === 'Length') {</span>
-<span class="cstat-no" title="statement not covered" >    first = 'Too small';</span>
-<span class="cstat-no" title="statement not covered" >    second = 'Perfect';</span>
-<span class="cstat-no" title="statement not covered" >    third = "Too Large"</span>
+  if (characteristic[0] === "Quality" || characteristic[0] === "Comfort") {
+    first = 'Poor';
+    second = '';
+    third = "Perfect"
+  } else <span class="missing-if-branch" title="else path not taken" >E</span>if (characteristic[0] === 'Size' || characteristic[0] === 'Width' || <span class="branch-2 cbranch-no" title="branch not covered" >characteristic[0] === 'Fit' </span>|| <span class="branch-3 cbranch-no" title="branch not covered" >characteristic[0] === 'Length')</span> {
+    first = 'Too small';
+    second = 'Perfect';
+    third = "Too Large"
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div widgetname="reviews"&gt;
       &lt;div widgetname="reviews" id="characteristic"&gt;
         {characteristic[0]}
@@ -181,7 +181,7 @@ export default CharacteristicsElement;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Mar 10 2021 15:39:28 GMT-0800 (Pacific Standard Time)
+                at Fri Mar 12 2021 20:57:59 GMT-0800 (Pacific Standard Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>
