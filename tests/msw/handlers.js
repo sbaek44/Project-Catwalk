@@ -95,10 +95,6 @@ const testStyles = [{
     },
   ],
   skus: {
-    111: {
-      quantity: 0,
-      size: 1
-    },
     222: {
       quantity: 12,
       size: 2
@@ -132,6 +128,14 @@ const handlers = [
     return res(
       ctx.status(200),
       ctx.json(testReviews),
+    );
+  }),
+  rest.post('/api/reviews/', (req, res, ctx) => {
+    const query = req.url.searchParams;
+    const product_id = query.get('product_id');
+    return res(
+      ctx.status(200),
+      ctx.json('success!'),
     );
   }),
   rest.get('/api/products/16060/styles', (req, res, ctx) => {
