@@ -12,12 +12,13 @@ function TestAddToCart({
   selectedStyle,
   styleOptions,
   selectedSize,
-  outOfStock
+  selectedQty,
+  outOfStock,
 }) {
-  const [size, selectSize] = useState('');
-  const [sizeOptions, setSizeOptions] = useState(['S', 'M', 'L']);
-  const [qty, selectQty] = useState(1);
-  const [qtyOptions, setQtyOptions] = useState([1, 2, 3]);
+  const [size, selectSize] = useState('S');
+  const [sizeOptions, setSizeOptions] = useState(['S', 'L']);
+  const [qty, selectQty] = useState(2);
+  const [qtyOptions, setQtyOptions] = useState([1, 2]);
   const [sizeMenuOpen, toggleSizeMenu] = useState(false);
   const [qtyMenuOpen, toggleQtyMenu] = useState(false);
   const [message, changeMessage] = useState('');
@@ -34,10 +35,6 @@ function TestAddToCart({
   };
 
   useEffect(() => {
-    selectQty(1);
-  }, [size]);
-
-  useEffect(() => {
     toggleSizeMenu(false);
     selectSize('');
     toggleQtyMenu(false);
@@ -52,41 +49,63 @@ function TestAddToCart({
     }
   };
 
+  const add = () => {
+    if (selectedSize !== '' && selectedQty > 0) {
+      axios.post('/api/cart', null)
+        .catch((err) => {
+          console.error(err);
+        });
+      alert(`Added ${selectedQty} size ${selectedSize} product to cart!`);
+    } else {
+      changeMessage('PLEASE SELECT SIZE')
+    }
+  }
+
   return (
     <div>
       <span>{message}</span>
       <form role="form">
         <label htmlFor="size">Size</label>
         <Select
-          name="size-select"
-          inputId="size-select"
+          data-testid="size"
+          name="size"
+          inputId="size"
           id="size"
           className="dropdown"
           widgetname="overview"
           onFocus={() => toggleSizeMenu(true)}
           blurInputOnSelect
           onChange={handleSizeSelect}
-          value={[{ value: size !== '' ? size : outOfStock ? 'OUT OF STOCK' : 'SELECT SIZE', label: size !== '' ? size : outOfStock ? 'OUT OF STOCK' : 'SELECT SIZE' }]}
+          value={[{ value: selectedSize, label: selectedSize }]}
           isDisabled={outOfStock}
-          options={sizeOptions}
+          options={[{ label: 'S', value: 'S' }, { label: 'L', value: 'L' }]}
           menuIsOpen={sizeMenuOpen}
           isSearchable={false}
         />
-         <Select
+        <label htmlFor="qty">Quantity</label>
+        <Select
+          data-testid="qty"
+          name="qty"
+          inputId="qty"
           id="qty"
           className="dropdown"
           widgetname="overview"
           onFocus={() => toggleQtyMenu(true)}
           blurInputOnSelect
-          onChange={handleQtySelect}
-          value={[{ value: size !== '' ? qty : '-', label: size !== '' ? qty : '-' }]}
-          isDisabled={!selectedSize ? true : false}
-          options={qtyOptions}
+          isDisabled={selectedSize === '' ? true : false}
+          options={[{ label: 1, value: 1 }, { label: 2, value: 2 }]}
         />
       </form>
+      <button
+        type="button"
+        onClick={() => add()}
+      >
+        <span>ADD TO BAG</span>
+        <span>+</span>
+      </button>
     </div >
 
   )
 }
 
-  export default TestAddToCart;
+export default TestAddToCart;
