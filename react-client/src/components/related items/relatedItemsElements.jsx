@@ -30,6 +30,7 @@ function RelatedItemsElements(props) {
     props.relatedItemsIds.map(item => {
       axios.get(`/api/shared/products/${item}/styles`)
         .then((results) => (updateStylesData(stylesData => ([...stylesData, results.data]))))
+        // .then((results) => (relatedPhotos.push(results.data)))
         .catch((err) => (console.log(err)))
     });
   };

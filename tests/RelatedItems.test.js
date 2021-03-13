@@ -5,7 +5,6 @@ import {
   render, waitFor, screen, getByText, toBeInTheDocument, getByRole
 } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import RelatedItemsCard from '../react-client/src/components/related items/RelatedItemCard.jsx';
 import RelatedItems from '../react-client/src/components/related items/RelatedItemsTest.jsx';
 import handlers from './msw/handlers.js';
 import axios from 'axios';
