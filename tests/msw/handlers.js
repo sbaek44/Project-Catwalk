@@ -134,6 +134,14 @@ const handlers = [
       ctx.json(testReviews),
     );
   }),
+  rest.post('/api/reviews/', (req, res, ctx) => {
+    const query = req.url.searchParams;
+    const product_id = query.get('product_id');
+    return res(
+      ctx.status(200),
+      ctx.json('success!'),
+    );
+  }),
   rest.get('/api/products/16060/styles', (req, res, ctx) => {
     const query = req.url.searchParams;
     const product_id = query.get('product_id');
