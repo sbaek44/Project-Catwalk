@@ -13,7 +13,7 @@ export default class ClickTracker extends React.Component {
       time: new Date(),
     };
     axios.post('/api/interactions', interaction)
-    .then((data) => (console.log(data)))
+    .then((data) => (console.log('post successful')))
     .catch((err) => console.log(err))
     console.log(interaction);
   }
