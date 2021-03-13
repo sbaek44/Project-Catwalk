@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon server/index.js",
     "build": "webpack -d --watch",
-    "test": "jest --coverage"
+    "prod": "webpack -p",
+    "test": "jest"
   },
   "author": "Sarah's Minions Project Catwalk",
   "license": "ISC",
