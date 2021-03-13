@@ -37,6 +37,7 @@ function YourOutfitList(props) {
     if (exists) {
       return null;
     } else {
+      console.log(yourOutfitRatings, props.currentProduct.id, props.avgRating)
       updateYourOutfit((yourOutfit) => ([props.currentProduct, ...yourOutfit]))
       updateYourOutfitPhoto((yourOutfitPhoto) => ([...yourOutfitPhoto, [Number(tempPhotoData.product_id), tempPhotoData.results[0].photos[0].thumbnail_url]]))
       let newYourOutfitRatings = yourOutfitRatings.map((arr) => arr)
