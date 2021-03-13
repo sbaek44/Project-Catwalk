@@ -107,7 +107,7 @@ function AddToCart({
         .catch((err) => {
           console.error(err);
         });
-      alert(`Added ${qty}${qty > 1 ? 'x' : '' } size ${size} ${product.name} in ${getStyleName()} to cart!`);
+      alert(`Added ${qty}${qty > 1 ? 'x' : ''} size ${size} ${product.name} in ${getStyleName()} to cart!`);
     }
   };
 
@@ -152,6 +152,7 @@ function AddToCart({
             <div widgetname="overview" className="selector-container">
               {/* size dropdown becomes inactive and reads OUT OF STOCK when there's no stock */}
               <Select
+                role="size-select"
                 theme={darkMode ? (theme) => ({
                   ...theme,
                   colors: {
@@ -191,13 +192,13 @@ function AddToCart({
                 onFocus={() => toggleSizeMenu(true)}
                 blurInputOnSelect
                 onChange={handleSizeSelect}
-                value={[{ value: size !== '' ? size : 'SELECT SIZE', label: size !== '' ? size : 'SELECT SIZE' }]}
-                disabled={outOfStock ? true : false}
+                value={[{ value: size !== '' ? size : outOfStock ? 'OUT OF STOCK' : 'SELECT SIZE', label: size !== '' ? size : outOfStock ? 'OUT OF STOCK' : 'SELECT SIZE' }]}
+                isDisabled={outOfStock}
                 options={sizeOptions}
-                placeholder={outOfStock ? 'OUT OF STOCK' : 'SELECT SIZE'}
                 menuIsOpen={sizeMenuOpen}
                 isSearchable={false}
               />
+
               <Select
                 theme={darkMode ? (theme) => ({
                   ...theme,
@@ -239,7 +240,7 @@ function AddToCart({
                 blurInputOnSelect
                 onChange={handleQtySelect}
                 value={[{ value: size !== '' ? qty : '-', label: size !== '' ? qty : '-' }]}
-                disabled={size === '' ? true : false}
+                isDisabled={size === '' ? true : false}
                 options={qtyOptions}
               />
             </div>
@@ -260,8 +261,8 @@ function AddToCart({
               <button
                 widgetname="overview"
                 type="button"
-                className={darkMode ? "favorite-dark" :"favorite-button"}
-                onClick={() => alert(`FAVORITED ${product.name} !`)}
+                className={darkMode ? "favorite-dark" : "favorite-button"}
+                onClick={() => alert(`FAVORITED ${product.name}!`)}
               >
                 ☆
               </button>

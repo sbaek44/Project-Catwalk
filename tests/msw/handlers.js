@@ -95,10 +95,6 @@ const testStyles = [{
     },
   ],
   skus: {
-    111: {
-      quantity: 0,
-      size: 1
-    },
     222: {
       quantity: 12,
       size: 2
