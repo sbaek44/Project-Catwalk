@@ -17,7 +17,7 @@ const Questions = (props) => {
   const [helpfulClicked, setHelpfulClicked] = useState([]);
   const [searchValue, setSearchValue] = useState([]);
   const [search, setSearch] = useState('');
-  const [report, setReport] = useState([])
+  const [report, setReport] = useState([]);
 
 
   useEffect(() => {
