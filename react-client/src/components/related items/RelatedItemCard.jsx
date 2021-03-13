@@ -38,11 +38,6 @@ class RelatedItemCard extends React.Component {
     this.modalState = this.modalState.bind(this)
   }
 
-  // componentDidMount() {
-  //   this.getCurrentFeatures();
-  //   this.getCompareFeatures();
-  // }
-
   componentDidUpdate(prevProps) {
     if (prevProps.stylesData !== this.props.stylesData) {
       this.getThumbnails();
@@ -98,7 +93,6 @@ class RelatedItemCard extends React.Component {
         compFeat.push(item.features)
       }
     })
-
     const newCurrFeatures = this.state.currentFeatures.map((item) => ({...item, item: 0}))
     const newFeatures = compFeat[0].map((item) => ({...item, item: 1}))
 
